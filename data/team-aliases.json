@@ -1,0 +1,4 @@
+{
+  "_nota": "ID da equipa na UEFA → nome exato do clube no ClubElo. Só é preciso para equipas que aparecem em 'Sem Elo' no meta.json ou com correspondência errada.",
+  "clubElo": {}
+}

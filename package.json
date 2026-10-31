@@ -1,0 +1,26 @@
+{
+  "name": "ucl-fantasy-copilot",
+  "version": "0.1.0",
+  "description": "Copiloto pessoal para a UEFA Champions League Fantasy",
+  "scripts": {
+    "pipeline": "tsx pipeline/run.ts",
+    "probe": "tsx pipeline/probe.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.5"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  }
+}

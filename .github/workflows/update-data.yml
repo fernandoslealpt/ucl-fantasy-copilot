@@ -1,0 +1,87 @@
+name: Atualizar dados
+
+# Jogadores, equipas, calendário e estatísticas → branch `data` (latest/*.json).
+on:
+  schedule:
+    - cron: '17 */2 * * *'       # a cada 2 horas
+    - cron: '47 16-22 * * 2,3'   # noites de Champions (ter/qua, UTC): de hora a hora
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'pipeline/**'
+      - 'data/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/update-data.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Testes
+        run: npm test
+
+      - name: Preparar branch data
+        run: |
+          if git ls-remote --exit-code --heads origin data >/dev/null 2>&1; then
+            git fetch --depth=1 origin data
+            git worktree add --detach data-out FETCH_HEAD
+          else
+            git worktree add --detach data-out
+            cd data-out
+            git checkout -q --orphan data-new
+            git rm -rfq .
+            git clean -fdxq
+          fi
+
+      - name: Sonda de fontes (Fase 0)
+        if: github.event_name != 'schedule'
+        continue-on-error: true
+        run: npx tsx pipeline/probe.ts --out data-out
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+
+      - name: Atualizar dados
+        run: npx tsx pipeline/run.ts --out data-out
+
+      - name: Publicar no branch data
+        run: |
+          cd data-out
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "Sem alterações"; exit 0; fi
+          git commit -qm "Dados $(jq -r .generatedAt latest/meta.json) · J$(jq -r .currentGameday latest/meta.json)"
+          git push origin HEAD:refs/heads/data
+
+      - name: Resumo
+        if: always()
+        run: |
+          if [ -f data-out/latest/summary.md ]; then cat data-out/latest/summary.md >> "$GITHUB_STEP_SUMMARY"; fi
+          if [ -f data-out/probe/report.md ]; then printf '\n\n' >> "$GITHUB_STEP_SUMMARY"; cat data-out/probe/report.md >> "$GITHUB_STEP_SUMMARY"; fi
+
+      - name: Falhar se a fonte principal falhou
+        run: |
+          status=$(jq -r '.sources.uefaFantasy.status' data-out/latest/meta.json)
+          if [ "$status" != "ok" ]; then
+            echo "::error::Feed fantasy UEFA falhou: $(jq -r '.sources.uefaFantasy.error' data-out/latest/meta.json)"
+            exit 1
+          fi
