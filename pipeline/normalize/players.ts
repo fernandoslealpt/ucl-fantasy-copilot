@@ -15,10 +15,14 @@ export function positionFromSkill(skill: number): Position {
  */
 export function deriveAvailability(p: Pick<FantasyPlayer, 'isActive' | 'pStatus' | 'qStatus' | 'trained'>): Availability {
   if (p.isActive === 0) return 'inactive';
+  // Códigos vistos no feed real (31 out 2026): "I" = lesionado, "NIS" = fora da convocatória.
+  const code = p.pStatus.trim().toUpperCase();
+  if (code === 'I' || code === 'S' || code === 'NIS' || code === 'SUS') return 'out';
+  if (code === 'D') return 'doubtful';
   const s = `${p.pStatus} | ${p.qStatus} | ${p.trained}`.toLowerCase();
   if (/suspen/.test(s)) return 'out';
-  if (/not in contention|ruled out|injur|lesion|\bout\b|unavailable|illness|\bill\b/.test(s)) return 'out';
-  if (/doubt|\d+\s?%|fitness|knock|late test/.test(s)) return 'doubtful';
+  if (/not in contention|ruled out|injur|lesion|\bout\b|unavailable|illness|\bill\b|not in squad/.test(s)) return 'out';
+  if (/unlikely|doubt|\d+\s?%|fitness|knock|late test/.test(s)) return 'doubtful';
   if (/in contention|available|fit\b/.test(s) || s.replace(/[|\s]/g, '') === '') return 'available';
   return 'unknown';
 }

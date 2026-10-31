@@ -33,6 +33,10 @@ describe('jogadores', () => {
     expect(avail({ trained: 'Doubtful - 50% chance' })).toBe('doubtful');
     expect(avail({ isActive: 0 })).toBe('inactive');
     expect(avail({ qStatus: 'xyz' })).toBe('unknown');
+    // Combinações observadas no feed real
+    expect(avail({ pStatus: 'I', trained: 'Unlikely to start next game' })).toBe('out');
+    expect(avail({ pStatus: 'NIS' })).toBe('out');
+    expect(avail({ trained: 'Unlikely to start next game' })).toBe('doubtful');
   });
 
   it('calcula pontos e minutos por jornada a partir dos acumulados', () => {
