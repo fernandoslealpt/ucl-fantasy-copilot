@@ -1181,3 +1181,37 @@ select {
     transform: rotate(360deg);
   }
 }
+
+/* Importar por captura */
+.import-box {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  margin: 0 0 16px;
+  padding: 12px;
+  background: var(--surface);
+  border: 1px dashed var(--ink-2);
+  border-radius: var(--radius);
+}
+.import-progress {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+}
+.import-result ul {
+  margin: 4px 0;
+  padding-left: 1.2rem;
+}
+.head-actions,
+.empty-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.empty-actions {
+  justify-content: center;
+  margin-top: 16px;
+}
+.empty .btn {
+  margin-top: 0;
+}

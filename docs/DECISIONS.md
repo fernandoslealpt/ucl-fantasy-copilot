@@ -37,3 +37,12 @@
 - Onze mostrado = onze com mais xP com formação válida (antecipa a Fase 4; as recomendações de transferências/capitão continuam na Fase 4).
 - Notícias: Google News RSS por equipa, no máximo a cada 3 h; badge só para notícias dos jogadores da equipa.
 - Identidade visual: marcador de estádio (contagem decrescente para o fecho), relvado, cores de cartões (amarelo = dúvida, vermelho = fora). Sem marcas UEFA.
+
+## 1 nov 2026 — Importar a equipa por captura de ecrã
+- Pedido do Fernando: atualizar a equipa a partir de uma captura de ecrã da app da UEFA.
+- **OCR no próprio telemóvel com Tesseract.js** (grátis, sem LLM, a imagem não sai do dispositivo). Motor e modelo de inglês servidos pela app (`app/public/ocr`, copiados de `node_modules` no build; fora da cache offline para não pesar a instalação). ~5 s por captura.
+- Pré-processamento próprio: isola o texto branco das etiquetas azuis dos jogadores (camisolas e relvado desaparecem) + variantes em cinza normal/invertido para outros formatos.
+- Correspondência de nomes tolerante (acentos, 1–2 erros, nomes cortados com "…") e com as regras da equipa (2 GR, 5 DEF, 5 MED, 3 AV, máx. por clube). Em empate (ex.: dois "Gabriel"), prefere quem já estava na equipa e os mais escolhidos.
+- O resultado entra no editor da equipa para confirmar antes de guardar; nada é gravado sozinho. O banco (€) não aparece na captura de campo: mantém-se o valor anterior.
+- Teste com a captura real do Fernando: 15/15 jogadores certos. A captura não fica no repositório (é público).
+- `app/dist` deixou de estar no repositório (o build é feito pelo workflow).

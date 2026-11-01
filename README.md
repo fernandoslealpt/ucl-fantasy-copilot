@@ -20,6 +20,7 @@ App pessoal para a **UEFA Champions League Fantasy** (equipa *SL Piornaofica*): 
 - **Instalar no iPhone:** abrir no Safari → Partilhar → *Adicionar ao ecrã principal*. **Android:** Chrome → menu → *Instalar app*.
 - Ecrãs: **Equipa** (o teu onze com mais pontos esperados, banco e alertas), **Jogadores** (todos, com filtros), **Calendário** (dificuldade 1–5 das próximas jornadas) e **Notícias**.
 - Toca num jogador para ver a ficha: próximos jogos, de onde vêm os pontos esperados e pontos por jornada.
+- **Atualizar a equipa com uma captura de ecrã:** na app da UEFA abre A minha equipa (vista de campo) e tira uma captura. Na Copilot: Equipa → Atualizar com captura → escolhe a imagem → confirma → Guardar equipa. A leitura é feita no telemóvel.
 - **Sincronizar telemóvel ↔ PC:** Definições (roda dentada) → seguir os 5 passos para criar a chave do GitHub, uma vez, no dispositivo onde editas a equipa. Os outros dispositivos leem a equipa sozinhos.
 
 ## Como funciona a atualização de dados

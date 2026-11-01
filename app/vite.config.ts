@@ -28,7 +28,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
-        globIgnores: ['**/*-cyrillic*', '**/*-greek*', '**/*-vietnamese*'],
+        globIgnores: ['**/*-cyrillic*', '**/*-greek*', '**/*-vietnamese*', '**/ocr/**'],
         runtimeCaching: [
           {
             // Dados: tenta sempre a rede (frescura!), usa a cache só sem rede.

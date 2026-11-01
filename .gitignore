@@ -3,3 +3,6 @@ out/
 data-out/
 *.log
 .DS_Store
+app/public/ocr/
+dist/
+*.tsbuildinfo
