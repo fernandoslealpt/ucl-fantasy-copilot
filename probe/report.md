@@ -1,0 +1,17 @@
+# Sonda de fontes — 2026-11-01T19:01:42.380Z
+
+| Fonte | OK | HTTP | Tamanho | ms | Estrutura / erro |
+|---|---|---|---|---|---|
+| uefa-fantasy players (atual) | ✅ | 200 | 307 | 718 | {data:{value:object, feedTime:{utcTime:string, istTime:string, cestTime:string}}, meta:{message:string, retVal:number, success:boolean, timestamp:{utcTime:string, istTime:string, cestTime:string}}} |
+| uefa-fantasy players (J1) | ✅ | 200 | 2040634 | 604 | {data:{value:{playerList:[1163]}, feedTime:{utcTime:string, istTime:string, cestTime:string}}, meta:{message:string, retVal:number, success:boolean, timestamp:{utcTime:string, istTime:string, cestTime:string}}} |
+| uefa-fantasy fixtures? _(palpite)_ | ❌ | 404 | 0 | 166 | texto · 1.ª linha:  |
+| uefa-fantasy gamedays? _(palpite)_ | ❌ | 404 | 0 | 110 | texto · 1.ª linha:  |
+| uefa-fantasy teams? _(palpite)_ | ❌ | 404 | 0 | 139 | texto · 1.ª linha:  |
+| uefa match API (fase de liga) | ✅ | 200 | 1525774 | 449 | [50] of {awayTeam:{associationId:string, associationLogoUrl:string, bigLogoUrl:string, confederationType:string, countryCode:string, id:string, idProvider:string, internationalName:string, isPlaceHolder:boolean, logoUrl:string, …}, competition:{age:string, code:string, id:string, images:{FULL_LOGO}, metaData:{name}, region:string, sex:string, sportsType:string, teamCategory:string, translations:{name,prequalifyingName,qualifyingName,tournamentName}, …}, competitionPhase:string, condition:{humidity:number, pitchCondition:string, temperature:number, translations:{pitchConditionName,weatherCondit |
+| uefa match API (limit=100) | ✅ | 200 | 2154028 | 422 | [100] of {awayTeam:{associationId:string, associationLogoUrl:string, bigLogoUrl:string, confederationType:string, countryCode:string, id:string, idProvider:string, internationalName:string, isPlaceHolder:boolean, logoUrl:string, …}, competition:{age:string, code:string, id:string, images:{FULL_LOGO}, metaData:{name}, region:string, sex:string, sportsType:string, teamCategory:string, translations:{name,prequalifyingName,qualifyingName,tournamentName}, …}, competitionPhase:string, condition:{humidity:number, pitchCondition:string, temperature:number, translations:{pitchConditionName,weatherCondi |
+| uefa standings | ✅ | 200 | 71648 | 689 | [1] of {group:{competitionId:string, id:string, metaData:{groupName,groupShortName}, order:number, phase:string, roundId:string, seasonYear:string, teams:[36], teamsQualifiedNumber:number, translations:{name,shortName}, …}, items:[36] of {drawn,goalDifference,goalsAgainst,goalsFor,goalsForAway,goalsForHome,groupFairPlayCoefficient,isBanned,…}, qualificationLabels:[4] of {labelId,translations}, round:{active:boolean, benchGKCount:number, benchPlayersCount:number, benchStaffCount:number, coefficientWinnerBonus:number, competitionId:string, dateFrom:string, dateTo:string, fieldPlayersCount:number |
+| clubelo ranking (http) | ❌ | 502 | 0 | 1847 | texto · 1.ª linha:  |
+| clubelo ranking (https) | ❌ | — | 0 | 10496 | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
+| clubelo fixtures | ✅ | 200 | 26 | 749 | text/csv; charset=utf-8 · 1.ª linha: Fixtures API deactivated |
+| google news rss | ✅ | 200 | 75532 | 400 | application/xml; charset=utf-8 · 1.ª linha: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><generator>NFE/5.0</generator><title>""Champions League" lesão" - Google  |
+| api-football _(sem chave API_FOOTBALL_KEY — não testado)_ | ❌ | — | 0 | 0 | — |

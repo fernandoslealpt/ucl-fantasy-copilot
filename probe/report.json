@@ -1,0 +1,140 @@
+{
+  "generatedAt": "2026-11-01T19:01:42.380Z",
+  "results": [
+    {
+      "name": "uefa-fantasy players (atual)",
+      "url": "https://gaming.uefa.com/en/uclfantasy/services/api/Feed/players?language=en",
+      "ok": true,
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "bytes": 307,
+      "ms": 718,
+      "shape": "{data:{value:object, feedTime:{utcTime:string, istTime:string, cestTime:string}}, meta:{message:string, retVal:number, success:boolean, timestamp:{utcTime:string, istTime:string, cestTime:string}}}"
+    },
+    {
+      "name": "uefa-fantasy players (J1)",
+      "url": "https://gaming.uefa.com/en/uclfantasy/services/api/Feed/players?gamedayId=1&language=en",
+      "ok": true,
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "bytes": 2040634,
+      "ms": 604,
+      "shape": "{data:{value:{playerList:[1163]}, feedTime:{utcTime:string, istTime:string, cestTime:string}}, meta:{message:string, retVal:number, success:boolean, timestamp:{utcTime:string, istTime:string, cestTime:string}}}"
+    },
+    {
+      "name": "uefa-fantasy fixtures?",
+      "url": "https://gaming.uefa.com/en/uclfantasy/services/api/Feed/fixtures?language=en",
+      "ok": false,
+      "status": 404,
+      "contentType": null,
+      "bytes": 0,
+      "ms": 166,
+      "shape": "texto · 1.ª linha: ",
+      "note": "palpite"
+    },
+    {
+      "name": "uefa-fantasy gamedays?",
+      "url": "https://gaming.uefa.com/en/uclfantasy/services/api/Feed/gamedays?language=en",
+      "ok": false,
+      "status": 404,
+      "contentType": null,
+      "bytes": 0,
+      "ms": 110,
+      "shape": "texto · 1.ª linha: ",
+      "note": "palpite"
+    },
+    {
+      "name": "uefa-fantasy teams?",
+      "url": "https://gaming.uefa.com/en/uclfantasy/services/api/Feed/teams?language=en",
+      "ok": false,
+      "status": 404,
+      "contentType": null,
+      "bytes": 0,
+      "ms": 139,
+      "shape": "texto · 1.ª linha: ",
+      "note": "palpite"
+    },
+    {
+      "name": "uefa match API (fase de liga)",
+      "url": "https://match.uefa.com/v5/matches?competitionId=1&seasonYear=2027&fromDate=2026-09-01&toDate=2027-06-30&limit=50&offset=0&order=ASC",
+      "ok": true,
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 1525774,
+      "ms": 449,
+      "shape": "[50] of {awayTeam:{associationId:string, associationLogoUrl:string, bigLogoUrl:string, confederationType:string, countryCode:string, id:string, idProvider:string, internationalName:string, isPlaceHolder:boolean, logoUrl:string, …}, competition:{age:string, code:string, id:string, images:{FULL_LOGO}, metaData:{name}, region:string, sex:string, sportsType:string, teamCategory:string, translations:{name,prequalifyingName,qualifyingName,tournamentName}, …}, competitionPhase:string, condition:{humidity:number, pitchCondition:string, temperature:number, translations:{pitchConditionName,weatherCondit"
+    },
+    {
+      "name": "uefa match API (limit=100)",
+      "url": "https://match.uefa.com/v5/matches?competitionId=1&seasonYear=2027&fromDate=2026-09-01&toDate=2027-06-30&limit=100&offset=0&order=ASC",
+      "ok": true,
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 2154028,
+      "ms": 422,
+      "shape": "[100] of {awayTeam:{associationId:string, associationLogoUrl:string, bigLogoUrl:string, confederationType:string, countryCode:string, id:string, idProvider:string, internationalName:string, isPlaceHolder:boolean, logoUrl:string, …}, competition:{age:string, code:string, id:string, images:{FULL_LOGO}, metaData:{name}, region:string, sex:string, sportsType:string, teamCategory:string, translations:{name,prequalifyingName,qualifyingName,tournamentName}, …}, competitionPhase:string, condition:{humidity:number, pitchCondition:string, temperature:number, translations:{pitchConditionName,weatherCondi"
+    },
+    {
+      "name": "uefa standings",
+      "url": "https://standings.uefa.com/v1/standings?competitionId=1&seasonYear=2027",
+      "ok": true,
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 71648,
+      "ms": 689,
+      "shape": "[1] of {group:{competitionId:string, id:string, metaData:{groupName,groupShortName}, order:number, phase:string, roundId:string, seasonYear:string, teams:[36], teamsQualifiedNumber:number, translations:{name,shortName}, …}, items:[36] of {drawn,goalDifference,goalsAgainst,goalsFor,goalsForAway,goalsForHome,groupFairPlayCoefficient,isBanned,…}, qualificationLabels:[4] of {labelId,translations}, round:{active:boolean, benchGKCount:number, benchPlayersCount:number, benchStaffCount:number, coefficientWinnerBonus:number, competitionId:string, dateFrom:string, dateTo:string, fieldPlayersCount:number"
+    },
+    {
+      "name": "clubelo ranking (http)",
+      "url": "http://api.clubelo.com/2026-11-01",
+      "ok": false,
+      "status": 502,
+      "contentType": null,
+      "bytes": 0,
+      "ms": 1847,
+      "shape": "texto · 1.ª linha: "
+    },
+    {
+      "name": "clubelo ranking (https)",
+      "url": "https://api.clubelo.com/2026-11-01",
+      "ok": false,
+      "status": null,
+      "contentType": null,
+      "bytes": 0,
+      "ms": 10496,
+      "shape": "—",
+      "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
+    },
+    {
+      "name": "clubelo fixtures",
+      "url": "http://api.clubelo.com/Fixtures",
+      "ok": true,
+      "status": 200,
+      "contentType": "text/csv; charset=utf-8",
+      "bytes": 26,
+      "ms": 749,
+      "shape": "text/csv; charset=utf-8 · 1.ª linha: Fixtures API deactivated"
+    },
+    {
+      "name": "google news rss",
+      "url": "https://news.google.com/rss/search?q=%22Champions+League%22+lesão&hl=pt-PT&gl=PT&ceid=PT:pt-150",
+      "ok": true,
+      "status": 200,
+      "contentType": "application/xml; charset=utf-8",
+      "bytes": 75532,
+      "ms": 400,
+      "shape": "application/xml; charset=utf-8 · 1.ª linha: <?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><rss version=\"2.0\" xmlns:media=\"http://search.yahoo.com/mrss/\"><channel><generator>NFE/5.0</generator><title>\"\"Champions League\" lesão\" - Google "
+    },
+    {
+      "name": "api-football",
+      "url": "",
+      "ok": false,
+      "status": null,
+      "contentType": null,
+      "bytes": 0,
+      "ms": 0,
+      "shape": "—",
+      "note": "sem chave API_FOOTBALL_KEY — não testado"
+    }
+  ]
+}
