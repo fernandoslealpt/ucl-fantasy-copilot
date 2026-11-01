@@ -22,23 +22,32 @@ export interface ImportResult {
   bank: number | null;
 }
 
-export const fold = (s: string) =>
+/** Sem acentos nem letras especiais, mantendo maiúsculas. */
+const unaccent = (s: string) =>
   s
-    .replace(/ø/gi, 'o')
-    .replace(/æ/gi, 'ae')
+    .replace(/ø/g, 'o')
+    .replace(/Ø/g, 'O')
+    .replace(/æ/g, 'ae')
+    .replace(/Æ/g, 'Ae')
     .replace(/ß/g, 'ss')
     .replace(/ı/g, 'i')
-    .replace(/ł/gi, 'l')
-    .replace(/đ/gi, 'd')
+    .replace(/ł/g, 'l')
+    .replace(/Ł/g, 'L')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D')
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase();
+    .replace(/[̀-ͯ]/g, '');
 
-const clean = (s: string) =>
-  fold(s)
-    .replace(/[^a-z' -]+/g, ' ')
+export const fold = (s: string) => unaccent(s).toLowerCase();
+
+/** Tokens com maiúsculas preservadas (para saber se a palavra começava por maiúscula). */
+const cleanCase = (s: string) =>
+  unaccent(s)
+    .replace(/[^A-Za-z' -]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+
+const clean = (s: string) => cleanCase(s).toLowerCase();
 
 /** Formas como o nome pode aparecer na captura (ex.: "K. Mbappé" → "mbappe", "k mbappe", "kylian mbappe"). */
 export function nameKeys(r: Pick<Row, 'name' | 'fullName'>): string[] {
@@ -74,11 +83,14 @@ export function levenshtein(a: string, b: string): number {
   return prev[b.length]!;
 }
 
-/** Semelhança 0–1; nomes curtos têm de ser exatos (evita falsos positivos). */
+/**
+ * Semelhança 0–1. Nomes até 5 letras têm de ser exatos: "ners" (lixo da interface) não pode virar "Neres".
+ * Mais vale falhar um jogador (a app avisa e completa-se à mão) do que meter o jogador errado.
+ */
 export function similarity(read: string, key: string): number {
   if (read === key) return 1;
   const len = Math.max(read.length, key.length);
-  if (len <= 4) return 0;
+  if (len <= 5) return 0;
   const d = levenshtein(read, key);
   const allowed = len >= 9 ? 2 : 1;
   return d <= allowed ? 1 - d / len : 0;
@@ -98,6 +110,8 @@ interface Phrase {
   prefix: boolean;
   /** inicial lida antes ou no início da frase ("K. Mbappé" → "k"), para não confundir homónimos */
   initial: string | null;
+  /** começa por maiúscula (as etiquetas dos jogadores começam; frases da interface muitas vezes não) */
+  capital: boolean;
 }
 
 /**
@@ -115,7 +129,8 @@ function phrases(passes: string[][]): { list: Phrase[]; words: string[]; cap: Ma
       // separa em segmentos nas reticências; a última palavra antes delas está cortada
       const segments = line.split(/(\.{2,}|…|,{2,})/);
       for (let s = 0; s < segments.length; s += 2) {
-        const toks = clean(segments[s]!).split(' ').filter((t) => t.length > 0);
+        const orig = cleanCase(segments[s]!).split(' ').filter((t) => t.length > 0);
+        const toks = orig.map((t) => t.toLowerCase());
         const truncated = s + 1 < segments.length;
         const base = words.length;
         words.push(...toks);
@@ -131,6 +146,7 @@ function phrases(passes: string[][]): { list: Phrase[]; words: string[]; cap: Ma
               words: Array.from({ length: n }, (_, k) => base + i + k),
               prefix: truncated && i + n === toks.length,
               initial: first.length === 1 && n > 1 ? first : prev.length === 1 ? prev : null,
+              capital: /^[A-Z]/.test(orig[i]!),
             });
           }
       }
@@ -143,19 +159,33 @@ function phrases(passes: string[][]): { list: Phrase[]; words: string[]; cap: Ma
 /** Inicial do nome curto ("K. Mbappé" → "k"); null se o nome não começa por uma inicial. */
 const initialOf = (r: Pick<Row, 'name'>) => /^([a-z]) /.exec(clean(r.name))?.[1] ?? null;
 
-/** Semelhança para nomes cortados: o texto lido tem de ser o início do nome (com 1 erro tolerado). */
-export function prefixSimilarity(read: string, key: string): number {
-  if (read.length < 5 || key.length <= read.length) return 0;
+/**
+ * Semelhança para nomes cortados ("Abde Ezzalz…"): o texto lido tem de ser o início do nome (1 erro tolerado).
+ * Com reticências lidas basta 5 letras; sem elas (o OCR às vezes perde-as) exige 2 palavras e 8 letras.
+ */
+export function prefixSimilarity(read: string, key: string, ellipsis = true): number {
+  const letters = read.replace(/[^a-z]/g, '').length;
+  if (ellipsis ? letters < 5 : letters < 8 || !read.includes(' ')) return 0;
+  if (key.length <= read.length) return 0;
   const head = key.slice(0, read.length);
-  if (head === read) return 0.95;
+  if (head === read) return ellipsis ? 0.95 : 0.9;
   return levenshtein(head, read) <= 1 && read.length >= 7 ? 0.85 : 0;
 }
 
+/**
+ * Dinheiro disponível ("Restante €1,3m", "In the bank €0.5m"): o primeiro valor em euros/milhões
+ * depois da palavra-chave. Números soltos ("2 grátis" = transferências) são ignorados.
+ */
 export function parseBank(text: string): number | null {
-  const m = /(bank|banco|in the bank|remaining|restante|budget|or[çc]amento)[^0-9]{0,24}(\d{1,3}(?:[.,]\d{1,2})?)\s*m?/i.exec(text);
-  if (!m) return null;
-  const v = Number(m[2]!.replace(',', '.'));
-  return Number.isFinite(v) && v >= 0 && v <= 120 ? v : null;
+  const key = /(in the bank|bank|banco|remaining|restante|budget|or[çc]amento)/gi;
+  for (let k = key.exec(text); k; k = key.exec(text)) {
+    const after = text.slice(k.index + k[0].length, k.index + k[0].length + 60);
+    const m = /€\s?(\d{1,3}(?:[.,]\d{1,2})?)\s?m?|(\d{1,3}(?:[.,]\d{1,2})?)\s?m\b/i.exec(after);
+    if (!m) continue;
+    const v = Number((m[1] ?? m[2])!.replace(',', '.'));
+    if (Number.isFinite(v) && v >= 0 && v <= 50) return v;
+  }
+  return null;
 }
 
 /**
@@ -183,12 +213,13 @@ export function matchTeam(
   type Cand = { p: Phrase; r: Row; score: number; rank: number };
   const cands: Cand[] = [];
   for (const p of list) {
-    if (p.words.length === 1 && STOP.has(p.text)) continue;
+    // palavras soltas: só com maiúscula e fora da lista de palavras da interface ("o inicio do…" ≠ Inácio)
+    if (p.words.length === 1 && (STOP.has(p.text) || !p.capital)) continue;
     const exact = byKey.get(p.text);
     const hits: [string, number][] = exact
       ? [[p.text, 1]]
       : keys
-          .map((k) => [k, Math.max(similarity(p.text, k), p.prefix ? prefixSimilarity(p.text, k) : 0)] as [string, number])
+          .map((k) => [k, Math.max(p.words.length > 1 || p.text.length >= 7 ? similarity(p.text, k) : 0, prefixSimilarity(p.text, k, p.prefix))] as [string, number])
           .filter(([, s]) => s >= 0.8);
     for (const [k, s] of hits) {
       const players = byKey.get(k)!;

@@ -111,6 +111,33 @@ describe('importar equipa de uma captura', () => {
     expect(matchTeam(['K. Mbappé E. Mbappé'], ROWS).ids.sort()).toEqual([kylian.id, ethan.id].sort());
   });
 
+  it('ecrã de transferências: nome cortado sem reticências e lixo da interface (bug do Neres)', () => {
+    const neres = P('D. Neres', 'David Neres', 'NAP', 'MID', 4);
+    const rows = [...ROWS, neres];
+    const lines = [
+      'Transferências',
+      'NERS CICHES',
+      'Restante ®',
+      '2 gratis',
+      '€1,3m',
+      'D. Malen K. Mbappé L. Suarez',
+      '€6,6m €11m €7,3m',
+      'L. Yamal Raphinha Abde Ezzalz R. Cherki B. Barcola',
+      'Sergi Altimira M. Guéhi A. Hakimi S. Mourino F. Dimarco',
+      'Z. Suzuki D. Raya',
+      'Pesquisar jogadores',
+    ];
+    const r = matchTeam(lines, rows, { gameday: 4 });
+    expect(r.ids).not.toContain(neres.id);
+    expect(r.ids.map((id) => rows.find((x) => x.id === id)!.name).sort()).toEqual(TEAM.map((t) => t.name).sort());
+    expect(r.bank).toBe(1.3);
+    expect(similarity('ners', 'neres')).toBe(0);
+    // frase da interface com uma palavra parecida com um apelido
+    const inacio = P('Gonçalo Inácio', 'Gonçalo Inácio', 'SCP', 'DEF', 9);
+    const tip = ['DICA: Sabia que pode fazer alteragdes até o inicio do', 'primeiro jogo da jornada?'];
+    expect(matchTeam(tip, [...rows, inacio]).ids).toEqual([]);
+  });
+
   it('não inventa jogadores com palavras da interface nem nomes curtos aproximados', () => {
     const r = matchTeam(['Captain Bench Transfers Points', 'Raia'], ROWS);
     expect(r.ids).toEqual([]);
@@ -124,5 +151,8 @@ describe('importar equipa de uma captura', () => {
     expect(parseBank('Banco: 1,5 M')).toBe(1.5);
     expect(parseBank('In the bank €0.5m')).toBe(0.5);
     expect(parseBank('230 pts')).toBeNull();
+    // ecrã de transferências: "2 grátis" são transferências, não dinheiro
+    expect(parseBank('Transferências\nRestante ®\n2 gratis\n€1,3m')).toBe(1.3);
+    expect(parseBank('Restante €1.3m')).toBe(1.3);
   });
 });

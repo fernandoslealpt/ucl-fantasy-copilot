@@ -47,3 +47,6 @@
 - Teste com a captura real do Fernando: 15/15 jogadores certos. A captura não fica no repositório (é público).
 - `app/dist` deixou de estar no repositório (o build é feito pelo workflow).
 - **Correção (bug do Mbappé):** o OCR lê a imagem 3 vezes e o mesmo nome aparecia 3 vezes; com uma vaga livre, a segunda leitura de "K. Mbappé" ia para o E. Mbappé (Lille, castigado). Agora cada nome conta uma vez (máximo por passagem) e a inicial lida tem de bater certo com a do jogador.
+- **Correção (bug do Neres e do banco):** no ecrã de Transferências o OCR perdeu as reticências de "Abde Ezzalz…" e leu "NERS" no cabeçalho; o lugar vago foi para o D. Neres. Agora: nomes cortados reconhecem-se mesmo sem reticências (2 palavras, 8+ letras), nomes até 5 letras têm de ser exatos, palavras soltas só contam se começarem por maiúscula. O banco lê o primeiro valor em € depois de "Restante" ("2 grátis" eram transferências). Teste de stress: tirando cada um dos 15 da captura, nenhum intruso entra.
+- Ecrã recomendado para importar: Transferências (tem os 15 e o dinheiro restante).
+- Valor da equipa + banco não é fixo em 100 M: os preços mudam (captura de 1 nov: 99,8 + 1,3 = 101,1 M, igual na app da UEFA).
