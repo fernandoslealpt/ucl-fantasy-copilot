@@ -92,6 +92,25 @@ describe('importar equipa de uma captura', () => {
     expect(matchTeam(['Mbappé'], ROWS, { current: [ethan.id] }).ids).toEqual([ethan.id]);
   });
 
+  it('o mesmo nome lido em várias passagens do OCR não dá dois jogadores (bug do Mbappé)', () => {
+    const ethan = OTHERS.find((o) => o.name === 'E. Mbappé')!;
+    // falha um médio (vaga livre) e o nome do Mbappé aparece em 3 leituras (numa delas sem a inicial)
+    const pass = OCR.map((l) => l.replace('R. Cherki ', ''));
+    const r = matchTeam([pass, pass, ['Mbappé']], ROWS, { gameday: 4 });
+    expect(r.ids).not.toContain(ethan.id);
+    expect(r.ids.map(name)).toContain('K. Mbappé');
+    expect(r.ids).toHaveLength(14);
+  });
+
+  it('a inicial lida desfaz homónimos ("K. Mbappé" nunca é o E. Mbappé)', () => {
+    const ethan = OTHERS.find((o) => o.name === 'E. Mbappé')!;
+    const kylian = TEAM.find((o) => o.name === 'K. Mbappé')!;
+    expect(matchTeam(['K. Mbappé'], ROWS, { current: [ethan.id] }).ids).toEqual([kylian.id]);
+    expect(matchTeam(['E. Mbappé'], ROWS).ids).toEqual([ethan.id]);
+    // dois homónimos verdadeiros na mesma equipa continuam possíveis
+    expect(matchTeam(['K. Mbappé E. Mbappé'], ROWS).ids.sort()).toEqual([kylian.id, ethan.id].sort());
+  });
+
   it('não inventa jogadores com palavras da interface nem nomes curtos aproximados', () => {
     const r = matchTeam(['Captain Bench Transfers Points', 'Raia'], ROWS);
     expect(r.ids).toEqual([]);

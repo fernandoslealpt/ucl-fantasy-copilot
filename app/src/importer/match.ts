@@ -96,34 +96,52 @@ interface Phrase {
   words: number[];
   /** nome cortado na captura ("Abde Ezzalz...") → comparar pelo início */
   prefix: boolean;
+  /** inicial lida antes ou no início da frase ("K. Mbappé" → "k"), para não confundir homónimos */
+  initial: string | null;
 }
 
-/** Frases de 1–3 palavras seguidas na mesma linha. Reticências marcam nomes cortados. */
-function phrases(lines: string[]): { list: Phrase[]; words: string[] } {
+/**
+ * Frases de 1–3 palavras seguidas na mesma linha. Reticências marcam nomes cortados.
+ * `cap` = quantas vezes cada palavra aparece numa leitura: o mesmo nome lido em várias passagens
+ * do OCR conta uma vez só (senão "K. Mbappé" lido 2 vezes dava K. Mbappé + E. Mbappé).
+ */
+function phrases(passes: string[][]): { list: Phrase[]; words: string[]; cap: Map<string, number> } {
   const words: string[] = [];
   const list: Phrase[] = [];
-  for (const line of lines) {
-    // separa em segmentos nas reticências; a última palavra antes delas está cortada
-    const segments = line.split(/(\.{2,}|…|,{2,})/);
-    for (let s = 0; s < segments.length; s += 2) {
-      const toks = clean(segments[s]!).split(' ').filter((t) => t.length > 0);
-      const truncated = s + 1 < segments.length;
-      const base = words.length;
-      words.push(...toks);
-      for (let i = 0; i < toks.length; i++)
-        for (let n = 1; n <= 3 && i + n <= toks.length; n++) {
-          const text = toks.slice(i, i + n).join(' ');
-          if (text.replace(/[^a-z]/g, '').length < 3) continue;
-          list.push({
-            text,
-            words: Array.from({ length: n }, (_, k) => base + i + k),
-            prefix: truncated && i + n === toks.length,
-          });
-        }
+  const cap = new Map<string, number>();
+  for (const lines of passes) {
+    const count = new Map<string, number>();
+    for (const line of lines) {
+      // separa em segmentos nas reticências; a última palavra antes delas está cortada
+      const segments = line.split(/(\.{2,}|…|,{2,})/);
+      for (let s = 0; s < segments.length; s += 2) {
+        const toks = clean(segments[s]!).split(' ').filter((t) => t.length > 0);
+        const truncated = s + 1 < segments.length;
+        const base = words.length;
+        words.push(...toks);
+        toks.forEach((t) => count.set(t, (count.get(t) ?? 0) + 1));
+        for (let i = 0; i < toks.length; i++)
+          for (let n = 1; n <= 3 && i + n <= toks.length; n++) {
+            const text = toks.slice(i, i + n).join(' ');
+            if (text.replace(/[^a-z]/g, '').length < 3) continue;
+            const first = toks[i]!;
+            const prev = i > 0 ? toks[i - 1]! : '';
+            list.push({
+              text,
+              words: Array.from({ length: n }, (_, k) => base + i + k),
+              prefix: truncated && i + n === toks.length,
+              initial: first.length === 1 && n > 1 ? first : prev.length === 1 ? prev : null,
+            });
+          }
+      }
     }
+    for (const [t, c] of count) cap.set(t, Math.max(cap.get(t) ?? 0, c));
   }
-  return { list, words };
+  return { list, words, cap };
 }
+
+/** Inicial do nome curto ("K. Mbappé" → "k"); null se o nome não começa por uma inicial. */
+const initialOf = (r: Pick<Row, 'name'>) => /^([a-z]) /.exec(clean(r.name))?.[1] ?? null;
 
 /** Semelhança para nomes cortados: o texto lido tem de ser o início do nome (com 1 erro tolerado). */
 export function prefixSimilarity(read: string, key: string): number {
@@ -140,12 +158,17 @@ export function parseBank(text: string): number | null {
   return Number.isFinite(v) && v >= 0 && v <= 120 ? v : null;
 }
 
+/**
+ * `read`: linhas lidas, ou uma lista de linhas por passagem do OCR (variantes da mesma imagem).
+ */
 export function matchTeam(
-  lines: string[],
+  read: string[] | string[][],
   rows: Row[],
   opts: { gameday?: number | null; current?: string[] } = {},
 ): ImportResult {
-  const { list, words } = phrases(lines);
+  const passes: string[][] = read.length && Array.isArray(read[0]) ? (read as string[][]) : [read as string[]];
+  const lines = passes.flat();
+  const { list, words, cap } = phrases(passes);
   const current = new Set(opts.current ?? []);
 
   // Índice: chave → jogadores
@@ -170,6 +193,9 @@ export function matchTeam(
     for (const [k, s] of hits) {
       const players = byKey.get(k)!;
       for (const r of players) {
+        // "K. Mbappé" nunca é o E. Mbappé: se a inicial foi lida, tem de bater certo
+        const ini = initialOf(r);
+        if (p.initial && ini && p.initial !== ini) continue;
         // Desempate entre homónimos: jogador já na equipa, mais escolhido, mais pontos esperados
         const prior =
           (current.has(r.id) ? 0.06 : 0) +
@@ -185,6 +211,8 @@ export function matchTeam(
   cands.sort((a, b) => b.rank - a.rank);
 
   const usedWords = new Set<number>();
+  const usedText = new Map<string, number>();
+  const textFree = (p: Phrase) => p.words.every((w) => (usedText.get(words[w]!) ?? 0) < (cap.get(words[w]!) ?? 0));
   const chosen = new Map<string, MatchItem>();
   const counts: Record<Position, number> = { GK: 0, DEF: 0, MID: 0, FWD: 0 };
   const perClub = new Map<string, number>();
@@ -193,10 +221,14 @@ export function matchTeam(
     if (chosen.size >= 15) break;
     if (chosen.has(c.r.id)) continue;
     if (c.p.words.some((w) => usedWords.has(w))) continue;
+    if (!textFree(c.p)) continue;
     if (counts[c.r.position] >= SQUAD[c.r.position]) continue;
     if ((perClub.get(c.r.teamId) ?? 0) >= limit) continue;
     chosen.set(c.r.id, { id: c.r.id, read: c.p.text, score: Math.round(c.score * 100) / 100 });
-    c.p.words.forEach((w) => usedWords.add(w));
+    c.p.words.forEach((w) => {
+      usedWords.add(w);
+      usedText.set(words[w]!, (usedText.get(words[w]!) ?? 0) + 1);
+    });
     counts[c.r.position]++;
     perClub.set(c.r.teamId, (perClub.get(c.r.teamId) ?? 0) + 1);
   }

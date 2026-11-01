@@ -46,3 +46,4 @@
 - O resultado entra no editor da equipa para confirmar antes de guardar; nada é gravado sozinho. O banco (€) não aparece na captura de campo: mantém-se o valor anterior.
 - Teste com a captura real do Fernando: 15/15 jogadores certos. A captura não fica no repositório (é público).
 - `app/dist` deixou de estar no repositório (o build é feito pelo workflow).
+- **Correção (bug do Mbappé):** o OCR lê a imagem 3 vezes e o mesmo nome aparecia 3 vezes; com uma vaga livre, a segunda leitura de "K. Mbappé" ia para o E. Mbappé (Lille, castigado). Agora cada nome conta uma vez (máximo por passagem) e a inicial lida tem de bater certo com a do jogador.

@@ -76,7 +76,8 @@ async function variants(file: Blob): Promise<HTMLCanvasElement[]> {
   return [labels(bmp, scale * 1.5), gray(bmp, scale, false), gray(bmp, scale, true)];
 }
 
-export async function readScreenshot(file: Blob, onProgress?: OcrProgress): Promise<string[]> {
+/** Lê a captura; devolve as linhas de cada passagem (uma por variante da imagem). */
+export async function readScreenshot(file: Blob, onProgress?: OcrProgress): Promise<string[][]> {
   onProgress?.(0.02, 'prepare');
   const [{ createWorker, PSM, OEM }, imgs] = await Promise.all([import('tesseract.js'), variants(file)]);
   let pass = 0;
@@ -92,14 +93,14 @@ export async function readScreenshot(file: Blob, onProgress?: OcrProgress): Prom
   });
   try {
     await worker.setParameters({ tessedit_pageseg_mode: PSM.SPARSE_TEXT });
-    const lines: string[] = [];
+    const passes: string[][] = [];
     for (const img of imgs) {
       const { data } = await worker.recognize(img);
-      lines.push(...data.text.split('\n').map((l) => l.trim()).filter(Boolean));
+      passes.push(data.text.split('\n').map((l) => l.trim()).filter(Boolean));
       pass++;
     }
     onProgress?.(1, 'done');
-    return lines;
+    return passes;
   } finally {
     await worker.terminate();
   }

@@ -380,7 +380,7 @@ function TeamBuilder({
         gameday: data.meta.currentGameday,
         current: initial?.players,
       });
-      (window as unknown as { __ocrLines?: string[] }).__ocrLines = lines; // ajuda a diagnosticar leituras falhadas
+      (window as unknown as { __ocrLines?: string[][] }).__ocrLines = lines; // ajuda a diagnosticar leituras falhadas
       setIds(result.ids);
       if (result.bank != null) setBank(String(result.bank));
       setImp({ stage: "done", result });
