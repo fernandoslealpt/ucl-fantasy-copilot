@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-01T19:25:28.847Z",
+  "generatedAt": "2026-11-01T19:27:04.508Z",
   "currentGameday": 4,
   "gamedayState": "upcoming",
   "deadline": "2026-11-03T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:25:28.847Z",
-      "lastSuccess": "2026-11-01T19:25:28.847Z",
+      "lastAttempt": "2026-11-01T19:27:04.508Z",
+      "lastSuccess": "2026-11-01T19:27:04.508Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:25:28.847Z",
-      "lastSuccess": "2026-11-01T19:25:28.847Z",
+      "lastAttempt": "2026-11-01T19:27:04.508Z",
+      "lastSuccess": "2026-11-01T19:27:04.508Z",
       "requests": 1,
       "records": 1171
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:25:28.847Z",
-      "lastSuccess": "2026-11-01T19:25:28.847Z",
-      "requests": 725,
-      "records": 725
+      "lastAttempt": "2026-11-01T19:27:04.508Z",
+      "lastSuccess": "2026-11-01T19:27:04.508Z",
+      "requests": 0,
+      "records": 0
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:25:28.847Z",
-      "lastSuccess": "2026-11-01T19:25:28.847Z",
+      "lastAttempt": "2026-11-01T19:27:04.508Z",
+      "lastSuccess": "2026-11-01T19:27:04.508Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-01T19:25:28.847Z",
+      "lastAttempt": "2026-11-01T19:27:04.508Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
@@ -57,7 +57,7 @@
     "history": {
       "official": {
         "players": 1171,
-        "fetched": 725,
+        "fetched": 0,
         "failed": 0,
         "sumMatchesTotal": 1171,
         "sumMismatch": 0
@@ -85,5 +85,5 @@
     "pStatus=S · qStatus=∅ · trained=∅": 3
   },
   "warnings": [],
-  "durationMs": 29169
+  "durationMs": 12918
 }

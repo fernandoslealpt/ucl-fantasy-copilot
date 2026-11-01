@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T19:25:08.532Z",
+  "generatedAt": "2026-11-01T19:26:42.345Z",
   "results": [
     {
       "name": "uefa-fantasy players (sem gamedayId)",
@@ -8,7 +8,7 @@
       "status": 200,
       "contentType": "application/json; charset=utf-8",
       "bytes": 307,
-      "ms": 221,
+      "ms": 476,
       "shape": "{data:{value:object, feedTime:{utcTime:string, istTime:string, cestTime:string}}, meta:{message:string, retVal:number, success:boolean, timestamp:{utcTime:string, istTime:string, cestTime:string}}}",
       "note": "vem vazio"
     },
@@ -18,9 +18,9 @@
       "ok": true,
       "status": 200,
       "contentType": "application/json; charset=utf-8",
-      "bytes": 2040634,
-      "ms": 140,
-      "shape": "{data:{value:{playerList:[1163]}, feedTime:{utcTime:string, istTime:string, cestTime:string}}, meta:{message:string, retVal:number, success:boolean, timestamp:{utcTime:string, istTime:string, cestTime:string}}}"
+      "bytes": 2052417,
+      "ms": 609,
+      "shape": "{data:{value:{playerList:[1171]}, feedTime:{utcTime:string, istTime:string, cestTime:string}}, meta:{message:string, retVal:number, success:boolean, timestamp:{utcTime:string, istTime:string, cestTime:string}}}"
     },
     {
       "name": "uefa match API (fase de liga)",
@@ -29,7 +29,7 @@
       "status": 200,
       "contentType": "application/json",
       "bytes": 1525774,
-      "ms": 277,
+      "ms": 235,
       "shape": "[50] of {awayTeam:{associationId:string, associationLogoUrl:string, bigLogoUrl:string, confederationType:string, countryCode:string, id:string, idProvider:string, internationalName:string, isPlaceHolder:boolean, logoUrl:string, …}, competition:{age:string, code:string, id:string, images:{FULL_LOGO}, metaData:{name}, region:string, sex:string, sportsType:string, teamCategory:string, translations:{name,prequalifyingName,qualifyingName,tournamentName}, …}, competitionPhase:string, condition:{humidity:number, pitchCondition:string, temperature:number, translations:{pitchConditionName,weatherCondit"
     },
     {
@@ -39,7 +39,7 @@
       "status": 200,
       "contentType": "application/json",
       "bytes": 2154028,
-      "ms": 319,
+      "ms": 554,
       "shape": "[100] of {awayTeam:{associationId:string, associationLogoUrl:string, bigLogoUrl:string, confederationType:string, countryCode:string, id:string, idProvider:string, internationalName:string, isPlaceHolder:boolean, logoUrl:string, …}, competition:{age:string, code:string, id:string, images:{FULL_LOGO}, metaData:{name}, region:string, sex:string, sportsType:string, teamCategory:string, translations:{name,prequalifyingName,qualifyingName,tournamentName}, …}, competitionPhase:string, condition:{humidity:number, pitchCondition:string, temperature:number, translations:{pitchConditionName,weatherCondi"
     },
     {
@@ -49,7 +49,7 @@
       "status": 200,
       "contentType": "application/json",
       "bytes": 71648,
-      "ms": 147,
+      "ms": 245,
       "shape": "[1] of {group:{competitionId:string, id:string, metaData:{groupName,groupShortName}, order:number, phase:string, roundId:string, seasonYear:string, teams:[36], teamsQualifiedNumber:number, translations:{name,shortName}, …}, items:[36] of {drawn,goalDifference,goalsAgainst,goalsFor,goalsForAway,goalsForHome,groupFairPlayCoefficient,isBanned,…}, qualificationLabels:[4] of {labelId,translations}, round:{active:boolean, benchGKCount:number, benchPlayersCount:number, benchStaffCount:number, coefficientWinnerBonus:number, competitionId:string, dateFrom:string, dateTo:string, fieldPlayersCount:number"
     },
     {
@@ -59,7 +59,7 @@
       "status": 502,
       "contentType": null,
       "bytes": 0,
-      "ms": 638,
+      "ms": 980,
       "shape": "texto · 1.ª linha: "
     },
     {
@@ -80,7 +80,7 @@
       "status": 502,
       "contentType": null,
       "bytes": 0,
-      "ms": 583,
+      "ms": 779,
       "shape": "texto · 1.ª linha: "
     },
     {
@@ -90,7 +90,7 @@
       "status": 200,
       "contentType": "application/json",
       "bytes": 719475,
-      "ms": 315,
+      "ms": 386,
       "shape": "{data:{lastUpdateDate:string, members:[415] of {competition,member,overallRanking,seasonRankings}}, meta:{collection:{totalElements:string}}}",
       "note": "alternativa ao Elo"
     },
@@ -101,7 +101,7 @@
       "status": 200,
       "contentType": "application/json",
       "bytes": 719858,
-      "ms": 202,
+      "ms": 295,
       "shape": "{data:{lastUpdateDate:string, members:[415] of {competition,member,overallRanking,seasonRankings}}, meta:{collection:{totalElements:string}}}",
       "note": "alternativa ao Elo"
     },
@@ -111,8 +111,8 @@
       "ok": true,
       "status": 200,
       "contentType": "application/xml; charset=utf-8",
-      "bytes": 75532,
-      "ms": 329,
+      "bytes": 164207,
+      "ms": 422,
       "shape": "application/xml; charset=utf-8 · 1.ª linha: <?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><rss version=\"2.0\" xmlns:media=\"http://search.yahoo.com/mrss/\"><channel><generator>NFE/5.0</generator><title>\"\"Champions League\" lesão\" - Google "
     },
     {
