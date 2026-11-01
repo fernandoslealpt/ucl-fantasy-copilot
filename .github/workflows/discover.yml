@@ -23,6 +23,8 @@ jobs:
       - run: npm ci
       - name: Descobrir
         run: npx tsx pipeline/discover.ts | tee discovery.md
+        env:
+          DUMP_POPUP: '1'
       - name: Resumo
         if: always()
         run: if [ -f discovery.md ]; then cat discovery.md >> "$GITHUB_STEP_SUMMARY"; fi

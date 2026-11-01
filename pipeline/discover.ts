@@ -41,7 +41,22 @@ function shape(text: string): string {
   }
 }
 
+async function dumpPopup() {
+  const r = await get(`${GAME}/services/feeds/popupstats/popupstats_90_${PLAYER}.json`);
+  console.log(`# popupstats_90_${PLAYER}: HTTP ${r.status}, ${r.text.length} bytes\n`);
+  const v = (JSON.parse(r.text) as { data: { value: Record<string, unknown> } }).data.value;
+  for (const [k, val] of Object.entries(v)) {
+    if (Array.isArray(val)) {
+      console.log(`## ${k}: array[${val.length}]`);
+      for (const item of val.slice(0, 3)) console.log(JSON.stringify(item).slice(0, 2500));
+    } else if (val && typeof val === 'object') {
+      console.log(`## ${k}: ${JSON.stringify(val).slice(0, 2500)}`);
+    } else console.log(`- ${k} = ${JSON.stringify(val)}`);
+  }
+}
+
 async function main() {
+  if (process.env.DUMP_POPUP) return dumpPopup();
   const out: string[] = ['# Descoberta de endpoints UCL Fantasy', ''];
 
   // 1) Página + scripts
