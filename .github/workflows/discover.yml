@@ -1,0 +1,28 @@
+name: Descobrir endpoints
+
+# Manual: procura no site do UCL Fantasy os endpoints de estatísticas por jogador.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['pipeline/discover.ts', '.github/workflows/discover.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Descobrir
+        run: npx tsx pipeline/discover.ts | tee discovery.md
+      - name: Resumo
+        if: always()
+        run: if [ -f discovery.md ]; then cat discovery.md >> "$GITHUB_STEP_SUMMARY"; fi
