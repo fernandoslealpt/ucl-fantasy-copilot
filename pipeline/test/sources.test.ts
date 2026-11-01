@@ -164,6 +164,8 @@ describe('notícias', () => {
     expect(classify('Star faces late fitness test')).toBe('doubt');
     expect(classify('Avançado lesionado falha jogo')).toBe('injury');
     expect(classify('Delantero regresa a los entrenamientos')).toBe('return');
+    expect(classify('Arsenal edge Liverpool to return to Premier League summit')).toBe('other');
+    expect(classify('Saka returns from injury for Arsenal')).toBe('return');
   });
   it('apelido ignora iniciais', () => {
     expect(surname('H. Kane')).toBe('kane');

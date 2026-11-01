@@ -43,9 +43,11 @@ const tag = (xml: string, name: string) => {
 
 export function classify(title: string): NewsKind {
   const t = title.toLowerCase();
+  // Frases de regresso primeiro ("returns from injury" é regresso, não lesão)
+  if (/back in training|returns? (to|from) (training|injury|fitness)|returns? from|fit again|available again|comeback from|regressa|regresa|de volta aos treinos/.test(t))
+    return 'return';
   if (/ruled out|sidelined|injur|lesão|lesion|lesión|baja|out for|surgery|operado|fracture|torn/.test(t)) return 'injury';
   if (/doubt|fitness|late test|dúvida|duda|knock|race to be fit/.test(t)) return 'doubt';
-  if (/back in training|returns?\b|regress|regresa|fit again|available again|comeback/.test(t)) return 'return';
   return 'other';
 }
 
