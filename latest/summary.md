@@ -1,16 +1,16 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** domingo, 01/11, 20:08 (Lisboa) · **Jornada:** 4 (por jogar) · **Fecho da equipa:** terça, 03/11, 17:45
+**Gerado:** domingo, 01/11, 23:40 (Lisboa) · **Jornada:** 4 (por jogar) · **Fecho da equipa:** terça, 03/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | domingo, 01/11, 20:08 |  |
-| uefaFantasy | ✅ ok | 1 | 1171 | domingo, 01/11, 20:08 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | domingo, 01/11, 20:08 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1171 | domingo, 01/11, 20:08 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | domingo, 01/11, 20:08 |  |
+| uefaMatches | ✅ ok | 3 | 144 | domingo, 01/11, 23:40 |  |
+| uefaFantasy | ✅ ok | 1 | 1171 | domingo, 01/11, 23:40 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | domingo, 01/11, 23:40 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1171 | domingo, 01/11, 23:40 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | domingo, 01/11, 23:40 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 0 | 272 | domingo, 01/11, 19:54 |  |
+| googleNews | ✅ ok | 36 | 264 | domingo, 01/11, 23:40 |  |
 
 **Totais:** 1171 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: nada a comparar ainda · jogos do feed fantasy na API UEFA: 18/18
@@ -58,7 +58,7 @@
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1 | H. Kane | Bayern München | FWD | 11.1 | 34 | 12 (J3) | 270 | 51 | disponível | J4 @ Atleti · terça, 03/11, 20:00 |
 | 2 | L. Yamal | Barcelona | MID | 10.2 | 33 | 7 (J3) | 270 | 47 | disponível | J4 vs Aston Villa · terça, 03/11, 20:00 |
-| 3 | N. Paz | Como | MID | 7.0 | 30 | 20 (J3) | 260 | 12 | disponível | J4 @ Lens · quarta, 04/11, 20:00 |
+| 3 | N. Paz | Como | MID | 7.0 | 30 | 20 (J3) | 260 | 13 | disponível | J4 @ Lens · quarta, 04/11, 20:00 |
 | 4 | R. Barkley | Aston Villa | MID | 5.7 | 30 | 10 (J3) | 175 | 2 | disponível | J4 @ Barcelona · terça, 03/11, 20:00 |
 | 5 | N. Tresoldi | Club Brugge | FWD | 7.2 | 28 | 5 (J3) | 255 | 3 | disponível | J4 @ PSV · quarta, 04/11, 20:00 |
 | 6 | S. Guirassy | B. Dortmund | FWD | 8.6 | 27 | 13 (J3) | 210 | 12 | disponível | J4 vs Real Betis · quarta, 04/11, 20:00 |
