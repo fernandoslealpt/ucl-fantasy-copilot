@@ -1,41 +1,48 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-01T19:27:04.508Z",
+  "generatedAt": "2026-11-01T19:33:02.459Z",
   "currentGameday": 4,
   "gamedayState": "upcoming",
   "deadline": "2026-11-03T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:27:04.508Z",
-      "lastSuccess": "2026-11-01T19:27:04.508Z",
+      "lastAttempt": "2026-11-01T19:33:02.459Z",
+      "lastSuccess": "2026-11-01T19:33:02.459Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:27:04.508Z",
-      "lastSuccess": "2026-11-01T19:27:04.508Z",
+      "lastAttempt": "2026-11-01T19:33:02.459Z",
+      "lastSuccess": "2026-11-01T19:33:02.459Z",
       "requests": 1,
       "records": 1171
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:27:04.508Z",
-      "lastSuccess": "2026-11-01T19:27:04.508Z",
+      "lastAttempt": "2026-11-01T19:33:02.459Z",
+      "lastSuccess": "2026-11-01T19:33:02.459Z",
       "requests": 0,
       "records": 0
     },
+    "uefaPrevSeason": {
+      "status": "ok",
+      "lastAttempt": "2026-11-01T19:33:02.459Z",
+      "lastSuccess": "2026-11-01T19:33:02.459Z",
+      "requests": 1175,
+      "records": 1101
+    },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:27:04.508Z",
-      "lastSuccess": "2026-11-01T19:27:04.508Z",
+      "lastAttempt": "2026-11-01T19:33:02.459Z",
+      "lastSuccess": "2026-11-01T19:33:02.459Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-01T19:27:04.508Z",
+      "lastAttempt": "2026-11-01T19:33:02.459Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
@@ -84,6 +91,8 @@
     "pStatus=D · qStatus=∅ · trained=Unlikely to start next game": 5,
     "pStatus=S · qStatus=∅ · trained=∅": 3
   },
-  "warnings": [],
-  "durationMs": 12918
+  "warnings": [
+    "Época anterior: jogador 250080570: Cannot read properties of null (reading 'mdId'); jogador 250076654: Cannot read properties of null (reading 'mdId'); jogador 250146674: Cannot read properties of null (reading 'mdId'); jogador 250169763: Cannot read properties of null (reading 'mdId'); jogador 250201122: Cannot read properties of null (reading 'mdId')"
+  ],
+  "durationMs": 60062
 }
