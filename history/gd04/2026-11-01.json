@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T19:14:55.185Z",
+  "generatedAt": "2026-11-01T19:21:29.511Z",
   "season": 2027,
   "gameday": 4,
   "fields": ["id","price","selectedPct","points","minutes","availability"],
