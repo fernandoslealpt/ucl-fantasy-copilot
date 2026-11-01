@@ -35,6 +35,24 @@ function strip(html: string): string {
     .replace(/\s+/g, ' ');
 }
 
+/** HTML em bruto à volta do primeiro onze da RotoWire (para escrever o parser). */
+async function rotowireRaw(): Promise<string> {
+  const res = await fetch('https://www.rotowire.com/soccer/lineups.php?league=UCL', { headers: { 'user-agent': USER_AGENT } });
+  const html = await res.text();
+  const i = html.indexOf('Predicted Lineup');
+  const start = html.lastIndexOf('<div class="lineup', i);
+  const blocks = (html.match(/<div class="lineup is-soccer/g) ?? []).length;
+  const confirmed = (html.match(/Confirmed Lineup/g) ?? []).length;
+  const predicted = (html.match(/Predicted Lineup/g) ?? []).length;
+  return [
+    '## RotoWire — HTML em bruto',
+    `blocos lineup: ${blocks}; Predicted: ${predicted}; Confirmed: ${confirmed}`,
+    '```html',
+    html.slice(Math.max(0, start), Math.max(0, start) + 9000),
+    '```',
+  ].join('\n');
+}
+
 async function main() {
   const out: string[] = ['# Sonda de onzes prováveis, lesões e fóruns', '', `Data: ${new Date().toISOString()}`, ''];
   for (const c of CANDIDATES) {
@@ -65,6 +83,7 @@ async function main() {
       out.push(`## ${c.name}`, `- URL: ${c.url}`, `- ERRO: ${e instanceof Error ? e.message : String(e)} (${Date.now() - t0} ms)`, '');
     }
   }
+  out.push(await rotowireRaw().catch((e) => `RotoWire bruto: erro ${String(e)}`));
   console.log(out.join('\n'));
 }
 
