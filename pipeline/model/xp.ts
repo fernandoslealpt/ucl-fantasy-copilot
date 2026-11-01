@@ -12,7 +12,7 @@ import { expectedFloorDiv, pZero } from './poisson.ts';
 import { expectedGoals, type TeamRatings } from './ratings.ts';
 import { SCORING } from './scoring.ts';
 
-export const MODEL_VERSION = '1.0.0';
+export const MODEL_VERSION = '1.1.0';
 
 /** Parâmetros (ver docs/MODEL.md). */
 export const PARAMS = {
@@ -293,20 +293,32 @@ export function computeXp(input: XpInput): PlayerXp[] {
 
     // Minutos: jornadas recentes pesam mais; prior pela época anterior ou pelo preço.
     const gds = (playedGamedays.get(p.teamId) ?? []).sort((a, b) => a - b);
-    let w = 0;
-    let w60 = 0;
-    let wApp = 0;
-    for (const g of gds) {
-      const wt = PARAMS.minutesDecay ** (lastGameday - g);
-      const m = p.history.find((l) => l.gameday === g)?.minutes ?? 0;
-      w += wt;
-      if (m >= 60) w60 += wt;
-      if (m > 0) wApp += wt;
-    }
     const pp = prev[p.id];
     const bucket = mPrior.byPrice.find((b) => p.price <= b.maxPrice) ?? mPrior.byPrice.at(-1)!;
     const prior60 = pp && pp.gamedays >= 2 ? (pp.starts60 + 2 * bucket.p60) / (pp.gamedays + 2) : bucket.p60;
     const priorApp = pp && pp.gamedays >= 2 ? (pp.apps + 2 * bucket.pApp) / (pp.gamedays + 2) : bucket.pApp;
+    const minsAt = (g: number) => p.history.find((l) => l.gameday === g)?.minutes ?? 0;
+    // Ausência isolada de um titular (0 minutos entre jogos como titular) é quase sempre lesão ou castigo,
+    // não rotação: não conta para a probabilidade de ser titular. Ex.: Raphinha falhou a J2 2026/27 lesionado.
+    const excused = (i: number) => {
+      const g = gds[i]!;
+      if (minsAt(g) > 0) return false;
+      const next = gds[i + 1];
+      if (next == null || minsAt(next) < 60) return false;
+      const before = gds[i - 1];
+      return before == null ? !!pp && pp.gamedays >= 2 && pp.starts60 / pp.gamedays >= 0.6 : minsAt(before) >= 60;
+    };
+    let w = 0;
+    let w60 = 0;
+    let wApp = 0;
+    gds.forEach((g, i) => {
+      if (excused(i)) return;
+      const wt = PARAMS.minutesDecay ** (lastGameday - g);
+      const m = minsAt(g);
+      w += wt;
+      if (m >= 60) w60 += wt;
+      if (m > 0) wApp += wt;
+    });
     const K = PARAMS.startPriorStrength;
     const base60 = (w60 + K * prior60) / (w + K);
     const baseApp = Math.max(base60, (wApp + K * priorApp) / (w + K));

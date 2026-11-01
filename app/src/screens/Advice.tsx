@@ -68,19 +68,24 @@ function AdviceBody({
   const [advice, setAdvice] = useState<TransferAdvice | null>(null);
   const [count, setCount] = useState<1 | 2 | 3>(1);
   const [msg, setMsg] = useState('');
+  const keepIds = team.keep ?? [];
+  const keepKey = keepIds.join(',');
 
   // o cálculo demora meio segundo: deixa o ecrã aparecer primeiro
   useEffect(() => {
     setAdvice(null);
-    const h = setTimeout(() => setAdvice(adviseTransfers(data.rows, squad, team.bank, free, gd)), 30);
+    const keep = new Set(keepKey ? keepKey.split(',') : []);
+    const h = setTimeout(() => setAdvice(adviseTransfers(data.rows, squad, team.bank, free, gd, keep)), 30);
     return () => clearTimeout(h);
-  }, [data, squad, team.bank, free, gd]);
+  }, [data, squad, team.bank, free, gd, keepKey]);
 
   const captain = useMemo(() => {
     const xpAt = (r: Row) => r.xp?.fixtures.filter((f) => f.gameday === gd).reduce((s, f) => s + f.xp, 0) ?? 0;
     return adviseCaptain(bestXI(squad, xpAt).xi, gd);
   }, [squad, gd]);
 
+  const setKeep = (ids: string[]) => void onSave({ ...team, keep: ids, updatedAt: new Date().toISOString() });
+  const keepPlayer = (id: string) => setKeep([...new Set([...keepIds, id])]);
   const setFree = (v: number) =>
     void onSave({ ...team, freeTransfers: Math.max(0, Math.min(5, v)), ftGameday: gd, updatedAt: new Date().toISOString() });
 
@@ -122,6 +127,22 @@ function AdviceBody({
           </button>
         </span>
       </div>
+      {keepIds.length ? (
+        <p className="keep-row">
+          {t('keeping')}
+          {keepIds.map((id) => (
+            <button
+              key={id}
+              type="button"
+              className="chip on"
+              onClick={() => setKeep(keepIds.filter((x) => x !== id))}
+              aria-label={t('unkeep', { name: data.byId.get(id)?.name ?? id })}
+            >
+              {data.byId.get(id)?.name ?? id} ✕
+            </button>
+          ))}
+        </p>
+      ) : null}
       {msg ? (
         <p className="notice" role="status">
           {msg}
@@ -136,7 +157,15 @@ function AdviceBody({
       ) : (
         <>
           {advice.recommended ? (
-            <PlanCard plan={advice.recommended} advice={advice} data={data} recommended onApply={apply} onOpen={onOpen} />
+            <PlanCard
+              plan={advice.recommended}
+              advice={advice}
+              data={data}
+              recommended
+              onApply={apply}
+              onOpen={onOpen}
+              onKeep={keepPlayer}
+            />
           ) : (
             <div className="plan-card">
               <p className="plan-head">
@@ -164,7 +193,15 @@ function AdviceBody({
           </div>
           {advice.byCount[count].length === 0 ? <p className="muted">{t('noOptions')}</p> : null}
           {advice.byCount[count].map((p) => (
-            <PlanCard key={p.swaps.map((s) => s.in.id).join('-')} plan={p} advice={advice} data={data} onApply={apply} onOpen={onOpen} />
+            <PlanCard
+              key={p.swaps.map((s) => s.in.id).join('-')}
+              plan={p}
+              advice={advice}
+              data={data}
+              onApply={apply}
+              onOpen={onOpen}
+              onKeep={keepPlayer}
+            />
           ))}
         </>
       )}
@@ -182,6 +219,7 @@ function PlanCard({
   recommended = false,
   onApply,
   onOpen,
+  onKeep,
 }: {
   plan: Plan;
   advice: TransferAdvice;
@@ -189,6 +227,7 @@ function PlanCard({
   recommended?: boolean;
   onApply: (p: Plan) => void;
   onOpen: (r: Row) => void;
+  onKeep: (id: string) => void;
 }) {
   const { t, num } = useI18n();
   const [open, setOpen] = useState(false);
@@ -231,6 +270,9 @@ function PlanCard({
                 </li>
               ))}
             </ul>
+            <button type="button" className="link keep-btn" onClick={() => onKeep(s.out.id)}>
+              {t('keepPlayer', { name: s.out.name })}
+            </button>
           </li>
         ))}
       </ul>

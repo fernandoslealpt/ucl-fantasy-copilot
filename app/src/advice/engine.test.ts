@@ -127,6 +127,15 @@ describe('transferências', () => {
     expect(b.recommended?.hits).toBe(1);
   });
 
+  it('nunca vende quem o Fernando quer manter', () => {
+    const s = squad();
+    const up = P('FWD', 'U', 6, [12, 12, 12]);
+    const fwd = s.filter((r) => r.position === 'FWD').map((r) => r.id);
+    const a = adviseTransfers([...s, up], s, 0, 2, 4, new Set(fwd));
+    const outs = [...a.byCount[1], ...a.byCount[2], ...a.byCount[3]].flatMap((p) => p.swaps.map((x) => x.out.id));
+    for (const id of fwd) expect(outs).not.toContain(id);
+  });
+
   it('não recomenda trocas quando o ganho é pequeno', () => {
     const s = squad();
     const meh = P('MID', 'M', 6, [3.05, 3.05, 3.05]);

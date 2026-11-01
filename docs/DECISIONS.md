@@ -62,3 +62,5 @@
 - **Razões**: até 3 por troca, com números (titularidade, dificuldade dos jogos, golos+assistências/90, baliza a zero, forma, xP na jornada, preço), ordenadas pelo peso.
 - Transferências grátis: guardadas na equipa (`freeTransfers`, `ftGameday`), lidas da captura do ecrã de Transferências ("2 grátis"); por defeito 2; passa no máximo 1 para a jornada seguinte.
 - Falta na Fase 4: substituições entre dias (precisa de pontos ao vivo), alertas novos além dos atuais, chips (Wildcard/Limitless).
+- **Modelo 1.1.0 (caso Raphinha):** o Fernando estranhou a sugestão Raphinha → Brunstad Fet. Causa: o Raphinha falhou a J2 lesionado (confirmado na imprensa: lesão na coxa ao serviço do Brasil) e o modelo contava essa ausência como rotação → 73% de titular. Agora uma ausência isolada (0 minutos entre jogos como titular) não conta para a titularidade; rotação a sério (deixar de jogar e não voltar a ser titular) continua a contar.
+- **"Não quero vender X"**: o Fernando pode marcar jogadores a manter; ficam guardados na equipa (`keep`) e o motor nunca os sugere para sair.

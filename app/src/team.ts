@@ -10,6 +10,8 @@ export interface MyTeam {
   /** Transferências grátis disponíveis em `ftGameday` */
   freeTransfers?: number;
   ftGameday?: number;
+  /** jogadores a não vender nas sugestões */
+  keep?: string[];
 }
 
 export const SQUAD: Record<Position, number> = { GK: 2, DEF: 5, MID: 5, FWD: 3 };

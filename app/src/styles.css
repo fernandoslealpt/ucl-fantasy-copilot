@@ -1417,3 +1417,14 @@ select {
   align-items: center;
   gap: 6px;
 }
+.keep-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 12px;
+}
+.keep-btn {
+  margin-top: 6px;
+  font-size: 0.9rem;
+}

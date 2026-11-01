@@ -121,6 +121,24 @@ describe('modelo xP', () => {
     expect(inactive!.xp3).toBe(0);
   });
 
+  it('ausência isolada entre jogos como titular (lesão) não baixa a titularidade; rotação baixa', () => {
+    const fx4: Fixture[] = [1, 2, 3, 4].map((gd) => ({
+      ...fixtures[0]!, id: `g${gd}`, gameday: gd, homeId: gd % 2 ? 'S' : 'W', awayId: gd % 2 ? 'W' : 'S',
+      status: gd <= 3 ? 'FINISHED' : 'UPCOMING', score: gd <= 3 ? { home: 1, away: 0 } : null,
+    }));
+    const line = (gameday: number, minutes: number) => ({ ...player('x', 'MID').history[0]!, gameday, minutes });
+    const mk = (id: string, mins: number[]) =>
+      player(id, 'MID', { history: mins.map((m, i) => line(i + 1, m)).filter((l) => l.minutes > 0) });
+    const [regular, injured, rotated] = computeXp({
+      players: [mk('r', [90, 90, 90]), mk('i', [71, 0, 60]), mk('o', [90, 0, 0])],
+      prev: {}, fixtures: fx4, ratings, targets: [4], lastGameday: 3,
+    });
+    const ps = (x: typeof regular) => x!.fixtures[0]!.pStart;
+    // menos jogos observados → um pouco mais perto do prior, mas próximo do sempre-titular
+    expect(ps(injured)).toBeGreaterThan(ps(regular) - 0.1);
+    expect(ps(rotated)).toBeLessThan(ps(injured) - 0.2);
+  });
+
   it('lesionado: 0 na próxima jornada, recupera nas seguintes', () => {
     const [x] = run([player('c', 'DEF', { availability: 'out' })]);
     expect(x!.fixtures[0]!.xp).toBe(0);

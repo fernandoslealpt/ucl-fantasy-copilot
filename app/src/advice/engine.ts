@@ -147,7 +147,15 @@ function pools(ctx: Ctx, rows: Row[], squad: Set<string>, top: number, value: nu
   return res;
 }
 
-export function adviseTransfers(rows: Row[], squadRows: Row[], bank: number, free: number, gameday: number): TransferAdvice {
+export function adviseTransfers(
+  rows: Row[],
+  squadRows: Row[],
+  bank: number,
+  free: number,
+  gameday: number,
+  /** jogadores que o Fernando não quer vender */
+  keep: ReadonlySet<string> = new Set(),
+): TransferAdvice {
   const ctx = makeCtx(rows, gameday);
   const base = squadValue(ctx, squadRows);
   const limit = clubLimit(gameday);
@@ -202,7 +210,8 @@ export function adviseTransfers(rows: Row[], squadRows: Row[], bank: number, fre
 
   // 1 troca: todas as combinações
   const singles: Plan[] = [];
-  for (const out of squadRows)
+  const sellable = squadRows.filter((r) => !keep.has(r.id));
+  for (const out of sellable)
     for (const inn of poolBig[out.position]) {
       const p = evaluate([{ out, in: inn }]);
       if (p) singles.push(p);
@@ -211,10 +220,10 @@ export function adviseTransfers(rows: Row[], squadRows: Row[], bank: number, fre
 
   // 2 trocas: pares de saídas × melhores candidatos
   const doubles: Plan[] = [];
-  for (let i = 0; i < squadRows.length; i++)
-    for (let j = i + 1; j < squadRows.length; j++) {
-      const o1 = squadRows[i]!;
-      const o2 = squadRows[j]!;
+  for (let i = 0; i < sellable.length; i++)
+    for (let j = i + 1; j < sellable.length; j++) {
+      const o1 = sellable[i]!;
+      const o2 = sellable[j]!;
       for (const a of poolSmall[o1.position])
         for (const b of poolSmall[o2.position]) {
           if (a.id === b.id) continue;
@@ -232,7 +241,7 @@ export function adviseTransfers(rows: Row[], squadRows: Row[], bank: number, fre
   const seen = new Set<string>();
   for (const d of doubles.slice(0, 40)) {
     const outs = new Set(d.swaps.map((s) => s.out.id));
-    for (const o of squadRows) {
+    for (const o of sellable) {
       if (outs.has(o.id)) continue;
       for (const c of poolSmall[o.position]) {
         const swaps = [...d.swaps, { out: o, in: c }];
