@@ -1,15 +1,16 @@
 {
-  "generatedAt": "2026-11-01T19:01:42.380Z",
+  "generatedAt": "2026-11-01T19:05:33.734Z",
   "results": [
     {
-      "name": "uefa-fantasy players (atual)",
+      "name": "uefa-fantasy players (sem gamedayId)",
       "url": "https://gaming.uefa.com/en/uclfantasy/services/api/Feed/players?language=en",
       "ok": true,
       "status": 200,
       "contentType": "application/json; charset=utf-8",
       "bytes": 307,
-      "ms": 718,
-      "shape": "{data:{value:object, feedTime:{utcTime:string, istTime:string, cestTime:string}}, meta:{message:string, retVal:number, success:boolean, timestamp:{utcTime:string, istTime:string, cestTime:string}}}"
+      "ms": 240,
+      "shape": "{data:{value:object, feedTime:{utcTime:string, istTime:string, cestTime:string}}, meta:{message:string, retVal:number, success:boolean, timestamp:{utcTime:string, istTime:string, cestTime:string}}}",
+      "note": "vem vazio"
     },
     {
       "name": "uefa-fantasy players (J1)",
@@ -18,41 +19,8 @@
       "status": 200,
       "contentType": "application/json; charset=utf-8",
       "bytes": 2040634,
-      "ms": 604,
+      "ms": 773,
       "shape": "{data:{value:{playerList:[1163]}, feedTime:{utcTime:string, istTime:string, cestTime:string}}, meta:{message:string, retVal:number, success:boolean, timestamp:{utcTime:string, istTime:string, cestTime:string}}}"
-    },
-    {
-      "name": "uefa-fantasy fixtures?",
-      "url": "https://gaming.uefa.com/en/uclfantasy/services/api/Feed/fixtures?language=en",
-      "ok": false,
-      "status": 404,
-      "contentType": null,
-      "bytes": 0,
-      "ms": 166,
-      "shape": "texto · 1.ª linha: ",
-      "note": "palpite"
-    },
-    {
-      "name": "uefa-fantasy gamedays?",
-      "url": "https://gaming.uefa.com/en/uclfantasy/services/api/Feed/gamedays?language=en",
-      "ok": false,
-      "status": 404,
-      "contentType": null,
-      "bytes": 0,
-      "ms": 110,
-      "shape": "texto · 1.ª linha: ",
-      "note": "palpite"
-    },
-    {
-      "name": "uefa-fantasy teams?",
-      "url": "https://gaming.uefa.com/en/uclfantasy/services/api/Feed/teams?language=en",
-      "ok": false,
-      "status": 404,
-      "contentType": null,
-      "bytes": 0,
-      "ms": 139,
-      "shape": "texto · 1.ª linha: ",
-      "note": "palpite"
     },
     {
       "name": "uefa match API (fase de liga)",
@@ -61,7 +29,7 @@
       "status": 200,
       "contentType": "application/json",
       "bytes": 1525774,
-      "ms": 449,
+      "ms": 435,
       "shape": "[50] of {awayTeam:{associationId:string, associationLogoUrl:string, bigLogoUrl:string, confederationType:string, countryCode:string, id:string, idProvider:string, internationalName:string, isPlaceHolder:boolean, logoUrl:string, …}, competition:{age:string, code:string, id:string, images:{FULL_LOGO}, metaData:{name}, region:string, sex:string, sportsType:string, teamCategory:string, translations:{name,prequalifyingName,qualifyingName,tournamentName}, …}, competitionPhase:string, condition:{humidity:number, pitchCondition:string, temperature:number, translations:{pitchConditionName,weatherCondit"
     },
     {
@@ -71,7 +39,7 @@
       "status": 200,
       "contentType": "application/json",
       "bytes": 2154028,
-      "ms": 422,
+      "ms": 303,
       "shape": "[100] of {awayTeam:{associationId:string, associationLogoUrl:string, bigLogoUrl:string, confederationType:string, countryCode:string, id:string, idProvider:string, internationalName:string, isPlaceHolder:boolean, logoUrl:string, …}, competition:{age:string, code:string, id:string, images:{FULL_LOGO}, metaData:{name}, region:string, sex:string, sportsType:string, teamCategory:string, translations:{name,prequalifyingName,qualifyingName,tournamentName}, …}, competitionPhase:string, condition:{humidity:number, pitchCondition:string, temperature:number, translations:{pitchConditionName,weatherCondi"
     },
     {
@@ -81,7 +49,7 @@
       "status": 200,
       "contentType": "application/json",
       "bytes": 71648,
-      "ms": 689,
+      "ms": 355,
       "shape": "[1] of {group:{competitionId:string, id:string, metaData:{groupName,groupShortName}, order:number, phase:string, roundId:string, seasonYear:string, teams:[36], teamsQualifiedNumber:number, translations:{name,shortName}, …}, items:[36] of {drawn,goalDifference,goalsAgainst,goalsFor,goalsForAway,goalsForHome,groupFairPlayCoefficient,isBanned,…}, qualificationLabels:[4] of {labelId,translations}, round:{active:boolean, benchGKCount:number, benchPlayersCount:number, benchStaffCount:number, coefficientWinnerBonus:number, competitionId:string, dateFrom:string, dateTo:string, fieldPlayersCount:number"
     },
     {
@@ -91,7 +59,7 @@
       "status": 502,
       "contentType": null,
       "bytes": 0,
-      "ms": 1847,
+      "ms": 1098,
       "shape": "texto · 1.ª linha: "
     },
     {
@@ -101,19 +69,41 @@
       "status": null,
       "contentType": null,
       "bytes": 0,
-      "ms": 10496,
+      "ms": 10492,
       "shape": "—",
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
     },
     {
-      "name": "clubelo fixtures",
-      "url": "http://api.clubelo.com/Fixtures",
+      "name": "clubelo clube (http)",
+      "url": "http://api.clubelo.com/ManCity",
+      "ok": false,
+      "status": 502,
+      "contentType": null,
+      "bytes": 0,
+      "ms": 905,
+      "shape": "texto · 1.ª linha: "
+    },
+    {
+      "name": "uefa coeficientes clubes (época atual)",
+      "url": "https://comp.uefa.com/v2/coefficients?coefficientRange=OVERALL&coefficientType=MEN_CLUB&language=EN&page=1&pagesize=500&seasonYear=2027",
       "ok": true,
       "status": 200,
-      "contentType": "text/csv; charset=utf-8",
-      "bytes": 26,
-      "ms": 749,
-      "shape": "text/csv; charset=utf-8 · 1.ª linha: Fixtures API deactivated"
+      "contentType": "application/json",
+      "bytes": 719475,
+      "ms": 416,
+      "shape": "{data:{lastUpdateDate:string, members:[415] of {competition,member,overallRanking,seasonRankings}}, meta:{collection:{totalElements:string}}}",
+      "note": "alternativa ao Elo"
+    },
+    {
+      "name": "uefa coeficientes clubes (época anterior)",
+      "url": "https://comp.uefa.com/v2/coefficients?coefficientRange=OVERALL&coefficientType=MEN_CLUB&language=EN&page=1&pagesize=500&seasonYear=2026",
+      "ok": true,
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 719858,
+      "ms": 435,
+      "shape": "{data:{lastUpdateDate:string, members:[415] of {competition,member,overallRanking,seasonRankings}}, meta:{collection:{totalElements:string}}}",
+      "note": "alternativa ao Elo"
     },
     {
       "name": "google news rss",
@@ -121,8 +111,8 @@
       "ok": true,
       "status": 200,
       "contentType": "application/xml; charset=utf-8",
-      "bytes": 75532,
-      "ms": 400,
+      "bytes": 164207,
+      "ms": 399,
       "shape": "application/xml; charset=utf-8 · 1.ª linha: <?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><rss version=\"2.0\" xmlns:media=\"http://search.yahoo.com/mrss/\"><channel><generator>NFE/5.0</generator><title>\"\"Champions League\" lesão\" - Google "
     },
     {

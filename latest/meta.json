@@ -1,47 +1,61 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-01T19:02:06.162Z",
-  "currentGameday": null,
-  "gamedayState": null,
-  "deadline": null,
+  "generatedAt": "2026-11-01T19:05:56.073Z",
+  "currentGameday": 4,
+  "gamedayState": "upcoming",
+  "deadline": "2026-11-03T17:45:00.000Z",
   "sources": {
-    "uefaFantasy": {
-      "status": "failed",
-      "lastAttempt": "2026-11-01T19:02:06.162Z",
-      "lastSuccess": null,
-      "requests": 1,
-      "error": "Feed fantasy com formato inesperado: data.value.playerList em falta"
-    },
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:02:06.162Z",
-      "lastSuccess": "2026-11-01T19:02:06.162Z",
+      "lastAttempt": "2026-11-01T19:05:56.073Z",
+      "lastSuccess": "2026-11-01T19:05:56.073Z",
       "requests": 3,
       "records": 144
     },
+    "uefaFantasy": {
+      "status": "ok",
+      "lastAttempt": "2026-11-01T19:05:56.073Z",
+      "lastSuccess": "2026-11-01T19:05:56.073Z",
+      "requests": 4,
+      "records": 1171
+    },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-01T19:02:06.162Z",
+      "lastAttempt": "2026-11-01T19:05:56.073Z",
       "lastSuccess": null,
-      "requests": 6,
+      "requests": 4,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
     }
   },
   "counts": {
-    "players": 0,
-    "teams": 0,
+    "players": 1171,
+    "teams": 36,
     "fixtures": 144,
     "teamsWithElo": 0
   },
   "checks": {
     "invalidPlayers": 0,
     "pointsHistory": {
-      "checked": 0,
-      "mismatches": 0
+      "checked": 1163,
+      "mismatches": 651
     },
-    "fixturesCrossCheck": null
+    "fixturesCrossCheck": {
+      "fantasy": 18,
+      "matched": 18
+    }
   },
-  "statusValues": {},
-  "warnings": [],
-  "durationMs": 51923
+  "statusValues": {
+    "pStatus=∅ · qStatus=∅ · trained=In contention to start next game": 872,
+    "pStatus=NIS · qStatus=∅ · trained=∅": 125,
+    "pStatus=I · qStatus=∅ · trained=Unlikely to start next game": 85,
+    "pStatus=∅ · qStatus=∅ · trained=∅": 54,
+    "pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game": 17,
+    "pStatus=D · qStatus=∅ · trained=In contention to start next game": 10,
+    "pStatus=D · qStatus=∅ · trained=Unlikely to start next game": 5,
+    "pStatus=S · qStatus=∅ · trained=∅": 3
+  },
+  "warnings": [
+    "Pontos por jornada: 651/1163 jogadores não somam o total do feed"
+  ],
+  "durationMs": 32226
 }
