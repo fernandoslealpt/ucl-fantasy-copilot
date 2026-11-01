@@ -27,6 +27,7 @@ import { fetchUefaCoefficients, type Coefficient } from './sources/uefaCoefficie
 import { EmptyFeedError, fetchFantasyFeed, type ParsedFeed } from './sources/uefaFantasy.ts';
 import { fetchUefaMatches } from './sources/uefaMatches.ts';
 import { fantasyTourId, fetchPlayerHistory, mapPool } from './sources/uefaPlayerHistory.ts';
+import { ensurePrevSeason, type PrevSeasonResult } from './prevSeason.ts';
 import type {
   Fixture,
   GamedayState,
@@ -40,7 +41,13 @@ import type {
 
 export const PIPELINE_VERSION = '0.2.0';
 
-export type SourceName = 'uefaMatches' | 'uefaFantasy' | 'uefaPlayerHistory' | 'uefaCoefficients' | 'clubElo';
+export type SourceName =
+  | 'uefaMatches'
+  | 'uefaFantasy'
+  | 'uefaPlayerHistory'
+  | 'uefaPrevSeason'
+  | 'uefaCoefficients'
+  | 'clubElo';
 
 export interface RunOptions {
   /** Pasta de saída (no GitHub Actions: worktree do branch `data`). */
@@ -132,7 +139,7 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
       createHttp(
         s === 'clubElo'
           ? { retries: 0, timeoutMs: 20_000 }
-          : s === 'uefaPlayerHistory'
+          : s === 'uefaPlayerHistory' || s === 'uefaPrevSeason'
             ? { retries: 1, timeoutMs: 20_000, backoffMs: 2_000 }
             : {},
       ));
@@ -228,6 +235,24 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     record('uefaPlayerHistory', hHttp, tooMany ? (firstError ?? new Error('demasiadas falhas')) : null, officialStats.fetched);
     if (officialStats.failed && !tooMany)
       warnings.push(`Histórico oficial: ${officialStats.failed}/${toFetch.length} jogadores falharam (usado plano B)`);
+  }
+
+  // 2c) Época anterior (jogos + estatísticas por jogador), em cache permanente.
+  let prevSeason: PrevSeasonResult | null = null;
+  if (fantasy) {
+    const pHttp = httpFactory('uefaPrevSeason');
+    prevSeason = await ensurePrevSeason(
+      opts.outDir,
+      season,
+      fantasy.feed.players.map((p) => p.id),
+      pHttp,
+      pHttp,
+      nowIso,
+      historyConcurrency,
+    );
+    const known = Object.keys(prevSeason.players?.players ?? {}).length;
+    record('uefaPrevSeason', pHttp, prevSeason.fixtures ? null : new Error(prevSeason.errors.join('; ') || 'sem jogos'), known);
+    if (prevSeason.errors.length) warnings.push(`Época anterior: ${prevSeason.errors.join('; ')}`);
   }
 
   // 3) Força das equipas: coeficientes UEFA (fiável a partir do GitHub) e Elo (ClubElo, se responder).

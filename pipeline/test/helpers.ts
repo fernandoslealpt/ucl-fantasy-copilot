@@ -289,3 +289,37 @@ export function coefficientsJson(): string {
 }
 
 export const coefficientRoutes: Route[] = [{ match: (u) => u.includes('comp.uefa.com'), body: () => coefficientsJson() }];
+
+/** Época anterior: 24 jogos terminados entre as 4 equipas + popupstats_80 (jogadores pares; ímpares → 403). */
+export function prevSeasonMatchesJson(): string {
+  const matches: unknown[] = [];
+  let k = 0;
+  for (let round = 0; round < 4; round++)
+    for (let h = 0; h < 4; h++)
+      for (let a = 0; a < 4; a++) {
+        if (h === a || (h + a + round) % 2 === 1) continue;
+        matches.push({
+          id: `1990${String(k++).padStart(3, '0')}`,
+          homeTeam: team(TEAMS[h]!),
+          awayTeam: team(TEAMS[a]!),
+          status: 'FINISHED',
+          competitionPhase: 'TOURNAMENT',
+          kickOffTime: { dateTime: `2025-10-${String(1 + k).padStart(2, '0')}T19:00:00Z` },
+          matchday: { sequenceNumber: String(round + 1), name: `MD${round + 1}`, phase: 'TOURNAMENT' },
+          score: { total: { home: (3 - h + round) % 4, away: (3 - a) % 3 } },
+        });
+      }
+  return JSON.stringify(matches);
+}
+
+export function prevSeasonRoutes(): Route[] {
+  return [
+    { match: (u) => u.includes('match.uefa.com') && u.includes('seasonYear=2026') && u.includes('offset=0&'), body: () => prevSeasonMatchesJson() },
+    { match: (u) => u.includes('match.uefa.com'), body: '[]' },
+    {
+      match: (u) => /popupstats_80_\d+\.json$/.test(u) && Number(/_(\d+)\.json$/.exec(u)![1]) % 2 === 0,
+      body: (u) => playerHistoryJson(Number(/_(\d+)\.json$/.exec(u)![1]) - 250000000, 6),
+    },
+    { match: (u) => /popupstats_80_/.test(u), status: 403 },
+  ];
+}

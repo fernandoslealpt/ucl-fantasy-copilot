@@ -13,6 +13,7 @@ import {
   fantasyRoutes,
   matchRoutes,
   playerHistoryRoutes,
+  prevSeasonRoutes,
   ptsFor,
   uefaMatchesJson,
   type Route,
@@ -28,6 +29,7 @@ function factory(routes: Partial<Record<SourceName, Route[]>>, calls: Record<str
 const ALL: Partial<Record<SourceName, Route[]>> = {
   uefaFantasy: fantasyRoutes(),
   uefaPlayerHistory: playerHistoryRoutes(3),
+  uefaPrevSeason: prevSeasonRoutes(),
   uefaMatches: matchRoutes,
   uefaCoefficients: coefficientRoutes,
   clubElo: eloRoutes,
@@ -41,7 +43,7 @@ describe('pipeline completo', () => {
     const calls: Record<string, string[]> = {};
     const meta = await runPipeline({ ...opts, outDir: out, now: NOW, httpFactory: factory(ALL, calls) });
 
-    for (const s of ['uefaMatches', 'uefaFantasy', 'uefaPlayerHistory', 'uefaCoefficients', 'clubElo'])
+    for (const s of ['uefaMatches', 'uefaFantasy', 'uefaPlayerHistory', 'uefaPrevSeason', 'uefaCoefficients', 'clubElo'])
       expect(meta.sources[s]?.status, s).toBe('ok');
     expect(meta.currentGameday).toBe(4);
     expect(meta.gamedayState).toBe('upcoming');
@@ -78,6 +80,13 @@ describe('pipeline completo', () => {
     const { fixtures } = read<{ fixtures: Fixture[] }>(out, 'fixtures.json');
     expect(fixtures.every((f) => f.phase !== 'QUALIFYING')).toBe(true);
     expect(existsSync(join(out, 'history', 'gd04', '2026-10-31.json'))).toBe(true);
+    // Época anterior em cache permanente
+    const prevMatches = JSON.parse(readFileSync(join(out, 'cache', 'matches-2026.json'), 'utf8')) as { fixtures: Fixture[] };
+    expect(prevMatches.fixtures.length).toBeGreaterThan(20);
+    const prev = JSON.parse(readFileSync(join(out, 'cache', 'player-prev-80.json'), 'utf8')) as { players: Record<string, unknown> };
+    expect(Object.keys(prev.players)).toHaveLength(240);
+    expect(prev.players['250000002']).toMatchObject({ apps: 6, starts60: 6, minutes: 540 });
+    expect(prev.players['250000001']).toBeNull();
     expect(readFileSync(join(out, 'latest', 'summary.md'), 'utf8')).toContain('Jornada:** 4 (por jogar)');
   });
 
