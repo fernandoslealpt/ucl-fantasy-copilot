@@ -1,29 +1,36 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-01T19:05:56.073Z",
+  "generatedAt": "2026-11-01T19:13:47.255Z",
   "currentGameday": 4,
   "gamedayState": "upcoming",
   "deadline": "2026-11-03T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:05:56.073Z",
-      "lastSuccess": "2026-11-01T19:05:56.073Z",
+      "lastAttempt": "2026-11-01T19:13:47.255Z",
+      "lastSuccess": "2026-11-01T19:13:47.255Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:05:56.073Z",
-      "lastSuccess": "2026-11-01T19:05:56.073Z",
-      "requests": 4,
+      "lastAttempt": "2026-11-01T19:13:47.255Z",
+      "lastSuccess": "2026-11-01T19:13:47.255Z",
+      "requests": 1,
       "records": 1171
+    },
+    "uefaCoefficients": {
+      "status": "ok",
+      "lastAttempt": "2026-11-01T19:13:47.255Z",
+      "lastSuccess": "2026-11-01T19:13:47.255Z",
+      "requests": 1,
+      "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-01T19:05:56.073Z",
+      "lastAttempt": "2026-11-01T19:13:47.255Z",
       "lastSuccess": null,
-      "requests": 4,
+      "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
     }
   },
@@ -31,13 +38,22 @@
     "players": 1171,
     "teams": 36,
     "fixtures": 144,
-    "teamsWithElo": 0
+    "teamsWithElo": 0,
+    "teamsWithCoefficient": 36
   },
   "checks": {
     "invalidPlayers": 0,
     "pointsHistory": {
-      "checked": 1163,
-      "mismatches": 651
+      "checked": 0,
+      "mismatches": 0
+    },
+    "history": {
+      "tracked": [],
+      "fromFeed": 3,
+      "unavailable": [
+        1,
+        2
+      ]
     },
     "fixturesCrossCheck": {
       "fantasy": 18,
@@ -54,8 +70,6 @@
     "pStatus=D · qStatus=∅ · trained=Unlikely to start next game": 5,
     "pStatus=S · qStatus=∅ · trained=∅": 3
   },
-  "warnings": [
-    "Pontos por jornada: 651/1163 jogadores não somam o total do feed"
-  ],
-  "durationMs": 32226
+  "warnings": [],
+  "durationMs": 13227
 }
