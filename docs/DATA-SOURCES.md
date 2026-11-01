@@ -5,6 +5,7 @@ Resultado automático da sonda (Fase 0): branch `data` → `probe/report.md` (at
 | Fonte | Endpoint | Para quê | Estado |
 |---|---|---|---|
 | Feed UEFA Fantasy | `gaming.uefa.com/en/uclfantasy/services/api/Feed/players?gamedayId={n}&language=en` | Jogadores, posições, preços, % seleção, estado, estatísticas, pontos | Em uso |
+| Histórico UEFA Fantasy por jogador | `gaming.uefa.com/en/uclfantasy/services/feeds/popupstats/popupstats_{tour}_{id}.json` (tour 90 = 2026/27) | Pontos, minutos, estatísticas e decomposição de pontos por jornada | Em uso (só jogadores que mudaram) |
 | API de jogos UEFA | `match.uefa.com/v5/matches?competitionId=1&seasonYear={AAAA}&fromDate=…&toDate=…&limit=50&offset={k}` | Calendário, horas UTC, resultados, país e logótipo das equipas | Em uso |
 | Coeficientes UEFA | `comp.uefa.com/v2/coefficients?coefficientRange=OVERALL&coefficientType=MEN_CLUB&seasonYear={AAAA}` | Força das equipas (5 épocas) | Em uso |
 | ClubElo | `api.clubelo.com/{AAAA-MM-DD}` (CSV) | Força das equipas (Elo) | ❌ inacessível a partir do GitHub (1 nov 2026); tentado em cada execução |
@@ -30,5 +31,5 @@ Estrutura: `data.value.playerList[]` (~1170 jogadores). **Sem `gamedayId` vem va
 | `currentMatchesList`, `upcomingMatchesList` | Jogo da jornada: `mdId`, `vsTID`, `tLoc` (H/A), `matchDate` | Hora CET/CEST |
 
 ## Limites e cortesia
-- 1 pedido ao feed fantasy por execução, ~3 à API de jogos, 1 aos coeficientes, 1 ao ClubElo.
+- 1 pedido ao feed fantasy por execução; histórico por jogador só para quem mudou (≈600 na 1.ª vez, depois só após jogos), 6 em paralelo; ~3 à API de jogos, 1 aos coeficientes, 1 ao ClubElo.
 - User-Agent identificado; sem conteúdo pago; sem login.

@@ -35,13 +35,45 @@ export interface PlayerStats {
   playerOfTheMatch: number;
 }
 
+export interface GamedayStats {
+  goals: number;
+  assists: number;
+  cleanSheets: number;
+  goalsConceded: number;
+  saves: number;
+  recoveries: number;
+  yellowCards: number;
+  redCards: number;
+  ownGoals: number;
+  penaltiesSaved: number;
+  penaltiesMissed: number;
+  penaltiesEarned: number;
+  penaltiesConceded: number;
+  goalsOutsideBox: number;
+  playerOfTheMatch: number;
+}
+
 export interface GamedayLine {
   gameday: number;
   points: number;
   /** null quando só temos os pontos (jornada anterior lida do feed, sem snapshot nosso). */
   minutes: number | null;
-  /** tracked = diferença entre snapshots nossos; feed = `lastGdPoints` do feed UEFA. */
-  source: 'tracked' | 'feed';
+  /**
+   * uefa = histórico oficial por jogador (popupstats); tracked = diferença entre snapshots nossos;
+   * feed = `lastGdPoints` do feed (só pontos). Prioridade: uefa > tracked > feed.
+   */
+  source: 'uefa' | 'tracked' | 'feed';
+  /** Só com source=uefa: estatísticas da jornada e pontos por categoria. */
+  stats?: GamedayStats;
+  breakdown?: Record<string, number>;
+}
+
+/** Cache do histórico oficial por jogador (evita pedir de novo quem não mudou). */
+export interface PlayerHistoryCache {
+  season: number;
+  tourId: number;
+  updatedAt: string;
+  players: Record<string, { totPts: number; minutes: number; fetchedAt: string; lines: GamedayLine[] }>;
 }
 
 export interface Player {
@@ -163,8 +195,16 @@ export interface Meta {
     invalidPlayers: number;
     /** Pontos por jornada calculados por nós vs. valor oficial do feed (curGDPts / lastGdPoints). */
     pointsHistory: { checked: number; mismatches: number };
-    /** Jornadas com histórico: seguidas por snapshot, lidas do feed, sem dados. */
-    history: { tracked: number[]; fromFeed: number | null; unavailable: number[] };
+    /**
+     * Cobertura do histórico: jogadores com histórico oficial completo (e quantos foram pedidos
+     * nesta execução); plano B por snapshots/feed para quem falhar.
+     */
+    history: {
+      official: { players: number; fetched: number; failed: number; sumMatchesTotal: number; sumMismatch: number };
+      tracked: number[];
+      fromFeed: number | null;
+      unavailable: number[];
+    };
     fixturesCrossCheck: { fantasy: number; matched: number } | null;
   };
   /** Frequência dos valores de estado do feed (para afinar a heurística de disponibilidade). */

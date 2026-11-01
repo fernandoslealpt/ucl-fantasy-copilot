@@ -12,6 +12,7 @@ import {
   fakeHttp,
   fantasyRoutes,
   matchRoutes,
+  playerHistoryRoutes,
   ptsFor,
   uefaMatchesJson,
   type Route,
@@ -26,6 +27,7 @@ function factory(routes: Partial<Record<SourceName, Route[]>>, calls: Record<str
 
 const ALL: Partial<Record<SourceName, Route[]>> = {
   uefaFantasy: fantasyRoutes(),
+  uefaPlayerHistory: playerHistoryRoutes(3),
   uefaMatches: matchRoutes,
   uefaCoefficients: coefficientRoutes,
   clubElo: eloRoutes,
@@ -39,13 +41,13 @@ describe('pipeline completo', () => {
     const calls: Record<string, string[]> = {};
     const meta = await runPipeline({ ...opts, outDir: out, now: NOW, httpFactory: factory(ALL, calls) });
 
-    for (const s of ['uefaMatches', 'uefaFantasy', 'uefaCoefficients', 'clubElo'])
+    for (const s of ['uefaMatches', 'uefaFantasy', 'uefaPlayerHistory', 'uefaCoefficients', 'clubElo'])
       expect(meta.sources[s]?.status, s).toBe('ok');
     expect(meta.currentGameday).toBe(4);
     expect(meta.gamedayState).toBe('upcoming');
     expect(meta.deadline).toBe('2026-11-04T17:45:00.000Z');
     expect(meta.counts).toEqual({ players: 240, teams: 4, fixtures: 8, teamsWithElo: 4, teamsWithCoefficient: 4 });
-    expect(meta.checks.history).toEqual({ tracked: [], fromFeed: 3, unavailable: [1, 2] });
+    expect(meta.checks.history.official).toEqual({ players: 240, fetched: 240, failed: 0, sumMatchesTotal: 240, sumMismatch: 0 });
     expect(meta.checks.fixturesCrossCheck).toEqual({ fantasy: 2, matched: 2 });
     expect(meta.warnings).toEqual([]);
     expect(calls.uefaFantasy).toHaveLength(1); // 1 pedido ao feed por execução
@@ -57,7 +59,11 @@ describe('pipeline completo', () => {
     const p7 = players.find((p) => p.id === '250000007')!;
     expect(p7.position).toBe('FWD');
     expect(p7.stats.points).toBe([1, 2, 3].reduce((a, g) => a + ptsFor(7, g), 0));
-    expect(p7.history).toEqual([{ gameday: 3, points: ptsFor(7, 3), minutes: null, source: 'feed' }]);
+    expect(p7.history.map((h) => [h.gameday, h.points, h.minutes, h.source])).toEqual(
+      [1, 2, 3].map((g) => [g, ptsFor(7, g), 90, 'uefa']),
+    );
+    expect(p7.history[0]?.stats?.recoveries).toBe(7);
+    expect(p7.history[0]?.breakdown).toEqual({ appearance: 2 });
     expect(p7.teamName).toBe('Benfica');
     expect(p7.nextMatch).toMatchObject({ gameday: 4, home: true, opponentName: 'Paris', opponentId: '52747' });
     expect(p7.nextMatch?.kickoff).toBe('2026-11-04T17:45:00.000Z');
@@ -85,26 +91,46 @@ describe('pipeline completo', () => {
       ...opts,
       outDir: out,
       now: new Date('2026-11-05T23:30:00Z'),
-      httpFactory: factory({ ...ALL, uefaFantasy: fantasyRoutes(4, 4) }),
+      httpFactory: factory({ ...ALL, uefaFantasy: fantasyRoutes(4, 4), uefaPlayerHistory: playerHistoryRoutes(4) }),
     });
     expect(afterGd4.gamedayState).toBe('finished');
-    expect(afterGd4.checks.pointsHistory).toEqual({ checked: 240, mismatches: 0 });
+    expect(afterGd4.checks.pointsHistory).toEqual({ checked: 240, mismatches: 0 }); // snapshots vs curGDPts
+    expect(afterGd4.checks.history.official).toMatchObject({ fetched: 240, sumMatchesTotal: 240 }); // totais mudaram
     let p7 = read<{ players: Player[] }>(out, 'players.json').players.find((p) => p.id === '250000007')!;
-    expect(p7.history.at(-1)).toEqual({ gameday: 4, points: ptsFor(7, 4), minutes: 90, source: 'tracked' });
+    expect(p7.history.at(-1)).toMatchObject({ gameday: 4, points: ptsFor(7, 4), minutes: 90, source: 'uefa' });
 
     // Feed passa para a J5 (API de jogos em baixo: pista vem da execução anterior)
+    const calls5: Record<string, string[]> = {};
     const gd5 = await runPipeline({
       ...opts,
       outDir: out,
       now: new Date('2026-11-10T12:00:00Z'),
-      httpFactory: factory({ ...ALL, uefaMatches: fail(503), uefaFantasy: fantasyRoutes(5, 4) }),
+      httpFactory: factory(
+        { ...ALL, uefaMatches: fail(503), uefaFantasy: fantasyRoutes(5, 4), uefaPlayerHistory: playerHistoryRoutes(4) },
+        calls5,
+      ),
     });
+    expect(calls5.uefaPlayerHistory ?? []).toHaveLength(0); // ninguém mudou: tudo da cache
     expect(gd5.currentGameday).toBe(5);
     expect(gd5.gamedayState).toBe('upcoming');
-    expect(gd5.checks.history).toEqual({ tracked: [4], fromFeed: null, unavailable: [1, 2, 3] });
-    expect(gd5.checks.pointsHistory).toEqual({ checked: 240, mismatches: 0 }); // vs lastGdPoints
+    expect(gd5.checks.history).toMatchObject({ tracked: [4], official: { players: 240, fetched: 0, sumMatchesTotal: 240 } });
+    expect(gd5.checks.pointsHistory).toEqual({ checked: 240, mismatches: 0 }); // snapshots vs lastGdPoints
     p7 = read<{ players: Player[] }>(out, 'players.json').players.find((p) => p.id === '250000007')!;
-    expect(p7.history).toEqual([{ gameday: 4, points: ptsFor(7, 4), minutes: 90, source: 'tracked' }]);
+    expect(p7.history.map((h) => h.points)).toEqual([1, 2, 3, 4].map((g) => ptsFor(7, g)));
+  });
+
+  it('se o histórico oficial falhar, usa o plano B (J3 pelo feed)', async () => {
+    const out = mkdtempSync(join(tmpdir(), 'ucl-'));
+    const meta = await runPipeline({
+      ...opts,
+      outDir: out,
+      now: NOW,
+      httpFactory: factory({ ...ALL, uefaPlayerHistory: fail(403) }),
+    });
+    expect(meta.sources.uefaPlayerHistory?.status).toBe('failed');
+    expect(meta.sources.uefaFantasy?.status).toBe('ok');
+    const p7 = read<{ players: Player[] }>(out, 'players.json').players.find((p) => p.id === '250000007')!;
+    expect(p7.history).toEqual([{ gameday: 3, points: ptsFor(7, 3), minutes: null, source: 'feed' }]);
   });
 
   it('se o feed fantasy falhar, mantém os últimos dados válidos e assinala a falha', async () => {

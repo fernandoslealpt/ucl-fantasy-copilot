@@ -26,11 +26,21 @@ import { fetchClubElo, type EloClub } from './sources/clubElo.ts';
 import { fetchUefaCoefficients, type Coefficient } from './sources/uefaCoefficients.ts';
 import { EmptyFeedError, fetchFantasyFeed, type ParsedFeed } from './sources/uefaFantasy.ts';
 import { fetchUefaMatches } from './sources/uefaMatches.ts';
-import type { Fixture, GamedayState, GamedayStatsFile, Meta, Player, SourceStatus, Team } from './types.ts';
+import { fantasyTourId, fetchPlayerHistory, mapPool } from './sources/uefaPlayerHistory.ts';
+import type {
+  Fixture,
+  GamedayState,
+  GamedayStatsFile,
+  Meta,
+  Player,
+  PlayerHistoryCache,
+  SourceStatus,
+  Team,
+} from './types.ts';
 
 export const PIPELINE_VERSION = '0.2.0';
 
-export type SourceName = 'uefaMatches' | 'uefaFantasy' | 'uefaCoefficients' | 'clubElo';
+export type SourceName = 'uefaMatches' | 'uefaFantasy' | 'uefaPlayerHistory' | 'uefaCoefficients' | 'clubElo';
 
 export interface RunOptions {
   /** Pasta de saída (no GitHub Actions: worktree do branch `data`). */
@@ -41,6 +51,8 @@ export interface RunOptions {
   minPlayers?: number;
   /** ID de equipa UEFA → nome do clube no ClubElo. */
   aliases?: Record<string, string>;
+  /** Pedidos em paralelo ao histórico por jogador (cortesia com a UEFA). */
+  historyConcurrency?: number;
   log?: (msg: string) => void;
 }
 
@@ -115,8 +127,17 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
   const nowIso = now.toISOString();
   const log = opts.log ?? ((m: string) => console.log(m));
   const httpFactory =
-    opts.httpFactory ?? ((s: SourceName) => createHttp(s === 'clubElo' ? { retries: 0, timeoutMs: 20_000 } : {}));
+    opts.httpFactory ??
+    ((s: SourceName) =>
+      createHttp(
+        s === 'clubElo'
+          ? { retries: 0, timeoutMs: 20_000 }
+          : s === 'uefaPlayerHistory'
+            ? { retries: 1, timeoutMs: 20_000, backoffMs: 2_000 }
+            : {},
+      ));
   const minPlayers = opts.minPlayers ?? 200;
+  const historyConcurrency = opts.historyConcurrency ?? 6;
   const aliases = opts.aliases ?? loadAliases();
   const season = uefaSeasonYear(now);
   const latest = join(opts.outDir, 'latest');
@@ -171,6 +192,44 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     record('uefaFantasy', fHttp, e);
   }
 
+  // 2b) Histórico oficial por jogador (popupstats): só para quem mudou desde a última execução.
+  const hHttp = httpFactory('uefaPlayerHistory');
+  let official: PlayerHistoryCache | null = null;
+  const officialStats = { players: 0, fetched: 0, failed: 0, sumMatchesTotal: 0, sumMismatch: 0 };
+  if (fantasy) {
+    const tourId = fantasyTourId(season);
+    const prev = readJsonIfExists<PlayerHistoryCache>(join(latest, 'player-history.json'));
+    const cache: PlayerHistoryCache =
+      prev && prev.season === season && prev.tourId === tourId
+        ? { ...prev, players: { ...prev.players } }
+        : { season, tourId, updatedAt: nowIso, players: {} };
+    const toFetch = fantasy.feed.players.filter((p) => {
+      const c = cache.players[p.id];
+      if (p.minsPlyd === 0 && p.totPts === 0) {
+        cache.players[p.id] = { totPts: 0, minutes: 0, fetchedAt: c?.fetchedAt ?? nowIso, lines: [] };
+        return false;
+      }
+      return !c || c.totPts !== p.totPts || c.minutes !== p.minsPlyd;
+    });
+    let firstError: unknown = null;
+    await mapPool(toFetch, historyConcurrency, async (p) => {
+      try {
+        const r = await fetchPlayerHistory(hHttp, tourId, p.id);
+        cache.players[p.id] = { totPts: p.totPts, minutes: p.minsPlyd, fetchedAt: nowIso, lines: r.lines };
+        officialStats.fetched++;
+      } catch (e) {
+        officialStats.failed++;
+        firstError ??= e;
+      }
+    });
+    cache.updatedAt = nowIso;
+    official = cache;
+    const tooMany = toFetch.length > 0 && officialStats.failed > toFetch.length * 0.2;
+    record('uefaPlayerHistory', hHttp, tooMany ? (firstError ?? new Error('demasiadas falhas')) : null, officialStats.fetched);
+    if (officialStats.failed && !tooMany)
+      warnings.push(`Histórico oficial: ${officialStats.failed}/${toFetch.length} jogadores falharam (usado plano B)`);
+  }
+
   // 3) Força das equipas: coeficientes UEFA (fiável a partir do GitHub) e Elo (ClubElo, se responder).
   const cHttp = httpFactory('uefaCoefficients');
   let coefficients: Map<string, Coefficient> | null = null;
@@ -207,7 +266,11 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     state: prevMeta?.gamedayState ?? null,
   };
   let pointsCheck = prevMeta?.checks.pointsHistory ?? { checked: 0, mismatches: 0 };
-  let coverage: Meta['checks']['history'] = prevMeta?.checks.history ?? { tracked: [], fromFeed: null, unavailable: [] };
+  let coverage: Omit<Meta['checks']['history'], 'official'> = {
+    tracked: prevMeta?.checks.history?.tracked ?? [],
+    fromFeed: prevMeta?.checks.history?.fromFeed ?? null,
+    unavailable: prevMeta?.checks.history?.unavailable ?? [],
+  };
   let crossCheck: Meta['checks']['fixturesCrossCheck'] = null;
   const statusValues: Record<string, number> = {};
 
@@ -233,12 +296,25 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     if (!stats.gamedays[String(gameday)]!.startBeforeDeadline && gameday === Number(Object.keys(stats.gamedays)[0]))
       warnings.push(`J${gameday}: 1.º snapshot feito depois do fecho — pontos desta jornada só a partir do feed`);
 
+    // Histórico: oficial (popupstats) quando coincide com os totais atuais; senão, plano B.
+    const historyFor = (p: (typeof feed.players)[number]) => {
+      const c = official?.players[p.id];
+      if (c && c.totPts === p.totPts && c.minutes === p.minsPlyd) {
+        officialStats.players++;
+        const sum = Math.round(c.lines.reduce((a, l) => a + l.points, 0) * 10) / 10;
+        if (Math.abs(sum - p.totPts) < 0.01) officialStats.sumMatchesTotal++;
+        else officialStats.sumMismatch++;
+        return c.lines;
+      }
+      return built.history.get(p.id) ?? [];
+    };
     const lookup = kickoffLookup(fixtures);
     players = sortPlayers(
-      feed.players.map((p) =>
-        normalizePlayer(p, built.history.get(p.id) ?? [], nextMatchFromFeed(p, gameday, lookup, parseDate)),
-      ),
+      feed.players.map((p) => normalizePlayer(p, historyFor(p), nextMatchFromFeed(p, gameday, lookup, parseDate))),
     );
+    if (officialStats.sumMismatch > 0)
+      warnings.push(`Histórico oficial: ${officialStats.sumMismatch} jogadores cuja soma por jornada ≠ total`);
+    if (official) writeText(join(latest, 'player-history.json'), JSON.stringify(official));
     for (const p of feed.players) {
       const k = statusKey(p);
       statusValues[k] = (statusValues[k] ?? 0) + 1;
@@ -299,7 +375,7 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     checks: {
       invalidPlayers: fantasy?.feed.invalid ?? 0,
       pointsHistory: pointsCheck,
-      history: coverage,
+      history: { official: officialStats, ...coverage },
       fixturesCrossCheck: crossCheck,
     },
     statusValues: players ? topStatus : (prevMeta?.statusValues ?? {}),
@@ -348,8 +424,13 @@ export function renderSummary(meta: Meta, players: Player[] | null, teams: Team[
     `**Verificações:** pontos por jornada vs. feed oficial: ${ph.checked ? `${ph.checked - ph.mismatches}/${ph.checked} iguais` : 'nada a comparar ainda'}` +
       (cc ? ` · jogos do feed fantasy na API UEFA: ${cc.matched}/${cc.fantasy}` : ''),
   );
+  const o = h.official;
   L.push(
-    `**Histórico por jornada:** seguidas por snapshot ${gdList(h.tracked)} · do feed ${h.fromFeed ? `J${h.fromFeed} (só pontos)` : '—'} · indisponíveis ${gdList(h.unavailable)}`,
+    `**Histórico por jornada (oficial UEFA):** ${o.players}/${c.players} jogadores · soma das jornadas = total em ${o.sumMatchesTotal}/${o.players}` +
+      ` · pedidos nesta execução: ${o.fetched}${o.failed ? ` (${o.failed} falharam)` : ''}`,
+  );
+  L.push(
+    `**Plano B (sem histórico oficial):** snapshots ${gdList(h.tracked)} · feed ${h.fromFeed ? `J${h.fromFeed} (só pontos)` : '—'}`,
     '',
   );
   if (meta.warnings.length) {

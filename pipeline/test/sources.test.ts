@@ -3,6 +3,7 @@ import { parseFantasyDate, uefaSeasonYear } from '../lib/time.ts';
 import { parseClubEloCsv } from '../sources/clubElo.ts';
 import { EmptyFeedError, fantasyPlayersUrl, parseFantasyFeed } from '../sources/uefaFantasy.ts';
 import { isQualifying, parseUefaMatches, uefaMatchesUrl } from '../sources/uefaMatches.ts';
+import { fantasyTourId, parsePlayerHistory, playerHistoryUrl } from '../sources/uefaPlayerHistory.ts';
 import { clubEloCsv, EMPTY_FEED, feedJson, rawPlayer, uefaMatchesJson } from './helpers.ts';
 
 describe('datas', () => {
@@ -99,5 +100,48 @@ describe('ClubElo', () => {
   });
   it('rejeita CSV sem colunas esperadas', () => {
     expect(() => parseClubEloCsv('a,b\n1,2')).toThrow(/cabeçalho/);
+  });
+});
+
+describe('histórico oficial por jogador (popupstats)', () => {
+  // Estrutura real (Kane, 1 nov 2026), reduzida aos campos usados.
+  const KANE = JSON.stringify({
+    data: {
+      value: {
+        id: 250016833,
+        matchdayStats: [
+          { pId: 250016833, oF: 90, gS: 1, gA: 1, cS: 0, bR: 0, saves: 0, mdId: 1, mOM: 0 },
+          { pId: 250016833, oF: 90, gS: 2, gA: 0, cS: 0, bR: 1, saves: 0, mdId: 2, mOM: 1 },
+          { pId: 250016833, oF: 90, gS: 1, gA: 1, cS: 0, bR: 2, saves: 0, mdId: 3, mOM: 1 },
+        ],
+        matchdayPoints: [
+          { oF: 2, gS: 4, gA: 3, sS: 0, bR: 0, tPoints: 9, mdId: 1, mOM: 0 },
+          { oF: 2, gS: 8, gA: 0, sS: 0, bR: 0, tPoints: 13, mdId: 2, mOM: 3 },
+          { oF: 2, gS: 4, gA: 3, sS: 0, bR: 0, tPoints: 12, mdId: 3, mOM: 3 },
+        ],
+        overallPoints: { tPoints: 34 },
+      },
+    },
+  });
+
+  it('lê pontos, minutos, estatísticas e decomposição por jornada', () => {
+    const { lines, totalPoints } = parsePlayerHistory(KANE);
+    expect(totalPoints).toBe(34);
+    expect(lines.map((l) => [l.gameday, l.points, l.minutes])).toEqual([
+      [1, 9, 90],
+      [2, 13, 90],
+      [3, 12, 90],
+    ]);
+    expect(lines[1]?.stats).toMatchObject({ goals: 2, recoveries: 1, playerOfTheMatch: 1 });
+    expect(lines[1]?.breakdown).toEqual({ appearance: 2, goals: 8, playerOfTheMatch: 3 });
+    expect(lines.reduce((a, l) => a + l.points, 0)).toBe(34);
+  });
+
+  it('URL e tour ID por época', () => {
+    expect(fantasyTourId(2027)).toBe(90);
+    expect(fantasyTourId(2026)).toBe(80);
+    expect(playerHistoryUrl(90, '250016833')).toBe(
+      'https://gaming.uefa.com/en/uclfantasy/services/feeds/popupstats/popupstats_90_250016833.json',
+    );
   });
 });

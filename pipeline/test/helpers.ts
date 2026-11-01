@@ -183,7 +183,7 @@ export function clubEloCsv(): string {
   return rows.join('\n');
 }
 
-export type Route = { match: (url: string) => boolean; body?: string | (() => string); status?: number };
+export type Route = { match: (url: string) => boolean; body?: string | ((url: string) => string); status?: number };
 
 /** HTTP falso: responde por URL e conta pedidos (como o cliente real). */
 export function fakeHttp(routes: Route[], calls: string[] = []): Http {
@@ -195,7 +195,7 @@ export function fakeHttp(routes: Route[], calls: string[] = []): Http {
       const r = routes.find((x) => x.match(url));
       if (!r) throw new HttpError(url, 404, `HTTP 404 em ${url}`);
       if (r.status && r.status >= 400) throw new HttpError(url, r.status, `HTTP ${r.status} em ${url}`);
-      return typeof r.body === 'function' ? r.body() : (r.body ?? '');
+      return typeof r.body === 'function' ? r.body(url) : (r.body ?? '');
     },
     get requests() {
       return requests;
@@ -232,6 +232,52 @@ export const matchRoutes: Route[] = [
 ];
 
 export const eloRoutes: Route[] = [{ match: (u) => u.includes('clubelo'), body: () => clubEloCsv() }];
+
+/** Histórico oficial de um jogador no formato real do popupstats (matchdayStats + matchdayPoints). */
+export function playerHistoryJson(i: number, playedThrough: number): string {
+  const gds = Array.from({ length: playedThrough }, (_, k) => k + 1);
+  const matchdayStats = gds.map((g) => ({
+    pId: 250000000 + i,
+    mId: 0,
+    oF: minsFor(i),
+    gS: g === 1 ? i % 2 : 0,
+    gA: 0,
+    cS: 0,
+    sS: 0,
+    pS: 0,
+    pM: 0,
+    pE: 0,
+    pC: 0,
+    gC: 0,
+    yC: 0,
+    rC: 0,
+    oG: 0,
+    bR: i % 9,
+    gOB: 0,
+    saves: 0,
+    mdId: g,
+    mOM: 0,
+  }));
+  const matchdayPoints = gds.map((g) => ({ pId: 250000000 + i, mId: 0, oF: 2, gS: 0, bR: 0, mOM: 0, tPoints: ptsFor(i, g), mdId: g }));
+  const total = gds.reduce((a, g) => a + ptsFor(i, g), 0);
+  return JSON.stringify({
+    data: {
+      value: { gdPlayed: 0, id: 250000000 + i, fixtures: [], stats: [], points: [], matchdayStats, matchdayPoints, overallPoints: { tPoints: total } },
+      feedTime: { utcTime: '11/1/2026 10:29:41 AM' },
+    },
+    meta: { message: 'OK', success: true },
+  });
+}
+
+/** Popupstats por jogador (o índice do jogador sai do ID no URL). */
+export function playerHistoryRoutes(playedThrough = 3): Route[] {
+  return [
+    {
+      match: (u) => /popupstats_90_\d+\.json$/.test(u),
+      body: (u) => playerHistoryJson(Number(/_(\d+)\.json$/.exec(u)![1]) - 250000000, playedThrough),
+    },
+  ];
+}
 
 /** Coeficientes UEFA no formato real (data.members[].member.id / overallRanking). */
 export function coefficientsJson(): string {
