@@ -6,6 +6,12 @@ import type { GamedayLine, GamedayStats } from '../types.ts';
  * "popup" do jogador. Descoberto em 1 nov 2026 (workflow "Descobrir endpoints").
  * Tour IDs: 60 = 2023/24, 70 = 2024/25, 80 = 2025/26, 90 = 2026/27.
  */
+/**
+ * Versão da leitura do ficheiro. Mudar invalida as caches (histórico e época anterior).
+ * v2: defesas lidas de `sS` (o campo `saves` vem sempre a 0).
+ */
+export const PLAYER_HISTORY_PARSER_VERSION = 2;
+
 export function fantasyTourId(seasonYear: number): number {
   return (seasonYear - 2018) * 10;
 }
@@ -25,7 +31,7 @@ const STAT_KEYS: [keyof GamedayStats, string][] = [
   ['assists', 'gA'],
   ['cleanSheets', 'cS'],
   ['goalsConceded', 'gC'],
-  ['saves', 'saves'],
+  ['saves', 'sS'],
   ['recoveries', 'bR'],
   ['yellowCards', 'yC'],
   ['redCards', 'rC'],
@@ -61,8 +67,10 @@ const POINT_KEYS: Record<string, string> = {
 export function parsePlayerHistory(raw: string): { lines: GamedayLine[]; totalPoints: number | null } {
   const value = (JSON.parse(raw) as { data?: { value?: Row } })?.data?.value;
   if (!value || typeof value !== 'object') throw new Error('Histórico do jogador: data.value em falta');
-  const stats = Array.isArray(value.matchdayStats) ? (value.matchdayStats as Row[]) : [];
-  const points = Array.isArray(value.matchdayPoints) ? (value.matchdayPoints as Row[]) : [];
+  // Ficheiros de épocas antigas podem ter entradas null nas listas.
+  const rows = (v: unknown) => (Array.isArray(v) ? (v.filter((x) => x && typeof x === 'object') as Row[]) : []);
+  const stats = rows(value.matchdayStats);
+  const points = rows(value.matchdayPoints);
   const byGd = new Map<number, { s?: Row; p?: Row }>();
   for (const s of stats) byGd.set(n(s.mdId), { ...byGd.get(n(s.mdId)), s });
   for (const p of points) byGd.set(n(p.mdId), { ...byGd.get(n(p.mdId)), p });

@@ -8,7 +8,7 @@ import { readJsonIfExists, writeJsonLines, writeText } from './lib/files.ts';
 import { HttpError, type Http } from './lib/http.ts';
 import { fixtureFromUefa, sortFixtures } from './normalize/teams.ts';
 import { fetchUefaMatches } from './sources/uefaMatches.ts';
-import { fantasyTourId, fetchPlayerHistory, mapPool } from './sources/uefaPlayerHistory.ts';
+import { fantasyTourId, fetchPlayerHistory, mapPool, PLAYER_HISTORY_PARSER_VERSION } from './sources/uefaPlayerHistory.ts';
 import type { Fixture, GamedayLine } from './types.ts';
 
 export interface PrevSeasonPlayer {
@@ -32,6 +32,7 @@ export interface PrevSeasonPlayer {
 }
 
 export interface PrevSeasonCache {
+  parserVersion?: number;
   tourId: number;
   updatedAt: string;
   /** null = jogador sem histórico nessa época (não estava na Champions). */
@@ -127,7 +128,11 @@ export async function ensurePrevSeason(
   // Estatísticas por jogador da época anterior
   const tourId = fantasyTourId(prev);
   const playersPath = join(outDir, 'cache', `player-prev-${tourId}.json`);
-  const cache: PrevSeasonCache = readJsonIfExists<PrevSeasonCache>(playersPath) ?? { tourId, updatedAt: nowIso, players: {} };
+  const cached = readJsonIfExists<PrevSeasonCache>(playersPath);
+  const cache: PrevSeasonCache =
+    cached && cached.parserVersion === PLAYER_HISTORY_PARSER_VERSION
+      ? cached
+      : { parserVersion: PLAYER_HISTORY_PARSER_VERSION, tourId, updatedAt: nowIso, players: {} };
   const todo = playerIds.filter((id) => !(id in cache.players));
   await mapPool(todo, concurrency, async (id) => {
     try {
@@ -142,7 +147,7 @@ export async function ensurePrevSeason(
       } else if (errors.length < 5) errors.push(`jogador ${id}: ${e instanceof Error ? e.message : String(e)}`);
     }
   });
-  if (todo.length > 0) {
+  if (todo.length > 0 || cached?.parserVersion !== PLAYER_HISTORY_PARSER_VERSION) {
     cache.updatedAt = nowIso;
     writeText(playersPath, JSON.stringify(cache));
   }

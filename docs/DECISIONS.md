@@ -20,3 +20,11 @@
 - **ClubElo inacessível a partir do GitHub** (502/timeout em todos os endpoints) → força das equipas pelo **coeficiente UEFA de clubes** (`comp.uefa.com/v2/coefficients`, mesmo ID de equipa). O ClubElo continua a ser tentado (20 s, sem repetições) e é usado se voltar.
 - Códigos reais de estado: `pStatus` I (lesionado), S (castigado), D (dúvida), NIS (fora da convocatória).
 - API-Football e Google News ficam para a fase seguinte (a API-Football grátis pode não cobrir a época atual — a sonda testa-a se existir a chave `API_FOOTBALL_KEY`).
+
+## 1 nov 2026 — Fase 2 (modelo xP v1)
+- Fase 1 aprovada pelo Fernando ("avança com o que quiseres").
+- **Força das equipas própria** (regressão de Poisson com resultados UCL 2025/26 + 2026/27 e coeficiente UEFA como prior) em vez do Elo. Dificuldade 1–5 por quintis.
+- **Época anterior** em cache permanente no branch `data` (`cache/matches-2026.json`, `cache/player-prev-80.json`).
+- Defesas do GR lidas do campo `sS` do histórico por jogador (o campo `saves` vem a 0); caches com versão para refazer leituras quando o parser muda.
+- O modelo corre a seguir aos dados; se falhar, os dados publicam-se na mesma (aviso no `meta.json`).
+- Detalhes em `docs/MODEL.md`.

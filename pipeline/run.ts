@@ -26,8 +26,10 @@ import { fetchClubElo, type EloClub } from './sources/clubElo.ts';
 import { fetchUefaCoefficients, type Coefficient } from './sources/uefaCoefficients.ts';
 import { EmptyFeedError, fetchFantasyFeed, type ParsedFeed } from './sources/uefaFantasy.ts';
 import { fetchUefaMatches } from './sources/uefaMatches.ts';
-import { fantasyTourId, fetchPlayerHistory, mapPool } from './sources/uefaPlayerHistory.ts';
+import { fantasyTourId, fetchPlayerHistory, mapPool, PLAYER_HISTORY_PARSER_VERSION } from './sources/uefaPlayerHistory.ts';
 import { ensurePrevSeason, type PrevSeasonResult } from './prevSeason.ts';
+import { runModel, type ModelSummary } from './model/publish.ts';
+import type { PlayerXp } from './model/xp.ts';
 import type {
   Fixture,
   GamedayState,
@@ -207,9 +209,9 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     const tourId = fantasyTourId(season);
     const prev = readJsonIfExists<PlayerHistoryCache>(join(latest, 'player-history.json'));
     const cache: PlayerHistoryCache =
-      prev && prev.season === season && prev.tourId === tourId
+      prev && prev.season === season && prev.tourId === tourId && prev.parserVersion === PLAYER_HISTORY_PARSER_VERSION
         ? { ...prev, players: { ...prev.players } }
-        : { season, tourId, updatedAt: nowIso, players: {} };
+        : { parserVersion: PLAYER_HISTORY_PARSER_VERSION, season, tourId, updatedAt: nowIso, players: {} };
     const toFetch = fantasy.feed.players.filter((p) => {
       const c = cache.players[p.id];
       if (p.minsPlyd === 0 && p.totPts === 0) {
@@ -298,6 +300,8 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
   };
   let crossCheck: Meta['checks']['fixturesCrossCheck'] = null;
   const statusValues: Record<string, number> = {};
+  let modelSummary: ModelSummary | null = null;
+  let topXp: PlayerXp[] = [];
 
   if (fantasy) {
     const { feed, gameday } = fantasy;
@@ -362,6 +366,32 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     const noCoef = teams.filter((t) => t.coefficient == null).map((t) => t.name);
     if (coefficients && noCoef.length) warnings.push(`Sem coeficiente UEFA: ${noCoef.join(', ')}`);
 
+    // Modelo xP (Fase 2). Uma falha aqui nunca impede a publicação dos dados.
+    try {
+      const coefMap = new Map<string, number>(
+        coefficients
+          ? [...coefficients].map(([id, c]) => [id, c.value])
+          : teams.filter((t) => t.coefficient != null).map((t) => [t.id, t.coefficient!]),
+      );
+      const out = runModel({
+        outDir: opts.outDir,
+        nowIso,
+        season,
+        gameday,
+        state: timing.state,
+        players,
+        teams,
+        fixtures,
+        prevFixtures: prevSeason?.fixtures ?? null,
+        prev: prevSeason?.players?.players ?? {},
+        coefficients: coefMap,
+      });
+      modelSummary = out.summary;
+      topXp = out.xp.slice(0, 20);
+    } catch (e) {
+      warnings.push(`Modelo xP falhou: ${errorMessage(e)}`);
+    }
+
     const header = { generatedAt: nowIso, season, gameday };
     writeJsonLines(join(latest, 'players.json'), header, 'players', players);
     writeJsonLines(join(latest, 'teams.json'), header, 'teams', teams);
@@ -404,11 +434,25 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
       fixturesCrossCheck: crossCheck,
     },
     statusValues: players ? topStatus : (prevMeta?.statusValues ?? {}),
+    model: modelSummary
+      ? {
+          version: modelSummary.version,
+          targets: modelSummary.targets,
+          players: modelSummary.players,
+          backtest: modelSummary.backtest.map((b) => ({
+            gameday: b.gameday,
+            modelMae: b.model.mae,
+            baselineMae: b.baseline.mae,
+            modelTop20: b.model.top20Actual,
+            baselineTop20: b.baseline.top20Actual,
+          })),
+        }
+      : (prevMeta?.model ?? null),
     warnings,
     durationMs: Date.now() - started,
   };
   writeJson(join(latest, 'meta.json'), meta);
-  writeText(join(latest, 'summary.md'), renderSummary(meta, players, finalTeams));
+  writeText(join(latest, 'summary.md'), renderSummary(meta, players, finalTeams, topXp));
   return meta;
 }
 
@@ -423,7 +467,7 @@ const AVAIL_PT: Record<string, string> = {
 
 const gdList = (g: number[]) => (g.length ? g.map((x) => `J${x}`).join(', ') : '—');
 
-export function renderSummary(meta: Meta, players: Player[] | null, teams: Team[]): string {
+export function renderSummary(meta: Meta, players: Player[] | null, teams: Team[], topXp: PlayerXp[] = []): string {
   const L: string[] = [];
   L.push('# UCL Fantasy — atualização de dados', '');
   L.push(
@@ -460,6 +504,35 @@ export function renderSummary(meta: Meta, players: Player[] | null, teams: Team[
   );
   if (meta.warnings.length) {
     L.push('## Avisos', '', ...meta.warnings.map((w) => `- ${w}`), '');
+  }
+  if (meta.model) {
+    const m = meta.model;
+    L.push(`## Modelo xP v${m.version} — próximas jornadas ${m.targets.map((g) => `J${g}`).join(', ')}`, '');
+    if (m.backtest.length) {
+      L.push(
+        '**Teste nas jornadas jogadas** (previsão feita só com dados anteriores):',
+        '',
+        '| Jornada | Erro médio modelo | Erro médio baseline | Pts reais top 20 modelo | Pts reais top 20 baseline |',
+        '|---|---|---|---|---|',
+        ...m.backtest.map((b) => `| J${b.gameday} | ${b.modelMae} | ${b.baselineMae} | ${b.modelTop20} | ${b.baselineTop20} |`),
+        '',
+      );
+    }
+    if (topXp.length) {
+      L.push(
+        `**Top 20 xP — J${m.targets[0]}**`,
+        '',
+        '| # | Jogador | Equipa | Pos | €M | xP J | xP 3J | xP/€M | P(titular) | Adversário | Confiança |',
+        '|---|---|---|---|---|---|---|---|---|---|---|',
+      );
+      topXp.forEach((x, i) => {
+        const f = x.fixtures[0];
+        L.push(
+          `| ${i + 1} | ${x.name} | ${x.teamName} | ${x.position} | ${x.price.toFixed(1)} | ${x.xp1.toFixed(1)} | ${x.xp3.toFixed(1)} | ${x.valuePerM.toFixed(2)} | ${f ? Math.round(f.pStart * 100) + '%' : '—'} | ${f ? `${f.home ? 'vs' : '@'} ${f.opponentName}` : '—'} | ${x.confidence} |`,
+        );
+      });
+      L.push('');
+    }
   }
   if (players?.length) {
     L.push(

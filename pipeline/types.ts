@@ -70,6 +70,7 @@ export interface GamedayLine {
 
 /** Cache do histórico oficial por jogador (evita pedir de novo quem não mudou). */
 export interface PlayerHistoryCache {
+  parserVersion?: number;
   season: number;
   tourId: number;
   updatedAt: string;
@@ -209,6 +210,13 @@ export interface Meta {
   };
   /** Frequência dos valores de estado do feed (para afinar a heurística de disponibilidade). */
   statusValues: Record<string, number>;
+  /** Modelo xP: versão, jornadas previstas e backtest resumido (detalhe em model-report.json). */
+  model?: {
+    version: string;
+    targets: number[];
+    players: number;
+    backtest: { gameday: number; modelMae: number; baselineMae: number; modelTop20: number; baselineTop20: number }[];
+  } | null;
   warnings: string[];
   durationMs: number;
 }

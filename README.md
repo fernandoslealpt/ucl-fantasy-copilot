@@ -7,8 +7,8 @@ App pessoal para a **UEFA Champions League Fantasy** (equipa *SL Piornaofica*): 
 | Fase | Estado |
 |---|---|
 | 0 · Validação das fontes | ✅ sonda automática em cada execução manual |
-| 1 · Pipeline de dados | 🟡 jogadores, equipas, calendário, estatísticas e Elo a atualizar sozinhos |
-| 2 · Modelo xP | ⏳ |
+| 1 · Pipeline de dados | ✅ aprovada |
+| 2 · Modelo xP | 🟡 v1 a correr — à espera da revisão do top 20 |
 | 3 · App base + equipa | ⏳ |
 | 4 · Recomendações | ⏳ |
 | 5 · Polimento | ⏳ |
