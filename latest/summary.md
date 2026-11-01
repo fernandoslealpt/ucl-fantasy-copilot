@@ -1,24 +1,55 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** domingo, 01/11, 19:33 (Lisboa) · **Jornada:** 4 (por jogar) · **Fecho da equipa:** terça, 03/11, 17:45
+**Gerado:** domingo, 01/11, 19:38 (Lisboa) · **Jornada:** 4 (por jogar) · **Fecho da equipa:** terça, 03/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | domingo, 01/11, 19:33 |  |
-| uefaFantasy | ✅ ok | 1 | 1171 | domingo, 01/11, 19:33 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | domingo, 01/11, 19:33 |  |
-| uefaPrevSeason | ✅ ok | 1175 | 1101 | domingo, 01/11, 19:33 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | domingo, 01/11, 19:33 |  |
+| uefaMatches | ✅ ok | 3 | 144 | domingo, 01/11, 19:38 |  |
+| uefaFantasy | ✅ ok | 1 | 1171 | domingo, 01/11, 19:38 |  |
+| uefaPlayerHistory | ✅ ok | 725 | 725 | domingo, 01/11, 19:38 |  |
+| uefaPrevSeason | ✅ ok | 1171 | 1171 | domingo, 01/11, 19:38 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | domingo, 01/11, 19:38 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
 
 **Totais:** 1171 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: nada a comparar ainda · jogos do feed fantasy na API UEFA: 18/18
-**Histórico por jornada (oficial UEFA):** 1171/1171 jogadores · soma das jornadas = total em 1171/1171 · pedidos nesta execução: 0
+**Histórico por jornada (oficial UEFA):** 1171/1171 jogadores · soma das jornadas = total em 1171/1171 · pedidos nesta execução: 725
 **Plano B (sem histórico oficial):** snapshots — · feed J3 (só pontos)
 
-## Avisos
+## Modelo xP v1.0.0 — próximas jornadas J4, J5, J6, J7, J8
 
-- Época anterior: jogador 250080570: Cannot read properties of null (reading 'mdId'); jogador 250076654: Cannot read properties of null (reading 'mdId'); jogador 250146674: Cannot read properties of null (reading 'mdId'); jogador 250169763: Cannot read properties of null (reading 'mdId'); jogador 250201122: Cannot read properties of null (reading 'mdId')
+**Teste nas jornadas jogadas** (previsão feita só com dados anteriores):
+
+| Jornada | Erro médio modelo | Erro médio baseline | Pts reais top 20 modelo | Pts reais top 20 baseline |
+|---|---|---|---|---|
+| J1 | 1.9 | 1.97 | 6.65 | 5.05 |
+| J2 | 2 | 2.16 | 3.75 | 2.65 |
+| J3 | 1.96 | 2.09 | 5.95 | 4.8 |
+
+**Top 20 xP — J4**
+
+| # | Jogador | Equipa | Pos | €M | xP J | xP 3J | xP/€M | P(titular) | Adversário | Confiança |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | K. Mbappé | Real Madrid | FWD | 11.0 | 7.5 | 18.6 | 1.69 | 95% | @ AEK Athens | alta |
+| 2 | L. Yamal | Barcelona | MID | 10.2 | 6.3 | 20.5 | 2.01 | 98% | vs Aston Villa | alta |
+| 3 | N. Paz | Como | MID | 7.0 | 6.1 | 18.5 | 2.65 | 84% | @ Lens | alta |
+| 4 | Z. Tripić | Viking | MID | 5.8 | 5.8 | 14.2 | 2.44 | 79% | vs Sabah | média |
+| 5 | H. Kane | Bayern München | FWD | 11.1 | 5.7 | 24.0 | 2.16 | 95% | @ Atleti | alta |
+| 6 | Vitinha | Paris | MID | 7.6 | 5.7 | 16.2 | 2.13 | 98% | @ Villarreal | alta |
+| 7 | P. Christiansen | Viking | FWD | 6.0 | 5.6 | 13.5 | 2.25 | 79% | vs Sabah | média |
+| 8 | S. Guirassy | B. Dortmund | FWD | 8.6 | 5.6 | 14.1 | 1.64 | 72% | vs Real Betis | média |
+| 9 | S. Brunstad Fet | Bodø/Glimt | MID | 5.0 | 5.5 | 16.6 | 3.32 | 91% | vs Lille | alta |
+| 10 | F. Valverde | Real Madrid | MID | 7.1 | 5.4 | 14.6 | 2.05 | 98% | @ AEK Athens | alta |
+| 11 | D. Doué | Paris | MID | 8.5 | 5.4 | 15.1 | 1.77 | 74% | @ Villarreal | média |
+| 12 | Gabriel | Arsenal | DEF | 6.0 | 5.3 | 14.7 | 2.44 | 94% | @ Slavia Praha | alta |
+| 13 | J. Alvarez | Atleti | FWD | 10.0 | 5.1 | 17.2 | 1.72 | 96% | vs Bayern München | alta |
+| 14 | F. Sjøvold | Bodø/Glimt | DEF | 4.7 | 5.0 | 15.5 | 3.31 | 96% | vs Lille | alta |
+| 15 | J. Timber | Arsenal | DEF | 5.6 | 4.9 | 13.8 | 2.46 | 74% | @ Slavia Praha | média |
+| 16 | Fermín López | Barcelona | MID | 7.0 | 4.8 | 15.6 | 2.23 | 78% | vs Aston Villa | média |
+| 17 | W. Pacho | Paris | DEF | 6.0 | 4.8 | 13.3 | 2.22 | 98% | @ Villarreal | alta |
+| 18 | R. Ljubičić | LASK | MID | 5.5 | 4.8 | 12.8 | 2.32 | 60% | vs S. Bratislava | média |
+| 19 | N. Tresoldi | Club Brugge | FWD | 7.2 | 4.7 | 15.8 | 2.20 | 87% | @ PSV | alta |
+| 20 | Isco | Real Betis | MID | 6.6 | 4.7 | 17.8 | 2.70 | 84% | @ B. Dortmund | alta |
 
 ## Top 15 por pontos
 

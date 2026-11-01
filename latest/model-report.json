@@ -1,0 +1,111 @@
+{
+  "generatedAt": "2026-11-01T19:38:53.830Z",
+  "season": 2027,
+  "gameday": 4,
+  "targets": [
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "modelVersion": "1.0.0",
+  "params": {
+    "prevWeight": 0.5,
+    "minutesDecay": 0.7,
+    "startPriorStrength": 1.5,
+    "priorMinutes": {
+      "goals": 360,
+      "assists": 360,
+      "recoveries": 180,
+      "saves": 180,
+      "cards": 450
+    },
+    "priorAppsMotm": 4,
+    "minutesIfStart": 86,
+    "minutesIfSub": 22
+  },
+  "version": "1.0.0",
+  "players": 1171,
+  "backtest": [
+    {
+      "gameday": 1,
+      "model": {
+        "n": 951,
+        "mae": 1.9,
+        "rmse": 2.69,
+        "spearman": 0.18,
+        "top20Actual": 6.65,
+        "top50Actual": 5,
+        "meanPred": 1.98,
+        "meanActual": 1.81
+      },
+      "baseline": {
+        "n": 951,
+        "mae": 1.97,
+        "rmse": 3.09,
+        "spearman": 0.14,
+        "top20Actual": 5.05,
+        "top50Actual": 4.22,
+        "meanPred": 1.3,
+        "meanActual": 1.81
+      },
+      "population": "jogadores com minutos na jornada ou previsão ≥ 1 ponto"
+    },
+    {
+      "gameday": 2,
+      "model": {
+        "n": 910,
+        "mae": 2,
+        "rmse": 2.83,
+        "spearman": 0.42,
+        "top20Actual": 3.75,
+        "top50Actual": 3.98,
+        "meanPred": 2.17,
+        "meanActual": 2.08
+      },
+      "baseline": {
+        "n": 910,
+        "mae": 2.16,
+        "rmse": 3.71,
+        "spearman": 0.38,
+        "top20Actual": 2.65,
+        "top50Actual": 2.64,
+        "meanPred": 1.89,
+        "meanActual": 2.08
+      },
+      "population": "jogadores com minutos na jornada ou previsão ≥ 1 ponto"
+    },
+    {
+      "gameday": 3,
+      "model": {
+        "n": 803,
+        "mae": 1.96,
+        "rmse": 2.78,
+        "spearman": 0.39,
+        "top20Actual": 5.95,
+        "top50Actual": 4.6,
+        "meanPred": 2.34,
+        "meanActual": 2.26
+      },
+      "baseline": {
+        "n": 803,
+        "mae": 2.09,
+        "rmse": 3.24,
+        "spearman": 0.4,
+        "top20Actual": 4.8,
+        "top50Actual": 4.26,
+        "meanPred": 2.24,
+        "meanActual": 2.26
+      },
+      "population": "jogadores com minutos na jornada ou previsão ≥ 1 ponto"
+    }
+  ],
+  "ratings": {
+    "mu": 0.37,
+    "home": 0.31,
+    "beta": 0.21,
+    "gamma": 0.19,
+    "observations": 243
+  }
+}

@@ -1,48 +1,48 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-01T19:33:02.459Z",
+  "generatedAt": "2026-11-01T19:38:53.830Z",
   "currentGameday": 4,
   "gamedayState": "upcoming",
   "deadline": "2026-11-03T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:33:02.459Z",
-      "lastSuccess": "2026-11-01T19:33:02.459Z",
+      "lastAttempt": "2026-11-01T19:38:53.830Z",
+      "lastSuccess": "2026-11-01T19:38:53.830Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:33:02.459Z",
-      "lastSuccess": "2026-11-01T19:33:02.459Z",
+      "lastAttempt": "2026-11-01T19:38:53.830Z",
+      "lastSuccess": "2026-11-01T19:38:53.830Z",
       "requests": 1,
       "records": 1171
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:33:02.459Z",
-      "lastSuccess": "2026-11-01T19:33:02.459Z",
-      "requests": 0,
-      "records": 0
+      "lastAttempt": "2026-11-01T19:38:53.830Z",
+      "lastSuccess": "2026-11-01T19:38:53.830Z",
+      "requests": 725,
+      "records": 725
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:33:02.459Z",
-      "lastSuccess": "2026-11-01T19:33:02.459Z",
-      "requests": 1175,
-      "records": 1101
+      "lastAttempt": "2026-11-01T19:38:53.830Z",
+      "lastSuccess": "2026-11-01T19:38:53.830Z",
+      "requests": 1171,
+      "records": 1171
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:33:02.459Z",
-      "lastSuccess": "2026-11-01T19:33:02.459Z",
+      "lastAttempt": "2026-11-01T19:38:53.830Z",
+      "lastSuccess": "2026-11-01T19:38:53.830Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-01T19:33:02.459Z",
+      "lastAttempt": "2026-11-01T19:38:53.830Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
@@ -64,7 +64,7 @@
     "history": {
       "official": {
         "players": 1171,
-        "fetched": 0,
+        "fetched": 725,
         "failed": 0,
         "sumMatchesTotal": 1171,
         "sumMismatch": 0
@@ -91,8 +91,40 @@
     "pStatus=D · qStatus=∅ · trained=Unlikely to start next game": 5,
     "pStatus=S · qStatus=∅ · trained=∅": 3
   },
-  "warnings": [
-    "Época anterior: jogador 250080570: Cannot read properties of null (reading 'mdId'); jogador 250076654: Cannot read properties of null (reading 'mdId'); jogador 250146674: Cannot read properties of null (reading 'mdId'); jogador 250169763: Cannot read properties of null (reading 'mdId'); jogador 250201122: Cannot read properties of null (reading 'mdId')"
-  ],
-  "durationMs": 60062
+  "model": {
+    "version": "1.0.0",
+    "targets": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "players": 1171,
+    "backtest": [
+      {
+        "gameday": 1,
+        "modelMae": 1.9,
+        "baselineMae": 1.97,
+        "modelTop20": 6.65,
+        "baselineTop20": 5.05
+      },
+      {
+        "gameday": 2,
+        "modelMae": 2,
+        "baselineMae": 2.16,
+        "modelTop20": 3.75,
+        "baselineTop20": 2.65
+      },
+      {
+        "gameday": 3,
+        "modelMae": 1.96,
+        "baselineMae": 2.09,
+        "modelTop20": 5.95,
+        "baselineTop20": 4.8
+      }
+    ]
+  },
+  "warnings": [],
+  "durationMs": 78027
 }
