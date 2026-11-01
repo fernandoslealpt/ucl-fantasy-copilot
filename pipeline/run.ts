@@ -25,6 +25,7 @@ import {
 import { fetchClubElo, type EloClub } from './sources/clubElo.ts';
 import { fetchUefaCoefficients, type Coefficient } from './sources/uefaCoefficients.ts';
 import { EmptyFeedError, fetchFantasyFeed, type ParsedFeed } from './sources/uefaFantasy.ts';
+import { fetchTeamNews, fold, type NewsItem } from './sources/news.ts';
 import { fetchUefaMatches } from './sources/uefaMatches.ts';
 import { fantasyTourId, fetchPlayerHistory, mapPool, PLAYER_HISTORY_PARSER_VERSION } from './sources/uefaPlayerHistory.ts';
 import { ensurePrevSeason, type PrevSeasonResult } from './prevSeason.ts';
@@ -49,7 +50,8 @@ export type SourceName =
   | 'uefaPlayerHistory'
   | 'uefaPrevSeason'
   | 'uefaCoefficients'
-  | 'clubElo';
+  | 'clubElo'
+  | 'googleNews';
 
 export interface RunOptions {
   /** Pasta de saída (no GitHub Actions: worktree do branch `data`). */
@@ -123,6 +125,26 @@ export async function fetchCurrentFantasy(http: Http, hint: number | null): Prom
     }
   }
   throw new Error(`Feed fantasy vazio para as jornadas ${candidates.join(', ')}`);
+}
+
+const NEWS_EVERY_MS = 3 * 3600_000 - 10 * 60_000;
+
+/** Sem duplicados, últimas 72 h, no máximo 8 por equipa, mais recentes primeiro. */
+export function selectNews(items: NewsItem[], now: Date): NewsItem[] {
+  const seen = new Set<string>();
+  const perTeam = new Map<string, number>();
+  return items
+    .filter((n) => now.getTime() - Date.parse(n.publishedAt) <= 72 * 3600_000)
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+    .filter((n) => {
+      const key = fold(n.title).replace(/[^a-z0-9]+/g, ' ').trim();
+      if (seen.has(key)) return false;
+      const c = perTeam.get(n.teamId) ?? 0;
+      if (c >= 8) return false;
+      seen.add(key);
+      perTeam.set(n.teamId, c + 1);
+      return true;
+    });
 }
 
 function loadAliases(): Record<string, string> {
@@ -390,6 +412,40 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
       topXp = out.xp.slice(0, 20);
     } catch (e) {
       warnings.push(`Modelo xP falhou: ${errorMessage(e)}`);
+    }
+
+    // Notícias por equipa (no máximo a cada 3 h; usar o Google News com moderação).
+    const prevNews = readJsonIfExists<{ fetchedAt: string; items: NewsItem[] }>(join(latest, 'news.json'));
+    const newsDue = !prevNews || Date.parse(nowIso) - Date.parse(prevNews.fetchedAt) >= NEWS_EVERY_MS;
+    const nHttp = httpFactory('googleNews');
+    if (!newsDue && prevNews) {
+      sources.googleNews = {
+        status: 'ok',
+        lastAttempt: prevMeta?.sources.googleNews?.lastAttempt ?? prevNews.fetchedAt,
+        lastSuccess: prevNews.fetchedAt,
+        requests: 0,
+        records: prevNews.items.length,
+      };
+    } else {
+      const rosters = new Map<string, { id: string; name: string }[]>();
+      for (const p of players) rosters.set(p.teamId, [...(rosters.get(p.teamId) ?? []), { id: p.id, name: p.name }]);
+      const found: NewsItem[] = [];
+      let newsFailed = 0;
+      let newsError: unknown = null;
+      await mapPool(teams, 3, async (t) => {
+        try {
+          found.push(...(await fetchTeamNews(nHttp, t, rosters.get(t.id) ?? [])));
+        } catch (e) {
+          newsFailed++;
+          newsError ??= e;
+        }
+      });
+      if (newsFailed === teams.length) record('googleNews', nHttp, newsError ?? new Error('todas as equipas falharam'));
+      else {
+        const items = selectNews(found, now);
+        writeJsonLines(join(latest, 'news.json'), { fetchedAt: nowIso }, 'items', items);
+        record('googleNews', nHttp, null, items.length);
+      }
     }
 
     const header = { generatedAt: nowIso, season, gameday };

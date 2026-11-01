@@ -12,6 +12,7 @@ import {
   fakeHttp,
   fantasyRoutes,
   matchRoutes,
+  newsRoutes,
   playerHistoryRoutes,
   prevSeasonRoutes,
   ptsFor,
@@ -33,6 +34,7 @@ const ALL: Partial<Record<SourceName, Route[]>> = {
   uefaMatches: matchRoutes,
   uefaCoefficients: coefficientRoutes,
   clubElo: eloRoutes,
+  googleNews: newsRoutes,
 };
 const opts = { minPlayers: 200, aliases: {}, log: () => {} };
 const fail = (status: number): Route[] => [{ match: () => true, status }];
@@ -88,6 +90,11 @@ describe('pipeline completo', () => {
     expect(prev.players['250000002']).toMatchObject({ apps: 6, starts60: 6, minutes: 540 });
     expect(prev.players['250000001']).toBeNull();
     expect(readFileSync(join(out, 'latest', 'summary.md'), 'utf8')).toContain('Jornada:** 4 (por jogar)');
+    // Notícias: 4 equipas × 3 recentes (a de há 5 dias fica de fora); jogador detetado pelo apelido
+    const news = read<{ items: { kind: string; playerIds: string[]; teamId: string }[] }>(out, 'news.json').items;
+    expect(news).toHaveLength(12);
+    expect(news.find((n) => n.teamId === '52747' && n.kind === 'injury')?.playerIds).toEqual(['250000002']);
+    expect(meta.sources.googleNews).toMatchObject({ status: 'ok', requests: 4 });
   });
 
   it('ciclo completo: antes do fecho → jornada jogada → jornada seguinte', async () => {
@@ -121,6 +128,7 @@ describe('pipeline completo', () => {
     });
     expect(calls5.uefaPlayerHistory ?? []).toHaveLength(0); // ninguém mudou: tudo da cache
     expect(gd5.currentGameday).toBe(5);
+    expect(gd5.sources.googleNews?.requests).toBeGreaterThan(0); // passaram 3+ h
     expect(gd5.gamedayState).toBe('upcoming');
     expect(gd5.checks.history).toMatchObject({ tracked: [4], official: { players: 240, fetched: 0, sumMatchesTotal: 240 } });
     expect(gd5.checks.pointsHistory).toEqual({ checked: 240, mismatches: 0 }); // snapshots vs lastGdPoints

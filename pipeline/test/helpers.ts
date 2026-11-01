@@ -323,3 +323,28 @@ export function prevSeasonRoutes(): Route[] {
     { match: (u) => /popupstats_80_/.test(u), status: 403 },
   ];
 }
+
+/** RSS do Google News (formato real) para uma equipa. */
+export function newsRss(teamName: string, extra: { title: string; minutesAgo: number }[] = []): string {
+  const items = [
+    { title: `${teamName} defender P. Jogador2 ruled out with hamstring injury`, minutesAgo: 60 },
+    { title: `Jogador6 back in training ahead of ${teamName} clash`, minutesAgo: 300 },
+    { title: `${teamName} press conference: coach on rotation`, minutesAgo: 600 },
+    { title: `Old story about ${teamName}`, minutesAgo: 60 * 24 * 5 },
+    ...extra,
+  ];
+  const base = Date.parse('2026-10-31T12:00:00Z');
+  return `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>x</title>${items
+    .map(
+      (it, k) =>
+        `<item><title>${it.title.replace(/&/g, '&amp;')} - Sky Sports</title><link>https://news.google.com/rss/articles/${teamName}${k}</link><guid isPermaLink="false">${teamName}${k}</guid><pubDate>${new Date(base - it.minutesAgo * 60_000).toUTCString()}</pubDate><source url="https://www.skysports.com">Sky Sports</source></item>`,
+    )
+    .join('')}</channel></rss>`;
+}
+
+export const newsRoutes: Route[] = [
+  {
+    match: (u) => u.includes('news.google.com'),
+    body: (u) => newsRss(/%22([^%]+(?:%20[^%]+)*)%22/.exec(u)?.[1]?.replace(/%20/g, ' ') ?? 'Team'),
+  },
+];

@@ -4,7 +4,8 @@ import { parseClubEloCsv } from '../sources/clubElo.ts';
 import { EmptyFeedError, fantasyPlayersUrl, parseFantasyFeed } from '../sources/uefaFantasy.ts';
 import { isQualifying, parseUefaMatches, uefaMatchesUrl } from '../sources/uefaMatches.ts';
 import { fantasyTourId, parsePlayerHistory, playerHistoryUrl } from '../sources/uefaPlayerHistory.ts';
-import { clubEloCsv, EMPTY_FEED, feedJson, rawPlayer, uefaMatchesJson } from './helpers.ts';
+import { classify, parseNewsRss, surname } from '../sources/news.ts';
+import { clubEloCsv, EMPTY_FEED, feedJson, newsRss, rawPlayer, uefaMatchesJson } from './helpers.ts';
 
 describe('datas', () => {
   it('converte hora CET do feed fantasy para UTC (inverno)', () => {
@@ -143,5 +144,30 @@ describe('histórico oficial por jogador (popupstats)', () => {
     expect(playerHistoryUrl(90, '250016833')).toBe(
       'https://gaming.uefa.com/en/uclfantasy/services/feeds/popupstats/popupstats_90_250016833.json',
     );
+  });
+});
+
+describe('notícias', () => {
+  const roster = [
+    { id: '1', name: 'P. Jogador2' },
+    { id: '2', name: 'R. Jogador6' },
+    { id: '3', name: 'H. Kane' },
+  ];
+  it('lê o RSS, tira a fonte do título, classifica e encontra jogadores', () => {
+    const items = parseNewsRss(newsRss('Benfica'), { id: '50147', name: 'Benfica' }, roster);
+    expect(items).toHaveLength(4);
+    expect(items[0]).toMatchObject({ title: 'Benfica defender P. Jogador2 ruled out with hamstring injury', source: 'Sky Sports', kind: 'injury', playerIds: ['1'], teamId: '50147' });
+    expect(items[1]).toMatchObject({ kind: 'return', playerIds: ['2'] });
+    expect(items[2]?.kind).toBe('other');
+  });
+  it('classifica por palavras-chave (EN/PT/ES)', () => {
+    expect(classify('Star faces late fitness test')).toBe('doubt');
+    expect(classify('Avançado lesionado falha jogo')).toBe('injury');
+    expect(classify('Delantero regresa a los entrenamientos')).toBe('return');
+  });
+  it('apelido ignora iniciais', () => {
+    expect(surname('H. Kane')).toBe('kane');
+    expect(surname('Vitinha')).toBe('vitinha');
+    expect(surname('A. Bo')).toBeNull();
   });
 });
