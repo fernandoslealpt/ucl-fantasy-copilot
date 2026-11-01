@@ -194,16 +194,20 @@ export function fakeHttp(routes: Route[], calls: string[] = []): Http {
   };
 }
 
+/** Resposta real do feed sem jogadores (sem gamedayId, ou jornada ainda não aberta). */
+export const EMPTY_FEED = JSON.stringify({
+  data: { value: {}, feedTime: { utcTime: '', istTime: '', cestTime: '' } },
+  meta: { message: 'OK', retVal: 1, success: true },
+});
+
 export function fantasyRoutes(currentGameday = 4): Route[] {
   return [
-    {
-      match: (u) => u.includes('uclfantasy') && !u.includes('gamedayId'),
-      body: () => fantasyFeed(currentGameday),
-    },
-    ...[1, 2, 3, 4].map((gd) => ({
+    ...Array.from({ length: currentGameday }, (_, k) => k + 1).map((gd) => ({
       match: (u: string) => u.includes('uclfantasy') && u.includes(`gamedayId=${gd}&`),
       body: () => fantasyFeed(gd),
     })),
+    // Sem gamedayId ou jornada futura: feed vazio (comportamento real, 1 nov 2026).
+    { match: (u) => u.includes('uclfantasy'), body: EMPTY_FEED },
   ];
 }
 

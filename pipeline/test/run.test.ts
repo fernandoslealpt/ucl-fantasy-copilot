@@ -2,9 +2,11 @@ import { mkdtempSync, readFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { gamedayTiming, runPipeline, type SourceName } from '../run.ts';
+import { fixtureFromUefa } from '../normalize/teams.ts';
+import { currentGamedayFromFixtures, fetchCurrentFantasy, gamedayTiming, runPipeline, type SourceName } from '../run.ts';
+import { parseUefaMatches } from '../sources/uefaMatches.ts';
 import type { Fixture, Meta, Player, Team } from '../types.ts';
-import { eloRoutes, fakeHttp, fantasyRoutes, matchRoutes, ptsFor, type Route } from './helpers.ts';
+import { eloRoutes, fakeHttp, fantasyRoutes, matchRoutes, ptsFor, uefaMatchesJson, type Route } from './helpers.ts';
 
 const NOW = new Date('2026-10-31T12:00:00Z');
 const read = <T>(dir: string, f: string) => JSON.parse(readFileSync(join(dir, 'latest', f), 'utf8')) as T;
@@ -108,6 +110,44 @@ describe('pipeline completo', () => {
     expect(meta.sources.uefaFantasy?.status).toBe('failed');
     expect(meta.sources.uefaFantasy?.error).toMatch(/qualidade/);
     expect(existsSync(join(out, 'latest', 'players.json'))).toBe(false);
+  });
+});
+
+describe('jornada atual', () => {
+  it('deduz a jornada atual da API de jogos', () => {
+    const fixtures = JSON.parse(uefaMatchesJson()) as unknown[];
+    const parsed = parseUefaMatches(JSON.stringify(fixtures)).matches.map(fixtureFromUefa);
+    expect(currentGamedayFromFixtures(parsed)).toBe(4);
+    expect(currentGamedayFromFixtures(parsed.map((f) => ({ ...f, status: 'FINISHED' })))).toBe(4);
+    expect(currentGamedayFromFixtures([])).toBeNull();
+  });
+
+  it('sem pista, avança jornada a jornada até o feed vir vazio', async () => {
+    const calls: string[] = [];
+    const { gameday, feed, fetched } = await fetchCurrentFantasy(fakeHttp(fantasyRoutes(4), calls), null);
+    expect(gameday).toBe(4);
+    expect(feed.gameday).toBe(4);
+    expect([...fetched.keys()]).toEqual([1, 2, 3]);
+    expect(calls).toHaveLength(5); // J1..J5 (J5 vazia)
+  });
+
+  it('com pista de jornada ainda não aberta, recua uma', async () => {
+    const { gameday } = await fetchCurrentFantasy(fakeHttp(fantasyRoutes(4)), 5);
+    expect(gameday).toBe(4);
+  });
+
+  it('pipeline funciona sem a API de jogos (descobre a jornada pelo feed)', async () => {
+    const out = mkdtempSync(join(tmpdir(), 'ucl-'));
+    const meta = await runPipeline({
+      ...opts,
+      outDir: out,
+      now: NOW,
+      httpFactory: factory({ ...ALL, uefaMatches: [{ match: () => true, status: 503 }] }),
+    });
+    expect(meta.sources.uefaFantasy?.status).toBe('ok');
+    expect(meta.currentGameday).toBe(4);
+    expect(meta.deadline).toBe('2026-11-04T17:45:00.000Z'); // horas do feed fantasy
+    expect(meta.checks.pointsHistory.mismatches).toBe(0);
   });
 });
 

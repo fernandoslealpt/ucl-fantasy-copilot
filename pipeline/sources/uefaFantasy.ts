@@ -88,6 +88,14 @@ export const FantasyPlayerSchema = z.looseObject({
 });
 export type FantasyPlayer = z.infer<typeof FantasyPlayerSchema>;
 
+/** O feed respondeu, mas sem jogadores (ex.: pedido sem gamedayId ou jornada ainda não aberta). */
+export class EmptyFeedError extends Error {
+  constructor() {
+    super('Feed fantasy vazio (data.value sem playerList)');
+    this.name = 'EmptyFeedError';
+  }
+}
+
 export interface ParsedFeed {
   players: FantasyPlayer[];
   invalid: number;
@@ -103,8 +111,12 @@ export function parseFantasyFeed(raw: string): ParsedFeed {
   } catch {
     throw new Error(`Feed fantasy não é JSON válido (início: ${raw.slice(0, 120)})`);
   }
-  const list = (json as { data?: { value?: { playerList?: unknown } } })?.data?.value?.playerList;
-  if (!Array.isArray(list)) throw new Error('Feed fantasy com formato inesperado: data.value.playerList em falta');
+  const value = (json as { data?: { value?: { playerList?: unknown } } })?.data?.value;
+  const list = value?.playerList;
+  if (!Array.isArray(list)) {
+    if (value && typeof value === 'object') throw new EmptyFeedError();
+    throw new Error('Feed fantasy com formato inesperado: data.value.playerList em falta');
+  }
 
   const players: FantasyPlayer[] = [];
   const invalidSamples: string[] = [];

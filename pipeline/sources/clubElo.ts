@@ -34,6 +34,7 @@ export function parseClubEloCsv(csv: string): EloClub[] {
   return clubs;
 }
 
+/** Nota (1 nov 2026): a partir dos runners do GitHub o ClubElo deu 502 (http) e timeout (https). */
 export async function fetchClubElo(http: Http, date: string): Promise<EloClub[]> {
   let lastError: unknown;
   for (const base of CLUBELO_BASES) {

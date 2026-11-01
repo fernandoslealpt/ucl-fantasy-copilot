@@ -54,11 +54,8 @@ export function candidates(now: Date, apiFootballKey?: string): Candidate[] {
   const season = uefaSeasonYear(now);
   const fantasy = 'https://gaming.uefa.com/en/uclfantasy/services/api/Feed';
   const list: Candidate[] = [
-    { name: 'uefa-fantasy players (atual)', url: `${fantasy}/players?language=en` },
+    { name: 'uefa-fantasy players (sem gamedayId)', url: `${fantasy}/players?language=en`, note: 'vem vazio' },
     { name: 'uefa-fantasy players (J1)', url: `${fantasy}/players?gamedayId=1&language=en` },
-    { name: 'uefa-fantasy fixtures?', url: `${fantasy}/fixtures?language=en`, note: 'palpite' },
-    { name: 'uefa-fantasy gamedays?', url: `${fantasy}/gamedays?language=en`, note: 'palpite' },
-    { name: 'uefa-fantasy teams?', url: `${fantasy}/teams?language=en`, note: 'palpite' },
     {
       name: 'uefa match API (fase de liga)',
       url: `https://match.uefa.com/v5/matches?competitionId=1&seasonYear=${season}&fromDate=${season - 1}-09-01&toDate=${season}-06-30&limit=50&offset=0&order=ASC`,
@@ -70,7 +67,17 @@ export function candidates(now: Date, apiFootballKey?: string): Candidate[] {
     { name: 'uefa standings', url: `https://standings.uefa.com/v1/standings?competitionId=1&seasonYear=${season}` },
     { name: 'clubelo ranking (http)', url: `http://api.clubelo.com/${isoDate(now)}` },
     { name: 'clubelo ranking (https)', url: `https://api.clubelo.com/${isoDate(now)}` },
-    { name: 'clubelo fixtures', url: 'http://api.clubelo.com/Fixtures' },
+    { name: 'clubelo clube (http)', url: 'http://api.clubelo.com/ManCity' },
+    {
+      name: 'uefa coeficientes clubes (época atual)',
+      url: `https://comp.uefa.com/v2/coefficients?coefficientRange=OVERALL&coefficientType=MEN_CLUB&language=EN&page=1&pagesize=500&seasonYear=${season}`,
+      note: 'alternativa ao Elo',
+    },
+    {
+      name: 'uefa coeficientes clubes (época anterior)',
+      url: `https://comp.uefa.com/v2/coefficients?coefficientRange=OVERALL&coefficientType=MEN_CLUB&language=EN&page=1&pagesize=500&seasonYear=${season - 1}`,
+      note: 'alternativa ao Elo',
+    },
     { name: 'google news rss', url: 'https://news.google.com/rss/search?q=%22Champions+League%22+lesão&hl=pt-PT&gl=PT&ceid=PT:pt-150' },
   ];
   if (apiFootballKey) {

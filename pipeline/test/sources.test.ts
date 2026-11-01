@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { parseFantasyDate, uefaSeasonYear } from '../lib/time.ts';
 import { parseClubEloCsv } from '../sources/clubElo.ts';
-import { fantasyPlayersUrl, parseFantasyFeed } from '../sources/uefaFantasy.ts';
+import { EmptyFeedError, fantasyPlayersUrl, parseFantasyFeed } from '../sources/uefaFantasy.ts';
 import { isQualifying, parseUefaMatches, uefaMatchesUrl } from '../sources/uefaMatches.ts';
-import { clubEloCsv, feedJson, rawPlayer, uefaMatchesJson } from './helpers.ts';
+import { clubEloCsv, EMPTY_FEED, feedJson, rawPlayer, uefaMatchesJson } from './helpers.ts';
 
 describe('datas', () => {
   it('converte hora CET do feed fantasy para UTC (inverno)', () => {
@@ -63,6 +63,10 @@ describe('feed fantasy', () => {
     expect(feed.players).toHaveLength(1);
     expect(feed.invalid).toBe(3);
     expect(feed.invalidSamples.length).toBeGreaterThan(0);
+  });
+
+  it('distingue feed vazio (sem gamedayId) de formato desconhecido', () => {
+    expect(() => parseFantasyFeed(EMPTY_FEED)).toThrow(EmptyFeedError);
   });
 
   it('falha com mensagem clara se o formato mudar', () => {
