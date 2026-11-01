@@ -1,34 +1,41 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-01T19:22:24.853Z",
+  "generatedAt": "2026-11-01T19:25:28.847Z",
   "currentGameday": 4,
   "gamedayState": "upcoming",
   "deadline": "2026-11-03T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:22:24.853Z",
-      "lastSuccess": "2026-11-01T19:22:24.853Z",
+      "lastAttempt": "2026-11-01T19:25:28.847Z",
+      "lastSuccess": "2026-11-01T19:25:28.847Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:22:24.853Z",
-      "lastSuccess": "2026-11-01T19:22:24.853Z",
+      "lastAttempt": "2026-11-01T19:25:28.847Z",
+      "lastSuccess": "2026-11-01T19:25:28.847Z",
       "requests": 1,
       "records": 1171
     },
+    "uefaPlayerHistory": {
+      "status": "ok",
+      "lastAttempt": "2026-11-01T19:25:28.847Z",
+      "lastSuccess": "2026-11-01T19:25:28.847Z",
+      "requests": 725,
+      "records": 725
+    },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T19:22:24.853Z",
-      "lastSuccess": "2026-11-01T19:22:24.853Z",
+      "lastAttempt": "2026-11-01T19:25:28.847Z",
+      "lastSuccess": "2026-11-01T19:25:28.847Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-01T19:22:24.853Z",
+      "lastAttempt": "2026-11-01T19:25:28.847Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
@@ -48,6 +55,13 @@
       "mismatches": 0
     },
     "history": {
+      "official": {
+        "players": 1171,
+        "fetched": 725,
+        "failed": 0,
+        "sumMatchesTotal": 1171,
+        "sumMismatch": 0
+      },
       "tracked": [],
       "fromFeed": 3,
       "unavailable": [
@@ -71,5 +85,5 @@
     "pStatus=S · qStatus=∅ · trained=∅": 3
   },
   "warnings": [],
-  "durationMs": 16830
+  "durationMs": 29169
 }
