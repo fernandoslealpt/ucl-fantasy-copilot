@@ -50,3 +50,15 @@
 - **Correção (bug do Neres e do banco):** no ecrã de Transferências o OCR perdeu as reticências de "Abde Ezzalz…" e leu "NERS" no cabeçalho; o lugar vago foi para o D. Neres. Agora: nomes cortados reconhecem-se mesmo sem reticências (2 palavras, 8+ letras), nomes até 5 letras têm de ser exatos, palavras soltas só contam se começarem por maiúscula. O banco lê o primeiro valor em € depois de "Restante" ("2 grátis" eram transferências). Teste de stress: tirando cada um dos 15 da captura, nenhum intruso entra.
 - Ecrã recomendado para importar: Transferências (tem os 15 e o dinheiro restante).
 - Valor da equipa + banco não é fixo em 100 M: os preços mudam (captura de 1 nov: 99,8 + 1,3 = 101,1 M, igual na app da UEFA).
+
+## 1 nov 2026 — Fase 4 (recomendações), primeira entrega
+- Fernando pediu as sugestões de transferências antes de fechar formalmente a Fase 3 (teste telemóvel → PC ainda por fazer). Avancei porque o fecho da J4 é a 3 nov às 17:45.
+- **Novo separador Conselhos**: transferências (recomendação + 5 opções com 1, 2 e 3 trocas), simulação por jornada (what-if), botão "Já fiz esta troca" que atualiza a equipa, transferências grátis editáveis, capitão/vice com plano de troca a meio da jornada.
+- **Valor da equipa por jornada** = melhor onze (formação válida) + capitão a dobrar + 10% do banco. Horizonte de 3 jornadas com pesos 1 / 0,85 / 0,7.
+- **Pesquisa**: todas as trocas de 1 jogador (30 melhores por posição + 12 de melhor valor por €M); pares de trocas sobre 16 + 6 candidatos; 3 trocas por feixe a partir das 40 melhores de 2. ~0,5 s no PC.
+- **Preço de venda = preço atual** (confirmado em uefa.com: quem tem o jogador antes da subida vende-o ao preço novo).
+- **Regra do −4 (perfil conservador)**: troca paga só se ganhar > 6 pontos esperados; o ganho das jornadas seguintes conta metade nas trocas pagas (as grátis da próxima jornada podiam fazê-las). Gastar a última grátis (que passaria para a jornada seguinte) exige ≥ 1 ponto. Abaixo de 0,5 pontos: não mexer.
+- **Capitão**: xP × (0,75 + 0,25 × P(titular)). Se o melhor joga mais tarde e há outro quase tão bom (≥ 85%) que joga antes, o capitão é o que joga antes e o plano diz quando passar a braçadeira (se fizer menos pontos do que o xP do outro, arredondado para cima).
+- **Razões**: até 3 por troca, com números (titularidade, dificuldade dos jogos, golos+assistências/90, baliza a zero, forma, xP na jornada, preço), ordenadas pelo peso.
+- Transferências grátis: guardadas na equipa (`freeTransfers`, `ftGameday`), lidas da captura do ecrã de Transferências ("2 grátis"); por defeito 2; passa no máximo 1 para a jornada seguinte.
+- Falta na Fase 4: substituições entre dias (precisa de pontos ao vivo), alertas novos além dos atuais, chips (Wildcard/Limitless).

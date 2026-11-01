@@ -7,6 +7,9 @@ export interface MyTeam {
   players: string[];
   /** Dinheiro disponível (€M) */
   bank: number;
+  /** Transferências grátis disponíveis em `ftGameday` */
+  freeTransfers?: number;
+  ftGameday?: number;
 }
 
 export const SQUAD: Record<Position, number> = { GK: 2, DEF: 5, MID: 5, FWD: 3 };
@@ -45,10 +48,11 @@ export function validate(ids: string[], byId: Map<string, Row>, gameday: number 
   return { counts, complete, overClub, valid: complete && overClub.length === 0 };
 }
 
-const xp1 = (r: Row) => r.xp?.xp1 ?? 0;
+const defaultScore = (r: Row) => r.xp?.xp1 ?? 0;
 
 /** Onze com mais xP com formação válida (1 GR, 3–5 DEF, 2–5 MED, 1–3 AV) e banco ordenado por xP. */
-export function bestXI(squad: Row[]): { xi: Row[]; bench: Row[] } {
+export function bestXI(squad: Row[], score: (r: Row) => number = defaultScore): { xi: Row[]; bench: Row[] } {
+  const xp1 = score;
   const by = (pos: Position) => squad.filter((r) => r.position === pos).sort((a, b) => xp1(b) - xp1(a));
   const gk = by('GK');
   const outfield = { DEF: by('DEF'), MID: by('MID'), FWD: by('FWD') };
@@ -72,6 +76,16 @@ export function bestXI(squad: Row[]): { xi: Row[]; bench: Row[] } {
   const inXi = new Set(xi.map((r) => r.id));
   const bench = [...gk.slice(1), ...squad.filter((r) => r.position !== 'GK' && !inXi.has(r.id)).sort((a, b) => xp1(b) - xp1(a))];
   return { xi, bench };
+}
+
+/**
+ * Transferências grátis para a jornada `gameday`. Fase de liga: 2 por jornada e passa no máximo 1 para a seguinte.
+ * Sem informação, assume 2.
+ */
+export function freeTransfersFor(team: MyTeam, gameday: number): number {
+  if (team.freeTransfers == null || team.ftGameday == null) return 2;
+  if (gameday <= team.ftGameday) return team.freeTransfers;
+  return Math.min(1, team.freeTransfers) + 2;
 }
 
 const KEY = 'ucl.team';

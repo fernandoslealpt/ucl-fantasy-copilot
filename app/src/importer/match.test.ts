@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Position, Row } from '../types';
-import { matchTeam, nameKeys, parseBank, similarity } from './match';
+import { matchTeam, nameKeys, parseBank, parseFreeTransfers, similarity } from './match';
 
 let n = 0;
 const P = (name: string, fullName: string, teamId: string, position: Position, selectedPct = 5): Row =>
@@ -154,5 +154,8 @@ describe('importar equipa de uma captura', () => {
     // ecrã de transferências: "2 grátis" são transferências, não dinheiro
     expect(parseBank('Transferências\nRestante ®\n2 gratis\n€1,3m')).toBe(1.3);
     expect(parseBank('Restante €1.3m')).toBe(1.3);
+    expect(parseFreeTransfers('Transferências\n2 gratis\n€1,3m')).toBe(2);
+    expect(parseFreeTransfers('1 free transfer')).toBe(1);
+    expect(parseFreeTransfers('D. Raya')).toBeNull();
   });
 });

@@ -45,20 +45,24 @@ function labels(bmp: ImageBitmap, scale: number) {
     let row = 0;
     for (let x = 0; x < w; x++) {
       const i = (y * w + x) * 4;
-      const r = d[i]!, g = d[i + 1]!, b = d[i + 2]!;
+      const r = d[i]!,
+        g = d[i + 1]!,
+        b = d[i + 2]!;
       if (b > 140 && b > r + 70 && b > g + 50) row++;
       sum[(y + 1) * (w + 1) + x + 1] = sum[y * (w + 1) + x + 1]! + row;
     }
   }
   const rad = Math.max(6, Math.round(w / 90));
   for (let y = 0; y < h; y++) {
-    const y0 = Math.max(0, y - rad), y1 = Math.min(h, y + rad + 1);
+    const y0 = Math.max(0, y - rad),
+      y1 = Math.min(h, y + rad + 1);
     for (let x = 0; x < w; x++) {
       const i = (y * w + x) * 4;
       const light = Math.min(d[i]!, d[i + 1]!, d[i + 2]!);
       let v = 255;
       if (light > 110) {
-        const x0 = Math.max(0, x - rad), x1 = Math.min(w, x + rad + 1);
+        const x0 = Math.max(0, x - rad),
+          x1 = Math.min(w, x + rad + 1);
         const blue = sum[y1 * (w + 1) + x1]! - sum[y0 * (w + 1) + x1]! - sum[y1 * (w + 1) + x0]! + sum[y0 * (w + 1) + x0]!;
         if (blue > 0.35 * (x1 - x0) * (y1 - y0)) v = 255 - Math.min(255, Math.max(0, (light - 110) * 2.2));
       }
@@ -96,7 +100,12 @@ export async function readScreenshot(file: Blob, onProgress?: OcrProgress): Prom
     const passes: string[][] = [];
     for (const img of imgs) {
       const { data } = await worker.recognize(img);
-      passes.push(data.text.split('\n').map((l) => l.trim()).filter(Boolean));
+      passes.push(
+        data.text
+          .split('\n')
+          .map((l) => l.trim())
+          .filter(Boolean),
+      );
       pass++;
     }
     onProgress?.(1, 'done');

@@ -20,6 +20,8 @@ export interface ImportResult {
   /** palavras que parecem nomes mas não correspondem a ninguém */
   unknown: string[];
   bank: number | null;
+  /** transferências grátis ("2 grátis" / "2 free") no ecrã de transferências */
+  freeTransfers: number | null;
 }
 
 /** Sem acentos nem letras especiais, mantendo maiúsculas. */
@@ -129,7 +131,9 @@ function phrases(passes: string[][]): { list: Phrase[]; words: string[]; cap: Ma
       // separa em segmentos nas reticências; a última palavra antes delas está cortada
       const segments = line.split(/(\.{2,}|…|,{2,})/);
       for (let s = 0; s < segments.length; s += 2) {
-        const orig = cleanCase(segments[s]!).split(' ').filter((t) => t.length > 0);
+        const orig = cleanCase(segments[s]!)
+          .split(' ')
+          .filter((t) => t.length > 0);
         const toks = orig.map((t) => t.toLowerCase());
         const truncated = s + 1 < segments.length;
         const base = words.length;
@@ -176,6 +180,11 @@ export function prefixSimilarity(read: string, key: string, ellipsis = true): nu
  * Dinheiro disponível ("Restante €1,3m", "In the bank €0.5m"): o primeiro valor em euros/milhões
  * depois da palavra-chave. Números soltos ("2 grátis" = transferências) são ignorados.
  */
+export function parseFreeTransfers(text: string): number | null {
+  const m = /\b([0-5])\s*(gr[aá]tis|free)\b/i.exec(text);
+  return m ? Number(m[1]) : null;
+}
+
 export function parseBank(text: string): number | null {
   const key = /(in the bank|bank|banco|remaining|restante|budget|or[çc]amento)/gi;
   for (let k = key.exec(text); k; k = key.exec(text)) {
@@ -219,7 +228,13 @@ export function matchTeam(
     const hits: [string, number][] = exact
       ? [[p.text, 1]]
       : keys
-          .map((k) => [k, Math.max(p.words.length > 1 || p.text.length >= 7 ? similarity(p.text, k) : 0, prefixSimilarity(p.text, k, p.prefix))] as [string, number])
+          .map(
+            (k) =>
+              [
+                k,
+                Math.max(p.words.length > 1 || p.text.length >= 7 ? similarity(p.text, k) : 0, prefixSimilarity(p.text, k, p.prefix)),
+              ] as [string, number],
+          )
           .filter(([, s]) => s >= 0.8);
     for (const [k, s] of hits) {
       const players = byKey.get(k)!;
@@ -283,5 +298,6 @@ export function matchTeam(
     matches: [...chosen.values()],
     unknown: unknown.slice(0, 12),
     bank: parseBank(lines.join('\n')),
+    freeTransfers: parseFreeTransfers(lines.join('\n')),
   };
 }

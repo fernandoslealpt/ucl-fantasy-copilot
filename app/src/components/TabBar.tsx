@@ -1,10 +1,12 @@
 import { useI18n } from '../i18n';
 
-export type Tab = 'equipa' | 'jogadores' | 'calendario' | 'noticias';
+export type Tab = 'equipa' | 'conselhos' | 'jogadores' | 'calendario' | 'noticias';
 
 const ICONS: Record<Tab, string> = {
   // camisola
   equipa: 'M8 3l-5 3 2 4 2-1v12h10V9l2 1 2-4-5-3c0 2-1.5 3-3 3S8 5 8 3z',
+  // setas de troca
+  conselhos: 'M7 4 3 8l4 4V9h10V7H7zm10 8v3H7v2h10v3l4-4z',
   // lista
   jogadores: 'M4 5h2v2H4zm4 0h12v2H8zM4 11h2v2H4zm4 0h12v2H8zM4 17h2v2H4zm4 0h12v2H8z',
   // calendário
@@ -17,6 +19,7 @@ export function TabBar({ tab, onTab, newsCount }: { tab: Tab; onTab: (t: Tab) =>
   const { t } = useI18n();
   const labels: Record<Tab, string> = {
     equipa: t('tabTeam'),
+    conselhos: t('tabAdvice'),
     jogadores: t('tabPlayers'),
     calendario: t('tabFixtures'),
     noticias: t('tabNews'),
@@ -24,7 +27,13 @@ export function TabBar({ tab, onTab, newsCount }: { tab: Tab; onTab: (t: Tab) =>
   return (
     <nav className="tabbar" aria-label="Secções">
       {(Object.keys(labels) as Tab[]).map((k) => (
-        <a key={k} href={`#${k}`} className={tab === k ? 'active' : ''} aria-current={tab === k ? 'page' : undefined} onClick={() => onTab(k)}>
+        <a
+          key={k}
+          href={`#${k}`}
+          className={tab === k ? 'active' : ''}
+          aria-current={tab === k ? 'page' : undefined}
+          onClick={() => onTab(k)}
+        >
           <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden>
             <path fill="currentColor" d={ICONS[k]} />
           </svg>

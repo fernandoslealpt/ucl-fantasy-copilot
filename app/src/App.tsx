@@ -4,6 +4,7 @@ import { Scoreboard } from './components/Scoreboard';
 import { TabBar, type Tab } from './components/TabBar';
 import { useDataset } from './data';
 import { useI18n } from './i18n';
+import { AdviceScreen } from './screens/Advice';
 import { FixturesScreen } from './screens/Fixtures';
 import { MyTeamScreen } from './screens/MyTeam';
 import { NewsScreen } from './screens/News';
@@ -13,7 +14,7 @@ import { getToken, newest, readRemoteTeam, writeRemoteTeam } from './sync';
 import { loadLocalTeam, saveLocalTeam, type MyTeam } from './team';
 import type { Row } from './types';
 
-const TABS: Tab[] = ['equipa', 'jogadores', 'calendario', 'noticias'];
+const TABS: Tab[] = ['equipa', 'conselhos', 'jogadores', 'calendario', 'noticias'];
 const tabFromHash = (): Tab => {
   const h = location.hash.replace('#', '') as Tab;
   return TABS.includes(h) ? h : 'equipa';
@@ -137,6 +138,7 @@ export function App() {
           </p>
         ) : null}
         {tab === 'equipa' ? <MyTeamScreen data={data} team={team} onSave={saveTeam} onOpen={setOpen} /> : null}
+        {tab === 'conselhos' ? <AdviceScreen data={data} team={team} onSave={saveTeam} onOpen={setOpen} /> : null}
         {tab === 'jogadores' ? <PlayersScreen data={data} onOpen={setOpen} /> : null}
         {tab === 'calendario' ? <FixturesScreen data={data} /> : null}
         {tab === 'noticias' ? <NewsScreen data={data} team={team} onOpen={setOpen} /> : null}
