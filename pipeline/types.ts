@@ -38,7 +38,10 @@ export interface PlayerStats {
 export interface GamedayLine {
   gameday: number;
   points: number;
-  minutes: number;
+  /** null quando só temos os pontos (jornada anterior lida do feed, sem snapshot nosso). */
+  minutes: number | null;
+  /** tracked = diferença entre snapshots nossos; feed = `lastGdPoints` do feed UEFA. */
+  source: 'tracked' | 'feed';
 }
 
 export interface Player {
@@ -83,6 +86,9 @@ export interface Team {
   elo: number | null;
   eloClub: string | null;
   eloMatch: EloMatchKind | null;
+  /** Coeficiente UEFA de clubes (5 épocas) e posição no ranking. */
+  coefficient: number | null;
+  coefficientRank: number | null;
   players: number;
   record: TeamRecord;
   fantasyPoints: number;
@@ -107,14 +113,28 @@ export interface Fixture {
   source: 'uefa-matches' | 'uefa-fantasy';
 }
 
-/** Cache de estatísticas por jornada: [pontos na jornada, minutos acumulados, pontos acumulados]. */
-export type GamedayTuple = [number, number, number];
+/** Snapshot de um jogador: [pontos acumulados, minutos acumulados, pontos da jornada (curGDPts)]. */
+export type SnapTuple = [number, number, number];
+
+/**
+ * O feed UEFA só dá o estado atual (pedir `gamedayId` de uma jornada passada devolve o mesmo).
+ * Por isso o histórico é construído para a frente: snapshot no 1.º contacto com a jornada
+ * (`start`, idealmente antes do fecho) e o mais recente (`latest`). Pontos da jornada = diferença.
+ */
+export interface GamedaySnapshot {
+  firstSeen: string;
+  startBeforeDeadline: boolean;
+  start: Record<string, SnapTuple>;
+  updatedAt: string;
+  latest: Record<string, SnapTuple>;
+}
 
 export interface GamedayStatsFile {
+  version: 2;
   /** Época UEFA (2026/27 → 2027); a cache é descartada quando muda. */
   season: number;
   updatedAt: string;
-  gamedays: Record<string, { fetchedAt: string; players: Record<string, GamedayTuple> }>;
+  gamedays: Record<string, GamedaySnapshot>;
 }
 
 export type SourceState = 'ok' | 'failed' | 'skipped';
@@ -138,10 +158,13 @@ export interface Meta {
   /** Fecho da equipa (1.º jogo da jornada), ISO UTC */
   deadline: string | null;
   sources: Record<string, SourceStatus>;
-  counts: { players: number; teams: number; fixtures: number; teamsWithElo: number };
+  counts: { players: number; teams: number; fixtures: number; teamsWithElo: number; teamsWithCoefficient: number };
   checks: {
     invalidPlayers: number;
+    /** Pontos por jornada calculados por nós vs. valor oficial do feed (curGDPts / lastGdPoints). */
     pointsHistory: { checked: number; mismatches: number };
+    /** Jornadas com histórico: seguidas por snapshot, lidas do feed, sem dados. */
+    history: { tracked: number[]; fromFeed: number | null; unavailable: number[] };
     fixturesCrossCheck: { fantasy: number; matched: number } | null;
   };
   /** Frequência dos valores de estado do feed (para afinar a heurística de disponibilidade). */

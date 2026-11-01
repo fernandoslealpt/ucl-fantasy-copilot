@@ -6,12 +6,11 @@ import { createHttp, errorMessage, type Http } from './lib/http.ts';
 import { formatLisbon, isoDate, parseFantasyDate, uefaSeasonYear } from './lib/time.ts';
 import {
   buildHistory,
-  checkPointsHistory,
-  feedToTuples,
   nextMatchFromFeed,
   normalizePlayer,
   sortPlayers,
   statusKey,
+  updateGamedayStats,
 } from './normalize/players.ts';
 import {
   buildTeams,
@@ -24,13 +23,14 @@ import {
   type TeamInfo,
 } from './normalize/teams.ts';
 import { fetchClubElo, type EloClub } from './sources/clubElo.ts';
+import { fetchUefaCoefficients, type Coefficient } from './sources/uefaCoefficients.ts';
 import { EmptyFeedError, fetchFantasyFeed, type ParsedFeed } from './sources/uefaFantasy.ts';
 import { fetchUefaMatches } from './sources/uefaMatches.ts';
 import type { Fixture, GamedayState, GamedayStatsFile, Meta, Player, SourceStatus, Team } from './types.ts';
 
-export const PIPELINE_VERSION = '0.1.0';
+export const PIPELINE_VERSION = '0.2.0';
 
-export type SourceName = 'uefaFantasy' | 'uefaMatches' | 'clubElo';
+export type SourceName = 'uefaMatches' | 'uefaFantasy' | 'uefaCoefficients' | 'clubElo';
 
 export interface RunOptions {
   /** Pasta de saída (no GitHub Actions: worktree do branch `data`). */
@@ -87,40 +87,21 @@ export function currentGamedayFromFixtures(fixtures: Fixture[]): number | null {
 }
 
 /**
- * Obtém o feed da jornada atual. Com pista (API de jogos ou execução anterior): pede essa jornada
- * e recua uma se vier vazia. Sem pista: avança de J1 até o feed vir vazio.
+ * Feed da jornada atual. Visto nos runners (1 nov 2026): sem `gamedayId` o feed vem vazio, e
+ * qualquer `gamedayId` passado devolve o estado ATUAL — por isso a jornada verdadeira é o `mdId`
+ * do próprio feed. Pede-se a jornada indicada (ou J1) e, se vier vazia, a anterior.
  */
-export async function fetchCurrentFantasy(
-  http: Http,
-  hint: number | null,
-): Promise<{ feed: ParsedFeed; gameday: number; fetched: Map<number, ParsedFeed> }> {
-  const fetched = new Map<number, ParsedFeed>();
-  const tryGd = async (gd: number) => {
+export async function fetchCurrentFantasy(http: Http, hint: number | null): Promise<{ feed: ParsedFeed; gameday: number }> {
+  const candidates = [...new Set([hint, hint ? hint - 1 : null, 1].filter((g): g is number => g != null && g >= 1))];
+  for (const gd of candidates) {
     try {
       const feed = await fetchFantasyFeed(http, gd);
-      fetched.set(gd, feed);
-      return feed;
+      return { feed, gameday: feed.gameday ?? gd };
     } catch (e) {
-      if (e instanceof EmptyFeedError) return null;
-      throw e;
+      if (!(e instanceof EmptyFeedError)) throw e;
     }
-  };
-  if (hint) {
-    for (const gd of [hint, hint - 1].filter((g) => g >= 1)) {
-      const feed = await tryGd(gd);
-      if (feed) return { feed, gameday: gd, fetched };
-    }
-    throw new Error(`Feed fantasy vazio para as jornadas ${hint} e ${hint - 1}`);
   }
-  let last: { feed: ParsedFeed; gameday: number } | null = null;
-  for (let gd = 1; gd <= 17; gd++) {
-    const feed = await tryGd(gd);
-    if (!feed) break;
-    last = { feed, gameday: gd };
-  }
-  if (!last) throw new Error('Feed fantasy vazio a partir da J1');
-  fetched.delete(last.gameday);
-  return { ...last, fetched };
+  throw new Error(`Feed fantasy vazio para as jornadas ${candidates.join(', ')}`);
 }
 
 function loadAliases(): Record<string, string> {
@@ -134,16 +115,14 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
   const nowIso = now.toISOString();
   const log = opts.log ?? ((m: string) => console.log(m));
   const httpFactory =
-    opts.httpFactory ?? ((s: SourceName) => createHttp(s === 'clubElo' ? { retries: 1, timeoutMs: 45_000 } : {}));
+    opts.httpFactory ?? ((s: SourceName) => createHttp(s === 'clubElo' ? { retries: 0, timeoutMs: 20_000 } : {}));
   const minPlayers = opts.minPlayers ?? 200;
   const aliases = opts.aliases ?? loadAliases();
   const season = uefaSeasonYear(now);
   const latest = join(opts.outDir, 'latest');
 
   const prevMeta = readJsonIfExists<Meta>(join(latest, 'meta.json'));
-  const prevStatsRaw = readJsonIfExists<GamedayStatsFile>(join(latest, 'gameday-stats.json'));
-  const prevStats: GamedayStatsFile =
-    prevStatsRaw && prevStatsRaw.season === season ? prevStatsRaw : { season, updatedAt: '', gamedays: {} };
+  const prevStats = readJsonIfExists<GamedayStatsFile>(join(latest, 'gameday-stats.json'));
   const prevFixtures = readJsonIfExists<{ fixtures: Fixture[] }>(join(latest, 'fixtures.json'))?.fixtures ?? null;
   const prevTeams = readJsonIfExists<{ teams: Team[] }>(join(latest, 'teams.json'))?.teams ?? null;
 
@@ -176,36 +155,33 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     record('uefaMatches', mHttp, e);
   }
 
-  // 2) Feed fantasy (pedido sempre por jornada — sem gamedayId o feed vem vazio).
+  // 2) Feed fantasy: jogadores, preços, estado, estatísticas (1 pedido por execução).
   const fHttp = httpFactory('uefaFantasy');
-  let fantasy: { feed: ParsedFeed; gameday: number; stats: GamedayStatsFile } | null = null;
+  let fantasy: { feed: ParsedFeed; gameday: number } | null = null;
   try {
     const hint = (uefaFixtures && currentGamedayFromFixtures(uefaFixtures)) ?? prevMeta?.currentGameday ?? null;
-    const { feed: current, gameday, fetched } = await fetchCurrentFantasy(fHttp, hint);
-    fantasyQualityGate(current, minPlayers);
-    if (current.gameday !== gameday) warnings.push(`Feed fantasy: pedida a jornada ${gameday}, mdId=${current.gameday}`);
-    const stats: GamedayStatsFile = { season, updatedAt: nowIso, gamedays: {} };
-    for (const [gd, entry] of Object.entries(prevStats.gamedays)) if (Number(gd) < gameday) stats.gamedays[gd] = entry;
-    stats.gamedays[String(gameday)] = { fetchedAt: nowIso, players: feedToTuples(current) };
-    for (let gd = 1; gd < gameday; gd++) {
-      const cached = stats.gamedays[String(gd)];
-      if (cached && gd < gameday - 1) continue; // jornadas antigas já fechadas: usar cache
-      try {
-        const feed = fetched.get(gd) ?? (await fetchFantasyFeed(fHttp, gd));
-        if (feed.players.length < minPlayers / 2) throw new Error(`só ${feed.players.length} jogadores`);
-        stats.gamedays[String(gd)] = { fetchedAt: nowIso, players: feedToTuples(feed) };
-      } catch (e) {
-        warnings.push(`Feed fantasy da jornada ${gd} falhou${cached ? ' (mantida a cache)' : ''}: ${errorMessage(e)}`);
-      }
-    }
-    if (current.invalid > 0) warnings.push(`${current.invalid} jogadores ignorados por formato inválido: ${current.invalidSamples.join('; ')}`);
-    fantasy = { feed: current, gameday, stats };
-    record('uefaFantasy', fHttp, null, current.players.length);
+    const got = await fetchCurrentFantasy(fHttp, hint);
+    fantasyQualityGate(got.feed, minPlayers);
+    if (hint && got.gameday !== hint) warnings.push(`Jornada: API de jogos indica J${hint}, feed fantasy indica J${got.gameday}`);
+    if (got.feed.invalid > 0)
+      warnings.push(`${got.feed.invalid} jogadores ignorados por formato inválido: ${got.feed.invalidSamples.join('; ')}`);
+    fantasy = got;
+    record('uefaFantasy', fHttp, null, got.feed.players.length);
   } catch (e) {
     record('uefaFantasy', fHttp, e);
   }
 
-  // 3) ClubElo: força das equipas.
+  // 3) Força das equipas: coeficientes UEFA (fiável a partir do GitHub) e Elo (ClubElo, se responder).
+  const cHttp = httpFactory('uefaCoefficients');
+  let coefficients: Map<string, Coefficient> | null = null;
+  try {
+    coefficients = await fetchUefaCoefficients(cHttp, season);
+    if (coefficients.size < 50) throw new Error(`só ${coefficients.size} clubes`);
+    record('uefaCoefficients', cHttp, null, coefficients.size);
+  } catch (e) {
+    coefficients = null;
+    record('uefaCoefficients', cHttp, e);
+  }
   const eHttp = httpFactory('clubElo');
   let clubs: EloClub[] | null = null;
   try {
@@ -231,11 +207,12 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     state: prevMeta?.gamedayState ?? null,
   };
   let pointsCheck = prevMeta?.checks.pointsHistory ?? { checked: 0, mismatches: 0 };
+  let coverage: Meta['checks']['history'] = prevMeta?.checks.history ?? { tracked: [], fromFeed: null, unavailable: [] };
   let crossCheck: Meta['checks']['fixturesCrossCheck'] = null;
   const statusValues: Record<string, number> = {};
 
   if (fantasy) {
-    const { feed, gameday, stats } = fantasy;
+    const { feed, gameday } = fantasy;
     currentGameday = gameday;
     const fantasyFixtures = fixturesFromFantasy(feed.players, parseDate).filter((f) => f.gameday === gameday);
     if (uefaFixtures) {
@@ -246,33 +223,43 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     const timingFixtures = fixtures.some((f) => f.gameday === gameday) ? fixtures : fantasyFixtures;
     timing = gamedayTiming(gameday, timingFixtures, now);
 
-    const lastForHistory = timing.state === 'upcoming' ? gameday - 1 : gameday;
-    const history = buildHistory(stats, lastForHistory);
-    pointsCheck = checkPointsHistory(feed.players, history);
+    const beforeDeadline = timing.state === 'upcoming';
+    const stats = updateGamedayStats(prevStats, season, gameday, feed, nowIso, beforeDeadline);
+    const built = buildHistory(stats, feed.players, gameday, timing.state === 'live' || timing.state === 'finished');
+    pointsCheck = built.check;
+    coverage = built.coverage;
     if (pointsCheck.mismatches > 0)
-      warnings.push(`Pontos por jornada: ${pointsCheck.mismatches}/${pointsCheck.checked} jogadores não somam o total do feed`);
+      warnings.push(`Pontos por jornada: ${pointsCheck.mismatches}/${pointsCheck.checked} diferem do valor oficial do feed`);
+    if (!stats.gamedays[String(gameday)]!.startBeforeDeadline && gameday === Number(Object.keys(stats.gamedays)[0]))
+      warnings.push(`J${gameday}: 1.º snapshot feito depois do fecho — pontos desta jornada só a partir do feed`);
 
     const lookup = kickoffLookup(fixtures);
     players = sortPlayers(
-      feed.players.map((p) => normalizePlayer(p, history.get(p.id) ?? [], nextMatchFromFeed(p, gameday, lookup, parseDate))),
+      feed.players.map((p) =>
+        normalizePlayer(p, built.history.get(p.id) ?? [], nextMatchFromFeed(p, gameday, lookup, parseDate)),
+      ),
     );
     for (const p of feed.players) {
       const k = statusKey(p);
       statusValues[k] = (statusValues[k] ?? 0) + 1;
     }
 
-    const built = buildTeams({ players, fixtures, info: teamInfo, clubs, aliases, nowIso });
-    teams = built.teams;
-    if (!clubs && prevTeams) {
+    const teamsBuilt = buildTeams({ players, fixtures, info: teamInfo, clubs, coefficients, aliases, nowIso });
+    teams = teamsBuilt.teams;
+    if (prevTeams && (!clubs || !coefficients)) {
       const prev = new Map(prevTeams.map((t) => [t.id, t]));
       for (const t of teams) {
         const old = prev.get(t.id);
-        if (old) Object.assign(t, { elo: old.elo, eloClub: old.eloClub, eloMatch: old.eloMatch });
+        if (!old) continue;
+        if (!clubs && old.elo != null) Object.assign(t, { elo: old.elo, eloClub: old.eloClub, eloMatch: old.eloMatch });
+        if (!coefficients && old.coefficient != null)
+          Object.assign(t, { coefficient: old.coefficient, coefficientRank: old.coefficientRank });
       }
-      warnings.push('Elo: ClubElo falhou, mantidos os últimos valores válidos');
     }
-    if (built.unmatchedElo.length)
-      warnings.push(`Sem Elo (acrescentar em data/team-aliases.json): ${built.unmatchedElo.join(', ')}`);
+    if (clubs && teamsBuilt.unmatchedElo.length)
+      warnings.push(`Sem Elo (acrescentar em data/team-aliases.json): ${teamsBuilt.unmatchedElo.join(', ')}`);
+    const noCoef = teams.filter((t) => t.coefficient == null).map((t) => t.name);
+    if (coefficients && noCoef.length) warnings.push(`Sem coeficiente UEFA: ${noCoef.join(', ')}`);
 
     const header = { generatedAt: nowIso, season, gameday };
     writeJsonLines(join(latest, 'players.json'), header, 'players', players);
@@ -280,9 +267,9 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     writeText(join(latest, 'gameday-stats.json'), JSON.stringify(stats));
     writeJsonLines(
       join(opts.outDir, 'history', `gd${String(gameday).padStart(2, '0')}`, `${isoDate(now)}.json`),
-      { generatedAt: nowIso, season, gameday, fields: ['id', 'price', 'selectedPct', 'points', 'availability'] },
+      { generatedAt: nowIso, season, gameday, fields: ['id', 'price', 'selectedPct', 'points', 'minutes', 'availability'] },
       'players',
-      players.map((p) => [p.id, p.price, p.selectedPct, p.stats.points, p.availability]),
+      players.map((p) => [p.id, p.price, p.selectedPct, p.stats.points, p.stats.minutes, p.availability]),
     );
   }
   if (uefaFixtures || (!prevFixtures && fixtures.length > 0)) {
@@ -294,7 +281,6 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
       .sort((a, b) => b[1] - a[1])
       .slice(0, 20),
   );
-  const finalPlayers = players?.length ?? prevMeta?.counts.players ?? 0;
   const finalTeams = teams ?? prevTeams ?? [];
   const meta: Meta = {
     schemaVersion: 1,
@@ -304,14 +290,16 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     deadline: timing.deadline,
     sources,
     counts: {
-      players: finalPlayers,
+      players: players?.length ?? prevMeta?.counts.players ?? 0,
       teams: finalTeams.length,
       fixtures: fixtures.length,
       teamsWithElo: finalTeams.filter((t) => t.elo != null).length,
+      teamsWithCoefficient: finalTeams.filter((t) => t.coefficient != null).length,
     },
     checks: {
       invalidPlayers: fantasy?.feed.invalid ?? 0,
       pointsHistory: pointsCheck,
+      history: coverage,
       fixturesCrossCheck: crossCheck,
     },
     statusValues: players ? topStatus : (prevMeta?.statusValues ?? {}),
@@ -332,6 +320,8 @@ const AVAIL_PT: Record<string, string> = {
   unknown: '?',
 };
 
+const gdList = (g: number[]) => (g.length ? g.map((x) => `J${x}`).join(', ') : '—');
+
 export function renderSummary(meta: Meta, players: Player[] | null, teams: Team[]): string {
   const L: string[] = [];
   L.push('# UCL Fantasy — atualização de dados', '');
@@ -347,37 +337,53 @@ export function renderSummary(meta: Meta, players: Player[] | null, teams: Team[
     );
   }
   L.push('');
+  const c = meta.counts;
   L.push(
-    `**Totais:** ${meta.counts.players} jogadores · ${meta.counts.teams} equipas (${meta.counts.teamsWithElo} com Elo) · ${meta.counts.fixtures} jogos`,
+    `**Totais:** ${c.players} jogadores · ${c.teams} equipas (${c.teamsWithCoefficient} com coeficiente UEFA, ${c.teamsWithElo} com Elo) · ${c.fixtures} jogos`,
   );
   const ph = meta.checks.pointsHistory;
   const cc = meta.checks.fixturesCrossCheck;
+  const h = meta.checks.history;
   L.push(
-    `**Verificações:** pontos por jornada coerentes em ${ph.checked - ph.mismatches}/${ph.checked} jogadores` +
+    `**Verificações:** pontos por jornada vs. feed oficial: ${ph.checked ? `${ph.checked - ph.mismatches}/${ph.checked} iguais` : 'nada a comparar ainda'}` +
       (cc ? ` · jogos do feed fantasy na API UEFA: ${cc.matched}/${cc.fantasy}` : ''),
+  );
+  L.push(
+    `**Histórico por jornada:** seguidas por snapshot ${gdList(h.tracked)} · do feed ${h.fromFeed ? `J${h.fromFeed} (só pontos)` : '—'} · indisponíveis ${gdList(h.unavailable)}`,
     '',
   );
   if (meta.warnings.length) {
     L.push('## Avisos', '', ...meta.warnings.map((w) => `- ${w}`), '');
   }
   if (players?.length) {
-    L.push('## Top 15 por pontos', '', '| # | Jogador | Equipa | Pos | €M | Pts | Min | % sel. | Estado | Próximo jogo |', '|---|---|---|---|---|---|---|---|---|---|');
+    L.push(
+      '## Top 15 por pontos',
+      '',
+      '| # | Jogador | Equipa | Pos | €M | Pts | Últ. J | Min | % sel. | Estado | Próximo jogo |',
+      '|---|---|---|---|---|---|---|---|---|---|---|',
+    );
     players.slice(0, 15).forEach((p, i) => {
       const nm = p.nextMatch
         ? `J${p.nextMatch.gameday} ${p.nextMatch.home ? 'vs' : '@'} ${p.nextMatch.opponentName} · ${formatLisbon(p.nextMatch.kickoff)}`
         : '—';
+      const last = p.history[p.history.length - 1];
       L.push(
-        `| ${i + 1} | ${p.name} | ${p.teamName} | ${p.position} | ${p.price.toFixed(1)} | ${p.stats.points} | ${p.stats.minutes} | ${p.selectedPct} | ${AVAIL_PT[p.availability]} | ${nm} |`,
+        `| ${i + 1} | ${p.name} | ${p.teamName} | ${p.position} | ${p.price.toFixed(1)} | ${p.stats.points} | ${last ? `${last.points} (J${last.gameday})` : '—'} | ${p.stats.minutes} | ${p.selectedPct} | ${AVAIL_PT[p.availability]} | ${nm} |`,
       );
     });
     L.push('');
   }
   if (teams.length) {
-    L.push('## Equipas por Elo (top 10)', '', '| Equipa | Elo (clube ClubElo) | V-E-D | Golos | Próximo jogo |', '|---|---|---|---|---|');
+    L.push(
+      '## Equipas mais fortes (top 10)',
+      '',
+      '| Equipa | Coef. UEFA (rank) | Elo | V-E-D | Golos | Próximo jogo |',
+      '|---|---|---|---|---|---|',
+    );
     for (const t of teams.slice(0, 10)) {
       const nm = t.nextMatch ? `J${t.nextMatch.gameday} ${t.nextMatch.home ? 'vs' : '@'} ${t.nextMatch.opponentName}` : '—';
       L.push(
-        `| ${t.name} | ${t.elo ?? '—'} (${t.eloClub ?? '—'}, ${t.eloMatch ?? '—'}) | ${t.record.won}-${t.record.drawn}-${t.record.lost} | ${t.record.goalsFor}:${t.record.goalsAgainst} | ${nm} |`,
+        `| ${t.name} | ${t.coefficient ?? '—'}${t.coefficientRank ? ` (#${t.coefficientRank})` : ''} | ${t.elo ?? '—'} | ${t.record.won}-${t.record.drawn}-${t.record.lost} | ${t.record.goalsFor}:${t.record.goalsAgainst} | ${nm} |`,
       );
     }
     L.push('');

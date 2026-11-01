@@ -249,12 +249,13 @@ export interface BuildTeamsInput {
   fixtures: Fixture[];
   info: Map<string, TeamInfo>;
   clubs: EloClub[] | null;
+  coefficients: Map<string, { value: number; rank: number | null }> | null;
   aliases: Record<string, string>;
   nowIso: string;
 }
 
 export function buildTeams(input: BuildTeamsInput): { teams: Team[]; unmatchedElo: string[] } {
-  const { players, fixtures, info, clubs, aliases, nowIso } = input;
+  const { players, fixtures, info, clubs, coefficients, aliases, nowIso } = input;
   const records = teamRecords(fixtures);
   const grouped = new Map<string, Player[]>();
   for (const p of players) grouped.set(p.teamId, [...(grouped.get(p.teamId) ?? []), p]);
@@ -277,12 +278,17 @@ export function buildTeams(input: BuildTeamsInput): { teams: Team[]; unmatchedEl
       elo: elo?.club.elo ?? null,
       eloClub: elo?.club.club ?? null,
       eloMatch: elo?.kind ?? null,
+      coefficient: coefficients?.get(id)?.value ?? null,
+      coefficientRank: coefficients?.get(id)?.rank ?? null,
       players: squad.length,
       record: records.get(id) ?? emptyRecord(),
       fantasyPoints: squad.reduce((a, p) => a + p.stats.points, 0),
       nextMatch: nextMatchForTeam(id, fixtures, nowIso) ?? squad.find((p) => p.nextMatch)?.nextMatch ?? null,
     });
   }
-  teams.sort((a, b) => (b.elo ?? 0) - (a.elo ?? 0) || a.name.localeCompare(b.name));
+  teams.sort(
+    (a, b) =>
+      (b.elo ?? 0) - (a.elo ?? 0) || (b.coefficient ?? 0) - (a.coefficient ?? 0) || a.name.localeCompare(b.name),
+  );
   return { teams, unmatchedElo };
 }

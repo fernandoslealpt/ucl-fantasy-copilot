@@ -1,5 +1,5 @@
 import type { FantasyPlayer, ParsedFeed } from '../sources/uefaFantasy.ts';
-import type { Availability, GamedayLine, GamedayStatsFile, GamedayTuple, MatchRef, Player, Position } from '../types.ts';
+import type { Availability, GamedayLine, GamedayStatsFile, MatchRef, Player, Position, SnapTuple } from '../types.ts';
 
 const POSITIONS: Record<number, Position> = { 1: 'GK', 2: 'DEF', 3: 'MID', 4: 'FWD' };
 
@@ -31,45 +31,98 @@ export function statusKey(p: Pick<FantasyPlayer, 'pStatus' | 'qStatus' | 'traine
   return `pStatus=${p.pStatus || '∅'} · qStatus=${p.qStatus || '∅'} · trained=${p.trained || '∅'}`;
 }
 
-export function feedToTuples(feed: ParsedFeed): Record<string, GamedayTuple> {
-  const out: Record<string, GamedayTuple> = {};
-  for (const p of feed.players) out[p.id] = [p.curGDPts, p.minsPlyd, p.totPts];
+export function feedToSnapshot(feed: ParsedFeed): Record<string, SnapTuple> {
+  const out: Record<string, SnapTuple> = {};
+  for (const p of feed.players) out[p.id] = [p.totPts, p.minsPlyd, p.curGDPts];
   return out;
 }
 
-/** Linhas por jornada (pontos e minutos dessa jornada) a partir da cache de jornadas. */
-export function buildHistory(stats: GamedayStatsFile, lastGameday: number): Map<string, GamedayLine[]> {
-  const history = new Map<string, GamedayLine[]>();
-  const prevMinutes = new Map<string, number>();
-  for (let gd = 1; gd <= lastGameday; gd++) {
-    const entry = stats.gamedays[String(gd)];
-    if (!entry) continue;
-    for (const [id, [pts, cumMin]] of Object.entries(entry.players)) {
-      const minutes = Math.max(0, cumMin - (prevMinutes.get(id) ?? 0));
-      prevMinutes.set(id, cumMin);
-      const lines = history.get(id) ?? [];
-      lines.push({ gameday: gd, points: pts, minutes });
-      history.set(id, lines);
-    }
-  }
-  return history;
+/** Acrescenta/atualiza o snapshot da jornada atual (o `start` só é gravado no 1.º contacto). */
+export function updateGamedayStats(
+  prev: GamedayStatsFile | null,
+  season: number,
+  gameday: number,
+  feed: ParsedFeed,
+  nowIso: string,
+  beforeDeadline: boolean,
+): GamedayStatsFile {
+  const valid = prev && prev.version === 2 && prev.season === season;
+  const stats: GamedayStatsFile = valid
+    ? { ...prev, gamedays: { ...prev.gamedays } }
+    : { version: 2, season, updatedAt: nowIso, gamedays: {} };
+  for (const gd of Object.keys(stats.gamedays)) if (Number(gd) > gameday) delete stats.gamedays[gd];
+  const snap = feedToSnapshot(feed);
+  const existing = stats.gamedays[String(gameday)];
+  stats.gamedays[String(gameday)] = existing
+    ? { ...existing, updatedAt: nowIso, latest: snap }
+    : { firstSeen: nowIso, startBeforeDeadline: beforeDeadline, start: snap, updatedAt: nowIso, latest: snap };
+  stats.updatedAt = nowIso;
+  return stats;
 }
 
-/** Confirma que a soma dos pontos por jornada bate com o total acumulado do feed. */
-export function checkPointsHistory(
+const round1 = (n: number) => Math.round(n * 10) / 10;
+
+export interface HistoryResult {
+  history: Map<string, GamedayLine[]>;
+  check: { checked: number; mismatches: number };
+  coverage: { tracked: number[]; fromFeed: number | null; unavailable: number[] };
+}
+
+/**
+ * Pontos e minutos por jornada.
+ * - Jornadas seguidas por nós: diferença entre snapshots (base = `start` se gravado antes do fecho,
+ *   senão o `latest` da jornada anterior).
+ * - Jornada anterior à atual: os pontos oficiais vêm de `lastGdPoints` (têm prioridade); os minutos
+ *   vêm do nosso snapshot, se existir.
+ * - Verificação: os nossos pontos vs. o valor oficial (`lastGdPoints` ou `curGDPts`).
+ */
+export function buildHistory(
+  stats: GamedayStatsFile,
   players: FantasyPlayer[],
-  history: Map<string, GamedayLine[]>,
-): { checked: number; mismatches: number } {
+  gameday: number,
+  currentPlayed: boolean,
+): HistoryResult {
+  const history = new Map<string, GamedayLine[]>();
+  const push = (id: string, line: GamedayLine) => history.set(id, [...(history.get(id) ?? []), line]);
+  const feedPlayers = new Map(players.map((p) => [p.id, p]));
+  const tracked: number[] = [];
+  const prevGd = gameday - 1;
   let checked = 0;
   let mismatches = 0;
-  for (const p of players) {
-    const lines = history.get(p.id);
-    if (!lines) continue;
-    checked++;
-    const sum = lines.reduce((a, l) => a + l.points, 0);
-    if (Math.abs(sum - p.totPts) > 0.01) mismatches++;
+
+  const gds = Object.keys(stats.gamedays)
+    .map(Number)
+    .filter((g) => g < gameday || (g === gameday && currentPlayed))
+    .sort((a, b) => a - b);
+  for (const g of gds) {
+    const snap = stats.gamedays[String(g)]!;
+    const base = snap.startBeforeDeadline ? snap.start : stats.gamedays[String(g - 1)]?.latest;
+    if (!base) continue;
+    tracked.push(g);
+    for (const [id, [tot, min, gdPts]] of Object.entries(snap.latest)) {
+      const [bTot, bMin] = base[id] ?? [0, 0, 0];
+      const ours = round1(tot - bTot);
+      const official = g === prevGd ? feedPlayers.get(id)?.lastGdPoints : gdPts;
+      if (official !== undefined) {
+        checked++;
+        if (Math.abs(official - ours) > 0.01) mismatches++;
+      }
+      const points = g === prevGd && official !== undefined ? official : ours;
+      push(id, { gameday: g, points, minutes: Math.max(0, min - bMin), source: 'tracked' });
+    }
   }
-  return { checked, mismatches };
+
+  let fromFeed: number | null = null;
+  if (prevGd >= 1 && !tracked.includes(prevGd)) {
+    fromFeed = prevGd;
+    for (const p of players) push(p.id, { gameday: prevGd, points: p.lastGdPoints, minutes: null, source: 'feed' });
+  }
+  for (const lines of history.values()) lines.sort((a, b) => a.gameday - b.gameday);
+
+  const lastWithData = currentPlayed ? gameday : gameday - 1;
+  const unavailable: number[] = [];
+  for (let g = 1; g <= lastWithData; g++) if (!tracked.includes(g) && g !== fromFeed) unavailable.push(g);
+  return { history, check: { checked, mismatches }, coverage: { tracked, fromFeed, unavailable } };
 }
 
 export type KickoffLookup = (gameday: number, teamId: string) => string | null;

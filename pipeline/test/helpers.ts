@@ -17,16 +17,25 @@ export const GD4 = [
 export const ptsFor = (i: number, gd: number) => (i * 3 + gd) % 7;
 export const minsFor = (i: number) => (i % 3 === 0 ? 45 : 90);
 
-export function rawPlayer(i: number, gameday: number, over: Record<string, unknown> = {}): Record<string, unknown> {
+/**
+ * Jogador no formato do feed real. `playedThrough` = última jornada já jogada
+ * (por defeito a anterior à atual, i.e. jornada atual ainda por jogar).
+ */
+export function rawPlayer(
+  i: number,
+  gameday: number,
+  over: Record<string, unknown> = {},
+  playedThrough = gameday - 1,
+): Record<string, unknown> {
   const team = TEAMS[i % TEAMS.length]!;
   const teamIdx = i % TEAMS.length;
   const fx = GD4.find((f) => f.home === teamIdx || f.away === teamIdx)!;
   const isHome = fx.home === teamIdx;
   const opp = TEAMS[isHome ? fx.away : fx.home]!;
   let tot = 0;
-  for (let g = 1; g <= gameday; g++) tot += g >= 4 ? 0 : ptsFor(i, g); // J4 ainda por jogar
+  for (let g = 1; g <= playedThrough; g++) tot += ptsFor(i, g);
   const match = {
-    mdId: '4',
+    mdId: String(gameday),
     tId: team.id,
     tSCode: team.name,
     cCode: team.code,
@@ -34,7 +43,7 @@ export function rawPlayer(i: number, gameday: number, over: Record<string, unkno
     vsTID: opp.id,
     vsTSCode: opp.name,
     vsCCode: opp.code,
-    matchDate: fx.date,
+    matchDate: gameday === 4 ? fx.date : '11/25/2026 21:00:00',
     vsTLoc: isHome ? 'A' : 'H',
   };
   return {
@@ -44,7 +53,7 @@ export function rawPlayer(i: number, gameday: number, over: Record<string, unkno
     tName: team.name,
     tId: team.id,
     teamPlayed: 0,
-    minsPlyd: minsFor(i) * Math.min(gameday, 3),
+    minsPlyd: minsFor(i) * playedThrough,
     mTransferIn: 100 + i,
     mTransferOut: 50,
     rating: 5.0,
@@ -73,14 +82,14 @@ export function rawPlayer(i: number, gameday: number, over: Record<string, unkno
     mOMPts: 0,
     pStatus: '',
     qStatus: '',
-    curGDPts: gameday >= 4 ? 0 : ptsFor(i, gameday),
+    curGDPts: playedThrough >= gameday ? ptsFor(i, gameday) : 0,
     matchAtd: ' ',
     trained: 'In contention to start next game',
     isPlayed: 0,
     selInPer: 2.0,
     selOutPer: 1.0,
-    upcomingMatchesList: gameday >= 3 ? [match] : [],
-    currentMatchesList: gameday >= 4 ? [match] : [],
+    upcomingMatchesList: [match],
+    currentMatchesList: [match],
     avgPlayerPts: 3.3,
     lastGdPoints: gameday > 1 ? ptsFor(i, gameday - 1) : 0,
     ptName: 'Pot 1',
@@ -92,8 +101,8 @@ export function feedJson(players: unknown[]): string {
   return JSON.stringify({ data: { value: { playerList: players } } });
 }
 
-export function fantasyFeed(gameday: number, n = 240): string {
-  return feedJson(Array.from({ length: n }, (_, i) => rawPlayer(i, gameday)));
+export function fantasyFeed(gameday: number, n = 240, playedThrough = gameday - 1): string {
+  return feedJson(Array.from({ length: n }, (_, i) => rawPlayer(i, gameday, {}, playedThrough)));
 }
 
 function team(t: (typeof TEAMS)[number]) {
@@ -200,13 +209,19 @@ export const EMPTY_FEED = JSON.stringify({
   meta: { message: 'OK', retVal: 1, success: true },
 });
 
-export function fantasyRoutes(currentGameday = 4): Route[] {
+/**
+ * Comportamento real do feed (1 nov 2026): sem gamedayId → vazio; qualquer jornada até à atual →
+ * o estado ATUAL (mdId = jornada atual); jornada futura → vazio.
+ */
+export function fantasyRoutes(currentGameday = 4, playedThrough = currentGameday - 1): Route[] {
   return [
-    ...Array.from({ length: currentGameday }, (_, k) => k + 1).map((gd) => ({
-      match: (u: string) => u.includes('uclfantasy') && u.includes(`gamedayId=${gd}&`),
-      body: () => fantasyFeed(gd),
-    })),
-    // Sem gamedayId ou jornada futura: feed vazio (comportamento real, 1 nov 2026).
+    {
+      match: (u: string) => {
+        const m = /gamedayId=(\d+)&/.exec(u);
+        return u.includes('uclfantasy') && !!m && Number(m[1]) <= currentGameday;
+      },
+      body: () => fantasyFeed(currentGameday, 240, playedThrough),
+    },
     { match: (u) => u.includes('uclfantasy'), body: EMPTY_FEED },
   ];
 }
@@ -217,3 +232,14 @@ export const matchRoutes: Route[] = [
 ];
 
 export const eloRoutes: Route[] = [{ match: (u) => u.includes('clubelo'), body: () => clubEloCsv() }];
+
+/** Coeficientes UEFA no formato real (data.members[].member.id / overallRanking). */
+export function coefficientsJson(): string {
+  const members = [
+    ...TEAMS.map((t, k) => ({ member: { id: t.id, displayName: t.name }, overallRanking: { position: k + 1, totalValue: 120 - k * 10 } })),
+    ...Array.from({ length: 60 }, (_, k) => ({ member: { id: String(900000 + k) }, overallRanking: { position: 10 + k, totalValue: 50 - k / 2 } })),
+  ];
+  return JSON.stringify({ data: { lastUpdateDate: '2026-10-22T20:57:27+0000', members }, meta: {} });
+}
+
+export const coefficientRoutes: Route[] = [{ match: (u) => u.includes('comp.uefa.com'), body: () => coefficientsJson() }];

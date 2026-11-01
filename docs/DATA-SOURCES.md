@@ -6,12 +6,13 @@ Resultado automático da sonda (Fase 0): branch `data` → `probe/report.md` (at
 |---|---|---|---|
 | Feed UEFA Fantasy | `gaming.uefa.com/en/uclfantasy/services/api/Feed/players?gamedayId={n}&language=en` | Jogadores, posições, preços, % seleção, estado, estatísticas, pontos | Em uso |
 | API de jogos UEFA | `match.uefa.com/v5/matches?competitionId=1&seasonYear={AAAA}&fromDate=…&toDate=…&limit=50&offset={k}` | Calendário, horas UTC, resultados, país e logótipo das equipas | Em uso |
-| ClubElo | `api.clubelo.com/{AAAA-MM-DD}` (CSV) | Força das equipas (Elo) | Em uso |
+| Coeficientes UEFA | `comp.uefa.com/v2/coefficients?coefficientRange=OVERALL&coefficientType=MEN_CLUB&seasonYear={AAAA}` | Força das equipas (5 épocas) | Em uso |
+| ClubElo | `api.clubelo.com/{AAAA-MM-DD}` (CSV) | Força das equipas (Elo) | ❌ inacessível a partir do GitHub (1 nov 2026); tentado em cada execução |
 | API-Football (grátis) | `v3.football.api-sports.io` | Lesões, onzes, jogos noutras competições | A validar (precisa de chave) |
 | Google News RSS | `news.google.com/rss/search?q=…` | Notícias | Fase seguinte |
 
 ## Feed UEFA Fantasy — campos usados
-Estrutura: `data.value.playerList[]`. Sem `gamedayId` devolve a jornada atual (`mdId`).
+Estrutura: `data.value.playerList[]` (~1170 jogadores). **Sem `gamedayId` vem vazio**; com qualquer `gamedayId` ≤ atual devolve o estado **atual** (não há histórico por jornada no feed). Jornada atual = `mdId`.
 
 | Campo | Significado | Notas |
 |---|---|---|
@@ -29,5 +30,5 @@ Estrutura: `data.value.playerList[]`. Sem `gamedayId` devolve a jornada atual (`
 | `currentMatchesList`, `upcomingMatchesList` | Jogo da jornada: `mdId`, `vsTID`, `tLoc` (H/A), `matchDate` | Hora CET/CEST |
 
 ## Limites e cortesia
-- ~3 pedidos ao feed fantasy por execução (atual + jornada anterior), ~4 à API de jogos, 1 ao ClubElo.
+- 1 pedido ao feed fantasy por execução, ~3 à API de jogos, 1 aos coeficientes, 1 ao ClubElo.
 - User-Agent identificado; sem conteúdo pago; sem login.

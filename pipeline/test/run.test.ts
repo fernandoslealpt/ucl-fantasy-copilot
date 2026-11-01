@@ -1,4 +1,4 @@
-import { mkdtempSync, readFileSync, existsSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -6,7 +6,16 @@ import { fixtureFromUefa } from '../normalize/teams.ts';
 import { currentGamedayFromFixtures, fetchCurrentFantasy, gamedayTiming, runPipeline, type SourceName } from '../run.ts';
 import { parseUefaMatches } from '../sources/uefaMatches.ts';
 import type { Fixture, Meta, Player, Team } from '../types.ts';
-import { eloRoutes, fakeHttp, fantasyRoutes, matchRoutes, ptsFor, uefaMatchesJson, type Route } from './helpers.ts';
+import {
+  coefficientRoutes,
+  eloRoutes,
+  fakeHttp,
+  fantasyRoutes,
+  matchRoutes,
+  ptsFor,
+  uefaMatchesJson,
+  type Route,
+} from './helpers.ts';
 
 const NOW = new Date('2026-10-31T12:00:00Z');
 const read = <T>(dir: string, f: string) => JSON.parse(readFileSync(join(dir, 'latest', f), 'utf8')) as T;
@@ -15,8 +24,14 @@ function factory(routes: Partial<Record<SourceName, Route[]>>, calls: Record<str
   return (s: SourceName) => fakeHttp(routes[s] ?? [], (calls[s] ??= []));
 }
 
-const ALL = { uefaFantasy: fantasyRoutes(), uefaMatches: matchRoutes, clubElo: eloRoutes };
+const ALL: Partial<Record<SourceName, Route[]>> = {
+  uefaFantasy: fantasyRoutes(),
+  uefaMatches: matchRoutes,
+  uefaCoefficients: coefficientRoutes,
+  clubElo: eloRoutes,
+};
 const opts = { minPlayers: 200, aliases: {}, log: () => {} };
+const fail = (status: number): Route[] => [{ match: () => true, status }];
 
 describe('pipeline completo', () => {
   it('1.ª execução: publica jogadores, equipas, jogos, estatísticas e meta', async () => {
@@ -24,25 +39,25 @@ describe('pipeline completo', () => {
     const calls: Record<string, string[]> = {};
     const meta = await runPipeline({ ...opts, outDir: out, now: NOW, httpFactory: factory(ALL, calls) });
 
-    expect(meta.sources.uefaFantasy?.status).toBe('ok');
-    expect(meta.sources.uefaMatches?.status).toBe('ok');
-    expect(meta.sources.clubElo?.status).toBe('ok');
+    for (const s of ['uefaMatches', 'uefaFantasy', 'uefaCoefficients', 'clubElo'])
+      expect(meta.sources[s]?.status, s).toBe('ok');
     expect(meta.currentGameday).toBe(4);
     expect(meta.gamedayState).toBe('upcoming');
     expect(meta.deadline).toBe('2026-11-04T17:45:00.000Z');
-    expect(meta.counts).toEqual({ players: 240, teams: 4, fixtures: 8, teamsWithElo: 4 });
-    expect(meta.checks.pointsHistory).toEqual({ checked: 240, mismatches: 0 });
+    expect(meta.counts).toEqual({ players: 240, teams: 4, fixtures: 8, teamsWithElo: 4, teamsWithCoefficient: 4 });
+    expect(meta.checks.history).toEqual({ tracked: [], fromFeed: 3, unavailable: [1, 2] });
     expect(meta.checks.fixturesCrossCheck).toEqual({ fantasy: 2, matched: 2 });
     expect(meta.warnings).toEqual([]);
-    expect(calls.uefaFantasy).toHaveLength(4); // atual + J1..J3
+    expect(calls.uefaFantasy).toHaveLength(1); // 1 pedido ao feed por execução
+    expect(calls.uefaFantasy?.[0]).toContain('gamedayId=4&');
 
     const { players } = read<{ players: Player[] }>(out, 'players.json');
     expect(players).toHaveLength(240);
     expect(players[0]!.stats.points).toBeGreaterThanOrEqual(players[1]!.stats.points);
     const p7 = players.find((p) => p.id === '250000007')!;
     expect(p7.position).toBe('FWD');
-    expect(p7.history.map((h) => h.points)).toEqual([1, 2, 3].map((gd) => ptsFor(7, gd)));
-    expect(p7.history.every((h) => h.minutes === 90)).toBe(true);
+    expect(p7.stats.points).toBe([1, 2, 3].reduce((a, g) => a + ptsFor(7, g), 0));
+    expect(p7.history).toEqual([{ gameday: 3, points: ptsFor(7, 3), minutes: null, source: 'feed' }]);
     expect(p7.teamName).toBe('Benfica');
     expect(p7.nextMatch).toMatchObject({ gameday: 4, home: true, opponentName: 'Paris', opponentId: '52747' });
     expect(p7.nextMatch?.kickoff).toBe('2026-11-04T17:45:00.000Z');
@@ -50,7 +65,7 @@ describe('pipeline completo', () => {
 
     const { teams } = read<{ teams: Team[] }>(out, 'teams.json');
     const psg = teams.find((t) => t.id === '52747')!;
-    expect(psg).toMatchObject({ eloClub: 'Paris SG', country: 'FRA', players: 60 });
+    expect(psg).toMatchObject({ eloClub: 'Paris SG', country: 'FRA', players: 60, coefficient: 100, coefficientRank: 3 });
     expect(psg.record.played).toBe(3);
     expect(psg.nextMatch).toMatchObject({ gameday: 4, home: false, opponentId: '50147' });
 
@@ -60,13 +75,36 @@ describe('pipeline completo', () => {
     expect(readFileSync(join(out, 'latest', 'summary.md'), 'utf8')).toContain('Jornada:** 4 (por jogar)');
   });
 
-  it('execuções seguintes usam cache das jornadas fechadas', async () => {
+  it('ciclo completo: antes do fecho → jornada jogada → jornada seguinte', async () => {
     const out = mkdtempSync(join(tmpdir(), 'ucl-'));
+    // J4 por jogar (snapshot de partida antes do fecho)
     await runPipeline({ ...opts, outDir: out, now: NOW, httpFactory: factory(ALL) });
-    const calls: Record<string, string[]> = {};
-    const meta = await runPipeline({ ...opts, outDir: out, now: new Date('2026-10-31T14:00:00Z'), httpFactory: factory(ALL, calls) });
-    expect(calls.uefaFantasy).toHaveLength(2); // atual + J3
-    expect(meta.checks.pointsHistory.mismatches).toBe(0);
+
+    // J4 jogada (feed já com os pontos da J4)
+    const afterGd4 = await runPipeline({
+      ...opts,
+      outDir: out,
+      now: new Date('2026-11-05T23:30:00Z'),
+      httpFactory: factory({ ...ALL, uefaFantasy: fantasyRoutes(4, 4) }),
+    });
+    expect(afterGd4.gamedayState).toBe('finished');
+    expect(afterGd4.checks.pointsHistory).toEqual({ checked: 240, mismatches: 0 });
+    let p7 = read<{ players: Player[] }>(out, 'players.json').players.find((p) => p.id === '250000007')!;
+    expect(p7.history.at(-1)).toEqual({ gameday: 4, points: ptsFor(7, 4), minutes: 90, source: 'tracked' });
+
+    // Feed passa para a J5 (API de jogos em baixo: pista vem da execução anterior)
+    const gd5 = await runPipeline({
+      ...opts,
+      outDir: out,
+      now: new Date('2026-11-10T12:00:00Z'),
+      httpFactory: factory({ ...ALL, uefaMatches: fail(503), uefaFantasy: fantasyRoutes(5, 4) }),
+    });
+    expect(gd5.currentGameday).toBe(5);
+    expect(gd5.gamedayState).toBe('upcoming');
+    expect(gd5.checks.history).toEqual({ tracked: [4], fromFeed: null, unavailable: [1, 2, 3] });
+    expect(gd5.checks.pointsHistory).toEqual({ checked: 240, mismatches: 0 }); // vs lastGdPoints
+    p7 = read<{ players: Player[] }>(out, 'players.json').players.find((p) => p.id === '250000007')!;
+    expect(p7.history).toEqual([{ gameday: 4, points: ptsFor(7, 4), minutes: 90, source: 'tracked' }]);
   });
 
   it('se o feed fantasy falhar, mantém os últimos dados válidos e assinala a falha', async () => {
@@ -79,29 +117,37 @@ describe('pipeline completo', () => {
       ...opts,
       outDir: out,
       now: later,
-      httpFactory: factory({ ...ALL, uefaFantasy: [{ match: () => true, status: 403 }], clubElo: [] }),
+      httpFactory: factory({ ...ALL, uefaFantasy: fail(403), clubElo: [] }),
     });
     expect(readFileSync(join(out, 'latest', 'players.json'), 'utf8')).toBe(before);
     expect(meta.sources.uefaFantasy).toMatchObject({ status: 'failed', lastSuccess: NOW.toISOString() });
     expect(meta.sources.uefaFantasy?.error).toMatch(/403/);
     expect(meta.counts.players).toBe(240);
     expect(meta.currentGameday).toBe(4);
-    const saved = read<Meta>(out, 'meta.json');
-    expect(saved.generatedAt).toBe(later.toISOString());
+    expect(read<Meta>(out, 'meta.json').generatedAt).toBe(later.toISOString());
   });
 
-  it('se o ClubElo falhar, mantém o Elo anterior', async () => {
+  it('se o ClubElo e os coeficientes falharem, mantém os valores anteriores', async () => {
     const out = mkdtempSync(join(tmpdir(), 'ucl-'));
     await runPipeline({ ...opts, outDir: out, now: NOW, httpFactory: factory(ALL) });
     const meta = await runPipeline({
       ...opts,
       outDir: out,
       now: new Date('2026-11-01T12:00:00Z'),
-      httpFactory: factory({ ...ALL, clubElo: [{ match: () => true, status: 500 }] }),
+      httpFactory: factory({ ...ALL, clubElo: fail(502), uefaCoefficients: fail(500) }),
     });
     expect(meta.sources.clubElo?.status).toBe('failed');
+    expect(meta.sources.uefaCoefficients?.status).toBe('failed');
     expect(meta.counts.teamsWithElo).toBe(4);
-    expect(meta.warnings.some((w) => w.includes('Elo'))).toBe(true);
+    expect(meta.counts.teamsWithCoefficient).toBe(4);
+  });
+
+  it('sem ClubElo (situação real), as equipas têm força pelo coeficiente UEFA', async () => {
+    const out = mkdtempSync(join(tmpdir(), 'ucl-'));
+    const meta = await runPipeline({ ...opts, outDir: out, now: NOW, httpFactory: factory({ ...ALL, clubElo: fail(502) }) });
+    expect(meta.counts).toMatchObject({ teamsWithElo: 0, teamsWithCoefficient: 4 });
+    const { teams } = read<{ teams: Team[] }>(out, 'teams.json');
+    expect(teams[0]!.name).toBe('Man City'); // ordenadas por coeficiente
   });
 
   it('rejeita um feed com poucos jogadores (controlo de qualidade)', async () => {
@@ -115,39 +161,34 @@ describe('pipeline completo', () => {
 
 describe('jornada atual', () => {
   it('deduz a jornada atual da API de jogos', () => {
-    const fixtures = JSON.parse(uefaMatchesJson()) as unknown[];
-    const parsed = parseUefaMatches(JSON.stringify(fixtures)).matches.map(fixtureFromUefa);
+    const parsed = parseUefaMatches(uefaMatchesJson()).matches.map(fixtureFromUefa);
     expect(currentGamedayFromFixtures(parsed)).toBe(4);
     expect(currentGamedayFromFixtures(parsed.map((f) => ({ ...f, status: 'FINISHED' })))).toBe(4);
     expect(currentGamedayFromFixtures([])).toBeNull();
   });
 
-  it('sem pista, avança jornada a jornada até o feed vir vazio', async () => {
+  it('a jornada verdadeira é o mdId do feed (o feed ignora jornadas passadas)', async () => {
     const calls: string[] = [];
-    const { gameday, feed, fetched } = await fetchCurrentFantasy(fakeHttp(fantasyRoutes(4), calls), null);
+    const { gameday, feed } = await fetchCurrentFantasy(fakeHttp(fantasyRoutes(4), calls), null);
     expect(gameday).toBe(4);
     expect(feed.gameday).toBe(4);
-    expect([...fetched.keys()]).toEqual([1, 2, 3]);
-    expect(calls).toHaveLength(5); // J1..J5 (J5 vazia)
+    expect(calls).toHaveLength(1); // pediu J1, recebeu o estado atual (J4)
+    expect((await fetchCurrentFantasy(fakeHttp(fantasyRoutes(5)), 4)).gameday).toBe(5); // pista desatualizada
   });
 
   it('com pista de jornada ainda não aberta, recua uma', async () => {
-    const { gameday } = await fetchCurrentFantasy(fakeHttp(fantasyRoutes(4)), 5);
+    const calls: string[] = [];
+    const { gameday } = await fetchCurrentFantasy(fakeHttp(fantasyRoutes(4), calls), 5);
     expect(gameday).toBe(4);
+    expect(calls).toHaveLength(2);
   });
 
-  it('pipeline funciona sem a API de jogos (descobre a jornada pelo feed)', async () => {
+  it('pipeline funciona sem a API de jogos (horas do feed fantasy)', async () => {
     const out = mkdtempSync(join(tmpdir(), 'ucl-'));
-    const meta = await runPipeline({
-      ...opts,
-      outDir: out,
-      now: NOW,
-      httpFactory: factory({ ...ALL, uefaMatches: [{ match: () => true, status: 503 }] }),
-    });
+    const meta = await runPipeline({ ...opts, outDir: out, now: NOW, httpFactory: factory({ ...ALL, uefaMatches: fail(503) }) });
     expect(meta.sources.uefaFantasy?.status).toBe('ok');
     expect(meta.currentGameday).toBe(4);
-    expect(meta.deadline).toBe('2026-11-04T17:45:00.000Z'); // horas do feed fantasy
-    expect(meta.checks.pointsHistory.mismatches).toBe(0);
+    expect(meta.deadline).toBe('2026-11-04T17:45:00.000Z');
   });
 });
 
