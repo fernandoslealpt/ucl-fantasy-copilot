@@ -1,0 +1,28 @@
+name: Sonda de onzes prováveis
+
+# Manual (ou ao alterar a sonda): testa fontes grátis de onzes prováveis, lesões e fóruns.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['pipeline/lineupsProbe.ts', '.github/workflows/probe-lineups.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Sondar
+        run: npx tsx pipeline/lineupsProbe.ts | tee lineups-probe.md
+      - name: Resumo
+        if: always()
+        run: if [ -f lineups-probe.md ]; then cat lineups-probe.md >> "$GITHUB_STEP_SUMMARY"; fi
