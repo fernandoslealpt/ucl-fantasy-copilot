@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T23:40:07.278Z",
+  "generatedAt": "2026-11-01T23:52:45.896Z",
   "season": 2027,
   "gameday": 4,
   "targets": [
@@ -9,7 +9,7 @@
     7,
     8
   ],
-  "modelVersion": "1.0.0",
+  "modelVersion": "1.1.0",
   "params": {
     "prevWeight": 0.5,
     "minutesDecay": 0.7,
@@ -25,7 +25,7 @@
     "minutesIfStart": 86,
     "minutesIfSub": 22
   },
-  "version": "1.0.0",
+  "version": "1.1.0",
   "players": 1171,
   "backtest": [
     {
@@ -81,11 +81,11 @@
       "model": {
         "n": 803,
         "mae": 1.96,
-        "rmse": 2.78,
+        "rmse": 2.77,
         "spearman": 0.39,
         "top20Actual": 5.95,
-        "top50Actual": 4.6,
-        "meanPred": 2.34,
+        "top50Actual": 5.2,
+        "meanPred": 2.36,
         "meanActual": 2.26
       },
       "baseline": {

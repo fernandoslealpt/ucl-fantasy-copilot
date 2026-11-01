@@ -1,48 +1,48 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-01T23:40:07.278Z",
+  "generatedAt": "2026-11-01T23:52:45.896Z",
   "currentGameday": 4,
   "gamedayState": "upcoming",
   "deadline": "2026-11-03T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T23:40:07.278Z",
-      "lastSuccess": "2026-11-01T23:40:07.278Z",
+      "lastAttempt": "2026-11-01T23:52:45.896Z",
+      "lastSuccess": "2026-11-01T23:52:45.896Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T23:40:07.278Z",
-      "lastSuccess": "2026-11-01T23:40:07.278Z",
+      "lastAttempt": "2026-11-01T23:52:45.896Z",
+      "lastSuccess": "2026-11-01T23:52:45.896Z",
       "requests": 1,
       "records": 1171
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T23:40:07.278Z",
-      "lastSuccess": "2026-11-01T23:40:07.278Z",
+      "lastAttempt": "2026-11-01T23:52:45.896Z",
+      "lastSuccess": "2026-11-01T23:52:45.896Z",
       "requests": 0,
       "records": 0
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T23:40:07.278Z",
-      "lastSuccess": "2026-11-01T23:40:07.278Z",
+      "lastAttempt": "2026-11-01T23:52:45.896Z",
+      "lastSuccess": "2026-11-01T23:52:45.896Z",
       "requests": 0,
       "records": 1171
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-01T23:40:07.278Z",
-      "lastSuccess": "2026-11-01T23:40:07.278Z",
+      "lastAttempt": "2026-11-01T23:52:45.896Z",
+      "lastSuccess": "2026-11-01T23:52:45.896Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-01T23:40:07.278Z",
+      "lastAttempt": "2026-11-01T23:52:45.896Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
@@ -51,7 +51,7 @@
       "status": "ok",
       "lastAttempt": "2026-11-01T23:40:07.278Z",
       "lastSuccess": "2026-11-01T23:40:07.278Z",
-      "requests": 36,
+      "requests": 0,
       "records": 264
     }
   },
@@ -99,7 +99,7 @@
     "pStatus=S · qStatus=∅ · trained=∅": 3
   },
   "model": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "targets": [
       4,
       5,
@@ -133,5 +133,5 @@
     ]
   },
   "warnings": [],
-  "durationMs": 19484
+  "durationMs": 13181
 }
