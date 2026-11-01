@@ -8,10 +8,19 @@ App pessoal para a **UEFA Champions League Fantasy** (equipa *SL Piornaofica*): 
 |---|---|
 | 0 · Validação das fontes | ✅ sonda automática em cada execução manual |
 | 1 · Pipeline de dados | ✅ aprovada |
-| 2 · Modelo xP | 🟡 v1 a correr — à espera da revisão do top 20 |
-| 3 · App base + equipa | ⏳ |
+| 2 · Modelo xP | ✅ aprovada |
+| 3 · App base + equipa | 🟡 app publicada — à espera do teste no telemóvel e no PC |
 | 4 · Recomendações | ⏳ |
 | 5 · Polimento | ⏳ |
+
+## A app
+
+**https://fernandoslealpt.github.io/ucl-fantasy-copilot/**
+
+- **Instalar no iPhone:** abrir no Safari → Partilhar → *Adicionar ao ecrã principal*. **Android:** Chrome → menu → *Instalar app*.
+- Ecrãs: **Equipa** (o teu onze com mais pontos esperados, banco e alertas), **Jogadores** (todos, com filtros), **Calendário** (dificuldade 1–5 das próximas jornadas) e **Notícias**.
+- Toca num jogador para ver a ficha: próximos jogos, de onde vêm os pontos esperados e pontos por jornada.
+- **Sincronizar telemóvel ↔ PC:** Definições (roda dentada) → seguir os 5 passos para criar a chave do GitHub, uma vez, no dispositivo onde editas a equipa. Os outros dispositivos leem a equipa sozinhos.
 
 ## Como funciona a atualização de dados
 

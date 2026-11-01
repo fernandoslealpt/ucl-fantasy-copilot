@@ -28,3 +28,12 @@
 - Defesas do GR lidas do campo `sS` do histórico por jogador (o campo `saves` vem a 0); caches com versão para refazer leituras quando o parser muda.
 - O modelo corre a seguir aos dados; se falhar, os dados publicam-se na mesma (aviso no `meta.json`).
 - Detalhes em `docs/MODEL.md`.
+
+## 1 nov 2026 — Fase 3 (app)
+- Fase 2 aprovada pelo Fernando ("avança").
+- App em `app/` (Vite + React + PWA), publicada no GitHub Pages pelo workflow `deploy-app.yml`. Lê os dados diretamente de `raw.githubusercontent.com/…/data/latest/` (sem republicar a app a cada atualização).
+- Tabela ordenável própria em vez de TanStack Table (menos dependências; chega para 1200 linhas com limite de linhas mostradas).
+- Equipa: guardada no dispositivo e sincronizada em `data/user/team.json` (leitura sem chave; escrita com token fine-grained só neste repo). O workflow de dados ignora `data/user/`.
+- Onze mostrado = onze com mais xP com formação válida (antecipa a Fase 4; as recomendações de transferências/capitão continuam na Fase 4).
+- Notícias: Google News RSS por equipa, no máximo a cada 3 h; badge só para notícias dos jogadores da equipa.
+- Identidade visual: marcador de estádio (contagem decrescente para o fecho), relvado, cores de cartões (amarelo = dúvida, vermelho = fora). Sem marcas UEFA.
