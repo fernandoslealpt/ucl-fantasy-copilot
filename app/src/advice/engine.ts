@@ -194,16 +194,17 @@ export function adviseTransfers(
     const deltaGd = v.perGd.map((x, k) => x - base.perGd[k]!);
     // gastar a última grátis perde a que passaria para a jornada seguinte
     const keepCost = free >= 1 && n >= free ? KEEP_VALUE : 0;
-    // troca paga: o ganho das jornadas seguintes conta metade, porque as grátis da próxima jornada podiam fazê-la sem −4
-    const future = delta - (deltaGd[0] ?? 0) * (ctx.weights[0] ?? 1);
-    const waitCost = hits > 0 ? (0.5 * future * hits) / n : 0;
+    // o ganho das jornadas seguintes conta metade: essas trocas também se podem fazer na próxima jornada,
+    // com as grátis dessa jornada (e sem −4)
+    const now = (deltaGd[0] ?? 0) * (ctx.weights[0] ?? 1);
+    const future = delta - now;
     return {
       swaps,
       delta,
       deltaGd,
       hits,
       net: delta - HIT * hits,
-      score: delta - (HIT + HIT_MARGIN) * hits - keepCost - waitCost,
+      score: now + 0.5 * future - (HIT + HIT_MARGIN) * hits - keepCost,
       bankAfter,
     };
   };
@@ -273,10 +274,13 @@ export function adviseTransfers(
     }
     return out;
   };
-  const byCount = { 1: distinct(singles, 5), 2: distinct(doubles, 5), 3: distinct(triples, 5) };
+  const byScore = (xs: Plan[]) => [...xs].sort((a, b) => b.score - a.score);
+  const byCount = { 1: distinct(byScore(singles), 5), 2: distinct(byScore(doubles), 5), 3: distinct(byScore(triples), 5) };
   const all = [...byCount[1], ...byCount[2], ...byCount[3]];
-  const best = all.reduce<Plan | null>((acc, p) => (!acc || p.score > acc.score ? p : acc), null);
-  const recommended = best && best.score > 0 && best.delta >= MIN_GAIN ? best : null;
+  // só se recomenda o que não perde pontos já nesta jornada
+  const eligible = all.filter((p) => (p.deltaGd[0] ?? 0) > 0);
+  const top = eligible.reduce<Plan | null>((acc, p) => (!acc || p.score > acc.score ? p : acc), null);
+  const recommended = top && top.score > 0 && top.delta >= MIN_GAIN ? top : null;
   const bestFree = all.filter((p) => p.hits === 0).sort((a, b) => b.delta - a.delta)[0] ?? null;
   return { ctx, base, free, bank, byCount, recommended, bestFree };
 }
