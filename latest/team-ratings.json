@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-02T00:00:48.079Z",
+  "generatedAt": "2026-11-02T00:12:29.248Z",
   "season": 2027,
   "gameday": 4,
   "targets": [4,5,6,7,8],
-  "modelVersion": "1.1.0",
+  "modelVersion": "1.2.0",
   "teams": [
     {"id":"52280","name":"Arsenal","attack":0.25,"defense":0.71,"fixtures":[{"gameday":4,"opponentId":"52498","opponentName":"Slavia Praha","home":false,"goalsFor":2.39,"goalsAgainst":0.71,"pCleanSheet":0.49,"difficulty":1},{"gameday":5,"opponentId":"52758","opponentName":"B. Dortmund","home":true,"goalsFor":2.43,"goalsAgainst":0.83,"pCleanSheet":0.44,"difficulty":1},{"gameday":6,"opponentId":"50051","opponentName":"Real Madrid","home":true,"goalsFor":1.99,"goalsAgainst":1.11,"pCleanSheet":0.33,"difficulty":2},{"gameday":7,"opponentId":"52265","opponentName":"Real Betis","home":false,"goalsFor":1.66,"goalsAgainst":1.11,"pCleanSheet":0.33,"difficulty":2},{"gameday":8,"opponentId":"2609356","opponentName":"Sabah","home":true,"goalsFor":3.57,"goalsAgainst":0.43,"pCleanSheet":0.65,"difficulty":1}]},
     {"id":"52747","name":"Paris","attack":0.62,"defense":0.33,"fixtures":[{"gameday":4,"opponentId":"70691","opponentName":"Villarreal","home":false,"goalsFor":3.17,"goalsAgainst":1.3,"pCleanSheet":0.27,"difficulty":1},{"gameday":5,"opponentId":"50137","opponentName":"Roma","home":true,"goalsFor":3.33,"goalsAgainst":1.27,"pCleanSheet":0.28,"difficulty":1},{"gameday":6,"opponentId":"52683","opponentName":"Aston Villa","home":false,"goalsFor":2.09,"goalsAgainst":2.1,"pCleanSheet":0.12,"difficulty":3},{"gameday":7,"opponentId":"79946","opponentName":"Como","home":false,"goalsFor":3.43,"goalsAgainst":1.46,"pCleanSheet":0.23,"difficulty":1},{"gameday":8,"opponentId":"50067","opponentName":"Galatasaray","home":true,"goalsFor":3.86,"goalsAgainst":1.02,"pCleanSheet":0.36,"difficulty":1}]},

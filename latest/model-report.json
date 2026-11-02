@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T00:00:48.079Z",
+  "generatedAt": "2026-11-02T00:12:29.248Z",
   "season": 2027,
   "gameday": 4,
   "targets": [
@@ -9,7 +9,7 @@
     7,
     8
   ],
-  "modelVersion": "1.1.0",
+  "modelVersion": "1.2.0",
   "params": {
     "prevWeight": 0.5,
     "minutesDecay": 0.7,
@@ -23,9 +23,12 @@
     },
     "priorAppsMotm": 4,
     "minutesIfStart": 86,
-    "minutesIfSub": 22
+    "minutesIfSub": 22,
+    "lineupWeight": 0.7,
+    "predictedStart": 0.85,
+    "predictedBench": 0.12
   },
-  "version": "1.1.0",
+  "version": "1.2.0",
   "players": 1171,
   "backtest": [
     {
