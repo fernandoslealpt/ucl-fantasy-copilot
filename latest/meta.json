@@ -1,48 +1,48 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-02T00:08:26.838Z",
+  "generatedAt": "2026-11-02T00:10:15.935Z",
   "currentGameday": 3,
   "gamedayState": "finished",
   "deadline": "2026-10-20T16:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-02T00:08:26.838Z",
-      "lastSuccess": "2026-11-02T00:08:26.838Z",
+      "lastAttempt": "2026-11-02T00:10:15.935Z",
+      "lastSuccess": "2026-11-02T00:10:15.935Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-02T00:08:26.838Z",
-      "lastSuccess": "2026-11-02T00:08:26.838Z",
-      "requests": 3,
+      "lastAttempt": "2026-11-02T00:10:15.935Z",
+      "lastSuccess": "2026-11-02T00:10:15.935Z",
+      "requests": 2,
       "records": 1171
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-02T00:08:26.838Z",
-      "lastSuccess": "2026-11-02T00:08:26.838Z",
+      "lastAttempt": "2026-11-02T00:10:15.935Z",
+      "lastSuccess": "2026-11-02T00:10:15.935Z",
       "requests": 0,
       "records": 0
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-02T00:08:26.838Z",
-      "lastSuccess": "2026-11-02T00:08:26.838Z",
+      "lastAttempt": "2026-11-02T00:10:15.935Z",
+      "lastSuccess": "2026-11-02T00:10:15.935Z",
       "requests": 0,
       "records": 1171
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-02T00:08:26.838Z",
-      "lastSuccess": "2026-11-02T00:08:26.838Z",
+      "lastAttempt": "2026-11-02T00:10:15.935Z",
+      "lastSuccess": "2026-11-02T00:10:15.935Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-02T00:08:26.838Z",
+      "lastAttempt": "2026-11-02T00:10:15.935Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
@@ -56,8 +56,8 @@
     },
     "rotowire": {
       "status": "ok",
-      "lastAttempt": "2026-11-02T00:08:26.838Z",
-      "lastSuccess": "2026-11-02T00:08:26.838Z",
+      "lastAttempt": "2026-11-02T00:10:15.935Z",
+      "lastSuccess": "2026-11-02T00:10:15.935Z",
       "requests": 1,
       "records": 36
     }
@@ -141,5 +141,5 @@
   "warnings": [
     "Jornada: API de jogos indica J4, feed fantasy indica J3"
   ],
-  "durationMs": 16800
+  "durationMs": 16239
 }
