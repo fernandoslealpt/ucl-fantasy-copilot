@@ -1,21 +1,21 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** segunda, 02/11, 06:18 (Lisboa) · **Jornada:** 4 (por jogar) · **Fecho da equipa:** terça, 03/11, 17:45
+**Gerado:** segunda, 02/11, 18:29 (Lisboa) · **Jornada:** 4 (por jogar) · **Fecho da equipa:** terça, 03/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | segunda, 02/11, 06:18 |  |
-| uefaFantasy | ✅ ok | 1 | 1171 | segunda, 02/11, 06:18 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | segunda, 02/11, 06:18 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1171 | segunda, 02/11, 06:18 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | segunda, 02/11, 06:18 |  |
+| uefaMatches | ✅ ok | 3 | 144 | segunda, 02/11, 18:29 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | segunda, 02/11, 18:29 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | segunda, 02/11, 18:29 |  |
+| uefaPrevSeason | ✅ ok | 2 | 1173 | segunda, 02/11, 18:29 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | segunda, 02/11, 18:29 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 265 | segunda, 02/11, 06:18 |  |
-| rotowire | ✅ ok | 1 | 36 | segunda, 02/11, 06:18 |  |
+| googleNews | ✅ ok | 36 | 270 | segunda, 02/11, 18:29 |  |
+| rotowire | ✅ ok | 1 | 36 | segunda, 02/11, 18:29 |  |
 
-**Totais:** 1171 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
+**Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: nada a comparar ainda · jogos do feed fantasy na API UEFA: 18/18
-**Histórico por jornada (oficial UEFA):** 1171/1171 jogadores · soma das jornadas = total em 1171/1171 · pedidos nesta execução: 0
+**Histórico por jornada (oficial UEFA):** 1173/1173 jogadores · soma das jornadas = total em 1173/1173 · pedidos nesta execução: 0
 **Plano B (sem histórico oficial):** snapshots — · feed J3 (só pontos)
 
 ## Modelo xP v1.2.0 — próximas jornadas J4, J5, J6, J7, J8
@@ -26,7 +26,7 @@
 |---|---|---|---|---|
 | J1 | 1.9 | 1.97 | 6.65 | 5.05 |
 | J2 | 2 | 2.16 | 3.75 | 2.65 |
-| J3 | 1.96 | 2.09 | 5.95 | 4.8 |
+| J3 | 1.96 | 2.08 | 5.95 | 4.8 |
 
 **Top 20 xP — J4**
 
@@ -65,13 +65,13 @@
 | 6 | S. Guirassy | B. Dortmund | FWD | 8.6 | 27 | 13 (J3) | 210 | 12 | disponível | J4 vs Real Betis · quarta, 04/11, 20:00 |
 | 7 | L. Suárez | Sporting CP | FWD | 7.3 | 27 | 10 (J3) | 249 | 11 | disponível | J4 @ Shakhtar · terça, 03/11, 17:45 |
 | 8 | M. Bartra | Real Betis | DEF | 4.8 | 27 | 7 (J3) | 270 | 6 | disponível | J4 @ B. Dortmund · quarta, 04/11, 20:00 |
-| 9 | K. Mbappé | Real Madrid | FWD | 11.0 | 26 | 12 (J3) | 267 | 59 | disponível | J4 @ AEK Athens · quarta, 04/11, 17:45 |
-| 10 | O. Dembélé | Paris | FWD | 10.2 | 26 | 1 (J3) | 160 | 16 | fora | J4 @ Villarreal · terça, 03/11, 20:00 |
-| 11 | D. Doué | Paris | MID | 8.5 | 26 | 14 (J3) | 144 | 9 | disponível | J4 @ Villarreal · terça, 03/11, 20:00 |
+| 9 | K. Mbappé | Real Madrid | FWD | 11.0 | 26 | 12 (J3) | 267 | 60 | disponível | J4 @ AEK Athens · quarta, 04/11, 17:45 |
+| 10 | O. Dembélé | Paris | FWD | 10.2 | 26 | 1 (J3) | 160 | 15 | fora | J4 @ Villarreal · terça, 03/11, 20:00 |
+| 11 | D. Doué | Paris | MID | 8.5 | 26 | 14 (J3) | 144 | 10 | disponível | J4 @ Villarreal · terça, 03/11, 20:00 |
 | 12 | P. Foden | Man City | MID | 7.0 | 26 | 23 (J3) | 165 | 2 | disponível | J4 @ Leipzig · quarta, 04/11, 20:00 |
 | 13 | D. Malen | Roma | FWD | 6.6 | 26 | 11 (J3) | 236 | 11 | disponível | J4 @ Man Utd · terça, 03/11, 20:00 |
 | 14 | Isco | Real Betis | MID | 6.6 | 26 | 11 (J3) | 227 | 2 | disponível | J4 @ B. Dortmund · quarta, 04/11, 20:00 |
-| 15 | Vitinha | Paris | MID | 7.6 | 25 | 9 (J3) | 270 | 17 | disponível | J4 @ Villarreal · terça, 03/11, 20:00 |
+| 15 | Vitinha | Paris | MID | 7.6 | 25 | 9 (J3) | 270 | 18 | disponível | J4 @ Villarreal · terça, 03/11, 20:00 |
 
 ## Equipas mais fortes (top 10)
 
@@ -90,13 +90,13 @@
 
 <details><summary>Valores de estado no feed</summary>
 
-- 872 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
+- 865 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
 - 125 × pStatus=NIS · qStatus=∅ · trained=∅
-- 85 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
-- 54 × pStatus=∅ · qStatus=∅ · trained=∅
+- 87 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
+- 56 × pStatus=∅ · qStatus=∅ · trained=∅
 - 17 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
-- 10 × pStatus=D · qStatus=∅ · trained=In contention to start next game
-- 5 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
+- 14 × pStatus=D · qStatus=∅ · trained=In contention to start next game
+- 6 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
 - 3 × pStatus=S · qStatus=∅ · trained=∅
 
 </details>
