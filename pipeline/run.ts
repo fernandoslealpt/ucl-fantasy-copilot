@@ -131,6 +131,7 @@ export async function fetchCurrentFantasy(
   const target = hint ?? 0;
   let best: { feed: ParsedFeed; gameday: number } | null = null;
   let busted = false;
+  let hintAnswered = false;
   for (const gd of candidates) {
     for (const bust of [false, true]) {
       // pede sem cache só quando o que veio está atrás da jornada indicada pela API de jogos
@@ -139,6 +140,7 @@ export async function fetchCurrentFantasy(
         busted ||= bust;
         const feed = bust ? parseFantasyFeed(await http.getText(`${fantasyPlayersUrl(gd)}&_=${Date.now()}`)) : await fetchFantasyFeed(http, gd);
         const got = feed.gameday ?? gd;
+        if (gd === hint) hintAnswered = true;
         if (!best || got > best.gameday) best = { feed, gameday: got };
       } catch (e) {
         if (!(e instanceof EmptyFeedError)) throw e;
@@ -147,6 +149,10 @@ export async function fetchCurrentFantasy(
     // sem cache, a resposta é a da origem: não vale a pena tentar outras jornadas
     if (best && (best.gameday >= target || busted)) break;
   }
+  // Pedir a jornada da API de jogos devolveu jogadores, mas de uma jornada anterior: o feed está numa cópia antiga
+  // (o caso legítimo — próxima jornada ainda não aberta — devolve o feed vazio).
+  if (best && hint && hintAnswered && best.gameday < hint)
+    throw new Error(`Feed fantasy desatualizado (J${best.gameday} quando a jornada atual é a J${hint}): mantêm-se os dados anteriores`);
   if (best && best.gameday < minGameday)
     throw new Error(`Feed fantasy desatualizado (J${best.gameday}, esperado ≥ J${minGameday}): mantêm-se os dados anteriores`);
   if (best) return best;
