@@ -128,24 +128,28 @@ export async function fetchCurrentFantasy(
   minGameday = 0,
 ): Promise<{ feed: ParsedFeed; gameday: number }> {
   const candidates = [...new Set([hint, hint ? hint - 1 : null, 1].filter((g): g is number => g != null && g >= 1))];
-  let stale: number | null = null;
+  const target = hint ?? 0;
+  let best: { feed: ParsedFeed; gameday: number } | null = null;
+  let busted = false;
   for (const gd of candidates) {
     for (const bust of [false, true]) {
-      if (bust && stale == null) continue;
+      // pede sem cache só quando o que veio está atrás da jornada indicada pela API de jogos
+      if (bust && (!best || best.gameday >= target)) continue;
       try {
+        busted ||= bust;
         const feed = bust ? parseFantasyFeed(await http.getText(`${fantasyPlayersUrl(gd)}&_=${Date.now()}`)) : await fetchFantasyFeed(http, gd);
         const got = feed.gameday ?? gd;
-        if (got < minGameday) {
-          stale = got;
-          continue;
-        }
-        return { feed, gameday: got };
+        if (!best || got > best.gameday) best = { feed, gameday: got };
       } catch (e) {
         if (!(e instanceof EmptyFeedError)) throw e;
       }
     }
+    // sem cache, a resposta é a da origem: não vale a pena tentar outras jornadas
+    if (best && (best.gameday >= target || busted)) break;
   }
-  if (stale != null) throw new Error(`Feed fantasy desatualizado (J${stale}, esperado ≥ J${minGameday}): mantêm-se os dados anteriores`);
+  if (best && best.gameday < minGameday)
+    throw new Error(`Feed fantasy desatualizado (J${best.gameday}, esperado ≥ J${minGameday}): mantêm-se os dados anteriores`);
+  if (best) return best;
   throw new Error(`Feed fantasy vazio para as jornadas ${candidates.join(', ')}`);
 }
 

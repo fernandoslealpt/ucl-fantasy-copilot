@@ -237,7 +237,7 @@ describe('jornada atual', () => {
     const calls: string[] = [];
     const { gameday } = await fetchCurrentFantasy(fakeHttp(fantasyRoutes(4), calls), 5);
     expect(gameday).toBe(4);
-    expect(calls).toHaveLength(2);
+    expect(calls).toHaveLength(3); // J5 vazia, J4, J4 sem cache (confirma)
   });
 
   it('pipeline funciona sem a API de jogos (horas do feed fantasy)', async () => {
