@@ -1,48 +1,48 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-02T00:10:15.935Z",
-  "currentGameday": 3,
-  "gamedayState": "finished",
-  "deadline": "2026-10-20T16:45:00.000Z",
+  "generatedAt": "2026-11-02T00:00:48.079Z",
+  "currentGameday": 4,
+  "gamedayState": "upcoming",
+  "deadline": "2026-11-03T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-02T00:10:15.935Z",
-      "lastSuccess": "2026-11-02T00:10:15.935Z",
+      "lastAttempt": "2026-11-02T00:00:48.079Z",
+      "lastSuccess": "2026-11-02T00:00:48.079Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-02T00:10:15.935Z",
-      "lastSuccess": "2026-11-02T00:10:15.935Z",
-      "requests": 2,
+      "lastAttempt": "2026-11-02T00:00:48.079Z",
+      "lastSuccess": "2026-11-02T00:00:48.079Z",
+      "requests": 1,
       "records": 1171
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-02T00:10:15.935Z",
-      "lastSuccess": "2026-11-02T00:10:15.935Z",
+      "lastAttempt": "2026-11-02T00:00:48.079Z",
+      "lastSuccess": "2026-11-02T00:00:48.079Z",
       "requests": 0,
       "records": 0
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-02T00:10:15.935Z",
-      "lastSuccess": "2026-11-02T00:10:15.935Z",
+      "lastAttempt": "2026-11-02T00:00:48.079Z",
+      "lastSuccess": "2026-11-02T00:00:48.079Z",
       "requests": 0,
       "records": 1171
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-02T00:10:15.935Z",
-      "lastSuccess": "2026-11-02T00:10:15.935Z",
+      "lastAttempt": "2026-11-02T00:00:48.079Z",
+      "lastSuccess": "2026-11-02T00:00:48.079Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-02T00:10:15.935Z",
+      "lastAttempt": "2026-11-02T00:00:48.079Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
@@ -53,13 +53,6 @@
       "lastSuccess": "2026-11-01T23:40:07.278Z",
       "requests": 0,
       "records": 264
-    },
-    "rotowire": {
-      "status": "ok",
-      "lastAttempt": "2026-11-02T00:10:15.935Z",
-      "lastSuccess": "2026-11-02T00:10:15.935Z",
-      "requests": 1,
-      "records": 36
     }
   },
   "counts": {
@@ -84,10 +77,10 @@
         "sumMismatch": 0
       },
       "tracked": [],
-      "fromFeed": 2,
+      "fromFeed": 3,
       "unavailable": [
         1,
-        3
+        2
       ]
     },
     "fixturesCrossCheck": {
@@ -98,14 +91,15 @@
   "statusValues": {
     "pStatus=∅ · qStatus=∅ · trained=In contention to start next game": 872,
     "pStatus=NIS · qStatus=∅ · trained=∅": 125,
-    "pStatus=I · qStatus=∅ · trained=Unlikely to start next game": 87,
-    "pStatus=∅ · qStatus=∅ · trained=∅": 55,
+    "pStatus=I · qStatus=∅ · trained=Unlikely to start next game": 85,
+    "pStatus=∅ · qStatus=∅ · trained=∅": 54,
     "pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game": 17,
-    "pStatus=D · qStatus=∅ · trained=In contention to start next game": 13,
-    "pStatus=S · qStatus=∅ · trained=∅": 2
+    "pStatus=D · qStatus=∅ · trained=In contention to start next game": 10,
+    "pStatus=D · qStatus=∅ · trained=Unlikely to start next game": 5,
+    "pStatus=S · qStatus=∅ · trained=∅": 3
   },
   "model": {
-    "version": "1.2.0",
+    "version": "1.1.0",
     "targets": [
       4,
       5,
@@ -117,29 +111,27 @@
     "backtest": [
       {
         "gameday": 1,
-        "modelMae": 1.91,
-        "baselineMae": 1.95,
-        "modelTop20": 6.6,
+        "modelMae": 1.9,
+        "baselineMae": 1.97,
+        "modelTop20": 6.65,
         "baselineTop20": 5.05
       },
       {
         "gameday": 2,
-        "modelMae": 2.01,
-        "baselineMae": 2.13,
+        "modelMae": 2,
+        "baselineMae": 2.16,
         "modelTop20": 3.75,
         "baselineTop20": 2.65
       },
       {
         "gameday": 3,
-        "modelMae": 1.97,
-        "baselineMae": 2.08,
+        "modelMae": 1.96,
+        "baselineMae": 2.09,
         "modelTop20": 5.95,
         "baselineTop20": 4.8
       }
     ]
   },
-  "warnings": [
-    "Jornada: API de jogos indica J4, feed fantasy indica J3"
-  ],
-  "durationMs": 16239
+  "warnings": [],
+  "durationMs": 13204
 }

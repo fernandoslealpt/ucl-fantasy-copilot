@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-02T00:10:15.935Z",
+  "generatedAt": "2026-11-02T00:00:48.079Z",
   "season": 2027,
-  "gameday": 3,
+  "gameday": 4,
   "teams": [
     {"id":"50037","name":"Bayern München","code":"BAY","country":"GER","logo":"https://img.uefa.com/imgml/TP/teams/logos/70x70/50037.png","elo":null,"eloClub":null,"eloMatch":null,"coefficient":131.5,"coefficientRank":1,"players":27,"record":{"played":3,"won":1,"drawn":2,"lost":0,"goalsFor":10,"goalsAgainst":5,"points":5},"fantasyPoints":193,"nextMatch":{"gameday":4,"opponentId":"50124","opponentName":"Atleti","opponentCode":"ATM","home":false,"kickoff":"2026-11-03T20:00:00.000Z"}},
     {"id":"52280","name":"Arsenal","code":"ARS","country":"ENG","logo":"https://img.uefa.com/imgml/TP/teams/logos/70x70/52280.png","elo":null,"eloClub":null,"eloMatch":null,"coefficient":130,"coefficientRank":2,"players":29,"record":{"played":3,"won":2,"drawn":1,"lost":0,"goalsFor":6,"goalsAgainst":2,"points":7},"fantasyPoints":199,"nextMatch":{"gameday":4,"opponentId":"52498","opponentName":"Slavia Praha","opponentCode":"SLA","home":false,"kickoff":"2026-11-04T20:00:00.000Z"}},
