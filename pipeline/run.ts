@@ -24,7 +24,7 @@ import {
 } from './normalize/teams.ts';
 import { fetchClubElo, type EloClub } from './sources/clubElo.ts';
 import { fetchUefaCoefficients, type Coefficient } from './sources/uefaCoefficients.ts';
-import { EmptyFeedError, fetchFantasyFeed, type ParsedFeed } from './sources/uefaFantasy.ts';
+import { EmptyFeedError, fantasyPlayersUrl, fetchFantasyFeed, parseFantasyFeed, type ParsedFeed } from './sources/uefaFantasy.ts';
 import { fetchTeamNews, fold, type NewsItem } from './sources/news.ts';
 import { fetchUefaMatches } from './sources/uefaMatches.ts';
 import { fantasyTourId, fetchPlayerHistory, mapPool, PLAYER_HISTORY_PARSER_VERSION } from './sources/uefaPlayerHistory.ts';
@@ -117,16 +117,35 @@ export function currentGamedayFromFixtures(fixtures: Fixture[]): number | null {
  * qualquer `gamedayId` passado devolve o estado ATUAL — por isso a jornada verdadeira é o `mdId`
  * do próprio feed. Pede-se a jornada indicada (ou J1) e, se vier vazia, a anterior.
  */
-export async function fetchCurrentFantasy(http: Http, hint: number | null): Promise<{ feed: ParsedFeed; gameday: number }> {
+/**
+ * Feed fantasy atual. O CDN da UEFA às vezes devolve uma cópia antiga (ex.: J1 quando já vamos na J4):
+ * uma resposta com jornada abaixo de `minGameday` é rejeitada e pede-se de novo sem cache; se continuar antiga, falha
+ * (o pipeline mantém os dados anteriores).
+ */
+export async function fetchCurrentFantasy(
+  http: Http,
+  hint: number | null,
+  minGameday = 0,
+): Promise<{ feed: ParsedFeed; gameday: number }> {
   const candidates = [...new Set([hint, hint ? hint - 1 : null, 1].filter((g): g is number => g != null && g >= 1))];
+  let stale: number | null = null;
   for (const gd of candidates) {
-    try {
-      const feed = await fetchFantasyFeed(http, gd);
-      return { feed, gameday: feed.gameday ?? gd };
-    } catch (e) {
-      if (!(e instanceof EmptyFeedError)) throw e;
+    for (const bust of [false, true]) {
+      if (bust && stale == null) continue;
+      try {
+        const feed = bust ? parseFantasyFeed(await http.getText(`${fantasyPlayersUrl(gd)}&_=${Date.now()}`)) : await fetchFantasyFeed(http, gd);
+        const got = feed.gameday ?? gd;
+        if (got < minGameday) {
+          stale = got;
+          continue;
+        }
+        return { feed, gameday: got };
+      } catch (e) {
+        if (!(e instanceof EmptyFeedError)) throw e;
+      }
     }
   }
+  if (stale != null) throw new Error(`Feed fantasy desatualizado (J${stale}, esperado ≥ J${minGameday}): mantêm-se os dados anteriores`);
   throw new Error(`Feed fantasy vazio para as jornadas ${candidates.join(', ')}`);
 }
 
@@ -215,7 +234,8 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
   let fantasy: { feed: ParsedFeed; gameday: number } | null = null;
   try {
     const hint = (uefaFixtures && currentGamedayFromFixtures(uefaFixtures)) ?? prevMeta?.currentGameday ?? null;
-    const got = await fetchCurrentFantasy(fHttp, hint);
+    const minGameday = Math.max(prevMeta?.currentGameday ?? 0, hint ? hint - 1 : 0);
+    const got = await fetchCurrentFantasy(fHttp, hint, minGameday);
     fantasyQualityGate(got.feed, minPlayers);
     if (hint && got.gameday !== hint) warnings.push(`Jornada: API de jogos indica J${hint}, feed fantasy indica J${got.gameday}`);
     if (got.feed.invalid > 0)

@@ -219,6 +219,20 @@ describe('jornada atual', () => {
     expect((await fetchCurrentFantasy(fakeHttp(fantasyRoutes(5)), 4)).gameday).toBe(5); // pista desatualizada
   });
 
+  it('cópia antiga do feed (CDN): pede de novo sem cache; se continuar antiga, falha', async () => {
+    const stale = fantasyRoutes(1);
+    const fresh = fantasyRoutes(4);
+    const routes = [
+      { match: (u: string) => u.includes('uclfantasy') && u.includes('&_='), body: fresh[0]!.body },
+      { match: (u: string) => u.includes('uclfantasy') && /gamedayId=\d+&/.test(u), body: stale[0]!.body },
+    ];
+    const calls: string[] = [];
+    const ok = await fetchCurrentFantasy(fakeHttp(routes, calls), 4, 3);
+    expect(ok.gameday).toBe(4);
+    expect(calls.at(-1)).toContain('&_=');
+    await expect(fetchCurrentFantasy(fakeHttp([routes[1]!]), 4, 3)).rejects.toThrow(/desatualizado/);
+  });
+
   it('com pista de jornada ainda não aberta, recua uma', async () => {
     const calls: string[] = [];
     const { gameday } = await fetchCurrentFantasy(fakeHttp(fantasyRoutes(4), calls), 5);
