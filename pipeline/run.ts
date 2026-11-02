@@ -29,7 +29,9 @@ import { fetchTeamNews, fold, type NewsItem } from './sources/news.ts';
 import { fetchUefaMatches } from './sources/uefaMatches.ts';
 import { fantasyTourId, fetchPlayerHistory, mapPool, PLAYER_HISTORY_PARSER_VERSION } from './sources/uefaPlayerHistory.ts';
 import { ensurePrevSeason, type PrevSeasonResult } from './prevSeason.ts';
-import { runModel, type ModelSummary } from './model/publish.ts';
+import { modelWindow, runModel, type ModelSummary } from './model/publish.ts';
+import { matchLineups, startSignals, type Lineups } from './normalize/lineups.ts';
+import { fetchRotowire } from './sources/rotowire.ts';
 import type { PlayerXp } from './model/xp.ts';
 import type {
   Fixture,
@@ -51,7 +53,8 @@ export type SourceName =
   | 'uefaPrevSeason'
   | 'uefaCoefficients'
   | 'clubElo'
-  | 'googleNews';
+  | 'googleNews'
+  | 'rotowire';
 
 export interface RunOptions {
   /** Pasta de saída (no GitHub Actions: worktree do branch `data`). */
@@ -388,32 +391,6 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     const noCoef = teams.filter((t) => t.coefficient == null).map((t) => t.name);
     if (coefficients && noCoef.length) warnings.push(`Sem coeficiente UEFA: ${noCoef.join(', ')}`);
 
-    // Modelo xP (Fase 2). Uma falha aqui nunca impede a publicação dos dados.
-    try {
-      const coefMap = new Map<string, number>(
-        coefficients
-          ? [...coefficients].map(([id, c]) => [id, c.value])
-          : teams.filter((t) => t.coefficient != null).map((t) => [t.id, t.coefficient!]),
-      );
-      const out = runModel({
-        outDir: opts.outDir,
-        nowIso,
-        season,
-        gameday,
-        state: timing.state,
-        players,
-        teams,
-        fixtures,
-        prevFixtures: prevSeason?.fixtures ?? null,
-        prev: prevSeason?.players?.players ?? {},
-        coefficients: coefMap,
-      });
-      modelSummary = out.summary;
-      topXp = out.xp.slice(0, 20);
-    } catch (e) {
-      warnings.push(`Modelo xP falhou: ${errorMessage(e)}`);
-    }
-
     // Notícias por equipa (no máximo a cada 3 h; usar o Google News com moderação).
     const prevNews = readJsonIfExists<{ fetchedAt: string; items: NewsItem[] }>(join(latest, 'news.json'));
     const newsDue = !prevNews || Date.parse(nowIso) - Date.parse(prevNews.fetchedAt) >= NEWS_EVERY_MS;
@@ -446,6 +423,51 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
         writeJsonLines(join(latest, 'news.json'), { fetchedAt: nowIso }, 'items', items);
         record('googleNews', nHttp, null, items.length);
       }
+    }
+
+
+    // Onzes prováveis e lesões (RotoWire): 1 pedido por execução. Se falhar, usa o ficheiro anterior (até 24 h).
+    const rHttp = httpFactory('rotowire');
+    let lineups: Lineups | null = null;
+    try {
+      lineups = matchLineups(await fetchRotowire(rHttp), players, fixtures, nowIso);
+      writeJson(join(latest, 'lineups.json'), lineups);
+      record('rotowire', rHttp, null, lineups.stats.sides);
+      if (lineups.stats.listed && lineups.stats.matched / lineups.stats.listed < 0.85)
+        warnings.push(`Onzes prováveis: só ${lineups.stats.matched}/${lineups.stats.listed} nomes reconhecidos`);
+    } catch (e) {
+      record('rotowire', rHttp, e);
+      const old = readJsonIfExists<Lineups>(join(latest, 'lineups.json'));
+      if (old && Date.parse(nowIso) - Date.parse(old.fetchedAt) < 24 * 3600_000) lineups = old;
+    }
+    const newsNow = readJsonIfExists<{ items: NewsItem[] }>(join(latest, 'news.json'))?.items ?? [];
+    const signals = startSignals(lineups, newsNow, players, nowIso, modelWindow(gameday, timing.state).first);
+
+    // Modelo xP (Fase 2). Uma falha aqui nunca impede a publicação dos dados.
+    try {
+      const coefMap = new Map<string, number>(
+        coefficients
+          ? [...coefficients].map(([id, c]) => [id, c.value])
+          : teams.filter((t) => t.coefficient != null).map((t) => [t.id, t.coefficient!]),
+      );
+      const out = runModel({
+        outDir: opts.outDir,
+        nowIso,
+        season,
+        gameday,
+        state: timing.state,
+        players,
+        teams,
+        fixtures,
+        prevFixtures: prevSeason?.fixtures ?? null,
+        prev: prevSeason?.players?.players ?? {},
+        coefficients: coefMap,
+        signals,
+      });
+      modelSummary = out.summary;
+      topXp = out.xp.slice(0, 20);
+    } catch (e) {
+      warnings.push(`Modelo xP falhou: ${errorMessage(e)}`);
     }
 
     const header = { generatedAt: nowIso, season, gameday };

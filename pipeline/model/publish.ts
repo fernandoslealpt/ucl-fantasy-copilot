@@ -6,6 +6,7 @@
  */
 import { join } from 'node:path';
 import { writeJson, writeJsonLines } from '../lib/files.ts';
+import type { StartSignal } from '../normalize/lineups.ts';
 import type { PrevSeasonPlayer } from '../prevSeason.ts';
 import type { Fixture, GamedayState, Player, Team } from '../types.ts';
 import { backtest, type BacktestRow } from './backtest.ts';
@@ -108,6 +109,8 @@ export interface RunModelInput {
   prevFixtures: Fixture[] | null;
   prev: Record<string, PrevSeasonPlayer | null>;
   coefficients: Map<string, number>;
+  /** onze provável, lesões e notícias da próxima jornada */
+  signals?: Map<string, StartSignal>;
 }
 
 export function runModel(input: RunModelInput): { xp: PlayerXp[]; summary: ModelSummary; teamRatings: TeamRating[] } {
@@ -123,6 +126,7 @@ export function runModel(input: RunModelInput): { xp: PlayerXp[]; summary: Model
     ratings,
     targets,
     lastGameday: lastPlayed,
+    signals: input.signals,
   }).sort((a, b) => b.xp1 - a.xp1 || b.xp3 - a.xp3);
 
   const bt = lastPlayed >= 1

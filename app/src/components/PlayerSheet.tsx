@@ -1,9 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { useI18n } from '../i18n';
 import type { Dataset, Row, XpComponents } from '../types';
-import { Difficulty, Opponent, pct, StatusMark, useNote } from './ui';
+import { Difficulty, Opponent, pct, StatusMark, useNote, useSignalText } from './ui';
 
-const COMPONENT_LABEL: Record<keyof XpComponents, 'cAppearance' | 'cGoals' | 'cAssists' | 'cCleanSheet' | 'cRecoveries' | 'cSaves' | 'cMotm' | 'cConceded' | 'cCards'> = {
+const COMPONENT_LABEL: Record<
+  keyof XpComponents,
+  'cAppearance' | 'cGoals' | 'cAssists' | 'cCleanSheet' | 'cRecoveries' | 'cSaves' | 'cMotm' | 'cConceded' | 'cCards'
+> = {
   appearance: 'cAppearance',
   goals: 'cGoals',
   assists: 'cAssists',
@@ -17,6 +20,7 @@ const COMPONENT_LABEL: Record<keyof XpComponents, 'cAppearance' | 'cGoals' | 'cA
 
 export function PlayerSheet({ row, data, onClose }: { row: Row; data: Dataset; onClose: () => void }) {
   const { t, d, num } = useI18n();
+  const sigText = useSignalText();
   const noteOf = useNote();
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
@@ -39,7 +43,13 @@ export function PlayerSheet({ row, data, onClose }: { row: Row; data: Dataset; o
   const rating = data.ratingById.get(row.teamId);
 
   return (
-    <dialog ref={ref} className="sheet" onClose={onClose} onClick={(e) => e.target === ref.current && onClose()} aria-labelledby="sheet-title">
+    <dialog
+      ref={ref}
+      className="sheet"
+      onClose={onClose}
+      onClick={(e) => e.target === ref.current && onClose()}
+      aria-labelledby="sheet-title"
+    >
       <div className="sheet-body">
         <header className="sheet-head">
           <div>
@@ -79,6 +89,7 @@ export function PlayerSheet({ row, data, onClose }: { row: Row; data: Dataset; o
               </div>
             </div>
 
+            {sigText(next?.signal) ? <p className="signal-line">{t('sigLine', { gd: next!.gameday, s: sigText(next?.signal)! })}</p> : null}
             <h3>{t('nextGames')}</h3>
             <ul className="fixture-list">
               {row.xp.fixtures.map((f) => {

@@ -135,7 +135,15 @@ function TeamView({
       else {
         const f = r.xp?.fixtures[0];
         const usualStarter = xi.includes(r);
-        if (f && usualStarter && f.pStart < 0.6)
+        if (f?.signal?.tag === 'OUT' || f?.signal?.tag === 'SUS')
+          out.push({ level: 'red', row: r, text: t('alertRwOut', { p: name, s: t(f.signal.tag === 'OUT' ? 'sigOut' : 'sigSus') }) });
+        else if (f && usualStarter && f.signal?.lineup === 'bench')
+          out.push({
+            level: f.signal.confirmed ? 'red' : 'yellow',
+            row: r,
+            text: t(f.signal.confirmed ? 'alertBenchConf' : 'alertBench', { p: name, pct: pct(f.pStart) }),
+          });
+        else if (f && usualStarter && f.pStart < 0.6)
           out.push({
             level: 'yellow',
             row: r,

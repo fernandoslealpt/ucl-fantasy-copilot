@@ -6,13 +6,14 @@
  * Taxas por 90' com encolhimento para a média da posição (amostras pequenas); golos/assistências
  * ajustados pela força do adversário (golos esperados da equipa neste jogo vs. a sua média).
  */
+import type { StartSignal } from '../normalize/lineups.ts';
 import type { PrevSeasonPlayer } from '../prevSeason.ts';
 import type { Fixture, GamedayLine, Player, Position } from '../types.ts';
 import { expectedFloorDiv, pZero } from './poisson.ts';
 import { expectedGoals, type TeamRatings } from './ratings.ts';
 import { SCORING } from './scoring.ts';
 
-export const MODEL_VERSION = '1.1.0';
+export const MODEL_VERSION = '1.2.0';
 
 /** Parâmetros (ver docs/MODEL.md). */
 export const PARAMS = {
@@ -29,7 +30,40 @@ export const PARAMS = {
   /** minutos médios: titular (60+) e suplente utilizado */
   minutesIfStart: 86,
   minutesIfSub: 22,
+  /** onze provável (RotoWire): peso face ao histórico e P(titular) se está / não está no onze */
+  lineupWeight: 0.7,
+  predictedStart: 0.85,
+  predictedBench: 0.12,
 };
+
+/**
+ * Junta à titularidade calculada pelo histórico os sinais da próxima jornada:
+ * onze provável/confirmado e lesões (RotoWire), e notícias recentes (Google News) quando não há mais nada.
+ */
+export function applySignal(
+  start: number,
+  play: number,
+  sig: StartSignal,
+  pos: Position,
+  uefaOut: boolean,
+): { start: number; play: number } {
+  // probabilidade de entrar do banco quando não é titular (pelo histórico)
+  const q = pos === 'GK' ? 0.02 : clamp(start < 1 ? (play - start) / (1 - start) : 0.4, 0.05, 0.7);
+  const withPlay = (st: number) => ({ start: clamp(st, 0, 1), play: clamp(st + (1 - st) * q, 0, 1) });
+  if (sig.lineup && sig.confirmed) return sig.lineup === 'start' ? { start: 0.99, play: 1 } : withPlay(0);
+  if (uefaOut) return { start, play };
+  let st = start;
+  if (sig.lineup === 'start') st = PARAMS.lineupWeight * PARAMS.predictedStart + (1 - PARAMS.lineupWeight) * start;
+  else if (sig.lineup === 'bench') st = PARAMS.lineupWeight * PARAMS.predictedBench + (1 - PARAMS.lineupWeight) * start;
+  if (sig.tag === 'OUT' || sig.tag === 'SUS') {
+    if (sig.lineup !== 'start') return { start: 0, play: 0 };
+    st *= 0.5;
+  } else if (sig.tag === 'QUES') st *= sig.lineup === 'start' ? 0.85 : 0.6;
+  else if (!sig.lineup && sig.news === 'injury') st *= 0.7;
+  else if (!sig.lineup && sig.news === 'doubt') st *= 0.85;
+  if (st === start) return { start, play };
+  return withPlay(st);
+}
 
 export type Confidence = 'alta' | 'média' | 'baixa';
 
@@ -59,6 +93,8 @@ export interface FixtureXp {
   goalsAgainst: number;
   pCleanSheet: number;
   components: XpComponents;
+  /** sinais da próxima jornada (onze provável, lesões, notícias) */
+  signal?: Pick<StartSignal, 'lineup' | 'confirmed' | 'tag' | 'news'>;
 }
 
 export interface PlayerXp {
@@ -248,6 +284,8 @@ export interface XpInput {
   lastGameday: number;
   /** ignora a disponibilidade atual (backtest: não sabemos o estado na altura) */
   ignoreAvailability?: boolean;
+  /** onze provável, lesões e notícias da próxima jornada */
+  signals?: Map<string, StartSignal>;
 }
 
 export function computeXp(input: XpInput): PlayerXp[] {
@@ -334,8 +372,11 @@ export function computeXp(input: XpInput): PlayerXp[] {
       const goalsAgainst = home ? eg.away : eg.home;
 
       const av = input.ignoreAvailability ? { play: 1, start: 1 } : availabilityFactor(p, j);
-      const pStart = clamp(base60 * av.start, 0, 1);
-      const pPlay = clamp(Math.max(pStart, baseApp * av.play), 0, 1);
+      let pStart = clamp(base60 * av.start, 0, 1);
+      let pPlay = clamp(Math.max(pStart, baseApp * av.play), 0, 1);
+      const sig = input.ignoreAvailability ? undefined : input.signals?.get(p.id);
+      const useSig = sig && sig.gameday === gd && (sig.lineup || sig.tag || sig.news);
+      if (useSig) ({ start: pStart, play: pPlay } = applySignal(pStart, pPlay, sig, p.position, av.start === 0));
       const expMinutes = pStart * PARAMS.minutesIfStart + (pPlay - pStart) * PARAMS.minutesIfSub;
       const f90 = expMinutes / 90;
       const attackAdj = goalsFor / (teamAvgFor.get(p.teamId) ?? goalsFor);
@@ -372,6 +413,7 @@ export function computeXp(input: XpInput): PlayerXp[] {
         goalsAgainst: r2(goalsAgainst),
         pCleanSheet: r2(pZero(goalsAgainst)),
         components: Object.fromEntries(Object.entries(c).map(([k, v]) => [k, r2(v)])) as unknown as XpComponents,
+        ...(useSig ? { signal: { lineup: sig.lineup, confirmed: sig.confirmed, tag: sig.tag, news: sig.news } } : {}),
       });
     });
 

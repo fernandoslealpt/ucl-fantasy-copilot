@@ -1428,3 +1428,10 @@ select {
   margin-top: 6px;
   font-size: 0.9rem;
 }
+.signal-line {
+  margin: 8px 0 0;
+  padding: 6px 10px;
+  background: var(--surface-2);
+  border-left: 4px solid var(--green);
+  border-radius: var(--radius);
+}

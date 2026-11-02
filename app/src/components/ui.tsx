@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useI18n } from '../i18n';
-import type { Availability, Dataset, FixtureXp, Row } from '../types';
+import type { Availability, Dataset, FixtureXp, Row, FixtureSignal } from '../types';
 
 /** Código oficial da equipa (ex.: BVB); se não existir, as 3 primeiras letras. */
 export function teamCode(data: Dataset, id: string, name: string): string {
@@ -53,6 +53,23 @@ export function pct(x: number | undefined): string {
 export function useNote() {
   const { d } = useI18n();
   return (note: string) => d.notes[note] ?? note;
+}
+
+/** Texto curto para os sinais da próxima jornada ("no onze provável", "lesionado", …); null se não há. */
+export function useSignalText() {
+  const { t } = useI18n();
+  return (s: FixtureSignal | undefined): string | null => {
+    if (!s) return null;
+    const parts: string[] = [];
+    if (s.lineup === 'start') parts.push(t(s.confirmed ? 'sigStartConf' : 'sigStart'));
+    if (s.lineup === 'bench') parts.push(t(s.confirmed ? 'sigBenchConf' : 'sigBench'));
+    if (s.tag === 'OUT') parts.push(t('sigOut'));
+    if (s.tag === 'SUS') parts.push(t('sigSus'));
+    if (s.tag === 'QUES') parts.push(t('sigQues'));
+    if (!s.lineup && !s.tag && s.news === 'injury') parts.push(t('sigNewsInjury'));
+    if (!s.lineup && !s.tag && s.news === 'doubt') parts.push(t('sigNewsDoubt'));
+    return parts.length ? parts.join(', ') : null;
+  };
 }
 
 export function surnameOf(r: Pick<Row, 'name'>): string {

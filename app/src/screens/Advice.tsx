@@ -11,7 +11,7 @@ import {
   type Reason,
   type TransferAdvice,
 } from '../advice/engine';
-import { StatusMark, pct } from '../components/ui';
+import { StatusMark, pct, useSignalText } from '../components/ui';
 import { useI18n } from '../i18n';
 import { bestXI, freeTransfersFor, type MyTeam } from '../team';
 import type { Dataset, Row } from '../types';
@@ -337,14 +337,19 @@ function PlanCard({
 
 function ReasonText({ r }: { r: Reason }) {
   const { t, num } = useI18n();
+  const sig = useSignalText();
   const v = r.v as Record<string, number | string>;
   const n = (k: string, digits = 1) => num(Number(v[k]), digits);
   const p = (k: string) => pct(Number(v[k]));
   switch (r.code) {
     case 'OUT_STATUS':
       return <>{r.v.status === 'out' ? t('rOut', { name: r.v.name }) : t('rDoubt', { name: r.v.name, p: p('p') })}</>;
-    case 'START':
-      return <>{t('rStart', { in: r.v.inName, inP: p('inP'), out: r.v.outName, outP: p('outP') })}</>;
+    case 'START': {
+      const sg = (x: typeof r.v.inSig) => (x?.lineup ? ` (${sig(x)})` : '');
+      return (
+        <>{t('rStart', { in: r.v.inName, inP: p('inP'), inS: sg(r.v.inSig), out: r.v.outName, outP: p('outP'), outS: sg(r.v.outSig) })}</>
+      );
+    }
     case 'FIXTURES':
       return <>{t('rFixtures', { inAvg: n('inAvg'), outAvg: n('outAvg'), n: r.v.n })}</>;
     case 'ATTACK':

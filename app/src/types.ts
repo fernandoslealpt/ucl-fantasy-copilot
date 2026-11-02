@@ -88,6 +88,15 @@ export interface FixtureXp {
   goalsAgainst: number;
   pCleanSheet: number;
   components: XpComponents;
+  /** sinais da próxima jornada: onze provável/confirmado e lesões (RotoWire), notícias recentes */
+  signal?: FixtureSignal;
+}
+
+export interface FixtureSignal {
+  lineup: 'start' | 'bench' | null;
+  confirmed: boolean;
+  tag: 'OUT' | 'QUES' | 'SUS' | null;
+  news: 'injury' | 'doubt' | 'return' | null;
 }
 
 export interface XpPlayer {

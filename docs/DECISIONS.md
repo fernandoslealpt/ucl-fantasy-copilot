@@ -64,3 +64,11 @@
 - Falta na Fase 4: substituições entre dias (precisa de pontos ao vivo), alertas novos além dos atuais, chips (Wildcard/Limitless).
 - **Modelo 1.1.0 (caso Raphinha):** o Fernando estranhou a sugestão Raphinha → Brunstad Fet. Causa: o Raphinha falhou a J2 lesionado (confirmado na imprensa: lesão na coxa ao serviço do Brasil) e o modelo contava essa ausência como rotação → 73% de titular. Agora uma ausência isolada (0 minutos entre jogos como titular) não conta para a titularidade; rotação a sério (deixar de jogar e não voltar a ser titular) continua a contar.
 - **"Não quero vender X"**: o Fernando pode marcar jogadores a manter; ficam guardados na equipa (`keep`) e o motor nunca os sugere para sair.
+
+## 2 nov 2026 — Titularidade com onzes prováveis e notícias (modelo 1.2.0)
+- Pedido do Fernando: a probabilidade de ser titular não pode vir só do histórico; tem de usar notícias e fóruns.
+- Sonda feita a partir do GitHub (`probe-lineups.yml`): **RotoWire** (onzes prováveis UCL, 18 jogos, com lesões/dúvidas) responde 200 e tem estrutura estável → **fonte escolhida**. Sofascore e Reddit JSON bloqueados (403); FotMob mudou a API; Fantasy Football Pundit sem página UCL; Sportsgambler sem onzes da UCL.
+- **Fóruns: não usados.** O RSS do Reddit funciona, mas sem IA ler texto livre de fóruns dá muito ruído; os onzes prováveis já resumem notícias e conferências de imprensa em formato estruturado.
+- Combinação (só para a próxima jornada): onze provável pesa 70% (titular 0,85; fora do onze 0,12) e o histórico 30%; onze confirmado manda (0,99 / 0); lesionado/castigado na RotoWire → 0; dúvida × 0,6 (× 0,85 se estiver no onze); notícia de lesão/dúvida nas últimas 72 h (Google News) × 0,7 / × 0,85 só quando não há onze nem estado. Se a UEFA diz que está fora, só um onze confirmado o põe a jogar.
+- 1 pedido à RotoWire por execução (a cada 2 h; de hora a hora nos dias de jogo). Se falhar, usa o ficheiro anterior até 24 h. Publicado em `latest/lineups.json` com os nomes não reconhecidos.
+- App: alerta quando um titular da equipa não está no onze provável; ficha do jogador mostra "J4: no onze provável"; razões das trocas indicam o onze provável.

@@ -7,7 +7,7 @@
  * Respeita orçamento (preço de venda = preço atual), 2/5/5/3, máximo por clube.
  */
 import { clubLimit } from '../team';
-import type { Dataset, Position, Row } from '../types';
+import type { Dataset, FixtureSignal, Position, Row } from '../types';
 
 export const WEIGHTS = [1, 0.85, 0.7];
 /** Pontos perdidos por cada transferência a mais do que as grátis. */
@@ -285,7 +285,7 @@ export function adviseTransfers(
 
 export type Reason =
   | { code: 'OUT_STATUS'; v: { name: string; status: 'out' | 'doubtful'; p: number } }
-  | { code: 'START'; v: { inName: string; inP: number; outName: string; outP: number } }
+  | { code: 'START'; v: { inName: string; inP: number; outName: string; outP: number; inSig?: FixtureSignal; outSig?: FixtureSignal } }
   | { code: 'FIXTURES'; v: { inName: string; inAvg: number; outName: string; outAvg: number; n: number } }
   | { code: 'ATTACK'; v: { inName: string; inRate: number; outName: string; outRate: number } }
   | { code: 'CLEAN_SHEET'; v: { inName: string; inP: number; outName: string; outP: number } }
@@ -312,7 +312,12 @@ export function swapReasons(ctx: Ctx, data: Pick<Dataset, 'ratingById'>, s: Swap
 
   const pi = pStart(s.in);
   const po = pStart(s.out);
-  if (pi - po >= 0.15) cands.push({ r: { code: 'START', v: { inName, inP: pi, outName, outP: po } }, w: 8 * (pi - po) });
+  const sigOf = (r: Row) => fx(r).find((f) => f.gameday === g0)?.signal;
+  const inSig = sigOf(s.in);
+  const outSig = sigOf(s.out);
+  const lineupGap = inSig?.lineup === 'start' && outSig?.lineup === 'bench';
+  if (pi - po >= 0.15 || lineupGap)
+    cands.push({ r: { code: 'START', v: { inName, inP: pi, outName, outP: po, inSig, outSig } }, w: 8 * (pi - po) + (lineupGap ? 3 : 0) });
 
   const diff = (r: Row) =>
     avg(
