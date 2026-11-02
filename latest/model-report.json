@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-11-02T00:06:06.583Z",
+  "generatedAt": "2026-11-02T00:08:26.838Z",
   "season": 2027,
-  "gameday": 1,
+  "gameday": 3,
   "targets": [
-    2,
-    3,
     4,
     5,
-    6
+    6,
+    7,
+    8
   ],
   "modelVersion": "1.2.0",
   "params": {
@@ -29,29 +29,77 @@
     "predictedBench": 0.12
   },
   "version": "1.2.0",
-  "players": 1163,
+  "players": 1171,
   "backtest": [
     {
       "gameday": 1,
       "model": {
-        "n": 955,
+        "n": 961,
         "mae": 1.91,
         "rmse": 2.69,
         "spearman": 0.18,
         "top20Actual": 6.6,
         "top50Actual": 4.98,
-        "meanPred": 2.02,
-        "meanActual": 1.8
+        "meanPred": 2.01,
+        "meanActual": 1.79
       },
       "baseline": {
-        "n": 955,
-        "mae": 1.96,
-        "rmse": 3.08,
+        "n": 961,
+        "mae": 1.95,
+        "rmse": 3.07,
         "spearman": 0.14,
         "top20Actual": 5.05,
         "top50Actual": 4.22,
-        "meanPred": 1.3,
-        "meanActual": 1.8
+        "meanPred": 1.29,
+        "meanActual": 1.79
+      },
+      "population": "jogadores com minutos na jornada ou previsão ≥ 1 ponto"
+    },
+    {
+      "gameday": 2,
+      "model": {
+        "n": 921,
+        "mae": 2.01,
+        "rmse": 2.83,
+        "spearman": 0.42,
+        "top20Actual": 3.75,
+        "top50Actual": 3.98,
+        "meanPred": 2.18,
+        "meanActual": 2.05
+      },
+      "baseline": {
+        "n": 921,
+        "mae": 2.13,
+        "rmse": 3.69,
+        "spearman": 0.39,
+        "top20Actual": 2.65,
+        "top50Actual": 2.64,
+        "meanPred": 1.87,
+        "meanActual": 2.05
+      },
+      "population": "jogadores com minutos na jornada ou previsão ≥ 1 ponto"
+    },
+    {
+      "gameday": 3,
+      "model": {
+        "n": 808,
+        "mae": 1.97,
+        "rmse": 2.76,
+        "spearman": 0.4,
+        "top20Actual": 5.95,
+        "top50Actual": 5.2,
+        "meanPred": 2.36,
+        "meanActual": 2.25
+      },
+      "baseline": {
+        "n": 808,
+        "mae": 2.08,
+        "rmse": 3.23,
+        "spearman": 0.4,
+        "top20Actual": 4.8,
+        "top50Actual": 4.26,
+        "meanPred": 2.23,
+        "meanActual": 2.25
       },
       "population": "jogadores com minutos na jornada ou previsão ≥ 1 ponto"
     }

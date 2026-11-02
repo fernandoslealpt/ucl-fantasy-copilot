@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-02T00:06:06.583Z",
+  "fetchedAt": "2026-11-02T00:08:26.838Z",
   "source": "rotowire",
   "teams": [
     {
@@ -902,10 +902,6 @@
           "tag": "OUT"
         },
         {
-          "id": "250175777",
-          "tag": "OUT"
-        },
-        {
           "id": "250130221",
           "tag": "OUT"
         },
@@ -926,7 +922,9 @@
           "tag": "OUT"
         }
       ],
-      "unmatched": []
+      "unmatched": [
+        "Costantino Favasuli"
+      ]
     },
     {
       "teamId": "50062",
@@ -1233,15 +1231,13 @@
           "tag": "QUES"
         },
         {
-          "id": "250176455",
-          "tag": "OUT"
-        },
-        {
           "id": "250170137",
           "tag": "OUT"
         }
       ],
-      "unmatched": []
+      "unmatched": [
+        "Marc Guiu"
+      ]
     },
     {
       "teamId": "52919",
@@ -1317,6 +1313,6 @@
     "matches": 18,
     "sides": 36,
     "listed": 533,
-    "matched": 515
+    "matched": 513
   }
 }
