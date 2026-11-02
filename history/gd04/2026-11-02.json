@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T00:12:29.248Z",
+  "generatedAt": "2026-11-02T06:18:16.738Z",
   "season": 2027,
   "gameday": 4,
   "fields": ["id","price","selectedPct","points","minutes","availability"],
@@ -216,7 +216,7 @@
     ["250128118",4.4,0,10,133,"available"],
     ["250063803",4.4,1,10,110,"available"],
     ["250166174",4,0,10,90,"available"],
-    ["250224837",4,0,10,180,"available"],
+    ["250224837",4,1,10,180,"available"],
     ["250122213",4,0,10,171,"available"],
     ["250197947",4,0,10,180,"available"],
     ["250163731",4,4,10,184,"available"],
