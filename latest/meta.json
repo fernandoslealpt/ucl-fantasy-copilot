@@ -1,63 +1,63 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-03T02:24:40.894Z",
+  "generatedAt": "2026-11-03T11:59:57.920Z",
   "currentGameday": 4,
   "gamedayState": "upcoming",
   "deadline": "2026-11-03T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T02:24:40.894Z",
-      "lastSuccess": "2026-11-03T02:24:40.894Z",
+      "lastAttempt": "2026-11-03T11:59:57.920Z",
+      "lastSuccess": "2026-11-03T11:59:57.920Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T02:24:40.894Z",
-      "lastSuccess": "2026-11-03T02:24:40.894Z",
+      "lastAttempt": "2026-11-03T11:59:57.920Z",
+      "lastSuccess": "2026-11-03T11:59:57.920Z",
       "requests": 1,
       "records": 1173
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T02:24:40.894Z",
-      "lastSuccess": "2026-11-03T02:24:40.894Z",
+      "lastAttempt": "2026-11-03T11:59:57.920Z",
+      "lastSuccess": "2026-11-03T11:59:57.920Z",
       "requests": 0,
       "records": 0
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T02:24:40.894Z",
-      "lastSuccess": "2026-11-03T02:24:40.894Z",
+      "lastAttempt": "2026-11-03T11:59:57.920Z",
+      "lastSuccess": "2026-11-03T11:59:57.920Z",
       "requests": 0,
       "records": 1173
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T02:24:40.894Z",
-      "lastSuccess": "2026-11-03T02:24:40.894Z",
+      "lastAttempt": "2026-11-03T11:59:57.920Z",
+      "lastSuccess": "2026-11-03T11:59:57.920Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-03T02:24:40.894Z",
+      "lastAttempt": "2026-11-03T11:59:57.920Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
     },
     "googleNews": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T02:24:40.894Z",
-      "lastSuccess": "2026-11-03T02:24:40.894Z",
+      "lastAttempt": "2026-11-03T11:59:57.920Z",
+      "lastSuccess": "2026-11-03T11:59:57.920Z",
       "requests": 36,
-      "records": 272
+      "records": 274
     },
     "rotowire": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T02:24:40.894Z",
-      "lastSuccess": "2026-11-03T02:24:40.894Z",
+      "lastAttempt": "2026-11-03T11:59:57.920Z",
+      "lastSuccess": "2026-11-03T11:59:57.920Z",
       "requests": 1,
       "records": 36
     }
@@ -96,13 +96,13 @@
     }
   },
   "statusValues": {
-    "pStatus=∅ · qStatus=∅ · trained=In contention to start next game": 864,
+    "pStatus=∅ · qStatus=∅ · trained=In contention to start next game": 859,
     "pStatus=NIS · qStatus=∅ · trained=∅": 125,
-    "pStatus=I · qStatus=∅ · trained=Unlikely to start next game": 88,
-    "pStatus=∅ · qStatus=∅ · trained=∅": 56,
-    "pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game": 17,
-    "pStatus=D · qStatus=∅ · trained=In contention to start next game": 14,
-    "pStatus=D · qStatus=∅ · trained=Unlikely to start next game": 6,
+    "pStatus=I · qStatus=∅ · trained=Unlikely to start next game": 90,
+    "pStatus=∅ · qStatus=∅ · trained=∅": 55,
+    "pStatus=D · qStatus=∅ · trained=In contention to start next game": 23,
+    "pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game": 15,
+    "pStatus=D · qStatus=∅ · trained=Unlikely to start next game": 3,
     "pStatus=S · qStatus=∅ · trained=∅": 3
   },
   "model": {
@@ -140,5 +140,5 @@
     ]
   },
   "warnings": [],
-  "durationMs": 22027
+  "durationMs": 27390
 }
