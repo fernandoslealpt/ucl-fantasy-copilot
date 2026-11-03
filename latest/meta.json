@@ -1,48 +1,48 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-03T19:32:39.038Z",
+  "generatedAt": "2026-11-03T22:02:27.935Z",
   "currentGameday": 4,
   "gamedayState": "live",
   "deadline": "2026-11-03T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T19:32:39.038Z",
-      "lastSuccess": "2026-11-03T19:32:39.038Z",
+      "lastAttempt": "2026-11-03T22:02:27.935Z",
+      "lastSuccess": "2026-11-03T22:02:27.935Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T19:32:39.038Z",
-      "lastSuccess": "2026-11-03T19:32:39.038Z",
+      "lastAttempt": "2026-11-03T22:02:27.935Z",
+      "lastSuccess": "2026-11-03T22:02:27.935Z",
       "requests": 1,
       "records": 1173
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T19:32:39.038Z",
-      "lastSuccess": "2026-11-03T19:32:39.038Z",
+      "lastAttempt": "2026-11-03T22:02:27.935Z",
+      "lastSuccess": "2026-11-03T22:02:27.935Z",
       "requests": 0,
       "records": 0
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T19:32:39.038Z",
-      "lastSuccess": "2026-11-03T19:32:39.038Z",
+      "lastAttempt": "2026-11-03T22:02:27.935Z",
+      "lastSuccess": "2026-11-03T22:02:27.935Z",
       "requests": 0,
       "records": 1173
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T19:32:39.038Z",
-      "lastSuccess": "2026-11-03T19:32:39.038Z",
+      "lastAttempt": "2026-11-03T22:02:27.935Z",
+      "lastSuccess": "2026-11-03T22:02:27.935Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-03T19:32:39.038Z",
+      "lastAttempt": "2026-11-03T22:02:27.935Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
@@ -51,15 +51,15 @@
       "status": "ok",
       "lastAttempt": "2026-11-03T19:32:39.038Z",
       "lastSuccess": "2026-11-03T19:32:39.038Z",
-      "requests": 36,
+      "requests": 0,
       "records": 273
     },
     "rotowire": {
       "status": "ok",
-      "lastAttempt": "2026-11-03T19:32:39.038Z",
-      "lastSuccess": "2026-11-03T19:32:39.038Z",
+      "lastAttempt": "2026-11-03T22:02:27.935Z",
+      "lastSuccess": "2026-11-03T22:02:27.935Z",
       "requests": 1,
-      "records": 32
+      "records": 18
     }
   },
   "counts": {
@@ -98,19 +98,14 @@
     }
   },
   "statusValues": {
-    "pStatus=∅ · qStatus=∅ · trained=In contention to start next game": 586,
-    "pStatus=P · qStatus=∅ · trained=In contention to start next game": 146,
-    "pStatus=B · qStatus=∅ · trained=In contention to start next game": 128,
+    "pStatus=∅ · qStatus=∅ · trained=In contention to start next game": 858,
     "pStatus=NIS · qStatus=∅ · trained=∅": 125,
-    "pStatus=I · qStatus=∅ · trained=Unlikely to start next game": 89,
-    "pStatus=∅ · qStatus=∅ · trained=∅": 54,
-    "pStatus=D · qStatus=∅ · trained=In contention to start next game": 21,
-    "pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game": 10,
-    "pStatus=P · qStatus=∅ · trained=Unlikely to start next game": 6,
-    "pStatus=B · qStatus=∅ · trained=Unlikely to start next game": 3,
+    "pStatus=I · qStatus=∅ · trained=Unlikely to start next game": 91,
+    "pStatus=∅ · qStatus=∅ · trained=∅": 55,
+    "pStatus=D · qStatus=∅ · trained=In contention to start next game": 23,
+    "pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game": 16,
     "pStatus=S · qStatus=∅ · trained=∅": 3,
-    "pStatus=D · qStatus=∅ · trained=Unlikely to start next game": 1,
-    "pStatus=P · qStatus=∅ · trained=∅": 1
+    "pStatus=D · qStatus=∅ · trained=Unlikely to start next game": 2
   },
   "model": {
     "version": "1.2.0",
@@ -127,7 +122,7 @@
         "gameday": 1,
         "modelMae": 1.9,
         "baselineMae": 1.97,
-        "modelTop20": 6.65,
+        "modelTop20": 6.75,
         "baselineTop20": 5.05
       },
       {
@@ -140,12 +135,12 @@
       {
         "gameday": 3,
         "modelMae": 1.96,
-        "baselineMae": 2.08,
+        "baselineMae": 2.09,
         "modelTop20": 5.95,
         "baselineTop20": 4.8
       }
     ]
   },
   "warnings": [],
-  "durationMs": 21769
+  "durationMs": 17474
 }

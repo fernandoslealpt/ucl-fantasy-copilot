@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T19:32:39.038Z",
+  "generatedAt": "2026-11-03T22:02:27.935Z",
   "season": 2027,
   "gameday": 4,
   "targets": [
@@ -38,9 +38,9 @@
         "mae": 1.9,
         "rmse": 2.69,
         "spearman": 0.18,
-        "top20Actual": 6.65,
+        "top20Actual": 6.75,
         "top50Actual": 5,
-        "meanPred": 1.97,
+        "meanPred": 1.98,
         "meanActual": 1.8
       },
       "baseline": {
@@ -82,18 +82,18 @@
     {
       "gameday": 3,
       "model": {
-        "n": 804,
+        "n": 803,
         "mae": 1.96,
         "rmse": 2.77,
         "spearman": 0.39,
         "top20Actual": 5.95,
         "top50Actual": 5.2,
-        "meanPred": 2.35,
+        "meanPred": 2.36,
         "meanActual": 2.26
       },
       "baseline": {
-        "n": 804,
-        "mae": 2.08,
+        "n": 803,
+        "mae": 2.09,
         "rmse": 3.24,
         "spearman": 0.4,
         "top20Actual": 4.8,
@@ -105,10 +105,10 @@
     }
   ],
   "ratings": {
-    "mu": 0.37,
-    "home": 0.31,
+    "mu": 0.36,
+    "home": 0.3,
     "beta": 0.21,
-    "gamma": 0.19,
-    "observations": 243
+    "gamma": 0.2,
+    "observations": 252
   }
 }
