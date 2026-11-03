@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T11:59:57.920Z",
+  "generatedAt": "2026-11-03T19:32:39.038Z",
   "season": 2027,
   "fixtures": [
     {"id":"2049558","gameday":1,"phase":"TOURNAMENT","round":"League Phase","homeId":"50129","awayId":"63405","homeName":"AEK Athens","awayName":"LASK","homeCode":"AEK","awayCode":"LASK","kickoff":"2026-09-08T16:45:00.000Z","status":"FINISHED","score":{"home":1,"away":0},"source":"uefa-matches"},
@@ -56,8 +56,8 @@
     {"id":"2049604","gameday":3,"phase":"TOURNAMENT","round":"League Phase","homeId":"52265","awayId":"52749","homeName":"Real Betis","awayName":"Feyenoord","homeCode":"BET","awayCode":"FEY","kickoff":"2026-10-21T19:00:00.000Z","status":"FINISHED","score":{"home":1,"away":0},"source":"uefa-matches"},
     {"id":"2049599","gameday":3,"phase":"TOURNAMENT","round":"League Phase","homeId":"50051","awayId":"2603790","homeName":"Real Madrid","awayName":"Leipzig","homeCode":"RMA","awayCode":"RBL","kickoff":"2026-10-21T19:00:00.000Z","status":"FINISHED","score":{"home":4,"away":1},"source":"uefa-matches"},
     {"id":"2049601","gameday":3,"phase":"TOURNAMENT","round":"League Phase","homeId":"50149","awayId":"63405","homeName":"Sporting CP","awayName":"LASK","homeCode":"SPO","awayCode":"LASK","kickoff":"2026-10-21T19:00:00.000Z","status":"FINISHED","score":{"home":2,"away":3},"source":"uefa-matches"},
-    {"id":"2049614","gameday":4,"phase":"TOURNAMENT","round":"League Phase","homeId":"50067","awayId":"50107","homeName":"Galatasaray","awayName":"Stuttgart","homeCode":"GAL","awayCode":"STU","kickoff":"2026-11-03T17:45:00.000Z","status":"UPCOMING","score":null,"source":"uefa-matches"},
-    {"id":"2049613","gameday":4,"phase":"TOURNAMENT","round":"League Phase","homeId":"52707","awayId":"50149","homeName":"Shakhtar","awayName":"Sporting CP","homeCode":"SHK","awayCode":"SPO","kickoff":"2026-11-03T17:45:00.000Z","status":"UPCOMING","score":null,"source":"uefa-matches"},
+    {"id":"2049614","gameday":4,"phase":"TOURNAMENT","round":"League Phase","homeId":"50067","awayId":"50107","homeName":"Galatasaray","awayName":"Stuttgart","homeCode":"GAL","awayCode":"STU","kickoff":"2026-11-03T17:45:00.000Z","status":"LIVE","score":{"home":2,"away":0},"source":"uefa-matches"},
+    {"id":"2049613","gameday":4,"phase":"TOURNAMENT","round":"League Phase","homeId":"52707","awayId":"50149","homeName":"Shakhtar","awayName":"Sporting CP","homeCode":"SHK","awayCode":"SPO","kickoff":"2026-11-03T17:45:00.000Z","status":"LIVE","score":{"home":0,"away":1},"source":"uefa-matches"},
     {"id":"2049608","gameday":4,"phase":"TOURNAMENT","round":"League Phase","homeId":"50124","awayId":"50037","homeName":"Atleti","awayName":"Bayern München","homeCode":"ATM","awayCode":"BAY","kickoff":"2026-11-03T20:00:00.000Z","status":"UPCOMING","score":null,"source":"uefa-matches"},
     {"id":"2049607","gameday":4,"phase":"TOURNAMENT","round":"League Phase","homeId":"50080","awayId":"52683","homeName":"Barcelona","awayName":"Aston Villa","homeCode":"BAR","awayCode":"AVL","kickoff":"2026-11-03T20:00:00.000Z","status":"UPCOMING","score":null,"source":"uefa-matches"},
     {"id":"2049611","gameday":4,"phase":"TOURNAMENT","round":"League Phase","homeId":"59333","awayId":"75797","homeName":"Bodø/Glimt","awayName":"Lille","homeCode":"BOD","awayCode":"LIL","kickoff":"2026-11-03T20:00:00.000Z","status":"UPCOMING","score":null,"source":"uefa-matches"},
