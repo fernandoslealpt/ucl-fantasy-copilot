@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** quarta, 04/11, 09:24 (Lisboa) · **Jornada:** 4 (a decorrer) · **Fecho da equipa:** terça, 03/11, 17:45
+**Gerado:** quarta, 04/11, 18:02 (Lisboa) · **Jornada:** 4 (a decorrer) · **Fecho da equipa:** terça, 03/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | quarta, 04/11, 09:24 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | quarta, 04/11, 09:24 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | quarta, 04/11, 09:24 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | quarta, 04/11, 09:24 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | quarta, 04/11, 09:24 |  |
+| uefaMatches | ✅ ok | 3 | 144 | quarta, 04/11, 18:02 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | quarta, 04/11, 18:02 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | quarta, 04/11, 18:02 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | quarta, 04/11, 18:02 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | quarta, 04/11, 18:02 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 265 | quarta, 04/11, 09:24 |  |
-| rotowire | ✅ ok | 1 | 18 | quarta, 04/11, 09:24 |  |
+| googleNews | ✅ ok | 36 | 271 | quarta, 04/11, 18:02 |  |
+| rotowire | ✅ ok | 1 | 14 | quarta, 04/11, 18:02 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 1173/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -32,26 +32,26 @@
 
 | # | Jogador | Equipa | Pos | €M | xP J | xP 3J | xP/€M | P(titular) | Adversário | Confiança |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | K. Mbappé | Real Madrid | FWD | 11.0 | 7.2 | 18.5 | 1.68 | 88% | @ AEK Athens | alta |
+| 1 | K. Mbappé | Real Madrid | FWD | 11.0 | 7.7 | 18.9 | 1.72 | 95% | @ AEK Athens | alta |
 | 2 | D. Doué | Paris | MID | 8.5 | 6.5 | 17.9 | 2.10 | 85% | @ Villarreal | alta |
 | 3 | L. Yamal | Barcelona | MID | 10.2 | 6.4 | 20.7 | 2.03 | 98% | vs Aston Villa | alta |
 | 4 | N. Paz | Como | MID | 7.0 | 6.2 | 18.7 | 2.67 | 85% | @ Lens | alta |
 | 5 | Z. Tripić | Viking | MID | 5.8 | 6.0 | 14.5 | 2.50 | 83% | vs Sabah | média |
 | 6 | Vitinha | Paris | MID | 7.6 | 5.9 | 16.5 | 2.18 | 98% | @ Villarreal | alta |
-| 7 | S. Guirassy | B. Dortmund | FWD | 8.6 | 5.8 | 14.1 | 1.63 | 81% | vs Real Betis | média |
-| 8 | P. Christiansen | Viking | FWD | 6.0 | 5.8 | 13.8 | 2.30 | 83% | vs Sabah | média |
-| 9 | P. Foden | Man City | MID | 7.0 | 5.4 | 16.6 | 2.37 | 85% | @ Leipzig | alta |
-| 10 | Raphinha | Barcelona | MID | 9.7 | 5.4 | 17.4 | 1.79 | 90% | vs Aston Villa | alta |
-| 11 | S. Brunstad Fet | Bodø/Glimt | MID | 5.0 | 5.3 | 16.3 | 3.26 | 90% | vs Lille | alta |
-| 12 | Carlos Augusto | Inter | DEF | 4.1 | 5.2 | 15.6 | 3.81 | 74% | @ Feyenoord | média |
-| 13 | F. Sjøvold | Bodø/Glimt | DEF | 4.7 | 5.2 | 15.7 | 3.33 | 96% | vs Lille | alta |
-| 14 | T. Douvikas | Como | FWD | 6.6 | 5.1 | 14.3 | 2.17 | 79% | @ Lens | média |
-| 15 | W. Pacho | Paris | DEF | 6.0 | 5.1 | 14.0 | 2.34 | 98% | @ Villarreal | alta |
-| 16 | E. Botheim | Viking | FWD | 5.0 | 5.0 | 11.1 | 2.23 | 78% | vs Sabah | média |
-| 17 | E. Haaland | Man City | FWD | 11.2 | 5.0 | 13.5 | 1.21 | 79% | @ Leipzig | média |
-| 18 | R. Ljubičić | LASK | MID | 5.5 | 5.0 | 12.9 | 2.35 | 60% | vs S. Bratislava | média |
-| 19 | Gabriel | Arsenal | DEF | 6.0 | 5.0 | 14.4 | 2.40 | 88% | @ Slavia Praha | alta |
-| 20 | Fermín López | Barcelona | MID | 7.0 | 4.9 | 15.7 | 2.25 | 78% | vs Aston Villa | média |
+| 7 | P. Christiansen | Viking | FWD | 6.0 | 5.8 | 13.8 | 2.30 | 83% | vs Sabah | média |
+| 8 | S. Guirassy | B. Dortmund | FWD | 8.6 | 5.8 | 14.1 | 1.63 | 81% | vs Real Betis | média |
+| 9 | F. Valverde | Real Madrid | MID | 7.1 | 5.5 | 14.7 | 2.07 | 98% | @ AEK Athens | alta |
+| 10 | P. Foden | Man City | MID | 7.0 | 5.4 | 16.6 | 2.37 | 85% | @ Leipzig | alta |
+| 11 | Raphinha | Barcelona | MID | 9.7 | 5.4 | 17.4 | 1.79 | 90% | vs Aston Villa | alta |
+| 12 | S. Brunstad Fet | Bodø/Glimt | MID | 5.0 | 5.3 | 16.3 | 3.26 | 90% | vs Lille | alta |
+| 13 | Carlos Augusto | Inter | DEF | 4.1 | 5.2 | 15.6 | 3.81 | 74% | @ Feyenoord | média |
+| 14 | F. Sjøvold | Bodø/Glimt | DEF | 4.7 | 5.2 | 15.7 | 3.33 | 96% | vs Lille | alta |
+| 15 | T. Douvikas | Como | FWD | 6.6 | 5.1 | 14.3 | 2.17 | 79% | @ Lens | média |
+| 16 | W. Pacho | Paris | DEF | 6.0 | 5.1 | 14.0 | 2.34 | 98% | @ Villarreal | alta |
+| 17 | E. Botheim | Viking | FWD | 5.0 | 5.0 | 11.1 | 2.23 | 78% | vs Sabah | média |
+| 18 | E. Haaland | Man City | FWD | 11.2 | 5.0 | 13.5 | 1.21 | 79% | @ Leipzig | média |
+| 19 | R. Ljubičić | LASK | MID | 5.5 | 5.0 | 12.9 | 2.35 | 60% | vs S. Bratislava | média |
+| 20 | Gabriel | Arsenal | DEF | 6.0 | 5.0 | 14.4 | 2.40 | 88% | @ Slavia Praha | alta |
 
 ## Top 15 por pontos
 
@@ -90,13 +90,13 @@
 
 <details><summary>Valores de estado no feed</summary>
 
-- 859 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
-- 125 × pStatus=NIS · qStatus=∅ · trained=∅
+- 862 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
+- 126 × pStatus=NIS · qStatus=∅ · trained=∅
 - 91 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
 - 55 × pStatus=∅ · qStatus=∅ · trained=∅
-- 23 × pStatus=D · qStatus=∅ · trained=In contention to start next game
+- 20 × pStatus=D · qStatus=∅ · trained=In contention to start next game
 - 16 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
-- 2 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
 - 2 × pStatus=S · qStatus=∅ · trained=∅
+- 1 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
 
 </details>
