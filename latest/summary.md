@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** quarta, 04/11, 22:15 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** quarta, 04/11, 23:45 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | quarta, 04/11, 22:15 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | quarta, 04/11, 22:15 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | quarta, 04/11, 22:15 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | quarta, 04/11, 22:15 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | quarta, 04/11, 22:15 |  |
+| uefaMatches | ✅ ok | 3 | 144 | quarta, 04/11, 23:45 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | quarta, 04/11, 23:45 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | quarta, 04/11, 23:45 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | quarta, 04/11, 23:45 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | quarta, 04/11, 23:45 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 270 | quarta, 04/11, 22:15 |  |
-| rotowire | ✅ ok | 1 | 0 | quarta, 04/11, 22:15 |  |
+| googleNews | ✅ ok | 0 | 270 | quarta, 04/11, 22:15 |  |
+| rotowire | ✅ ok | 1 | 0 | quarta, 04/11, 23:45 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 629/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -69,7 +69,7 @@
 | 5 | Carlos Augusto | Inter | DEF | 4.2 | 34 | 9 (J4) | 263 | 6 | disponível | J5 vs Stuttgart · quarta, 25/11, 20:00 |
 | 6 | Raphinha | Barcelona | MID | 9.6 | 33 | 15 (J4) | 201 | 35 | disponível | J5 @ Sabah · quarta, 25/11, 17:45 |
 | 7 | Vitinha | Paris | MID | 7.7 | 32 | 7 (J4) | 344 | 19 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
-| 8 | A. Davies | Bayern München | DEF | 5.2 | 32 | 7 (J4) | 289 | 10 | disponível | J5 @ Lille · quarta, 25/11, 20:00 |
+| 8 | A. Davies | Bayern München | DEF | 5.2 | 32 | 7 (J4) | 289 | 11 | disponível | J5 @ Lille · quarta, 25/11, 20:00 |
 | 9 | A. Batrakov | Galatasaray | MID | 4.6 | 32 | 17 (J4) | 284 | 1 | disponível | J5 vs Aston Villa · terça, 24/11, 17:45 |
 | 10 | D. Malen | Roma | FWD | 6.8 | 31 | 5 (J4) | 314 | 12 | disponível | J5 @ Paris · quarta, 25/11, 20:00 |
 | 11 | R. Barkley | Aston Villa | MID | 5.8 | 31 | 1 (J4) | 204 | 2 | disponível | J5 @ Galatasaray · terça, 24/11, 17:45 |
