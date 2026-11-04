@@ -1,48 +1,48 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-04T00:39:34.156Z",
+  "generatedAt": "2026-11-04T02:43:54.827Z",
   "currentGameday": 4,
   "gamedayState": "live",
   "deadline": "2026-11-03T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T00:39:34.156Z",
-      "lastSuccess": "2026-11-04T00:39:34.156Z",
+      "lastAttempt": "2026-11-04T02:43:54.827Z",
+      "lastSuccess": "2026-11-04T02:43:54.827Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T00:39:34.156Z",
-      "lastSuccess": "2026-11-04T00:39:34.156Z",
+      "lastAttempt": "2026-11-04T02:43:54.827Z",
+      "lastSuccess": "2026-11-04T02:43:54.827Z",
       "requests": 1,
       "records": 1173
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T00:39:34.156Z",
-      "lastSuccess": "2026-11-04T00:39:34.156Z",
-      "requests": 277,
-      "records": 277
+      "lastAttempt": "2026-11-04T02:43:54.827Z",
+      "lastSuccess": "2026-11-04T02:43:54.827Z",
+      "requests": 0,
+      "records": 0
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T00:39:34.156Z",
-      "lastSuccess": "2026-11-04T00:39:34.156Z",
+      "lastAttempt": "2026-11-04T02:43:54.827Z",
+      "lastSuccess": "2026-11-04T02:43:54.827Z",
       "requests": 0,
       "records": 1173
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T00:39:34.156Z",
-      "lastSuccess": "2026-11-04T00:39:34.156Z",
+      "lastAttempt": "2026-11-04T02:43:54.827Z",
+      "lastSuccess": "2026-11-04T02:43:54.827Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-04T00:39:34.156Z",
+      "lastAttempt": "2026-11-04T02:43:54.827Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
@@ -51,13 +51,13 @@
       "status": "ok",
       "lastAttempt": "2026-11-04T00:39:34.156Z",
       "lastSuccess": "2026-11-04T00:39:34.156Z",
-      "requests": 36,
+      "requests": 0,
       "records": 271
     },
     "rotowire": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T00:39:34.156Z",
-      "lastSuccess": "2026-11-04T00:39:34.156Z",
+      "lastAttempt": "2026-11-04T02:43:54.827Z",
+      "lastSuccess": "2026-11-04T02:43:54.827Z",
       "requests": 1,
       "records": 18
     }
@@ -78,7 +78,7 @@
     "history": {
       "official": {
         "players": 1173,
-        "fetched": 277,
+        "fetched": 0,
         "failed": 0,
         "sumMatchesTotal": 1173,
         "sumMismatch": 0
@@ -142,5 +142,5 @@
     ]
   },
   "warnings": [],
-  "durationMs": 27171
+  "durationMs": 17144
 }
