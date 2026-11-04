@@ -1,65 +1,65 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-04T18:02:36.184Z",
-  "currentGameday": 4,
-  "gamedayState": "live",
-  "deadline": "2026-11-03T17:45:00.000Z",
+  "generatedAt": "2026-11-04T22:15:06.020Z",
+  "currentGameday": 5,
+  "gamedayState": "upcoming",
+  "deadline": "2026-11-24T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T18:02:36.184Z",
-      "lastSuccess": "2026-11-04T18:02:36.184Z",
+      "lastAttempt": "2026-11-04T22:15:06.020Z",
+      "lastSuccess": "2026-11-04T22:15:06.020Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T18:02:36.184Z",
-      "lastSuccess": "2026-11-04T18:02:36.184Z",
+      "lastAttempt": "2026-11-04T22:15:06.020Z",
+      "lastSuccess": "2026-11-04T22:15:06.020Z",
       "requests": 1,
       "records": 1173
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T18:02:36.184Z",
-      "lastSuccess": "2026-11-04T18:02:36.184Z",
+      "lastAttempt": "2026-11-04T22:15:06.020Z",
+      "lastSuccess": "2026-11-04T22:15:06.020Z",
       "requests": 0,
       "records": 0
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T18:02:36.184Z",
-      "lastSuccess": "2026-11-04T18:02:36.184Z",
+      "lastAttempt": "2026-11-04T22:15:06.020Z",
+      "lastSuccess": "2026-11-04T22:15:06.020Z",
       "requests": 0,
       "records": 1173
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T18:02:36.184Z",
-      "lastSuccess": "2026-11-04T18:02:36.184Z",
+      "lastAttempt": "2026-11-04T22:15:06.020Z",
+      "lastSuccess": "2026-11-04T22:15:06.020Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-04T18:02:36.184Z",
+      "lastAttempt": "2026-11-04T22:15:06.020Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
     },
     "googleNews": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T18:02:36.184Z",
-      "lastSuccess": "2026-11-04T18:02:36.184Z",
+      "lastAttempt": "2026-11-04T22:15:06.020Z",
+      "lastSuccess": "2026-11-04T22:15:06.020Z",
       "requests": 36,
-      "records": 271
+      "records": 270
     },
     "rotowire": {
       "status": "ok",
-      "lastAttempt": "2026-11-04T18:02:36.184Z",
-      "lastSuccess": "2026-11-04T18:02:36.184Z",
+      "lastAttempt": "2026-11-04T22:15:06.020Z",
+      "lastSuccess": "2026-11-04T22:15:06.020Z",
       "requests": 1,
-      "records": 14
+      "records": 0
     }
   },
   "counts": {
@@ -73,7 +73,7 @@
     "invalidPlayers": 0,
     "pointsHistory": {
       "checked": 1173,
-      "mismatches": 0
+      "mismatches": 544
     },
     "history": {
       "official": {
@@ -86,10 +86,11 @@
       "tracked": [
         4
       ],
-      "fromFeed": 3,
+      "fromFeed": null,
       "unavailable": [
         1,
-        2
+        2,
+        3
       ]
     },
     "fixturesCrossCheck": {
@@ -110,7 +111,6 @@
   "model": {
     "version": "1.2.0",
     "targets": [
-      4,
       5,
       6,
       7,
@@ -120,8 +120,8 @@
     "backtest": [
       {
         "gameday": 1,
-        "modelMae": 1.9,
-        "baselineMae": 1.97,
+        "modelMae": 1.91,
+        "baselineMae": 1.98,
         "modelTop20": 6.75,
         "baselineTop20": 5.05
       },
@@ -135,12 +135,21 @@
       {
         "gameday": 3,
         "modelMae": 1.96,
-        "baselineMae": 2.09,
+        "baselineMae": 2.08,
         "modelTop20": 5.95,
         "baselineTop20": 4.8
+      },
+      {
+        "gameday": 4,
+        "modelMae": 2.32,
+        "baselineMae": 2.41,
+        "modelTop20": 3,
+        "baselineTop20": 2.75
       }
     ]
   },
-  "warnings": [],
-  "durationMs": 21052
+  "warnings": [
+    "Pontos por jornada: 544/1173 diferem do valor oficial do feed"
+  ],
+  "durationMs": 21720
 }

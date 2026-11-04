@@ -1,9 +1,8 @@
 {
-  "generatedAt": "2026-11-04T18:02:36.184Z",
+  "generatedAt": "2026-11-04T22:15:06.020Z",
   "season": 2027,
-  "gameday": 4,
+  "gameday": 5,
   "targets": [
-    4,
     5,
     6,
     7,
@@ -34,41 +33,41 @@
     {
       "gameday": 1,
       "model": {
-        "n": 953,
-        "mae": 1.9,
-        "rmse": 2.69,
-        "spearman": 0.18,
+        "n": 945,
+        "mae": 1.91,
+        "rmse": 2.7,
+        "spearman": 0.17,
         "top20Actual": 6.75,
         "top50Actual": 5,
-        "meanPred": 1.98,
-        "meanActual": 1.8
+        "meanPred": 1.97,
+        "meanActual": 1.82
       },
       "baseline": {
-        "n": 953,
-        "mae": 1.97,
-        "rmse": 3.08,
-        "spearman": 0.14,
+        "n": 945,
+        "mae": 1.98,
+        "rmse": 3.1,
+        "spearman": 0.13,
         "top20Actual": 5.05,
         "top50Actual": 4.22,
-        "meanPred": 1.3,
-        "meanActual": 1.8
+        "meanPred": 1.31,
+        "meanActual": 1.82
       },
       "population": "jogadores com minutos na jornada ou previsão ≥ 1 ponto"
     },
     {
       "gameday": 2,
       "model": {
-        "n": 911,
+        "n": 910,
         "mae": 2,
         "rmse": 2.83,
         "spearman": 0.42,
         "top20Actual": 3.75,
-        "top50Actual": 3.98,
+        "top50Actual": 4.24,
         "meanPred": 2.17,
         "meanActual": 2.08
       },
       "baseline": {
-        "n": 911,
+        "n": 910,
         "mae": 2.16,
         "rmse": 3.71,
         "spearman": 0.38,
@@ -82,33 +81,57 @@
     {
       "gameday": 3,
       "model": {
-        "n": 803,
+        "n": 806,
         "mae": 1.96,
-        "rmse": 2.77,
+        "rmse": 2.76,
         "spearman": 0.39,
         "top20Actual": 5.95,
         "top50Actual": 5.2,
-        "meanPred": 2.36,
-        "meanActual": 2.26
+        "meanPred": 2.35,
+        "meanActual": 2.25
       },
       "baseline": {
-        "n": 803,
-        "mae": 2.09,
-        "rmse": 3.24,
+        "n": 806,
+        "mae": 2.08,
+        "rmse": 3.23,
         "spearman": 0.4,
         "top20Actual": 4.8,
         "top50Actual": 4.24,
-        "meanPred": 2.24,
-        "meanActual": 2.26
+        "meanPred": 2.23,
+        "meanActual": 2.25
+      },
+      "population": "jogadores com minutos na jornada ou previsão ≥ 1 ponto"
+    },
+    {
+      "gameday": 4,
+      "model": {
+        "n": 735,
+        "mae": 2.32,
+        "rmse": 2.98,
+        "spearman": 0.16,
+        "top20Actual": 3,
+        "top50Actual": 2.64,
+        "meanPred": 2.42,
+        "meanActual": 1.38
+      },
+      "baseline": {
+        "n": 735,
+        "mae": 2.41,
+        "rmse": 3.35,
+        "spearman": 0.15,
+        "top20Actual": 2.75,
+        "top50Actual": 2.26,
+        "meanPred": 2.44,
+        "meanActual": 1.38
       },
       "population": "jogadores com minutos na jornada ou previsão ≥ 1 ponto"
     }
   ],
   "ratings": {
-    "mu": 0.36,
-    "home": 0.3,
-    "beta": 0.21,
-    "gamma": 0.2,
-    "observations": 252
+    "mu": 0.39,
+    "home": 0.29,
+    "beta": 0.18,
+    "gamma": 0.21,
+    "observations": 261
   }
 }
