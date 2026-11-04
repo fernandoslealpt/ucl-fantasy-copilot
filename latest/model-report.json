@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T22:02:27.935Z",
+  "generatedAt": "2026-11-04T00:39:34.156Z",
   "season": 2027,
   "gameday": 4,
   "targets": [
@@ -73,7 +73,7 @@
         "rmse": 3.71,
         "spearman": 0.38,
         "top20Actual": 2.65,
-        "top50Actual": 2.64,
+        "top50Actual": 2.56,
         "meanPred": 1.89,
         "meanActual": 2.08
       },
@@ -97,7 +97,7 @@
         "rmse": 3.24,
         "spearman": 0.4,
         "top20Actual": 4.8,
-        "top50Actual": 4.26,
+        "top50Actual": 4.24,
         "meanPred": 2.24,
         "meanActual": 2.26
       },
