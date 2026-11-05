@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T16:30:51.712Z",
+  "generatedAt": "2026-11-05T23:41:27.808Z",
   "season": 2027,
   "gameday": 5,
   "targets": [
@@ -37,7 +37,7 @@
         "mae": 1.91,
         "rmse": 2.7,
         "spearman": 0.17,
-        "top20Actual": 6.75,
+        "top20Actual": 6.65,
         "top50Actual": 5,
         "meanPred": 1.97,
         "meanActual": 1.82
@@ -85,7 +85,7 @@
         "mae": 1.96,
         "rmse": 2.76,
         "spearman": 0.39,
-        "top20Actual": 5.95,
+        "top20Actual": 6.15,
         "top50Actual": 5.2,
         "meanPred": 2.35,
         "meanActual": 2.25
@@ -128,7 +128,7 @@
     }
   ],
   "ratings": {
-    "mu": 0.39,
+    "mu": 0.4,
     "home": 0.29,
     "beta": 0.18,
     "gamma": 0.21,
