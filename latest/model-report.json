@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-04T23:45:24.948Z",
+  "generatedAt": "2026-11-05T02:49:33.007Z",
   "season": 2027,
   "gameday": 5,
   "targets": [
@@ -71,7 +71,7 @@
         "mae": 2.16,
         "rmse": 3.71,
         "spearman": 0.38,
-        "top20Actual": 2.65,
+        "top20Actual": 2.6,
         "top50Actual": 2.56,
         "meanPred": 1.89,
         "meanActual": 2.08
@@ -96,7 +96,7 @@
         "rmse": 3.23,
         "spearman": 0.4,
         "top20Actual": 4.8,
-        "top50Actual": 4.24,
+        "top50Actual": 4.16,
         "meanPred": 2.23,
         "meanActual": 2.25
       },
@@ -105,24 +105,24 @@
     {
       "gameday": 4,
       "model": {
-        "n": 735,
-        "mae": 2.32,
+        "n": 751,
+        "mae": 2.05,
         "rmse": 2.98,
-        "spearman": 0.16,
-        "top20Actual": 3,
-        "top50Actual": 2.64,
-        "meanPred": 2.42,
-        "meanActual": 1.38
+        "spearman": 0.41,
+        "top20Actual": 5.6,
+        "top50Actual": 5.42,
+        "meanPred": 2.39,
+        "meanActual": 2.52
       },
       "baseline": {
-        "n": 735,
-        "mae": 2.41,
-        "rmse": 3.35,
-        "spearman": 0.15,
-        "top20Actual": 2.75,
-        "top50Actual": 2.26,
-        "meanPred": 2.44,
-        "meanActual": 1.38
+        "n": 751,
+        "mae": 2.2,
+        "rmse": 3.26,
+        "spearman": 0.37,
+        "top20Actual": 4.45,
+        "top50Actual": 4.66,
+        "meanPred": 2.39,
+        "meanActual": 2.52
       },
       "population": "jogadores com minutos na jornada ou previsão ≥ 1 ponto"
     }
