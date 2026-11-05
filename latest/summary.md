@@ -1,21 +1,21 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** quinta, 05/11, 02:49 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** quinta, 05/11, 06:56 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | quinta, 05/11, 02:49 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | quinta, 05/11, 02:49 |  |
-| uefaPlayerHistory | ✅ ok | 278 | 278 | quinta, 05/11, 02:49 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | quinta, 05/11, 02:49 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | quinta, 05/11, 02:49 |  |
+| uefaMatches | ✅ ok | 3 | 144 | quinta, 05/11, 06:56 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | quinta, 05/11, 06:56 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | quinta, 05/11, 06:56 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | quinta, 05/11, 06:56 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | quinta, 05/11, 06:56 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 269 | quinta, 05/11, 02:49 |  |
-| rotowire | ✅ ok | 1 | 0 | quinta, 05/11, 02:49 |  |
+| googleNews | ✅ ok | 36 | 265 | quinta, 05/11, 06:56 |  |
+| rotowire | ✅ ok | 1 | 0 | quinta, 05/11, 06:56 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
-**Histórico por jornada (oficial UEFA):** 1173/1173 jogadores · soma das jornadas = total em 1173/1173 · pedidos nesta execução: 278
+**Histórico por jornada (oficial UEFA):** 1173/1173 jogadores · soma das jornadas = total em 1173/1173 · pedidos nesta execução: 0
 **Plano B (sem histórico oficial):** snapshots J4 · feed —
 
 ## Avisos
@@ -74,7 +74,7 @@
 | 10 | K. Mbappé | Real Madrid | FWD | 11.1 | 32 | 6 (J4) | 357 | 62 | disponível | J5 vs PSV · terça, 24/11, 20:00 |
 | 11 | Vitinha | Paris | MID | 7.7 | 32 | 7 (J4) | 344 | 19 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
 | 12 | A. Davies | Bayern München | DEF | 5.2 | 32 | 7 (J4) | 289 | 11 | disponível | J5 @ Lille · quarta, 25/11, 20:00 |
-| 13 | A. Batrakov | Galatasaray | MID | 4.6 | 32 | 17 (J4) | 284 | 1 | disponível | J5 vs Aston Villa · terça, 24/11, 17:45 |
+| 13 | A. Batrakov | Galatasaray | MID | 4.6 | 32 | 17 (J4) | 284 | 2 | disponível | J5 vs Aston Villa · terça, 24/11, 17:45 |
 | 14 | D. Malen | Roma | FWD | 6.8 | 31 | 5 (J4) | 314 | 12 | disponível | J5 @ Paris · quarta, 25/11, 20:00 |
 | 15 | Carlos Forbs | Club Brugge | MID | 6.3 | 31 | 6 (J4) | 349 | 2 | disponível | J5 vs Liverpool · quarta, 25/11, 20:00 |
 
