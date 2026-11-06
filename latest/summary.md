@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** sexta, 06/11, 06:56 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** sexta, 06/11, 15:58 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | sexta, 06/11, 06:56 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | sexta, 06/11, 06:56 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | sexta, 06/11, 06:56 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | sexta, 06/11, 06:56 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | sexta, 06/11, 06:56 |  |
+| uefaMatches | ✅ ok | 3 | 144 | sexta, 06/11, 15:58 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | sexta, 06/11, 15:58 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | sexta, 06/11, 15:58 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | sexta, 06/11, 15:58 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | sexta, 06/11, 15:58 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 266 | sexta, 06/11, 06:56 |  |
-| rotowire | ✅ ok | 1 | 0 | sexta, 06/11, 06:56 |  |
+| googleNews | ✅ ok | 36 | 258 | sexta, 06/11, 15:58 |  |
+| rotowire | ✅ ok | 1 | 0 | sexta, 06/11, 15:58 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -66,7 +66,7 @@
 | 2 | L. Yamal | Barcelona | MID | 10.2 | 41 | 8 (J4) | 360 | 49 | disponível | J5 @ Sabah · quarta, 25/11, 17:45 |
 | 3 | H. Kane | Bayern München | FWD | 11.2 | 39 | 5 (J4) | 360 | 50 | disponível | J5 @ Lille · quarta, 25/11, 20:00 |
 | 4 | Fabián Ruiz | Paris | MID | 6.8 | 37 | 16 (J4) | 354 | 3 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
-| 5 | T. Douvikas | Como | FWD | 6.6 | 37 | 20 (J4) | 246 | 2 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
+| 5 | T. Douvikas | Como | FWD | 6.6 | 37 | 20 (J4) | 246 | 3 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
 | 6 | D. Doué | Paris | MID | 8.6 | 35 | 9 (J4) | 218 | 15 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
 | 7 | N. Tresoldi | Club Brugge | FWD | 7.3 | 34 | 6 (J4) | 336 | 4 | disponível | J5 vs Liverpool · quarta, 25/11, 20:00 |
 | 8 | Carlos Augusto | Inter | DEF | 4.2 | 34 | 9 (J4) | 263 | 7 | disponível | J5 vs Stuttgart · quarta, 25/11, 20:00 |
