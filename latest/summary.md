@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** sexta, 06/11, 21:34 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** sábado, 07/11, 01:58 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | sexta, 06/11, 21:34 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | sexta, 06/11, 21:34 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | sexta, 06/11, 21:34 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | sexta, 06/11, 21:34 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | sexta, 06/11, 21:34 |  |
+| uefaMatches | ✅ ok | 3 | 144 | sábado, 07/11, 01:58 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | sábado, 07/11, 01:58 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | sábado, 07/11, 01:58 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | sábado, 07/11, 01:58 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | sábado, 07/11, 01:58 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 273 | sexta, 06/11, 21:34 |  |
-| rotowire | ✅ ok | 1 | 0 | sexta, 06/11, 21:34 |  |
+| googleNews | ✅ ok | 36 | 271 | sábado, 07/11, 01:58 |  |
+| rotowire | ✅ ok | 1 | 0 | sábado, 07/11, 01:58 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
