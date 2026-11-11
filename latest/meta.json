@@ -1,63 +1,63 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-11T09:31:45.928Z",
+  "generatedAt": "2026-11-11T17:56:11.357Z",
   "currentGameday": 5,
   "gamedayState": "upcoming",
   "deadline": "2026-11-24T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-11T09:31:45.928Z",
-      "lastSuccess": "2026-11-11T09:31:45.928Z",
+      "lastAttempt": "2026-11-11T17:56:11.357Z",
+      "lastSuccess": "2026-11-11T17:56:11.357Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-11T09:31:45.928Z",
-      "lastSuccess": "2026-11-11T09:31:45.928Z",
+      "lastAttempt": "2026-11-11T17:56:11.357Z",
+      "lastSuccess": "2026-11-11T17:56:11.357Z",
       "requests": 1,
       "records": 1173
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-11T09:31:45.928Z",
-      "lastSuccess": "2026-11-11T09:31:45.928Z",
+      "lastAttempt": "2026-11-11T17:56:11.357Z",
+      "lastSuccess": "2026-11-11T17:56:11.357Z",
       "requests": 0,
       "records": 0
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-11T09:31:45.928Z",
-      "lastSuccess": "2026-11-11T09:31:45.928Z",
+      "lastAttempt": "2026-11-11T17:56:11.357Z",
+      "lastSuccess": "2026-11-11T17:56:11.357Z",
       "requests": 0,
       "records": 1173
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-11T09:31:45.928Z",
-      "lastSuccess": "2026-11-11T09:31:45.928Z",
+      "lastAttempt": "2026-11-11T17:56:11.357Z",
+      "lastSuccess": "2026-11-11T17:56:11.357Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-11T09:31:45.928Z",
+      "lastAttempt": "2026-11-11T17:56:11.357Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
     },
     "googleNews": {
       "status": "ok",
-      "lastAttempt": "2026-11-11T09:31:45.928Z",
-      "lastSuccess": "2026-11-11T09:31:45.928Z",
+      "lastAttempt": "2026-11-11T17:56:11.357Z",
+      "lastSuccess": "2026-11-11T17:56:11.357Z",
       "requests": 36,
-      "records": 263
+      "records": 258
     },
     "rotowire": {
       "status": "ok",
-      "lastAttempt": "2026-11-11T09:31:45.928Z",
-      "lastSuccess": "2026-11-11T09:31:45.928Z",
+      "lastAttempt": "2026-11-11T17:56:11.357Z",
+      "lastSuccess": "2026-11-11T17:56:11.357Z",
       "requests": 1,
       "records": 0
     }
@@ -99,10 +99,10 @@
     }
   },
   "statusValues": {
-    "pStatus=∅ · qStatus=∅ · trained=In contention to start next game": 862,
+    "pStatus=∅ · qStatus=∅ · trained=In contention to start next game": 863,
     "pStatus=NIS · qStatus=∅ · trained=∅": 126,
     "pStatus=I · qStatus=∅ · trained=Unlikely to start next game": 91,
-    "pStatus=∅ · qStatus=∅ · trained=∅": 55,
+    "pStatus=∅ · qStatus=∅ · trained=∅": 54,
     "pStatus=D · qStatus=∅ · trained=In contention to start next game": 20,
     "pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game": 16,
     "pStatus=S · qStatus=∅ · trained=∅": 2,
@@ -151,5 +151,5 @@
   "warnings": [
     "Pontos por jornada: 274/1173 diferem do valor oficial do feed"
   ],
-  "durationMs": 21507
+  "durationMs": 20508
 }

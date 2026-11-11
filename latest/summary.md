@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** quarta, 11/11, 09:31 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** quarta, 11/11, 17:56 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | quarta, 11/11, 09:31 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | quarta, 11/11, 09:31 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | quarta, 11/11, 09:31 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | quarta, 11/11, 09:31 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | quarta, 11/11, 09:31 |  |
+| uefaMatches | ✅ ok | 3 | 144 | quarta, 11/11, 17:56 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | quarta, 11/11, 17:56 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | quarta, 11/11, 17:56 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | quarta, 11/11, 17:56 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | quarta, 11/11, 17:56 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 263 | quarta, 11/11, 09:31 |  |
-| rotowire | ✅ ok | 1 | 0 | quarta, 11/11, 09:31 |  |
+| googleNews | ✅ ok | 36 | 258 | quarta, 11/11, 17:56 |  |
+| rotowire | ✅ ok | 1 | 0 | quarta, 11/11, 17:56 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -44,19 +44,19 @@
 | 5 | H. Kane | Bayern München | FWD | 11.2 | 7.3 | 23.8 | 2.12 | 96% | @ Lille | alta |
 | 6 | N. Paz | Como | MID | 7.1 | 7.1 | 16.3 | 2.29 | 60% | vs AEK Athens | média |
 | 7 | E. Haaland | Man City | FWD | 11.2 | 7.1 | 19.3 | 1.72 | 90% | vs Napoli | alta |
-| 8 | K. Mbappé | Real Madrid | FWD | 11.1 | 6.9 | 21.3 | 1.92 | 95% | vs PSV | alta |
-| 9 | D. Doué | Paris | MID | 8.6 | 6.7 | 18.2 | 2.12 | 87% | vs Roma | alta |
-| 10 | Fermín López | Barcelona | MID | 7.0 | 6.6 | 15.9 | 2.27 | 84% | @ Sabah | alta |
-| 11 | P. Foden | Man City | MID | 7.1 | 6.6 | 17.8 | 2.51 | 87% | vs Napoli | alta |
-| 12 | A. Grimaldo | Atleti | DEF | 5.5 | 6.3 | 15.3 | 2.78 | 89% | vs Viking | alta |
-| 13 | Carlos Augusto | Inter | DEF | 4.2 | 6.1 | 15.8 | 3.77 | 79% | vs Stuttgart | média |
-| 14 | Vitinha | Paris | MID | 7.7 | 5.9 | 16.4 | 2.13 | 98% | vs Roma | alta |
-| 15 | A. Gordon | Barcelona | MID | 8.0 | 5.9 | 14.1 | 1.76 | 67% | @ Sabah | média |
-| 16 | S. Brunstad Fet | Bodø/Glimt | MID | 5.1 | 5.8 | 15.7 | 3.08 | 91% | vs LASK | alta |
-| 17 | M. Llorente | Atleti | MID | 6.7 | 5.8 | 14.3 | 2.14 | 96% | vs Viking | alta |
-| 18 | Fabián Ruiz | Paris | MID | 6.8 | 5.7 | 15.5 | 2.28 | 91% | vs Roma | alta |
-| 19 | M. Olise | Bayern München | MID | 9.1 | 5.6 | 18.2 | 2.00 | 95% | @ Lille | alta |
-| 20 | E. Fernández | Man City | MID | 7.5 | 5.5 | 15.2 | 2.02 | 88% | vs Napoli | alta |
+| 8 | D. Doué | Paris | MID | 8.6 | 6.7 | 18.2 | 2.12 | 87% | vs Roma | alta |
+| 9 | Fermín López | Barcelona | MID | 7.0 | 6.6 | 15.9 | 2.27 | 84% | @ Sabah | alta |
+| 10 | P. Foden | Man City | MID | 7.1 | 6.6 | 17.8 | 2.51 | 87% | vs Napoli | alta |
+| 11 | A. Grimaldo | Atleti | DEF | 5.5 | 6.3 | 15.3 | 2.78 | 89% | vs Viking | alta |
+| 12 | Carlos Augusto | Inter | DEF | 4.2 | 6.1 | 15.8 | 3.77 | 79% | vs Stuttgart | média |
+| 13 | Vitinha | Paris | MID | 7.7 | 5.9 | 16.4 | 2.13 | 98% | vs Roma | alta |
+| 14 | A. Gordon | Barcelona | MID | 8.0 | 5.9 | 14.1 | 1.76 | 67% | @ Sabah | média |
+| 15 | S. Brunstad Fet | Bodø/Glimt | MID | 5.1 | 5.8 | 15.7 | 3.08 | 91% | vs LASK | alta |
+| 16 | M. Llorente | Atleti | MID | 6.7 | 5.8 | 14.3 | 2.14 | 96% | vs Viking | alta |
+| 17 | Fabián Ruiz | Paris | MID | 6.8 | 5.7 | 15.5 | 2.28 | 91% | vs Roma | alta |
+| 18 | M. Olise | Bayern München | MID | 9.1 | 5.6 | 18.2 | 2.00 | 95% | @ Lille | alta |
+| 19 | E. Fernández | Man City | MID | 7.5 | 5.5 | 15.2 | 2.02 | 88% | vs Napoli | alta |
+| 20 | João Cancelo | Barcelona | DEF | 5.0 | 5.5 | 13.1 | 2.61 | 92% | @ Sabah | alta |
 
 ## Top 15 por pontos
 
@@ -95,10 +95,10 @@
 
 <details><summary>Valores de estado no feed</summary>
 
-- 862 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
+- 863 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
 - 126 × pStatus=NIS · qStatus=∅ · trained=∅
 - 91 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
-- 55 × pStatus=∅ · qStatus=∅ · trained=∅
+- 54 × pStatus=∅ · qStatus=∅ · trained=∅
 - 20 × pStatus=D · qStatus=∅ · trained=In contention to start next game
 - 16 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
 - 2 × pStatus=S · qStatus=∅ · trained=∅
