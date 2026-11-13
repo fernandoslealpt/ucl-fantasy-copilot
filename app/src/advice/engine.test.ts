@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Position, Row } from '../types';
-import { adviseCaptain, adviseTransfers, HIT, swapReasons } from './engine';
+import { adviseCaptain, adviseTransfers, captainConfidence, componentTable, HIT, makeCtx, planWarnings, sameMatchWarnings, swapReasons } from './engine';
 
 let n = 0;
 /** Jogador sintético: xp por jornada (J4, J5, J6). */
@@ -187,5 +187,61 @@ describe('capitão', () => {
     expect(c.plan?.start.row.id).toBe(tue.id);
     expect(c.plan?.switchTo.row.id).toBe(wed.id);
     expect(c.plan?.below).toBe(8);
+  });
+});
+
+describe('avisos e tabela de apoio', () => {
+  const spiky = { apps: 4, points: 37, bestGameday: 4, bestPoints: 20, bestShare: 0.54, spiky: true };
+
+  it('quem entra com pontos de um só jogo gera aviso e a forma não serve de razão', () => {
+    const s = squad();
+    const hot = P('FWD', 'HOT', 6, [8, 8, 8], { form: { lastGameday: 20, avgPoints: 9.3 } });
+    hot.xp!.sample = spiky;
+    const a = adviseTransfers([...s, hot], s, 0, 2, 4);
+    const p = a.byCount[1].find((x) => x.swaps[0]!.in.id === hot.id)!;
+    expect(p).toBeTruthy();
+    const w = planWarnings(a.ctx, s, p);
+    expect(w.some((x) => x.code === 'SPIKY')).toBe(true);
+    const reasons = swapReasons(a.ctx, { ratingById: new Map() }, p.swaps[0]!, 5);
+    expect(reasons.some((r) => r.code === 'FORM')).toBe(false);
+  });
+
+  it('avisa quando o onze tem mais de 2 jogadores do mesmo jogo', () => {
+    const s = squad();
+    // 3 titulares no jogo C2 vs C3 (dois do C2, um do C3)
+    const xi = [s[2]!, s[3]!, s[4]!];
+    xi[1]!.teamId = 'C2';
+    xi[2]!.teamId = 'C3';
+    for (const r of xi) r.xp!.fixtures[0]!.opponentId = r.teamId === 'C2' ? 'C3' : 'C2';
+    const w = sameMatchWarnings(xi, 4);
+    expect(w).toHaveLength(1);
+    expect(w[0]!.code === 'SAME_MATCH' && w[0]!.v.n).toBe(3);
+    expect(sameMatchWarnings(xi.slice(0, 2), 4)).toHaveLength(0);
+  });
+
+  it('a tabela de componentes soma o xP de quem sai e de quem entra', () => {
+    const a = P('MID', 'A', 6, [5, 5, 5]);
+    const b = P('MID', 'B', 6, [7, 7, 7]);
+    b.xp!.fixtures[0]!.components = { ...b.xp!.fixtures[0]!.components, goals: 3, assists: 1 };
+    const rows = componentTable({ out: a, in: b }, 4);
+    const total = rows.find((r) => r.key === 'total')!;
+    expect(total.out).toBeCloseTo(2, 5);
+    expect(total.in).toBeCloseTo(6, 5);
+    expect(rows.find((r) => r.key === 'goals')!.diff).toBeCloseTo(3, 5);
+  });
+
+  it('confiança no capitão: alta só com titularidade alta e margem para o segundo', () => {
+    const s = squad();
+    s[12]!.xp!.fixtures[0]!.xp = 9;
+    const c = adviseCaptain(s.slice(0, 11).concat(s[12]!), 4);
+    expect(captainConfidence(c)).toBe('alta');
+    const s2 = squad();
+    const c2 = adviseCaptain(s2.slice(0, 11), 4);
+    expect(captainConfidence(c2)).toBe('média');
+  });
+
+  it('o horizonte usa as jornadas J+0, J+1 e J+2 com jogos', () => {
+    const ctx = makeCtx(squad(), 4);
+    expect(ctx.gds).toEqual([4, 5, 6]);
   });
 });

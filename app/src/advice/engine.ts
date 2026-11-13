@@ -6,8 +6,8 @@
  * Transferências: todas as trocas de 1 jogador; 2 trocas sobre os melhores candidatos; 3 trocas por pesquisa em feixe.
  * Respeita orçamento (preço de venda = preço atual), 2/5/5/3, máximo por clube.
  */
-import { clubLimit } from '../team';
-import type { Dataset, FixtureSignal, Position, Row } from '../types';
+import { bestXI, clubLimit } from '../team';
+import type { Dataset, FixtureSignal, Position, Row, XpComponents } from '../types';
 
 export const WEIGHTS = [1, 0.85, 0.7];
 /** Pontos perdidos por cada transferência a mais do que as grátis. */
@@ -348,7 +348,8 @@ export function swapReasons(ctx: Ctx, data: Pick<Dataset, 'ratingById'>, s: Swap
 
   const fi = s.in.form.avgPoints;
   const fo = s.out.form.avgPoints;
-  if (fi - fo >= 1.5) cands.push({ r: { code: 'FORM', v: { inName, inAvg: fi, outName, outAvg: fo } }, w: 0.4 * (fi - fo) });
+  // nunca justificar com a forma quando ela vem quase toda de um jogo
+  if (fi - fo >= 1.5 && !s.in.xp?.sample?.spiky) cands.push({ r: { code: 'FORM', v: { inName, inAvg: fi, outName, outAvg: fo } }, w: 0.4 * (fi - fo) });
 
   // sempre disponíveis (garantem 3 razões com números)
   const xi = playerXp(ctx, s.in)[0] ?? 0;
@@ -430,4 +431,88 @@ export function adviseCaptain(xi: Row[], gameday: number): CaptainAdvice {
 
 function capScore(c: Pick<CaptainPick, 'xp' | 'pStart'>): number {
   return c.xp * (0.75 + 0.25 * c.pStart);
+}
+
+// ———————————————————————————— Avisos e tabela de apoio ————————————————————————————
+
+export type Warning =
+  | { code: 'SPIKY'; v: { name: string; share: number; gd: number; pts: number; apps: number } }
+  | { code: 'SAME_MATCH'; v: { gd: number; teamA: string; teamB: string; n: number; names: string[] } };
+
+/** Jogadores cujos pontos vêm quase todos de um jogo (só 1 jogo, ou ≥ 50% num). */
+export function spikyWarning(r: Row): Warning | null {
+  const s = r.xp?.sample;
+  if (!s?.spiky) return null;
+  return { code: 'SPIKY', v: { name: r.name, share: s.bestShare, gd: s.bestGameday ?? 0, pts: s.bestPoints, apps: s.apps } };
+}
+
+/** Mais de 2 jogadores do onze no mesmo jogo da jornada `gd` (risco concentrado). */
+export function sameMatchWarnings(xi: Row[], gd: number): Warning[] {
+  const groups = new Map<string, { a: string; b: string; rows: Row[] }>();
+  for (const r of xi) {
+    const f = r.xp?.fixtures.find((x) => x.gameday === gd);
+    if (!f) continue;
+    const ids = [r.teamId, f.opponentId].sort();
+    const key = ids.join('-');
+    const g = groups.get(key) ?? { a: f.home ? r.teamName : f.opponentName, b: f.home ? f.opponentName : r.teamName, rows: [] };
+    g.rows.push(r);
+    groups.set(key, g);
+  }
+  return [...groups.values()]
+    .filter((g) => g.rows.length > 2)
+    .map((g) => ({ code: 'SAME_MATCH', v: { gd, teamA: g.a, teamB: g.b, n: g.rows.length, names: g.rows.map((r) => r.name) } }));
+}
+
+/** Avisos de um plano: quem entra com amostra de um jogo e jogos com mais de 2 jogadores no onze. */
+export function planWarnings(ctx: Ctx, squadRows: Row[], p: Plan): Warning[] {
+  const g0 = ctx.gds[0]!;
+  const outs = new Set(p.swaps.map((s) => s.out.id));
+  const after = [...squadRows.filter((r) => !outs.has(r.id)), ...p.swaps.map((s) => s.in)];
+  const xpAt = (r: Row) => playerXp(ctx, r)[0] ?? 0;
+  const before = sameMatchWarnings(bestXI(squadRows, xpAt).xi, g0).map((w) => JSON.stringify(w.v));
+  const sm = sameMatchWarnings(bestXI(after, xpAt).xi, g0).filter((w) => !before.includes(JSON.stringify(w.v)));
+  const sp = p.swaps.map((s) => spikyWarning(s.in)).filter((w): w is Warning => w != null);
+  return [...sp, ...sm];
+}
+
+export const COMPONENTS: (keyof XpComponents)[] = [
+  'appearance',
+  'goals',
+  'assists',
+  'cleanSheet',
+  'recoveries',
+  'saves',
+  'playerOfTheMatch',
+  'conceded',
+  'cards',
+];
+
+export interface ComponentRow {
+  key: keyof XpComponents | 'total';
+  out: number;
+  in: number;
+  diff: number;
+}
+
+/** xP decomposto por componente na jornada `gd`, para quem sai e quem entra. */
+export function componentTable(s: Swap, gd: number): ComponentRow[] {
+  const comp = (r: Row, k: keyof XpComponents) =>
+    (r.xp?.fixtures ?? []).filter((f) => f.gameday === gd).reduce((a, f) => a + (f.components[k] ?? 0), 0);
+  const rows: ComponentRow[] = COMPONENTS.map((k) => ({ key: k, out: comp(s.out, k), in: comp(s.in, k), diff: comp(s.in, k) - comp(s.out, k) })).filter(
+    (r) => Math.abs(r.out) >= 0.05 || Math.abs(r.in) >= 0.05,
+  );
+  const sum = (k: 'out' | 'in') => rows.reduce((a, r) => a + r[k], 0);
+  rows.push({ key: 'total', out: sum('out'), in: sum('in'), diff: sum('in') - sum('out') });
+  return rows;
+}
+
+/** Confiança no capitão: titularidade e distância para o segundo. */
+export function captainConfidence(c: CaptainAdvice): 'alta' | 'média' | 'baixa' | null {
+  const a = c.captain;
+  if (!a) return null;
+  const second = c.ranking.find((x) => x.row.id !== a.row.id);
+  const margin = second ? a.xp - second.xp : a.xp;
+  if (a.pStart >= 0.85 && margin >= 1) return 'alta';
+  if (a.pStart >= 0.7) return 'média';
+  return 'baixa';
 }

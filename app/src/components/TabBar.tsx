@@ -1,28 +1,28 @@
 import { useI18n } from '../i18n';
 
-export type Tab = 'equipa' | 'conselhos' | 'jogadores' | 'calendario' | 'noticias';
+export type Tab = 'equipa' | 'jogadores' | 'calendario' | 'noticias' | 'diario';
 
 const ICONS: Record<Tab, string> = {
   // camisola
   equipa: 'M8 3l-5 3 2 4 2-1v12h10V9l2 1 2-4-5-3c0 2-1.5 3-3 3S8 5 8 3z',
-  // setas de troca
-  conselhos: 'M7 4 3 8l4 4V9h10V7H7zm10 8v3H7v2h10v3l4-4z',
   // lista
   jogadores: 'M4 5h2v2H4zm4 0h12v2H8zM4 11h2v2H4zm4 0h12v2H8zM4 17h2v2H4zm4 0h12v2H8z',
   // calendário
   calendario: 'M7 2v2H4v17h16V4h-3V2h-2v2H9V2zm-1 7h12v10H6zm2 2v2h2v-2zm4 0v2h2v-2z',
   // jornal
   noticias: 'M3 5h14v14H5a2 2 0 0 1-2-2zm16 3h2v9a2 2 0 0 1-2 2zM6 8v3h8V8zm0 5v2h8v-2z',
+  // caderno
+  diario: 'M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6V2zm-2 3h2v2H4zm0 4h2v2H4zm0 4h2v2H4zm0 4h2v2H4zM9 6v2h8V6zm0 4v2h8v-2z',
 };
 
 export function TabBar({ tab, onTab, newsCount }: { tab: Tab; onTab: (t: Tab) => void; newsCount: number }) {
   const { t } = useI18n();
   const labels: Record<Tab, string> = {
     equipa: t('tabTeam'),
-    conselhos: t('tabAdvice'),
     jogadores: t('tabPlayers'),
     calendario: t('tabFixtures'),
     noticias: t('tabNews'),
+    diario: t('tabDiary'),
   };
   return (
     <nav className="tabbar" aria-label="Secções">

@@ -5,8 +5,8 @@ import { describe, expect, it } from 'vitest';
 import { metrics, spearman } from '../model/backtest.ts';
 import { expectedFloorDiv, poissonPmf, pZero } from '../model/poisson.ts';
 import { modelWindow, teamRatings } from '../model/publish.ts';
-import { expectedGoals, fitRatings, type MatchObs } from '../model/ratings.ts';
-import { availabilityFactor, computeXp } from '../model/xp.ts';
+import { expectedGoals, fitRatings, matchObservations, tuneRatings, DEFAULT_RATINGS_PARAMS, type MatchObs } from '../model/ratings.ts';
+import { availabilityFactor, computeXp, sampleInfo } from '../model/xp.ts';
 import { runPipeline, type SourceName } from '../run.ts';
 import type { Fixture, Player, Team } from '../types.ts';
 import {
@@ -203,5 +203,77 @@ describe('modelo no pipeline', () => {
     expect(xp.players[0].xp1).toBeGreaterThanOrEqual(xp.players[1].xp1);
     expect(xp.players[0].fixtures[0]).toMatchObject({ gameday: 4 });
     expect(readFileSync(join(out, 'latest', 'summary.md'), 'utf8')).toContain('Top 20 xP — J4');
+  });
+});
+
+const fx = (id: string, gd: number, kickoff: string, h: string, a: string, hg: number, ag: number): Fixture => ({
+  id,
+  gameday: gd,
+  phase: 'TOURNAMENT',
+  round: 'League Phase',
+  homeId: h,
+  awayId: a,
+  homeName: h,
+  awayName: a,
+  homeCode: h,
+  awayCode: a,
+  kickoff,
+  status: 'FINISHED',
+  score: { home: hg, away: ag },
+  source: 'uefa-matches',
+}) as Fixture;
+
+describe('Força das equipas: peso dos jogos recentes e afinação', () => {
+  it('jogo com uma meia-vida de antiguidade pesa metade', () => {
+    const obs = matchObservations(
+      [fx('1', 1, '2026-09-01T20:00:00Z', 'A', 'B', 1, 0), fx('2', 2, '2026-11-30T20:00:00Z', 'A', 'B', 2, 0)],
+      null,
+      { asOf: '2026-11-30T20:00:00Z', halfLifeDays: 90 },
+    );
+    expect(obs[1]!.weight).toBeCloseTo(1, 6);
+    expect(obs[0]!.weight).toBeCloseTo(0.5, 2);
+  });
+
+  it('sem decaimento (meia-vida infinita) todos os jogos da época pesam 1', () => {
+    const obs = matchObservations([fx('1', 1, '2026-09-01T20:00:00Z', 'A', 'B', 1, 0)], null, { asOf: '2026-11-30T20:00:00Z', halfLifeDays: Infinity });
+    expect(obs[0]!.weight).toBe(1);
+  });
+
+  it('com poucas jornadas fica com os parâmetros por defeito', () => {
+    const t = tuneRatings([fx('1', 1, '2026-09-01T20:00:00Z', 'A', 'B', 1, 0)], null, new Map());
+    expect(t.chosen).toEqual(DEFAULT_RATINGS_PARAMS);
+  });
+
+  it('a afinação devolve parâmetros da grelha e um resultado comparável com o defeito', () => {
+    const teams = ['A', 'B', 'C', 'D'];
+    const cur: Fixture[] = [];
+    let k = 0;
+    for (let gd = 1; gd <= 4; gd++)
+      for (let i = 0; i < teams.length; i += 2) {
+        const h = teams[(i + gd) % 4]!;
+        const a = teams[(i + gd + 1) % 4]!;
+        cur.push(fx(String(k++), gd, `2026-0${gd + 5}-10T20:00:00Z`, h, a, h === 'A' ? 3 : 1, a === 'A' ? 2 : 1));
+      }
+    const t = tuneRatings(cur, null, new Map());
+    expect(t.gamedays).toEqual([2, 3, 4]);
+    expect(t.chosenScore!.logLik).toBeGreaterThanOrEqual(t.defaultScore!.logLik);
+  });
+});
+
+describe('Amostra: pontos concentrados num jogo', () => {
+  it('assinala quando ≥ 50% dos pontos vêm de um jogo', () => {
+    const s = sampleInfo([
+      { gameday: 1, points: 6, minutes: 65 },
+      { gameday: 2, points: 2, minutes: 30 },
+      { gameday: 3, points: 9, minutes: 90 },
+      { gameday: 4, points: 20, minutes: 85 },
+    ]);
+    expect(s).toMatchObject({ apps: 4, points: 37, bestGameday: 4, bestPoints: 20, spiky: true });
+    expect(s.bestShare).toBeCloseTo(0.54, 2);
+  });
+
+  it('pontos regulares não são assinalados; só 1 jogo é sempre assinalado', () => {
+    expect(sampleInfo([5, 6, 7, 6].map((p, i) => ({ gameday: i + 1, points: p, minutes: 90 }))).spiky).toBe(false);
+    expect(sampleInfo([{ gameday: 1, points: 3, minutes: 90 }, { gameday: 2, points: 0, minutes: 0 }]).spiky).toBe(true);
   });
 });

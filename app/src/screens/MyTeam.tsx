@@ -4,17 +4,23 @@ import { Pitch } from '../components/Pitch';
 import { SortTable, type Column } from '../components/SortTable';
 import { Difficulty, Opponent, pct, StatusMark, surnameOf, teamCode, useNote } from '../components/ui';
 import { useI18n } from '../i18n';
-import { bestXI, clubLimit, POSITIONS, SQUAD, validate, type MyTeam } from '../team';
+import { bestXI, clubLimit, decisionsFor, freeTransfersFor, pendingDecisions, POSITIONS, SQUAD, validate, withDecisions, type MyTeam } from '../team';
 import type { Dataset, Position, Row } from '../types';
+import type { GdRecord } from '../history';
+import { HIT, sameMatchWarnings, type Plan } from '../advice/engine';
+import { CaptainSection, targetGameday, TransfersSection, useCaptainAdvice, useTransferAdvice, WarningText, xpAtGd } from './Advice';
+
+export type RecordFn = (gd: number, patch: Partial<Omit<GdRecord, 'gameday' | 'updatedAt'>> | ((cur: GdRecord | undefined) => Partial<Omit<GdRecord, 'gameday' | 'updatedAt'>>)) => void;
 
 interface Props {
   data: Dataset;
   team: MyTeam | null;
   onSave: (team: MyTeam) => Promise<string>;
   onOpen: (r: Row) => void;
+  onRecord: RecordFn;
 }
 
-export function MyTeamScreen({ data, team, onSave, onOpen }: Props) {
+export function MyTeamScreen({ data, team, onSave, onOpen, onRecord }: Props) {
   const [editing, setEditing] = useState(false);
   const [importFile, setImportFile] = useState<File | null>(null);
   const { t } = useI18n();
@@ -60,7 +66,9 @@ export function MyTeamScreen({ data, team, onSave, onOpen }: Props) {
       />
     );
   }
-  return <TeamView data={data} team={team} onEdit={() => setEditing(true)} onImport={startImport} onOpen={onOpen} />;
+  return (
+    <TeamView data={data} team={team} onEdit={() => setEditing(true)} onImport={startImport} onOpen={onOpen} onSave={onSave} onRecord={onRecord} />
+  );
 }
 
 /** Botão que abre a galeria/câmara para escolher a captura de ecrã da equipa. */
@@ -93,20 +101,98 @@ function TeamView({
   onEdit,
   onImport,
   onOpen,
+  onSave,
+  onRecord,
 }: {
   data: Dataset;
   team: MyTeam;
   onEdit: () => void;
   onImport: (f: File) => void;
   onOpen: (r: Row) => void;
+  onSave: (team: MyTeam) => Promise<string>;
+  onRecord: RecordFn;
 }) {
   const { t, d, num } = useI18n();
   const noteOf = useNote();
-  const squad = team.players.map((id) => data.byId.get(id)).filter((r): r is Row => !!r);
-  const { xi, bench } = useMemo(() => bestXI(squad), [squad]);
-  const gd = data.targets[0] ?? data.meta.currentGameday ?? '';
-  const xiTotal = xi.reduce((a, r) => a + (r.xp?.xp1 ?? 0), 0);
+  const playersKey = team.players.join(',');
+  const squad = useMemo(
+    () => playersKey.split(',').map((id) => data.byId.get(id)).filter((r): r is Row => !!r),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [playersKey, data],
+  );
+  const gd = targetGameday(data) ?? data.targets[0] ?? 0;
+  const xpAt = useMemo(() => xpAtGd(gd), [gd]);
+  const { xi, bench } = useMemo(() => bestXI(squad, xpAt), [squad, xpAt]);
+  const xiTotal = xi.reduce((a, r) => a + xpAt(r), 0);
   const value = squad.reduce((a, r) => a + r.price, 0);
+  const free = freeTransfersFor(team, gd);
+  const complete = squad.length === 15;
+  const advice = useTransferAdvice(data, team, squad, gd, free);
+  const captain = useCaptainAdvice(squad, gd);
+  const dec = decisionsFor(team, gd);
+  const capId = dec?.captain ?? captain.captain?.row.id ?? null;
+  const viceId = dec?.captain ? dec.vice ?? null : captain.vice?.row.id ?? null;
+  const pending = pendingDecisions(team, gd);
+  const [msg, setMsg] = useState('');
+
+  // Diário: guarda a recomendação e o xP previsto (a última antes do fecho fica)
+  useEffect(() => {
+    if (!advice || !complete) return;
+    const rec = advice.recommended;
+    const xp: Record<string, number> = {};
+    for (const r of squad) xp[r.id] = Math.round(xpAt(r) * 100) / 100;
+    onRecord(gd, {
+      recommended: {
+        swaps: (rec?.swaps ?? []).map((s) => ({ out: s.out.id, in: s.in.id })),
+        deltaNow: Math.round((rec?.deltaGd[0] ?? 0) * 100) / 100,
+        delta: Math.round((rec?.delta ?? 0) * 100) / 100,
+        hits: rec?.hits ?? 0,
+        captain: captain.captain?.row.id ?? null,
+        vice: captain.vice?.row.id ?? null,
+      },
+      squad: [...team.players],
+      xp,
+      teamXp: Math.round((advice.base.perGd[0] ?? 0) * 100) / 100,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [advice, captain]);
+
+  const apply = async (p: Plan) => {
+    const names = p.swaps.map((s) => `${s.out.name} → ${s.in.name}`).join(', ');
+    if (!confirm(t('applyConfirm', { swaps: names }))) return;
+    const outs = new Set(p.swaps.map((s) => s.out.id));
+    const players = [...team.players.filter((id) => !outs.has(id)), ...p.swaps.map((s) => s.in.id)];
+    const next = withDecisions(
+      { ...team, players, bank: p.bankAfter, freeTransfers: Math.max(0, free - p.swaps.length), ftGameday: gd },
+      gd,
+      { transfers: true },
+    );
+    onRecord(gd, (cur) => ({
+      done: {
+        ...(cur?.done ?? {}),
+        swaps: [...(cur?.done?.swaps ?? []), ...p.swaps.map((s) => ({ out: s.out.id, in: s.in.id }))],
+        hits: (cur?.done?.hits ?? 0) + p.hits,
+        noMove: false,
+      },
+      squad: players,
+    }));
+    setMsg(`${t('applied')} ${await onSave(next)}`);
+  };
+  const noMove = async () => {
+    onRecord(gd, (cur) => ({ done: { ...(cur?.done ?? {}), swaps: cur?.done?.swaps ?? [], hits: cur?.done?.hits ?? 0, noMove: !(cur?.done?.swaps?.length) } }));
+    setMsg(await onSave(withDecisions(team, gd, { transfers: true })));
+  };
+  const confirmCaptain = async (c: string, v: string | null) => {
+    onRecord(gd, (cur) => ({ done: { ...(cur?.done ?? { swaps: [], hits: 0 }), captain: c, ...(v ? { vice: v } : {}) } }));
+    setMsg(await onSave(withDecisions(team, gd, { captain: c, ...(v ? { vice: v } : {}) })));
+  };
+  const toggleChip = (chip: 'wildcard' | 'limitless') => {
+    const used = team.chips?.[chip] != null;
+    if (!confirm(t(used ? 'chipUndoConfirm' : 'chipUseConfirm', { chip: t(chip === 'wildcard' ? 'chipWildcard' : 'chipLimitless'), gd }))) return;
+    void onSave({ ...team, chips: { ...(team.chips ?? {}), [chip]: used ? null : gd }, updatedAt: new Date().toISOString() }).then(setMsg);
+    if (!used) onRecord(gd, (cur) => ({ done: { ...(cur?.done ?? { swaps: [], hits: 0 }), chip } }));
+  };
+  const sameMatch = useMemo(() => sameMatchWarnings(xi, gd), [xi, gd]);
 
   const alerts = useMemo(() => {
     const out: { level: 'red' | 'yellow'; text: string; row: Row }[] = [];
@@ -226,7 +312,7 @@ function TeamView({
   return (
     <section className="screen">
       <div className="screen-head">
-        <h1>{t('bestXi', { gd })}</h1>
+        <h1>{t('teamTitle', { gd })}</h1>
         <div className="head-actions">
           <ImportButton onFile={onImport} short />
           <button type="button" className="btn" onClick={onEdit}>
@@ -234,6 +320,54 @@ function TeamView({
           </button>
         </div>
       </div>
+      {msg ? (
+        <p className="notice" role="status">
+          {msg}
+          <button type="button" className="link" onClick={() => setMsg('')} aria-label={t('close')}>
+            ✕
+          </button>
+        </p>
+      ) : null}
+
+      <div className="todo-card" aria-label={t('todoTitle', { gd })}>
+        <h2 className="todo-title">{pending.length ? t('todoTitle', { gd }) : t('todoDone', { gd })}</h2>
+        <ol className="todo">
+          <li className={dec?.transfers ? 'done' : ''}>
+            <a href="#transferencias" onClick={(e) => (e.preventDefault(), document.getElementById('transferencias')?.scrollIntoView({ behavior: 'smooth' }))}>
+              <span className="todo-k">{t('transfersTitle')}</span>
+              <span className="todo-v">
+                {!advice
+                  ? t('calculating')
+                  : advice.recommended
+                    ? `${advice.recommended.swaps.map((s) => `${s.out.name} → ${s.in.name}`).join(' · ')} (${advice.recommended.deltaGd[0]! >= 0 ? '+' : ''}${num(advice.recommended.deltaGd[0]!)} J${gd}${advice.recommended.hits ? ` · −${HIT * advice.recommended.hits}` : ''})`
+                    : t('noMoveShort', { n: free })}
+              </span>
+              <span className="todo-s">{dec?.transfers ? '✓' : t('pending')}</span>
+            </a>
+          </li>
+          <li className={dec?.captain ? 'done' : ''}>
+            <a href="#capitao" onClick={(e) => (e.preventDefault(), document.getElementById('capitao')?.scrollIntoView({ behavior: 'smooth' }))}>
+              <span className="todo-k">{t('captainTitle')}</span>
+              <span className="todo-v">
+                {capId ? `${data.byId.get(capId)?.name ?? capId}${viceId ? ` · V: ${data.byId.get(viceId)?.name ?? viceId}` : ''}` : '—'}
+              </span>
+              <span className="todo-s">{dec?.captain ? '✓' : t('pending')}</span>
+            </a>
+          </li>
+          <li className="chips-line">
+            <span className="todo-k">{t('chips')}</span>
+            <span className="todo-v">
+              {(['wildcard', 'limitless'] as const).map((c) => (
+                <button key={c} type="button" className={`chip ${team.chips?.[c] != null ? 'used' : ''}`} onClick={() => toggleChip(c)}>
+                  {t(c === 'wildcard' ? 'chipWildcard' : 'chipLimitless')}:{' '}
+                  {team.chips?.[c] != null ? (team.chips[c] ? t('chipUsedAt', { gd: team.chips[c]! }) : t('chipUsed')) : t('chipAvailable')}
+                </button>
+              ))}
+            </span>
+          </li>
+        </ol>
+      </div>
+
       <dl className="summary">
         <div>
           <dt>{t('xiTotal')}</dt>
@@ -249,9 +383,38 @@ function TeamView({
         </div>
       </dl>
 
-      <Pitch xi={xi} bench={bench} data={data} onOpen={onOpen} />
+      <Pitch xi={xi} bench={bench} data={data} onOpen={onOpen} gd={gd} captainId={capId} viceId={viceId} />
+
+      {complete ? (
+        <>
+          <TransfersSection
+            data={data}
+            team={team}
+            squad={squad}
+            gd={gd}
+            free={free}
+            advice={advice}
+            onApply={apply}
+            onNoMove={noMove}
+            onSave={onSave}
+            onOpen={onOpen}
+          />
+          <CaptainSection c={captain} team={team} gd={gd} onConfirm={confirmCaptain} onOpen={onOpen} />
+        </>
+      ) : (
+        <p className="hint">{t('adviceNoTeamText')}</p>
+      )}
 
       <h2>{t('alerts')}</h2>
+      {sameMatch.length ? (
+        <ul className="warnings">
+          {sameMatch.map((w, i) => (
+            <li key={i}>
+              <WarningText w={w} />
+            </li>
+          ))}
+        </ul>
+      ) : null}
       {alerts.length ? (
         <ul className="alerts">
           {alerts.map((a, i) => (

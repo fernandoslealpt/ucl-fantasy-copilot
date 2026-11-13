@@ -11,7 +11,7 @@ import type { PrevSeasonPlayer } from '../prevSeason.ts';
 import type { Fixture, GamedayState, Player, Team } from '../types.ts';
 import { backtest, type BacktestRow } from './backtest.ts';
 import { pZero } from './poisson.ts';
-import { expectedGoals, fitRatings, matchObservations, type TeamRatings } from './ratings.ts';
+import { expectedGoals, fitRatings, matchObservations, tuneRatings, type RatingsParams, type RatingsTuning, type TeamRatings } from './ratings.ts';
 import { computeXp, MODEL_VERSION, PARAMS, type PlayerXp } from './xp.ts';
 
 export interface ModelSummary {
@@ -20,6 +20,8 @@ export interface ModelSummary {
   players: number;
   backtest: BacktestRow[];
   ratings: { mu: number; home: number; beta: number; gamma: number; observations: number };
+  /** parâmetros da força das equipas escolhidos por backtest (meia-vida null = sem decaimento) */
+  ratingsTuning: ReturnType<typeof jsonTuning>;
 }
 
 export interface TeamFixtureRating {
@@ -118,7 +120,13 @@ export function runModel(input: RunModelInput): { xp: PlayerXp[]; summary: Model
   const maxGd = Math.max(0, ...input.fixtures.map((f) => f.gameday ?? 0));
   const targets = [0, 1, 2, 3, 4].map((k) => first + k).filter((g) => g <= maxGd);
 
-  const ratings = fitRatings(matchObservations(input.fixtures, input.prevFixtures), input.coefficients);
+  const tuning = tuneRatings(input.fixtures, input.prevFixtures, input.coefficients);
+  const rp = tuning.chosen;
+  const ratings = fitRatings(
+    matchObservations(input.fixtures, input.prevFixtures, { asOf: input.nowIso, prevWeight: rp.prevWeight, halfLifeDays: rp.halfLifeDays }),
+    input.coefficients,
+    { sigma: rp.sigma },
+  );
   const xp = computeXp({
     players: input.players,
     prev: input.prev,
@@ -136,6 +144,7 @@ export function runModel(input: RunModelInput): { xp: PlayerXp[]; summary: Model
         fixtures: input.fixtures,
         prevFixtures: input.prevFixtures,
         coefficients: input.coefficients,
+        ratingsParams: rp,
         gamedays: Array.from({ length: lastPlayed }, (_, i) => i + 1),
       })
     : [];
@@ -153,6 +162,7 @@ export function runModel(input: RunModelInput): { xp: PlayerXp[]; summary: Model
       gamma: r2(ratings.gamma),
       observations: ratings.observations,
     },
+    ratingsTuning: jsonTuning(tuning),
   };
 
   const header = { generatedAt: input.nowIso, season: input.season, gameday: input.gameday, targets, modelVersion: MODEL_VERSION };
@@ -160,4 +170,11 @@ export function runModel(input: RunModelInput): { xp: PlayerXp[]; summary: Model
   writeJsonLines(join(input.outDir, 'latest', 'team-ratings.json'), header, 'teams', tr);
   writeJson(join(input.outDir, 'latest', 'model-report.json'), { ...header, params: PARAMS, ...summary });
   return { xp, summary, teamRatings: tr };
+}
+
+const jsonParams = (p: RatingsParams) => ({ ...p, halfLifeDays: Number.isFinite(p.halfLifeDays) ? p.halfLifeDays : null });
+
+/** Infinity não existe em JSON: meia-vida infinita passa a null. */
+export function jsonTuning(t: RatingsTuning) {
+  return { ...t, chosen: jsonParams(t.chosen), grid: t.grid.map((g) => ({ ...g, params: jsonParams(g.params) })) };
 }

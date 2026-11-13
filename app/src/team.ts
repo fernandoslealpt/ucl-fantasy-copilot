@@ -12,6 +12,40 @@ export interface MyTeam {
   ftGameday?: number;
   /** jogadores a não vender nas sugestões */
   keep?: string[];
+  /** jornada em que cada chip foi usado (null/ausente = ainda disponível) */
+  chips?: { wildcard?: number | null; limitless?: number | null };
+  /** decisões confirmadas pelo Fernando para a jornada `gameday` */
+  decisions?: Decisions;
+}
+
+export interface Decisions {
+  gameday: number;
+  /** transferências decididas (feitas ou "não vou trocar") */
+  transfers?: boolean;
+  /** capitão e vice escolhidos */
+  captain?: string;
+  vice?: string;
+}
+
+/** Decisões da jornada `gameday` (vazias se as guardadas são de outra jornada). */
+export function decisionsFor(team: MyTeam | null, gameday: number | null): Decisions | null {
+  if (!team?.decisions || gameday == null || team.decisions.gameday !== gameday) return null;
+  return team.decisions;
+}
+
+/** O que ainda falta decidir antes do fecho. */
+export function pendingDecisions(team: MyTeam | null, gameday: number | null): ('team' | 'transfers' | 'captain')[] {
+  if (!team || team.players.length !== 15) return ['team'];
+  const d = decisionsFor(team, gameday);
+  const out: ('transfers' | 'captain')[] = [];
+  if (!d?.transfers) out.push('transfers');
+  if (!d?.captain) out.push('captain');
+  return out;
+}
+
+export function withDecisions(team: MyTeam, gameday: number, patch: Partial<Omit<Decisions, 'gameday'>>): MyTeam {
+  const cur = decisionsFor(team, gameday) ?? { gameday };
+  return { ...team, decisions: { ...cur, ...patch, gameday }, updatedAt: new Date().toISOString() };
 }
 
 export const SQUAD: Record<Position, number> = { GK: 2, DEF: 5, MID: 5, FWD: 3 };

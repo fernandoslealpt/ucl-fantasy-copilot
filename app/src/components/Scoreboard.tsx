@@ -1,11 +1,62 @@
-import { useNow } from '../data';
+import { useEffect, useRef, useState } from 'react';
+import { DATA_BASE, useNow } from '../data';
 import { useI18n } from '../i18n';
+import { requestDataUpdate } from '../sync';
 import type { Meta } from '../types';
 import { useAgo } from './ui';
 
-/** O marcador: contagem decrescente até ao fecho da equipa + frescura dos dados. */
-export function Scoreboard({ meta, onSettings }: { meta: Meta; onSettings: () => void }) {
+type Pending = 'team' | 'transfers' | 'captain';
+
+/** O marcador: contagem decrescente até ao fecho, o que falta decidir e frescura dos dados (com botão para atualizar). */
+export function Scoreboard({
+  meta,
+  pending,
+  onSettings,
+  onReload,
+}: {
+  meta: Meta;
+  pending: Pending[];
+  onSettings: () => void;
+  onReload: () => void;
+}) {
   const { t, d } = useI18n();
+  const [upd, setUpd] = useState<{ state: 'idle' | 'busy' | 'error'; msg?: string }>({ state: 'idle' });
+  const poll = useRef<ReturnType<typeof setInterval> | null>(null);
+  useEffect(() => () => void (poll.current && clearInterval(poll.current)), []);
+  const refresh = async () => {
+    if (upd.state === 'busy') return;
+    try {
+      await requestDataUpdate();
+    } catch (e) {
+      const code = e instanceof Error ? e.message : '';
+      setUpd({
+        state: 'error',
+        msg: code === 'no-token' ? t('refreshNoToken') : code === 'no-actions-permission' ? t('refreshNoPerm') : code === 'bad-token' ? t('refreshBadToken') : t('refreshFail', { e: code }),
+      });
+      return;
+    }
+    setUpd({ state: 'busy', msg: t('refreshBusy') });
+    const started = Date.now();
+    const before = meta.generatedAt;
+    poll.current = setInterval(async () => {
+      try {
+        const r = await fetch(`${DATA_BASE}meta.json?t=${Date.now()}`, { cache: 'no-store' });
+        const m = (await r.json()) as Meta;
+        if (m.generatedAt !== before) {
+          clearInterval(poll.current!);
+          setUpd({ state: 'idle' });
+          onReload();
+          return;
+        }
+      } catch {
+        /* tenta outra vez */
+      }
+      if (Date.now() - started > 10 * 60_000) {
+        clearInterval(poll.current!);
+        setUpd({ state: 'error', msg: t('refreshSlow') });
+      }
+    }, 30_000);
+  };
   const now = useNow(15_000);
   const ago = useAgo();
   const gd = meta.currentGameday ?? '—';
@@ -60,7 +111,18 @@ export function Scoreboard({ meta, onSettings }: { meta: Meta; onSettings: () =>
           ) : null}
         </div>
         <div className="scoreboard-side">
-          <span className="fresh">{t('updatedAgo', { t: ago(meta.generatedAt, now) })}</span>
+          <button
+            type="button"
+            className={`fresh fresh-btn ${now - Date.parse(meta.generatedAt) > 3 * 3600_000 ? 'stale' : ''}`}
+            onClick={refresh}
+            disabled={upd.state === 'busy'}
+            title={t('refreshTitle')}
+          >
+            <span aria-hidden className={upd.state === 'busy' ? 'spin' : ''}>
+              ⟳
+            </span>{' '}
+            {t('updatedAgo', { t: ago(meta.generatedAt, now) })}
+          </button>
           <button type="button" className="icon-btn" onClick={onSettings} aria-label={t('settings')}>
             <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden>
               <path
@@ -72,6 +134,22 @@ export function Scoreboard({ meta, onSettings }: { meta: Meta; onSettings: () =>
           </button>
         </div>
       </div>
+      {left != null && left > 0 ? (
+        <p className={`pending-line ${pending.length ? '' : 'ok'}`}>
+          {pending.length ? `${t('pendingPrefix')} ${pending.map((p) => t(p === 'team' ? 'pendTeam' : p === 'transfers' ? 'pendTransfers' : 'pendCaptain')).join(' · ')}` : `✓ ${t('pendingNone', { gd })}`}
+        </p>
+      ) : null}
+      {upd.msg ? (
+        <p className={`source-warning ${upd.state === 'busy' ? 'info' : ''}`} role="status">
+          {upd.msg}
+          {upd.state === 'error' ? (
+            <button type="button" className="link" onClick={() => setUpd({ state: 'idle' })} aria-label={t('close')}>
+              {' '}
+              ✕
+            </button>
+          ) : null}
+        </p>
+      ) : null}
       {failing.length ? <p className="source-warning">{t('sourceFailed', { s: failing.join(', ') })}</p> : null}
     </header>
   );

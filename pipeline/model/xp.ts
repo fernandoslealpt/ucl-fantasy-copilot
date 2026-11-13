@@ -13,7 +13,7 @@ import { expectedFloorDiv, pZero } from './poisson.ts';
 import { expectedGoals, type TeamRatings } from './ratings.ts';
 import { SCORING } from './scoring.ts';
 
-export const MODEL_VERSION = '1.2.0';
+export const MODEL_VERSION = '1.3.0';
 
 /** Parâmetros (ver docs/MODEL.md). */
 export const PARAMS = {
@@ -113,6 +113,36 @@ export interface PlayerXp {
   confidence: Confidence;
   fixtures: FixtureXp[];
   rates: { goals90: number; assists90: number; recoveries90: number; saves90: number; motmPerApp: number };
+  /** amostra desta época: jogos com minutos, pontos e quota dos pontos que veio do melhor jogo */
+  sample: SampleInfo;
+}
+
+export interface SampleInfo {
+  apps: number;
+  points: number;
+  bestGameday: number | null;
+  bestPoints: number;
+  /** pontos do melhor jogo ÷ pontos totais (0–1) */
+  bestShare: number;
+  /** aviso: só 1 jogo, ou ≥ 50% dos pontos num só jogo */
+  spiky: boolean;
+}
+
+/** Quanto dos pontos da época veio de um só jogo (para não justificar escolhas com um jogo isolado). */
+export function sampleInfo(history: { gameday: number; points: number; minutes: number | null }[]): SampleInfo {
+  const played = history.filter((l) => (l.minutes ?? 0) > 0);
+  const points = played.reduce((a, l) => a + l.points, 0);
+  const best = played.reduce<(typeof played)[number] | null>((b, l) => (!b || l.points > b.points ? l : b), null);
+  const bestPoints = best?.points ?? 0;
+  const bestShare = points > 0 ? bestPoints / points : 0;
+  return {
+    apps: played.length,
+    points,
+    bestGameday: best?.gameday ?? null,
+    bestPoints,
+    bestShare: r2(bestShare),
+    spiky: played.length === 1 || (played.length > 1 && bestPoints >= 8 && bestShare >= 0.5),
+  };
 }
 
 interface Rates {
@@ -448,6 +478,7 @@ export function computeXp(input: XpInput): PlayerXp[] {
         saves90: r2(rates.saves90),
         motmPerApp: r2(rates.motmPerApp),
       },
+      sample: sampleInfo(p.history.filter((l) => l.gameday <= lastGameday)),
     };
   });
 }

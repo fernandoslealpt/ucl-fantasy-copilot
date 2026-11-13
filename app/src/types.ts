@@ -108,6 +108,19 @@ export interface XpPlayer {
   confidence: Confidence;
   fixtures: FixtureXp[];
   rates: { goals90: number; assists90: number; recoveries90: number; saves90: number; motmPerApp: number };
+  /** amostra desta época (modelo ≥ 1.3.0) */
+  sample?: SampleInfo;
+}
+
+export interface SampleInfo {
+  apps: number;
+  points: number;
+  bestGameday: number | null;
+  bestPoints: number;
+  /** pontos do melhor jogo ÷ pontos totais */
+  bestShare: number;
+  /** só 1 jogo, ou ≥ 50% dos pontos num só jogo */
+  spiky: boolean;
 }
 
 export interface Team {

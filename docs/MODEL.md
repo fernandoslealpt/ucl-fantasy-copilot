@@ -1,4 +1,4 @@
-# Modelo de pontos esperados (xP) — v1
+# Modelo de pontos esperados (xP) — v1.3
 
 > Código: `pipeline/model/`. Resultados: branch `data` → `latest/xp.json`, `latest/team-ratings.json`, `latest/model-report.json`.
 
@@ -15,6 +15,8 @@ Regressão de Poisson com os resultados da Champions (época atual peso 1; époc
 `golos esperados de A contra B = exp(μ + casa + ataque(A) − defesa(B))`
 
 - ataque/defesa = parte de longo prazo (coeficiente UEFA de clubes, 5 épocas) + ajuste aprendido com os resultados, encolhido para zero (σ = 0,3).
+- **Peso no tempo:** cada jogo pesa ½ por cada meia-vida de antiguidade; a época anterior ainda multiplica por um peso próprio.
+- **Parâmetros por backtest** (`tuneRatings`): grelha de σ (encolhimento: 0,15–0,45), meia-vida (45, 90, 180, 365 dias ou sem decaimento) e peso da época anterior (0,25 / 0,5 / 1). Para cada jornada já jogada (desta época e da anterior) ajusta-se só com os jogos anteriores e mede-se a log-verosimilhança dos golos. Só se troca o valor por defeito (σ 0,3, sem decaimento, 0,5) com ganho ≥ 0,005 por observação. Escolha e top 10 da grelha em `model-report.json → ratingsTuning` (meia-vida `null` = sem decaimento).
 - Probabilidade de clean sheet = `e^(−golos esperados do adversário)`.
 - **Dificuldade 1–5** de cada jogo: quintis do saldo esperado (golos sofridos − marcados) em todos os jogos previstos.
 
@@ -49,6 +51,9 @@ Para cada jornada já jogada, o modelo prevê usando só o que se sabia antes (h
 Métricas: erro médio absoluto, RMSE, correlação de ordem (Spearman) e **pontos reais médios do top 20/50** segundo cada método, o que mais interessa para escolher jogadores.
 
 Primeiro resultado (1 nov 2026, jornadas 1–3): o modelo tem erro menor em todas as jornadas e o seu top 20 fez **mais pontos reais** (J2: 4,8 vs 2,7; J3: 6,4 vs 4,8). O resultado atualizado está no `summary.md` em cada execução.
+
+## Amostra de um jogo
+`sample` em cada jogador do `xp.json`: jogos com minutos, pontos, melhor jogo e a sua quota. `spiky` = só 1 jogo, ou ≥ 50% dos pontos (com ≥ 8) num só jogo. A app avisa e não usa a forma como razão nesses casos.
 
 ## Limitações conhecidas (v1)
 - Penáltis (marcador, defendidos, falhados) e golos de fora da área não são modelados.

@@ -1,7 +1,8 @@
 # UCL Fantasy Copilot — Especificação v1
 
 > Fonte de verdade do produto. Escrita em PT-PT para o Fernando; identificadores técnicos em inglês.
-> Última revisão: 31 out 2026. Alterações relevantes ficam registadas em `docs/DECISIONS.md`.
+> Última revisão: 13 nov 2026 (estrutura de ecrãs revista: a Equipa é o centro; ver DECISIONS.md de 13 nov).
+> Última revisão anterior: 31 out 2026. Alterações relevantes ficam registadas em `docs/DECISIONS.md`.
 
 ---
 
@@ -188,6 +189,8 @@ Regras: números sempre arredondados e com unidade; nunca razões sem dados; "Ve
 ---
 
 ## 9. Ecrãs
+
+**Estrutura atual (13 nov 2026):** separadores **Equipa · Jogadores · Calendário · Notícias · Diário** (alvo: Equipa · Jogadores · Calendário · Diário). A **Equipa** junta campo, transferências (J+0/J+1/J+2, custo do −4), capitão por dia de jogo, chips, alertas e "o que falta decidir". O **Diário** regista por jornada recomendação, decisões, xP previsto e pontos reais. A tabela abaixo é a versão original (v1) e fica como referência.
 
 Estrutura comum: **Recomendação → Porquê → Tabela**. Topo de cada ecrã: frescura dos dados e próximo deadline (contagem decrescente). Todas as colunas têm explicação curta (tooltip) em linguagem simples.
 

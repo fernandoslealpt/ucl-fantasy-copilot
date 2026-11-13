@@ -4,7 +4,7 @@
  */
 import type { PrevSeasonPlayer } from '../prevSeason.ts';
 import type { Fixture, Player } from '../types.ts';
-import { fitRatings, matchObservations } from './ratings.ts';
+import { DEFAULT_RATINGS_PARAMS, fitRatings, matchObservations, type RatingsParams } from './ratings.ts';
 import { computeXp } from './xp.ts';
 
 export interface BacktestMetrics {
@@ -83,6 +83,7 @@ export interface BacktestInput {
   fixtures: Fixture[];
   prevFixtures: Fixture[] | null;
   coefficients: Map<string, number>;
+  ratingsParams?: RatingsParams;
   /** jornadas a avaliar (têm de estar jogadas) */
   gamedays: number[];
 }
@@ -94,8 +95,9 @@ export function backtest(input: BacktestInput): BacktestRow[] {
       .filter((f) => f.gameday === T && f.kickoff)
       .map((f) => f.kickoff!)
       .sort()[0];
-    const obs = matchObservations(input.fixtures, input.prevFixtures, { before: firstKick });
-    const ratings = fitRatings(obs, input.coefficients);
+    const rp = input.ratingsParams ?? DEFAULT_RATINGS_PARAMS;
+    const obs = matchObservations(input.fixtures, input.prevFixtures, { before: firstKick, prevWeight: rp.prevWeight, halfLifeDays: rp.halfLifeDays });
+    const ratings = fitRatings(obs, input.coefficients, { sigma: rp.sigma });
     // Só o que se sabia antes de T: histórico até T-1; estado de disponibilidade ignorado.
     const truncated = input.players.map((p) => ({ ...p, history: p.history.filter((l) => l.gameday < T) }));
     const xp = computeXp({
