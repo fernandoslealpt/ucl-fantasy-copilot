@@ -1,63 +1,63 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-13T01:09:57.339Z",
+  "generatedAt": "2026-11-13T09:39:02.180Z",
   "currentGameday": 5,
   "gamedayState": "upcoming",
   "deadline": "2026-11-24T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-13T01:09:57.339Z",
-      "lastSuccess": "2026-11-13T01:09:57.339Z",
+      "lastAttempt": "2026-11-13T09:39:02.180Z",
+      "lastSuccess": "2026-11-13T09:39:02.180Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-13T01:09:57.339Z",
-      "lastSuccess": "2026-11-13T01:09:57.339Z",
+      "lastAttempt": "2026-11-13T09:39:02.180Z",
+      "lastSuccess": "2026-11-13T09:39:02.180Z",
       "requests": 1,
       "records": 1173
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-13T01:09:57.339Z",
-      "lastSuccess": "2026-11-13T01:09:57.339Z",
+      "lastAttempt": "2026-11-13T09:39:02.180Z",
+      "lastSuccess": "2026-11-13T09:39:02.180Z",
       "requests": 0,
       "records": 0
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-13T01:09:57.339Z",
-      "lastSuccess": "2026-11-13T01:09:57.339Z",
+      "lastAttempt": "2026-11-13T09:39:02.180Z",
+      "lastSuccess": "2026-11-13T09:39:02.180Z",
       "requests": 0,
       "records": 1173
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-13T01:09:57.339Z",
-      "lastSuccess": "2026-11-13T01:09:57.339Z",
+      "lastAttempt": "2026-11-13T09:39:02.180Z",
+      "lastSuccess": "2026-11-13T09:39:02.180Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-13T01:09:57.339Z",
+      "lastAttempt": "2026-11-13T09:39:02.180Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
     },
     "googleNews": {
       "status": "ok",
-      "lastAttempt": "2026-11-13T01:09:57.339Z",
-      "lastSuccess": "2026-11-13T01:09:57.339Z",
+      "lastAttempt": "2026-11-13T09:39:02.180Z",
+      "lastSuccess": "2026-11-13T09:39:02.180Z",
       "requests": 36,
-      "records": 258
+      "records": 262
     },
     "rotowire": {
       "status": "ok",
-      "lastAttempt": "2026-11-13T01:09:57.339Z",
-      "lastSuccess": "2026-11-13T01:09:57.339Z",
+      "lastAttempt": "2026-11-13T09:39:02.180Z",
+      "lastSuccess": "2026-11-13T09:39:02.180Z",
       "requests": 1,
       "records": 0
     }
@@ -151,5 +151,5 @@
   "warnings": [
     "Pontos por jornada: 274/1173 diferem do valor oficial do feed"
   ],
-  "durationMs": 19683
+  "durationMs": 19871
 }
