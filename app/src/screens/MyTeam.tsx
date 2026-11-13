@@ -432,7 +432,7 @@ function TeamView({
               onMode={setLabel}
               captainId={capId}
               viceId={viceId}
-              recommended={advice?.recommended ?? null}
+              advice={advice}
               onConfirm={confirmTransfers}
               onCaptain={setRole}
               onOpen={onOpen}

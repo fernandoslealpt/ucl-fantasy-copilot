@@ -97,3 +97,9 @@
 - Rótulo por baixo dos jogadores à escolha (por defeito **pontos: total · última · média**, pedido do Fernando); também xP, preço, dia do jogo e adversário (com a cor da dificuldade).
 - Emblemas dos clubes a partir do URL do feed da UEFA (`img.uefa.com`), com o código da equipa quando a imagem falha.
 - Onze real do Fernando guardado (Mbappé e Raya no banco); a app sugere Raya e Mbappé no onze (+4,9 xP).
+
+## 13 nov 2026 — Quantas transferências e resumo em tempo real
+- Pedido do Fernando: perceber se a app considera mais do que as grátis, o líquido de cada opção e se faz sentido fazer mais de 3.
+- O motor passou a calcular **até 5 trocas** (feixe a partir das melhores do nível anterior; ~0,6 s). Não há limite matemático: a 4.ª/5.ª raramente compensam porque as melhores trocas já foram usadas, mas agora a app mostra os números em vez de as excluir à partida.
+- **Quadro "Quantas transferências?"** no Plantel: melhor opção para 0–5 trocas, líquido na jornada e nas 3 jornadas (já com −4 por cada paga), custo, ganho por jornada, "Experimentar" (carrega a opção no plantel) e 3 razões numeradas: a regra, porque a recomendada e porque não mais uma. J5 (13 nov): 2 grátis +5,9; 3 trocas +9,6 − 4 = +5,6; 4 → +3,1; 5 → +0,2.
+- **Resumo em tempo real** enquanto se fazem experiências: xP na jornada de quem sai e de quem entra, total, "na tua equipa" (melhor onze + capitão), transferências além das grátis (−4 cada), líquido na jornada e nas 3 jornadas.

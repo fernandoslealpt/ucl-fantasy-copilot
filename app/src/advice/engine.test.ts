@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Position, Row } from '../types';
-import { adviseCaptain, adviseTransfers, captainConfidence, componentTable, HIT, makeCtx, planWarnings, sameMatchWarnings, swapReasons } from './engine';
+import { adviseCaptain, adviseTransfers, captainConfidence, componentTable, countTable, HIT, makeCtx, planWarnings, sameMatchWarnings, swapReasons } from './engine';
 
 let n = 0;
 /** Jogador sintético: xp por jornada (J4, J5, J6). */
@@ -243,5 +243,39 @@ describe('avisos e tabela de apoio', () => {
   it('o horizonte usa as jornadas J+0, J+1 e J+2 com jogos', () => {
     const ctx = makeCtx(squad(), 4);
     expect(ctx.gds).toEqual([4, 5, 6]);
+  });
+});
+
+describe('quantas transferências (0 a 5)', () => {
+  it('calcula até 5 trocas e o líquido desconta 4 por cada paga', () => {
+    const s = squad();
+    const ups = ['U1', 'U2', 'U3', 'U4', 'U5'].map((c) => P('FWD', c, 6, [9, 9, 9]));
+    const mids = ['M1', 'M2'].map((c) => P('MID', c, 6, [9, 9, 9]));
+    const a = adviseTransfers([...s, ...ups, ...mids], s, 0, 2, 4);
+    expect(a.byCount[4].length).toBeGreaterThan(0);
+    expect(a.byCount[5].length).toBeGreaterThan(0);
+    const rows = countTable(a);
+    expect(rows.map((r) => r.n)).toEqual([0, 1, 2, 3, 4, 5]);
+    for (const r of rows.filter((x) => x.plan)) {
+      expect(r.hits).toBe(Math.max(0, r.n - 2));
+      expect(r.netNow).toBeCloseTo((r.deltaGd[0] ?? 0) - HIT * r.hits, 5);
+      expect(r.netHorizon).toBeCloseTo(r.deltaGd.reduce((x, y) => x + y, 0) - HIT * r.hits, 5);
+    }
+    expect(rows.filter((r) => r.recommended)).toHaveLength(1);
+  });
+
+  it('sem ganho, a recomendada é não mexer', () => {
+    const s = squad();
+    const a = adviseTransfers(s, s, 0, 2, 4);
+    const rows = countTable(a);
+    expect(rows[0]!.recommended).toBe(true);
+  });
+
+  it('uma 4.ª troca paga só é recomendada quando ganha muito já nesta jornada', () => {
+    const s = squad();
+    const huge = ['H1', 'H2', 'H3', 'H4'].map((c) => P('FWD', c, 6, [20, 3, 3]));
+    const mids = ['H5'].map((c) => P('MID', c, 6, [20, 3, 3]));
+    const a = adviseTransfers([...s, ...huge, ...mids], s, 0, 2, 4);
+    expect(a.recommended!.swaps.length).toBeGreaterThanOrEqual(4);
   });
 });

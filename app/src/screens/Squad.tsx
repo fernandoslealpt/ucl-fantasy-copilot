@@ -4,7 +4,8 @@
  * "Rever transferências" mostra antes/depois (xP por jornada, banco, −4, avisos) antes de confirmar.
  */
 import { useEffect, useMemo, useState } from 'react';
-import { HIT, makeCtx, planWarnings, squadValue, swapReasons, type Plan } from '../advice/engine';
+import { HIT, makeCtx, planWarnings, squadValue, swapReasons, type Plan, type TransferAdvice } from '../advice/engine';
+import { CountTable, LiveSummary } from '../components/TransferTables';
 import { Catalog } from '../components/Catalog';
 import { Field, LabelPicker, type FieldSlot, type LabelMode } from '../components/Field';
 import { ActionList, Sheet } from '../components/Sheet';
@@ -49,7 +50,7 @@ export function SquadView({
   onMode,
   captainId,
   viceId,
-  recommended,
+  advice,
   onConfirm,
   onCaptain,
   onOpen,
@@ -62,7 +63,7 @@ export function SquadView({
   onMode: (m: LabelMode) => void;
   captainId: string | null;
   viceId: string | null;
-  recommended: Plan | null;
+  advice: TransferAdvice | null;
   onConfirm: (swaps: { out: Row; in: Row }[], bankAfter: number, hits: number, limitless: boolean) => Promise<void>;
   onCaptain: (id: string, role: 'C' | 'V') => void;
   onOpen: (r: Row) => void;
@@ -75,6 +76,7 @@ export function SquadView({
   const [review, setReview] = useState(false);
   const [scenarios, setScenarios] = useState<Scenario[]>(readScenarios);
   const [busy, setBusy] = useState(false);
+  const recommended = advice?.recommended ?? null;
 
   const sum = summarize(draft, team, data.byId, free, gd);
   const byId = data.byId;
@@ -228,8 +230,20 @@ export function SquadView({
           {sum.bank < 0 && !draft.limitless ? <p className="hint error">{t('overBudget', { x: num(-sum.bank) })}</p> : null}
           {sum.overClub.length ? <p className="hint error">{t('ruleClub', { max: 3, clubs: sum.overClub.join(', ') })}</p> : null}
           {sum.hits && !draft.limitless ? <p className="hint">{t('hitWarn', { n: sum.hits, pts: HIT * sum.hits })}</p> : null}
+          <LiveSummary
+            ctx={ctx}
+            squad={squadRows}
+            after={sum.empty === 0 ? draftRows : null}
+            swaps={draft.slots
+              .filter((x) => x.current !== x.original)
+              .map((x) => ({ out: byId.get(x.original)!, in: x.current ? byId.get(x.current) ?? null : null }))}
+            hits={sum.hits}
+            limitless={draft.limitless}
+          />
         </div>
       ) : null}
+
+      {!editing && advice ? <CountTable advice={advice} onTry={(p) => loadPlan(p.swaps.map((x) => ({ out: x.out.id, in: x.in.id })))} /> : null}
 
       {!editing && scenarios.filter((s) => s.gameday === gd).length ? (
         <div className="scenarios">

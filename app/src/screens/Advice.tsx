@@ -19,6 +19,8 @@ import {
   type Plan,
   type Reason,
   type TransferAdvice,
+  type SwapCount,
+  SWAP_COUNTS,
   type Warning,
 } from '../advice/engine';
 import { StatusMark, pct, useSignalText } from '../components/ui';
@@ -78,7 +80,7 @@ export function TransfersSection({
   onOpen: (r: Row) => void;
 }) {
   const { t, num } = useI18n();
-  const [count, setCount] = useState<1 | 2 | 3>(1);
+  const [count, setCount] = useState<SwapCount>(1);
   const keepIds = team.keep ?? [];
   const decided = decisionsFor(team, gd)?.transfers;
   const setKeep = (ids: string[]) => void onSave({ ...team, keep: ids, updatedAt: new Date().toISOString() });
@@ -161,7 +163,7 @@ export function TransfersSection({
           <details className="more-options">
             <summary>{t('otherOptions')}</summary>
           <div className="chips" role="group">
-            {([1, 2, 3] as const).map((c) => (
+            {SWAP_COUNTS.map((c) => (
               <button key={c} type="button" className={`chip ${count === c ? 'on' : ''}`} aria-pressed={count === c} onClick={() => setCount(c)}>
                 {t(c === 1 ? 'oneSwap' : 'nSwaps', { n: c })}
                 {c > free ? ` (−${HIT * (c - free)})` : ''}

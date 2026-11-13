@@ -115,13 +115,16 @@ export interface Plan {
   bankAfter: number;
 }
 
+export type SwapCount = 1 | 2 | 3 | 4 | 5;
+export const SWAP_COUNTS: SwapCount[] = [1, 2, 3, 4, 5];
+
 export interface TransferAdvice {
   ctx: Ctx;
   base: { total: number; perGd: number[] };
   free: number;
   bank: number;
-  /** melhores opções com 1, 2 e 3 trocas */
-  byCount: Record<1 | 2 | 3, Plan[]>;
+  /** melhores opções com 1 a 5 trocas */
+  byCount: Record<SwapCount, Plan[]>;
   recommended: Plan | null;
   /** melhor opção sem penalização (para explicar quando não se recomenda mexer) */
   bestFree: Plan | null;
@@ -237,27 +240,32 @@ export function adviseTransfers(
     }
   doubles.sort((a, b) => b.delta - a.delta);
 
-  // 3 trocas: acrescenta uma troca às 40 melhores de 2
-  const triples: Plan[] = [];
+  // 3, 4 e 5 trocas: acrescenta uma troca às melhores do nível anterior (pesquisa em feixe)
   const seen = new Set<string>();
-  for (const d of doubles.slice(0, 40)) {
-    const outs = new Set(d.swaps.map((s) => s.out.id));
-    for (const o of sellable) {
-      if (outs.has(o.id)) continue;
-      for (const c of poolSmall[o.position]) {
-        const swaps = [...d.swaps, { out: o, in: c }];
-        const key = swaps
-          .map((s) => `${s.out.id}>${s.in.id}`)
-          .sort()
-          .join('|');
-        if (seen.has(key)) continue;
-        seen.add(key);
-        const p = evaluate(swaps);
-        if (p) triples.push(p);
+  const extend = (prev: Plan[], beam: number): Plan[] => {
+    const out: Plan[] = [];
+    for (const d of prev.slice(0, beam)) {
+      const outs = new Set(d.swaps.map((s) => s.out.id));
+      for (const o of sellable) {
+        if (outs.has(o.id)) continue;
+        for (const c of poolSmall[o.position]) {
+          const swaps = [...d.swaps, { out: o, in: c }];
+          const key = swaps
+            .map((s) => `${s.out.id}>${s.in.id}`)
+            .sort()
+            .join('|');
+          if (seen.has(key)) continue;
+          seen.add(key);
+          const p = evaluate(swaps);
+          if (p) out.push(p);
+        }
       }
     }
-  }
-  triples.sort((a, b) => b.delta - a.delta);
+    return out.sort((a, b) => b.delta - a.delta);
+  };
+  const triples = extend(doubles, 40);
+  const quads = extend(triples, 25);
+  const quints = extend(quads, 15);
 
   const distinct = (plans: Plan[], n: number) => {
     const out: Plan[] = [];
@@ -275,8 +283,14 @@ export function adviseTransfers(
     return out;
   };
   const byScore = (xs: Plan[]) => [...xs].sort((a, b) => b.score - a.score);
-  const byCount = { 1: distinct(byScore(singles), 5), 2: distinct(byScore(doubles), 5), 3: distinct(byScore(triples), 5) };
-  const all = [...byCount[1], ...byCount[2], ...byCount[3]];
+  const byCount: Record<SwapCount, Plan[]> = {
+    1: distinct(byScore(singles), 5),
+    2: distinct(byScore(doubles), 5),
+    3: distinct(byScore(triples), 5),
+    4: distinct(byScore(quads), 5),
+    5: distinct(byScore(quints), 5),
+  };
+  const all = SWAP_COUNTS.flatMap((n) => byCount[n]);
   // só se recomenda o que não perde pontos já nesta jornada
   const eligible = all.filter((p) => (p.deltaGd[0] ?? 0) > 0);
   const top = eligible.reduce<Plan | null>((acc, p) => (!acc || p.score > acc.score ? p : acc), null);
@@ -515,4 +529,47 @@ export function captainConfidence(c: CaptainAdvice): 'alta' | 'média' | 'baixa'
   if (a.pStart >= 0.85 && margin >= 1) return 'alta';
   if (a.pStart >= 0.7) return 'média';
   return 'baixa';
+}
+
+// ———————————————————————————— Quadro: quantas transferências? ————————————————————————————
+
+export interface CountRow {
+  n: number;
+  plan: Plan | null;
+  /** ganho por jornada do horizonte (sem custo) */
+  deltaGd: number[];
+  hits: number;
+  /** ganho líquido na jornada atual e no horizonte (soma simples das jornadas) */
+  netNow: number;
+  netHorizon: number;
+  recommended: boolean;
+}
+
+/** Melhor opção para 0 a 5 trocas (pelo critério conservador), com o líquido de cada uma. */
+export function countTable(a: TransferAdvice): CountRow[] {
+  const rec = a.recommended;
+  const zero: CountRow = {
+    n: 0,
+    plan: null,
+    deltaGd: a.ctx.gds.map(() => 0),
+    hits: 0,
+    netNow: 0,
+    netHorizon: 0,
+    recommended: !rec,
+  };
+  const rows = SWAP_COUNTS.map((n): CountRow => {
+    const best = rec && rec.swaps.length === n ? rec : a.byCount[n][0] ?? null;
+    if (!best) return { n, plan: null, deltaGd: [], hits: Math.max(0, n - a.free), netNow: 0, netHorizon: 0, recommended: false };
+    const sum = best.deltaGd.reduce((s, x) => s + x, 0);
+    return {
+      n,
+      plan: best,
+      deltaGd: best.deltaGd,
+      hits: best.hits,
+      netNow: (best.deltaGd[0] ?? 0) - HIT * best.hits,
+      netHorizon: sum - HIT * best.hits,
+      recommended: rec === best,
+    };
+  });
+  return [zero, ...rows];
 }
