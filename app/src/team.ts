@@ -16,6 +16,8 @@ export interface MyTeam {
   chips?: { wildcard?: number | null; limitless?: number | null };
   /** decisões confirmadas pelo Fernando para a jornada `gameday` */
   decisions?: Decisions;
+  /** onze e banco (só contam nos dias de jogo) */
+  lineup?: { gameday: number; xi: string[]; bench: string[] };
 }
 
 export interface Decisions {

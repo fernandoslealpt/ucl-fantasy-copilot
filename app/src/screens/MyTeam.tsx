@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { matchTeam, type ImportResult } from '../importer/match';
-import { Pitch } from '../components/Pitch';
+import { readLabelMode, writeLabelMode, type LabelMode } from '../components/Field';
+import { lineupFor, type Lineup } from '../squad';
+import { SquadView } from './Squad';
+import { MatchdayView } from './Matchday';
 import { SortTable, type Column } from '../components/SortTable';
 import { Difficulty, Opponent, pct, StatusMark, surnameOf, teamCode, useNote } from '../components/ui';
 import { useI18n } from '../i18n';
@@ -192,7 +195,47 @@ function TeamView({
     void onSave({ ...team, chips: { ...(team.chips ?? {}), [chip]: used ? null : gd }, updatedAt: new Date().toISOString() }).then(setMsg);
     if (!used) onRecord(gd, (cur) => ({ done: { ...(cur?.done ?? { swaps: [], hits: 0 }), chip } }));
   };
-  const sameMatch = useMemo(() => sameMatchWarnings(xi, gd), [xi, gd]);
+  const [view, setView] = useState<'plantel' | 'jornada'>('plantel');
+  const [label, setLabelState] = useState<LabelMode>(readLabelMode);
+  const setLabel = (m: LabelMode) => {
+    setLabelState(m);
+    writeLabelMode(m);
+  };
+  const { lineup, saved: lineupSaved } = useMemo(() => lineupFor(team, squad, gd, xpAt, data.byId), [team, squad, gd, xpAt, data.byId]);
+  const saveLineup = async (l: Lineup) => setMsg(await onSave({ ...team, lineup: { ...l, gameday: gd }, updatedAt: new Date().toISOString() }));
+  const setRole = (id: string, role: 'C' | 'V') => {
+    const c = role === 'C' ? id : capId === id ? viceId : capId;
+    const v = role === 'V' ? id : viceId === id ? capId : viceId;
+    if (c) void confirmCaptain(c, v && v !== c ? v : null);
+  };
+  const confirmTransfers = async (swaps: { out: Row; in: Row }[], bankAfter: number, hits: number, limitless: boolean) => {
+    const outs = new Set(swaps.map((s) => s.out.id));
+    const players = [...team.players.filter((id) => !outs.has(id)), ...swaps.map((s) => s.in.id)];
+    const next = withDecisions(
+      {
+        ...team,
+        players,
+        bank: bankAfter,
+        freeTransfers: limitless ? free : Math.max(0, free - swaps.length),
+        ftGameday: gd,
+        ...(limitless ? { chips: { ...(team.chips ?? {}), limitless: gd } } : {}),
+      },
+      gd,
+      { transfers: true },
+    );
+    onRecord(gd, (cur) => ({
+      done: {
+        ...(cur?.done ?? {}),
+        swaps: [...(cur?.done?.swaps ?? []), ...swaps.map((s) => ({ out: s.out.id, in: s.in.id }))],
+        hits: (cur?.done?.hits ?? 0) + hits,
+        noMove: false,
+        ...(limitless ? { chip: 'limitless' as const } : {}),
+      },
+      squad: players,
+    }));
+    setMsg(`${t('applied')} ${await onSave(next)}`);
+  };
+  const sameMatch = useMemo(() => sameMatchWarnings(lineup.xi.map((id) => data.byId.get(id)).filter((r): r is Row => !!r), gd), [lineup, data.byId, gd]);
 
   const alerts = useMemo(() => {
     const out: { level: 'red' | 'yellow'; text: string; row: Row }[] = [];
@@ -368,6 +411,52 @@ function TeamView({
         </ol>
       </div>
 
+
+      {complete ? (
+        <>
+          <div className="seg" role="tablist" aria-label={t('teamTitle', { gd })}>
+            <button type="button" role="tab" aria-selected={view === 'plantel'} className={view === 'plantel' ? 'on' : ''} onClick={() => setView('plantel')}>
+              {t('viewSquad')}
+            </button>
+            <button type="button" role="tab" aria-selected={view === 'jornada'} className={view === 'jornada' ? 'on' : ''} onClick={() => setView('jornada')}>
+              {t('viewMatchday', { gd })}
+            </button>
+          </div>
+          {view === 'plantel' ? (
+            <SquadView
+              data={data}
+              team={team}
+              gd={gd}
+              free={free}
+              mode={label}
+              onMode={setLabel}
+              captainId={capId}
+              viceId={viceId}
+              recommended={advice?.recommended ?? null}
+              onConfirm={confirmTransfers}
+              onCaptain={setRole}
+              onOpen={onOpen}
+            />
+          ) : (
+            <MatchdayView
+              data={data}
+              squad={squad}
+              gd={gd}
+              lineup={lineup}
+              saved={lineupSaved}
+              mode={label}
+              onMode={setLabel}
+              captainId={capId}
+              viceId={viceId}
+              xpAt={xpAt}
+              onLineup={saveLineup}
+              onCaptain={setRole}
+              onOpen={onOpen}
+            />
+          )}
+        </>
+      ) : null}
+
       <dl className="summary">
         <div>
           <dt>{t('xiTotal')}</dt>
@@ -383,10 +472,9 @@ function TeamView({
         </div>
       </dl>
 
-      <Pitch xi={xi} bench={bench} data={data} onOpen={onOpen} gd={gd} captainId={capId} viceId={viceId} />
-
       {complete ? (
         <>
+          {view === 'plantel' ? (
           <TransfersSection
             data={data}
             team={team}
@@ -399,7 +487,9 @@ function TeamView({
             onSave={onSave}
             onOpen={onOpen}
           />
+          ) : (
           <CaptainSection c={captain} team={team} gd={gd} onConfirm={confirmCaptain} onOpen={onOpen} />
+          )}
         </>
       ) : (
         <p className="hint">{t('adviceNoTeamText')}</p>

@@ -89,7 +89,7 @@ export function TransfersSection({
   return (
     <section id="transferencias" className="section">
       <div className="section-head">
-        <h2>{t('transfersTitle')}</h2>
+        <h2>{t('suggestTitle')}</h2>
         {decided ? <span className="done-chip">✓ {t('decided')}</span> : null}
       </div>
       <div className="advice-bar">
@@ -158,7 +158,8 @@ export function TransfersSection({
           <p className="muted small-print">{t('hitRule', { hit: HIT, need: HIT + HIT_MARGIN })}</p>
           <p className="muted small-print">⚠ {t('penaltyNote')}</p>
 
-          <h3>{t('otherOptions')}</h3>
+          <details className="more-options">
+            <summary>{t('otherOptions')}</summary>
           <div className="chips" role="group">
             {([1, 2, 3] as const).map((c) => (
               <button key={c} type="button" className={`chip ${count === c ? 'on' : ''}`} aria-pressed={count === c} onClick={() => setCount(c)}>
@@ -180,6 +181,7 @@ export function TransfersSection({
               onKeep={keepPlayer}
             />
           ))}
+          </details>
         </>
       )}
     </section>

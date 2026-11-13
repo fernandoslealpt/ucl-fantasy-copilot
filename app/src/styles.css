@@ -1764,3 +1764,434 @@ ul.plain {
   font-size: 0.8rem;
   margin: 6px 0 0;
 }
+
+/* ———————————— Fase 2: Plantel e Jornada ao estilo da app oficial ———————————— */
+.seg {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  margin: 8px 0 12px;
+}
+.seg button {
+  flex: 1;
+  min-height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.seg button.on {
+  background: var(--pitch);
+  color: #fff;
+}
+.squad-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.label-picker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+}
+.label-picker select {
+  min-height: 36px;
+}
+.field .pitch-row {
+  gap: 4px;
+}
+.ftoken {
+  position: relative;
+  width: 72px;
+}
+.ftoken-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 2px 4px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--chalk);
+  color: #16201a;
+  cursor: pointer;
+  box-shadow: 0 2px 0 rgb(0 0 0 / 0.25);
+  font: inherit;
+}
+.crest {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+.crest-code {
+  display: grid;
+  place-items: center;
+  font-size: 0.6rem;
+  font-weight: 800;
+  border-radius: 50%;
+  background: #dfe7e0;
+}
+.ftoken-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  max-width: 68px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ftoken-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.05;
+  width: 100%;
+  border-radius: 3px;
+  padding: 1px 2px;
+  background: #1f2a24;
+  color: #fff;
+}
+.ftoken-label strong {
+  font-family: var(--display);
+  font-size: 1rem;
+}
+.ftoken-label small {
+  font-size: 0.62rem;
+  opacity: 0.85;
+}
+.ftoken-label.diff-1,
+.ftoken-label.diff-2,
+.ftoken-label.diff-3,
+.ftoken-label.diff-4,
+.ftoken-label.diff-5 {
+  color: #16201a;
+}
+.ftoken-label.diff-1,
+.ftoken-label.diff-5 {
+  color: #fff;
+}
+.ftoken-label.out {
+  background: #9aa59e;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.ftoken.is-empty .ftoken-body {
+  background: rgb(255 255 255 / 0.35);
+  border: 2px dashed rgb(255 255 255 / 0.8);
+  color: #fff;
+  box-shadow: none;
+  min-height: 74px;
+}
+.ftoken-plus {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.ftoken-badge {
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #7c3aed;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.ftoken-badge.vice {
+  background: #4b5563;
+}
+.ftoken-ov {
+  position: absolute;
+  top: -9px;
+  right: -7px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: var(--red);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+.ftoken-ov.restore {
+  background: #334155;
+}
+.ftoken-ov.subIn {
+  background: var(--green);
+}
+.ftoken-ov.subOut {
+  background: var(--red);
+}
+.ftoken.new .ftoken-body {
+  outline: 3px solid #7dd3fc;
+}
+.ftoken.selected .ftoken-body {
+  outline: 3px solid var(--yellow);
+}
+.ftoken.target .ftoken-body {
+  outline: 3px solid var(--green);
+}
+.ftoken.dim {
+  opacity: 0.45;
+}
+.ftoken.token-doubtful .ftoken-body,
+.ftoken.token-unknown .ftoken-body {
+  box-shadow: inset 0 -4px 0 var(--yellow), 0 2px 0 rgb(0 0 0 / 0.25);
+}
+.ftoken.token-out .ftoken-body,
+.ftoken.token-inactive .ftoken-body {
+  box-shadow: inset 0 -4px 0 var(--red), 0 2px 0 rgb(0 0 0 / 0.25);
+}
+.bench-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.bench-slot .bench-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+@media (max-width: 440px) {
+  .ftoken {
+    width: 60px;
+  }
+  .ftoken-name {
+    max-width: 56px;
+    font-size: 0.66rem;
+  }
+  .ftoken-label strong {
+    font-size: 0.9rem;
+  }
+  .ftoken-ov {
+    width: 26px;
+    height: 26px;
+    top: -10px;
+    right: -8px;
+  }
+}
+.transfer-foot {
+  margin-top: 10px;
+  background: var(--surface);
+  border: 2px solid var(--pitch);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.15);
+}
+.tf-kpis {
+  display: flex;
+  gap: 20px;
+}
+.tf-kpis span {
+  display: flex;
+  flex-direction: column;
+}
+.tf-kpis small {
+  color: var(--ink-2);
+}
+.tf-kpis strong {
+  font-family: var(--display);
+  font-size: 1.4rem;
+}
+.tf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.tf-actions .btn.primary {
+  flex: 1;
+  min-width: 10rem;
+}
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgb(0 0 0 / 0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.sheet {
+  background: var(--surface);
+  color: var(--ink);
+  width: 100%;
+  max-height: 88vh;
+  border-radius: 14px 14px 0 0;
+  display: flex;
+  flex-direction: column;
+}
+.sheet.wide {
+  max-height: 94vh;
+}
+@media (min-width: 760px) {
+  .sheet-backdrop {
+    align-items: center;
+  }
+  .sheet {
+    width: min(520px, 94vw);
+    border-radius: 12px;
+  }
+  .sheet.wide {
+    width: min(980px, 96vw);
+  }
+}
+.sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.sheet-body {
+  overflow: auto;
+  padding: 12px 14px 20px;
+}
+.action-list {
+  display: grid;
+  gap: 6px;
+}
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.action-btn:disabled {
+  opacity: 0.45;
+}
+.action-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--pitch);
+  color: #fff;
+  font-weight: 800;
+}
+.suggest {
+  border: 1px solid var(--line);
+  border-left: 4px solid #f59e0b;
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  background: var(--surface-2);
+}
+.suggest-title {
+  margin: 0 0 4px;
+  font-weight: 700;
+}
+.suggest-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.catalog-table tr.mine td {
+  background: color-mix(in srgb, var(--pitch) 14%, var(--surface));
+  opacity: 0.7;
+}
+.catalog .filters {
+  margin-bottom: 8px;
+}
+.col-help {
+  margin-top: 8px;
+  font-size: 0.85rem;
+}
+.col-help dl div {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 6px;
+}
+.col-help dt {
+  font-weight: 700;
+}
+.col-help dd {
+  margin: 0;
+}
+.suggest-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--yellow) 18%, var(--surface));
+  border: 1px solid var(--yellow);
+}
+.more-options {
+  margin-top: 12px;
+}
+.more-options > summary {
+  cursor: pointer;
+  font-weight: 700;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.scenarios {
+  margin-top: 10px;
+}
+.review-swaps .swap-p {
+  cursor: default;
+}
+.field-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+}
+@media (min-width: 760px) {
+  .ftoken {
+    width: 84px;
+  }
+  .ftoken-name {
+    max-width: 80px;
+    font-size: 0.78rem;
+  }
+  .field.pitch {
+    min-height: 520px;
+  }
+}
+.field-wrap .pitch.field {
+  max-width: none;
+  margin: 0;
+}
