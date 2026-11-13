@@ -9,10 +9,10 @@ import { writeJson, writeJsonLines } from '../lib/files.ts';
 import type { StartSignal } from '../normalize/lineups.ts';
 import type { PrevSeasonPlayer } from '../prevSeason.ts';
 import type { Fixture, GamedayState, Player, Team } from '../types.ts';
-import { backtest, type BacktestRow } from './backtest.ts';
+import { backtest, spikyCalibration, type BacktestRow, type SpikyCalibration } from './backtest.ts';
 import { pZero } from './poisson.ts';
 import { expectedGoals, fitRatings, matchObservations, tuneRatings, type RatingsParams, type RatingsTuning, type TeamRatings } from './ratings.ts';
-import { computeXp, MODEL_VERSION, PARAMS, type PlayerXp } from './xp.ts';
+import { applySpikyFactor, computeXp, MODEL_VERSION, PARAMS, type PlayerXp } from './xp.ts';
 
 export interface ModelSummary {
   version: string;
@@ -22,6 +22,8 @@ export interface ModelSummary {
   ratings: { mu: number; home: number; beta: number; gamma: number; observations: number };
   /** parâmetros da força das equipas escolhidos por backtest (meia-vida null = sem decaimento) */
   ratingsTuning: ReturnType<typeof jsonTuning>;
+  /** desconto a quem tem os pontos concentrados num jogo (backtest) */
+  spikyCalibration: SpikyCalibration;
 }
 
 export interface TeamFixtureRating {
@@ -127,7 +129,7 @@ export function runModel(input: RunModelInput): { xp: PlayerXp[]; summary: Model
     input.coefficients,
     { sigma: rp.sigma },
   );
-  const xp = computeXp({
+  const rawXp = computeXp({
     players: input.players,
     prev: input.prev,
     fixtures: input.fixtures,
@@ -135,7 +137,18 @@ export function runModel(input: RunModelInput): { xp: PlayerXp[]; summary: Model
     targets,
     lastGameday: lastPlayed,
     signals: input.signals,
-  }).sort((a, b) => b.xp1 - a.xp1 || b.xp3 - a.xp3);
+  });
+  const btInput = {
+    players: input.players,
+    prev: input.prev,
+    fixtures: input.fixtures,
+    prevFixtures: input.prevFixtures,
+    coefficients: input.coefficients,
+    ratingsParams: rp,
+    gamedays: Array.from({ length: Math.max(0, lastPlayed) }, (_, i) => i + 1),
+  };
+  const spiky = lastPlayed >= 3 ? spikyCalibration(btInput) : { factor: 1, relative: null, spiky: 0, normal: 0, gamedays: [] };
+  const xp = applySpikyFactor(rawXp, spiky.factor).sort((a, b) => b.xp1 - a.xp1 || b.xp3 - a.xp3);
 
   const bt = lastPlayed >= 1
     ? backtest({
@@ -163,6 +176,7 @@ export function runModel(input: RunModelInput): { xp: PlayerXp[]; summary: Model
       observations: ratings.observations,
     },
     ratingsTuning: jsonTuning(tuning),
+    spikyCalibration: spiky,
   };
 
   const header = { generatedAt: input.nowIso, season: input.season, gameday: input.gameday, targets, modelVersion: MODEL_VERSION };

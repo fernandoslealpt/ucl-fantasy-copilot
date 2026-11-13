@@ -126,6 +126,36 @@ export interface SampleInfo {
   bestShare: number;
   /** aviso: só 1 jogo, ou ≥ 50% dos pontos num só jogo */
   spiky: boolean;
+  /** fator aplicado ao xP (calibrado por backtest); ausente = sem ajuste */
+  adjusted?: number;
+}
+
+const COMPONENT_KEYS = ['appearance', 'goals', 'assists', 'cleanSheet', 'recoveries', 'saves', 'playerOfTheMatch', 'conceded', 'cards'] as const;
+
+/**
+ * Desconta o xP de quem tem os pontos concentrados num jogo (com ≥ 2 jogos): o backtest mostra que o modelo
+ * os sobrestima. Escala todas as componentes de cada jogo e os totais.
+ */
+export function applySpikyFactor(players: PlayerXp[], factor: number): PlayerXp[] {
+  if (factor >= 1) return players;
+  return players.map((x) => {
+    if (!x.sample.spiky || x.sample.apps < 2) return x;
+    const fixtures = x.fixtures.map((f) => {
+      const components = Object.fromEntries(COMPONENT_KEYS.map((k) => [k, r2(f.components[k] * factor)])) as unknown as XpComponents;
+      return { ...f, components, xp: r2(f.xp * factor) };
+    });
+    const sumFirst = (k: number) => r2(fixtures.slice(0, k).reduce((a, f) => a + f.xp, 0));
+    const xp3 = sumFirst(3);
+    return {
+      ...x,
+      fixtures,
+      xp1: sumFirst(1),
+      xp3,
+      xp5: sumFirst(5),
+      valuePerM: r2(xp3 / Math.max(1, x.price)),
+      sample: { ...x.sample, adjusted: factor },
+    };
+  });
 }
 
 /** Quanto dos pontos da época veio de um só jogo (para não justificar escolhas com um jogo isolado). */

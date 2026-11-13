@@ -293,6 +293,7 @@ const PT = {
   diaryOfficialHelp: 'Copia o total da jornada da app da UEFA.',
   diaryPointsInvalid: 'Escreve só o número de pontos (ex.: 54).',
   saveShort: 'Guardar',
+  wAdjusted: 'O xP já tem um desconto de {p} (estes jogadores renderam menos do que o previsto nas jornadas anteriores).',
   hideTable: 'Fechar tabela',
   components: {
     appearance: 'Jogar / 60 min',
@@ -591,6 +592,7 @@ const EN: Dict = {
   diaryOfficialHelp: 'Copy the matchday total from the UEFA app.',
   diaryPointsInvalid: 'Type just the number of points (e.g. 54).',
   saveShort: 'Save',
+  wAdjusted: 'Its xP already includes a {p} discount (such players delivered less than predicted in earlier matchdays).',
   hideTable: 'Close table',
   components: {
     appearance: 'Playing / 60 min',

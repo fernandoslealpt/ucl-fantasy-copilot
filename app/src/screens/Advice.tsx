@@ -379,6 +379,7 @@ export function WarningText({ w }: { w: Warning }) {
         {w.v.apps <= 1
           ? t('wOneGame', { name: w.v.name })
           : t('wSpiky', { name: w.v.name, share: pct(w.v.share), gd: w.v.gd, pts: w.v.pts })}
+        {w.v.adjusted != null && w.v.adjusted < 1 ? ` ${t('wAdjusted', { p: pct(1 - w.v.adjusted) })}` : ''}
       </>
     );
   return <>{t('wSameMatch', { n: w.v.n, a: w.v.teamA, b: w.v.teamB, gd: w.v.gd, names: w.v.names.join(', ') })}</>;

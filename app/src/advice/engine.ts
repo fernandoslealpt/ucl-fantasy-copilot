@@ -436,14 +436,14 @@ function capScore(c: Pick<CaptainPick, 'xp' | 'pStart'>): number {
 // ———————————————————————————— Avisos e tabela de apoio ————————————————————————————
 
 export type Warning =
-  | { code: 'SPIKY'; v: { name: string; share: number; gd: number; pts: number; apps: number } }
+  | { code: 'SPIKY'; v: { name: string; share: number; gd: number; pts: number; apps: number; adjusted?: number } }
   | { code: 'SAME_MATCH'; v: { gd: number; teamA: string; teamB: string; n: number; names: string[] } };
 
 /** Jogadores cujos pontos vêm quase todos de um jogo (só 1 jogo, ou ≥ 50% num). */
 export function spikyWarning(r: Row): Warning | null {
   const s = r.xp?.sample;
   if (!s?.spiky) return null;
-  return { code: 'SPIKY', v: { name: r.name, share: s.bestShare, gd: s.bestGameday ?? 0, pts: s.bestPoints, apps: s.apps } };
+  return { code: 'SPIKY', v: { name: r.name, share: s.bestShare, gd: s.bestGameday ?? 0, pts: s.bestPoints, apps: s.apps, adjusted: s.adjusted } };
 }
 
 /** Mais de 2 jogadores do onze no mesmo jogo da jornada `gd` (risco concentrado). */

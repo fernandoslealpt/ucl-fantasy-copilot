@@ -5,7 +5,7 @@
 import type { PrevSeasonPlayer } from '../prevSeason.ts';
 import type { Fixture, Player } from '../types.ts';
 import { DEFAULT_RATINGS_PARAMS, fitRatings, matchObservations, type RatingsParams } from './ratings.ts';
-import { computeXp } from './xp.ts';
+import { computeXp, sampleInfo } from './xp.ts';
 
 export interface BacktestMetrics {
   n: number;
@@ -134,4 +134,50 @@ export function backtest(input: BacktestInput): BacktestRow[] {
     });
   }
   return rows;
+}
+
+export interface SpikyCalibration {
+  /** fator aplicado ao xP de quem tem os pontos concentrados num jogo (1 = sem ajuste) */
+  factor: number;
+  /** real÷previsto relativo (concentrados ÷ restantes), antes de limitar */
+  relative: number | null;
+  spiky: number;
+  normal: number;
+  gamedays: number[];
+}
+
+/**
+ * Mede se o modelo sobrestima jogadores com ≥ 50% dos pontos num só jogo (com ≥ 2 jogos):
+ * para cada jornada jogada T ≥ 3, prevê só com dados anteriores e compara real ÷ previsto desses jogadores
+ * com o dos restantes (só candidatos relevantes: xP ≥ 3). Precisa de ≥ 50 casos; fator limitado a [0,8; 1].
+ */
+export function spikyCalibration(input: BacktestInput): SpikyCalibration {
+  const rp = input.ratingsParams ?? DEFAULT_RATINGS_PARAMS;
+  const acc = { spiky: { p: 0, a: 0, n: 0 }, normal: { p: 0, a: 0, n: 0 } };
+  const gds = input.gamedays.filter((g) => g >= 3);
+  for (const T of gds) {
+    const firstKick = input.fixtures.filter((f) => f.gameday === T && f.kickoff).map((f) => f.kickoff!).sort()[0];
+    const ratings = fitRatings(
+      matchObservations(input.fixtures, input.prevFixtures, { before: firstKick, prevWeight: rp.prevWeight, halfLifeDays: rp.halfLifeDays }),
+      input.coefficients,
+      { sigma: rp.sigma },
+    );
+    const truncated = input.players.map((p) => ({ ...p, history: p.history.filter((l) => l.gameday < T) }));
+    const xp = computeXp({ players: truncated, prev: input.prev, fixtures: input.fixtures, ratings, targets: [T], lastGameday: T - 1, ignoreAvailability: true });
+    const byId = new Map(input.players.map((p) => [p.id, p]));
+    for (const x of xp) {
+      if (x.xp1 < 3) continue;
+      const p = byId.get(x.id)!;
+      const s = sampleInfo(p.history.filter((l) => l.gameday < T));
+      if (s.apps < 2) continue;
+      const k = s.spiky ? acc.spiky : acc.normal;
+      k.p += x.xp1;
+      k.a += p.history.find((l) => l.gameday === T)?.points ?? 0;
+      k.n++;
+    }
+  }
+  const ok = acc.spiky.n >= 50 && acc.normal.n >= 50 && acc.spiky.p > 0 && acc.normal.p > 0 && acc.normal.a > 0;
+  const relative = ok ? acc.spiky.a / acc.spiky.p / (acc.normal.a / acc.normal.p) : null;
+  const factor = relative == null ? 1 : Math.max(0.8, Math.min(1, relative));
+  return { factor: r2(factor), relative: relative == null ? null : r2(relative), spiky: acc.spiky.n, normal: acc.normal.n, gamedays: gds };
 }

@@ -121,6 +121,8 @@ export interface SampleInfo {
   bestShare: number;
   /** só 1 jogo, ou ≥ 50% dos pontos num só jogo */
   spiky: boolean;
+  /** fator já aplicado ao xP (ex.: 0,88 = −12%) */
+  adjusted?: number;
 }
 
 export interface Team {

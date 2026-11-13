@@ -55,6 +55,8 @@ Primeiro resultado (1 nov 2026, jornadas 1–3): o modelo tem erro menor em toda
 ## Amostra de um jogo
 `sample` em cada jogador do `xp.json`: jogos com minutos, pontos, melhor jogo e a sua quota. `spiky` = só 1 jogo, ou ≥ 50% dos pontos (com ≥ 8) num só jogo. A app avisa e não usa a forma como razão nesses casos.
 
+**Desconto calibrado:** o backtest compara real ÷ previsto destes jogadores (com ≥ 2 jogos, xP ≥ 3) com o dos restantes, nas jornadas jogadas a partir da J3. O fator relativo (0,88 a 13 nov) é aplicado ao xP deles; recalculado em cada execução, só com ≥ 50 casos, limitado a 0,8–1. Fica em `sample.adjusted` e em `model-report.json → spikyCalibration`.
+
 ## Limitações conhecidas (v1)
 - Penáltis (marcador, defendidos, falhados) e golos de fora da área não são modelados.
 - Risco de rotação por calendário do campeonato ainda não entra (precisa de jogos de todas as competições — fase seguinte).

@@ -6,7 +6,7 @@ import { metrics, spearman } from '../model/backtest.ts';
 import { expectedFloorDiv, poissonPmf, pZero } from '../model/poisson.ts';
 import { modelWindow, teamRatings } from '../model/publish.ts';
 import { expectedGoals, fitRatings, matchObservations, tuneRatings, DEFAULT_RATINGS_PARAMS, type MatchObs } from '../model/ratings.ts';
-import { availabilityFactor, computeXp, sampleInfo } from '../model/xp.ts';
+import { applySpikyFactor, availabilityFactor, computeXp, sampleInfo, type PlayerXp } from '../model/xp.ts';
 import { runPipeline, type SourceName } from '../run.ts';
 import type { Fixture, Player, Team } from '../types.ts';
 import {
@@ -275,5 +275,39 @@ describe('Amostra: pontos concentrados num jogo', () => {
   it('pontos regulares não são assinalados; só 1 jogo é sempre assinalado', () => {
     expect(sampleInfo([5, 6, 7, 6].map((p, i) => ({ gameday: i + 1, points: p, minutes: 90 }))).spiky).toBe(false);
     expect(sampleInfo([{ gameday: 1, points: 3, minutes: 90 }, { gameday: 2, points: 0, minutes: 0 }]).spiky).toBe(true);
+  });
+});
+
+describe('Desconto a pontos concentrados num jogo', () => {
+  const base = (spiky: boolean, apps = 4): PlayerXp =>
+    ({
+      id: 'x',
+      price: 6,
+      xp1: 8,
+      xp3: 8,
+      xp5: 8,
+      valuePerM: 1.33,
+      sample: { apps, points: 37, bestGameday: 4, bestPoints: 20, bestShare: 0.54, spiky },
+      fixtures: [
+        {
+          gameday: 5,
+          xp: 8,
+          components: { appearance: 2, goals: 5, assists: 1, cleanSheet: 0, recoveries: 0, saves: 0, playerOfTheMatch: 0, conceded: 0, cards: 0 },
+        },
+      ],
+    }) as unknown as PlayerXp;
+
+  it('escala o xP e as componentes só de quem tem ≥ 2 jogos e pontos concentrados', () => {
+    const [a, b, c] = applySpikyFactor([base(true), base(false), base(true, 1)], 0.88);
+    expect(a!.xp1).toBeCloseTo(7.04, 2);
+    expect(a!.fixtures[0]!.components.goals).toBeCloseTo(4.4, 2);
+    expect(a!.sample.adjusted).toBe(0.88);
+    expect(b!.xp1).toBe(8);
+    expect(c!.xp1).toBe(8);
+  });
+
+  it('fator 1 não muda nada', () => {
+    const xs = [base(true)];
+    expect(applySpikyFactor(xs, 1)).toBe(xs);
   });
 });
