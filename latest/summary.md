@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** sexta, 13/11, 09:39 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** sexta, 13/11, 16:06 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | sexta, 13/11, 09:39 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | sexta, 13/11, 09:39 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | sexta, 13/11, 09:39 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | sexta, 13/11, 09:39 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | sexta, 13/11, 09:39 |  |
+| uefaMatches | ✅ ok | 3 | 144 | sexta, 13/11, 16:06 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | sexta, 13/11, 16:06 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | sexta, 13/11, 16:06 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | sexta, 13/11, 16:06 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | sexta, 13/11, 16:06 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 262 | sexta, 13/11, 09:39 |  |
-| rotowire | ✅ ok | 1 | 0 | sexta, 13/11, 09:39 |  |
+| googleNews | ✅ ok | 36 | 254 | sexta, 13/11, 16:06 |  |
+| rotowire | ✅ ok | 1 | 0 | sexta, 13/11, 16:06 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -22,41 +22,41 @@
 
 - Pontos por jornada: 274/1173 diferem do valor oficial do feed
 
-## Modelo xP v1.2.0 — próximas jornadas J5, J6, J7, J8
+## Modelo xP v1.3.0 — próximas jornadas J5, J6, J7, J8
 
 **Teste nas jornadas jogadas** (previsão feita só com dados anteriores):
 
 | Jornada | Erro médio modelo | Erro médio baseline | Pts reais top 20 modelo | Pts reais top 20 baseline |
 |---|---|---|---|---|
-| J1 | 1.91 | 1.98 | 6.65 | 5.05 |
-| J2 | 2 | 2.16 | 3.75 | 2.6 |
-| J3 | 1.96 | 2.08 | 6.15 | 4.8 |
-| J4 | 2.05 | 2.2 | 5.6 | 4.45 |
+| J1 | 1.91 | 1.97 | 6.65 | 5.05 |
+| J2 | 1.99 | 2.16 | 3.75 | 2.6 |
+| J3 | 1.96 | 2.09 | 6.4 | 4.8 |
+| J4 | 2.05 | 2.19 | 6 | 4.45 |
 
 **Top 20 xP — J5**
 
 | # | Jogador | Equipa | Pos | €M | xP J | xP 3J | xP/€M | P(titular) | Adversário | Confiança |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | T. Douvikas | Como | FWD | 6.6 | 8.2 | 18.2 | 2.76 | 73% | vs AEK Athens | média |
-| 2 | Raphinha | Barcelona | MID | 9.6 | 8.2 | 19.3 | 2.01 | 92% | @ Sabah | alta |
-| 3 | J. Alvarez | Atleti | FWD | 10.0 | 7.3 | 16.7 | 1.67 | 96% | vs Viking | alta |
-| 4 | H. Kane | Bayern München | FWD | 11.2 | 7.3 | 23.8 | 2.12 | 96% | @ Lille | alta |
-| 5 | N. Paz | Como | MID | 7.1 | 7.1 | 16.3 | 2.29 | 60% | vs AEK Athens | média |
-| 6 | E. Haaland | Man City | FWD | 11.2 | 7.1 | 19.3 | 1.72 | 90% | vs Napoli | alta |
-| 7 | K. Mbappé | Real Madrid | FWD | 11.1 | 6.9 | 21.3 | 1.92 | 95% | vs PSV | alta |
-| 8 | D. Doué | Paris | MID | 8.6 | 6.7 | 18.2 | 2.12 | 87% | vs Roma | alta |
-| 9 | Fermín López | Barcelona | MID | 7.0 | 6.6 | 15.9 | 2.27 | 84% | @ Sabah | alta |
-| 10 | P. Foden | Man City | MID | 7.1 | 6.6 | 17.8 | 2.51 | 87% | vs Napoli | alta |
-| 11 | A. Grimaldo | Atleti | DEF | 5.5 | 6.3 | 15.3 | 2.78 | 89% | vs Viking | alta |
-| 12 | L. Yamal | Barcelona | MID | 10.2 | 6.3 | 17.9 | 1.75 | 68% | @ Sabah | alta |
-| 13 | Carlos Augusto | Inter | DEF | 4.2 | 6.1 | 15.8 | 3.77 | 79% | vs Stuttgart | média |
-| 14 | Vitinha | Paris | MID | 7.7 | 5.9 | 16.4 | 2.13 | 98% | vs Roma | alta |
-| 15 | A. Gordon | Barcelona | MID | 8.0 | 5.9 | 14.1 | 1.76 | 67% | @ Sabah | média |
-| 16 | S. Brunstad Fet | Bodø/Glimt | MID | 5.1 | 5.8 | 15.7 | 3.08 | 91% | vs LASK | alta |
-| 17 | M. Llorente | Atleti | MID | 6.7 | 5.8 | 14.3 | 2.14 | 96% | vs Viking | alta |
-| 18 | Fabián Ruiz | Paris | MID | 6.8 | 5.7 | 15.5 | 2.28 | 91% | vs Roma | alta |
-| 19 | M. Olise | Bayern München | MID | 9.1 | 5.6 | 18.2 | 2.00 | 95% | @ Lille | alta |
-| 20 | E. Fernández | Man City | MID | 7.5 | 5.5 | 15.2 | 2.02 | 88% | vs Napoli | alta |
+| 1 | L. Yamal | Barcelona | MID | 10.2 | 8.3 | 20.1 | 1.97 | 98% | @ Sabah | alta |
+| 2 | Raphinha | Barcelona | MID | 9.6 | 8.1 | 19.3 | 2.01 | 92% | @ Sabah | alta |
+| 3 | J. Alvarez | Atleti | FWD | 10.0 | 7.6 | 16.9 | 1.69 | 96% | vs Viking | alta |
+| 4 | T. Douvikas | Como | FWD | 6.6 | 7.2 | 16.3 | 2.46 | 73% | vs AEK Athens | média |
+| 5 | N. Paz | Como | MID | 7.1 | 7.1 | 16.4 | 2.31 | 60% | vs AEK Athens | média |
+| 6 | H. Kane | Bayern München | FWD | 11.2 | 6.8 | 22.6 | 2.02 | 96% | @ Lille | alta |
+| 7 | K. Mbappé | Real Madrid | FWD | 11.1 | 6.8 | 21.7 | 1.96 | 95% | vs PSV | alta |
+| 8 | E. Haaland | Man City | FWD | 11.2 | 6.7 | 18.8 | 1.68 | 90% | vs Napoli | alta |
+| 9 | Fermín López | Barcelona | MID | 7.0 | 6.5 | 15.9 | 2.27 | 84% | @ Sabah | alta |
+| 10 | D. Doué | Paris | MID | 8.6 | 6.5 | 18.6 | 2.16 | 87% | vs Roma | alta |
+| 11 | A. Grimaldo | Atleti | DEF | 5.5 | 6.4 | 15.1 | 2.75 | 89% | vs Viking | alta |
+| 12 | M. Llorente | Atleti | MID | 6.7 | 5.9 | 14.4 | 2.14 | 96% | vs Viking | alta |
+| 13 | A. Gordon | Barcelona | MID | 8.0 | 5.8 | 14.1 | 1.76 | 67% | @ Sabah | média |
+| 14 | Vitinha | Paris | MID | 7.7 | 5.8 | 16.7 | 2.17 | 98% | vs Roma | alta |
+| 15 | Fabián Ruiz | Paris | MID | 6.8 | 5.5 | 15.8 | 2.32 | 91% | vs Roma | alta |
+| 16 | Carlos Augusto | Inter | DEF | 4.2 | 5.5 | 13.9 | 3.30 | 79% | vs Stuttgart | média |
+| 17 | P. Foden | Man City | MID | 7.1 | 5.4 | 15.2 | 2.14 | 87% | vs Napoli | alta |
+| 18 | D. Hancko | Atleti | DEF | 4.5 | 5.3 | 13.0 | 2.90 | 94% | vs Viking | alta |
+| 19 | S. Brunstad Fet | Bodø/Glimt | MID | 5.1 | 5.3 | 14.1 | 2.76 | 91% | vs LASK | alta |
+| 20 | E. Fernández | Man City | MID | 7.5 | 5.2 | 14.8 | 1.97 | 88% | vs Napoli | alta |
 
 ## Top 15 por pontos
 
