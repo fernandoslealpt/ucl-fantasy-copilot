@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** sábado, 14/11, 15:09 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** sábado, 14/11, 20:46 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | sábado, 14/11, 15:09 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | sábado, 14/11, 15:09 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | sábado, 14/11, 15:09 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | sábado, 14/11, 15:09 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | sábado, 14/11, 15:09 |  |
+| uefaMatches | ✅ ok | 3 | 144 | sábado, 14/11, 20:46 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | sábado, 14/11, 20:46 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | sábado, 14/11, 20:46 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | sábado, 14/11, 20:46 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | sábado, 14/11, 20:46 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 250 | sábado, 14/11, 15:09 |  |
-| rotowire | ✅ ok | 1 | 0 | sábado, 14/11, 15:09 |  |
+| googleNews | ✅ ok | 36 | 256 | sábado, 14/11, 20:46 |  |
+| rotowire | ✅ ok | 1 | 0 | sábado, 14/11, 20:46 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -46,7 +46,7 @@
 | 7 | K. Mbappé | Real Madrid | FWD | 11.1 | 6.8 | 21.7 | 1.96 | 95% | vs PSV | alta |
 | 8 | E. Haaland | Man City | FWD | 11.2 | 6.7 | 18.8 | 1.68 | 90% | vs Napoli | alta |
 | 9 | Fermín López | Barcelona | MID | 7.0 | 6.5 | 15.9 | 2.27 | 84% | @ Sabah | alta |
-| 10 | D. Doué | Paris | MID | 8.6 | 6.5 | 18.6 | 2.16 | 87% | vs Roma | alta |
+| 10 | D. Doué | Paris | MID | 8.6 | 6.5 | 18.6 | 2.17 | 87% | vs Roma | alta |
 | 11 | A. Grimaldo | Atleti | DEF | 5.5 | 6.4 | 15.1 | 2.75 | 89% | vs Viking | alta |
 | 12 | M. Llorente | Atleti | MID | 6.7 | 5.9 | 14.4 | 2.14 | 96% | vs Viking | alta |
 | 13 | A. Gordon | Barcelona | MID | 8.0 | 5.8 | 14.1 | 1.76 | 67% | @ Sabah | média |
