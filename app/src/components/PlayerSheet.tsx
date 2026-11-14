@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { useI18n } from '../i18n';
 import type { Dataset, Row, XpComponents } from '../types';
 import { Difficulty, Opponent, pct, StatusMark, useNote, useSignalText } from './ui';
@@ -18,7 +18,7 @@ const COMPONENT_LABEL: Record<
   cards: 'cCards',
 };
 
-export function PlayerSheet({ row, data, onClose }: { row: Row; data: Dataset; onClose: () => void }) {
+export function PlayerSheet({ row, data, onClose, extra }: { row: Row; data: Dataset; onClose: () => void; extra?: ReactNode }) {
   const { t, d, num } = useI18n();
   const sigText = useSignalText();
   const noteOf = useNote();
@@ -166,6 +166,7 @@ export function PlayerSheet({ row, data, onClose }: { row: Row; data: Dataset; o
             </dl>
           </>
         ) : null}
+        {extra}
       </div>
     </dialog>
   );

@@ -6,6 +6,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { HIT, makeCtx, planWarnings, squadValue, swapReasons, type Plan, type TransferAdvice } from '../advice/engine';
 import { CountTable, LiveSummary } from '../components/TransferTables';
+import { RollCard } from '../components/Questions';
 import { Catalog } from '../components/Catalog';
 import { Field, LabelPicker, type FieldSlot, type LabelMode } from '../components/Field';
 import { ActionList, Sheet } from '../components/Sheet';
@@ -244,6 +245,7 @@ export function SquadView({
       ) : null}
 
       {!editing && advice ? <CountTable advice={advice} onTry={(p) => loadPlan(p.swaps.map((x) => ({ out: x.out.id, in: x.in.id })))} /> : null}
+      {!editing && free > 0 ? <RollCard data={data} team={team} squad={squadRows} gd={gd} free={free} /> : null}
 
       {!editing && scenarios.filter((s) => s.gameday === gd).length ? (
         <div className="scenarios">

@@ -229,7 +229,7 @@ export function Catalog({
                   <td className="sticky">{nameCell(r)}</td>
                   {cols.map((c) => (
                     <td key={c.k} className="num">
-                      {cell(r, c.k)}
+                      {mine && c.k === 'gain' ? '—' : cell(r, c.k)}
                     </td>
                   ))}
                 </tr>

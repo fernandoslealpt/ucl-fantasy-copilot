@@ -24,6 +24,7 @@ import {
   type Warning,
 } from '../advice/engine';
 import { StatusMark, pct, useSignalText } from '../components/ui';
+import { DifferentialTable } from '../components/Questions';
 import { useI18n } from '../i18n';
 import { bestXI, decisionsFor, type MyTeam } from '../team';
 import type { Dataset, Row } from '../types';
@@ -527,6 +528,7 @@ export function CaptainSection({
           </button>
         </div>
       </div>
+      <DifferentialTable xi={c.ranking.map((x) => x.row)} gd={gd} onOpen={onOpen} />
       <div className="table-wrap">
         <table className="whatif">
           <caption className="table-caption">{t('captainByDay')}</caption>

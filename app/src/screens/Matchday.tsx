@@ -6,7 +6,7 @@ import { useMemo, useState } from 'react';
 import { Field, LabelPicker, type FieldSlot, type LabelMode } from '../components/Field';
 import { ActionList, Sheet } from '../components/Sheet';
 import { useI18n } from '../i18n';
-import { applySwap, canSwap, defaultLineup, lineupSuggestion, type Lineup } from '../squad';
+import { applySwap, canSwap, defaultLineup, ifAbsent, lineupSuggestion, type Lineup } from '../squad';
 import type { Dataset, Position, Row } from '../types';
 
 const ROWS_TOP_DOWN: Position[] = ['FWD', 'MID', 'DEF', 'GK'];
@@ -44,6 +44,7 @@ export function MatchdayView({
   const byId = data.byId;
   const [action, setAction] = useState<Row | null>(null);
   const [subFrom, setSubFrom] = useState<string | null>(null);
+  const [absent, setAbsent] = useState<ReturnType<typeof ifAbsent> | null>(null);
   const sug = useMemo(() => lineupSuggestion(lineup, squad, xpAt), [lineup, squad, xpAt]);
 
   const slot = (id: string, bench?: string): FieldSlot => {
@@ -121,14 +122,31 @@ export function MatchdayView({
               <span className="muted"> · {action.teamName}</span>
             </>
           }
-          onClose={() => setAction(null)}
+          onClose={() => (setAction(null), setAbsent(null))}
         >
           <p className="muted small-print">{t('xpThisGd', { gd, xp: num(xpAt(action)) })}</p>
+          {absent ? (
+            <div className="question">
+              <h3>❓ {t('qAbsent', { name: action.name })}</h3>
+              <ol className="reasons">
+                <li>
+                  {absent.subIn
+                    ? t('abSub', { name: byId.get(absent.subIn)?.name ?? '', xp: num(xpAt(byId.get(absent.subIn)!)) })
+                    : lineup.xi.includes(action.id)
+                      ? t('abNoSub')
+                      : t('abBench')}
+                </li>
+                {captainId === action.id ? <li>{absent.newCaptain ? t('abVice', { name: byId.get(absent.newCaptain)?.name ?? '' }) : t('abNoVice')}</li> : null}
+                <li>{t('abTotal', { before: num(absent.before), after: num(absent.after), diff: `${absent.after - absent.before >= 0 ? '+' : '−'}${num(Math.abs(absent.after - absent.before))}` })}</li>
+              </ol>
+            </div>
+          ) : null}
           <ActionList
             actions={[
               { key: 'c', icon: 'C', label: t('makeCaptain'), disabled: action.id === captainId || !lineup.xi.includes(action.id), onClick: () => (onCaptain(action.id, 'C'), setAction(null)) },
               { key: 'v', icon: 'V', label: t('makeVice'), disabled: action.id === viceId || !lineup.xi.includes(action.id), onClick: () => (onCaptain(action.id, 'V'), setAction(null)) },
               { key: 's', icon: '⇅', label: t('substitute'), onClick: () => (setSubFrom(action.id), setAction(null)) },
+              { key: 'a', icon: '?', label: t('qAbsent', { name: action.name }), onClick: () => setAbsent(ifAbsent(lineup, action.id, byId, xpAt, captainId, viceId)) },
               { key: 'f', icon: 'ⓘ', label: t('playerInfo'), onClick: () => (onOpen(action), setAction(null)) },
             ]}
           />

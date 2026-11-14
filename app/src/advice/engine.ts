@@ -150,22 +150,13 @@ function pools(ctx: Ctx, rows: Row[], squad: Set<string>, top: number, value: nu
   return res;
 }
 
-export function adviseTransfers(
-  rows: Row[],
-  squadRows: Row[],
-  bank: number,
-  free: number,
-  gameday: number,
-  /** jogadores que o Fernando não quer vender */
-  keep: ReadonlySet<string> = new Set(),
-): TransferAdvice {
-  const ctx = makeCtx(rows, gameday);
-  const base = squadValue(ctx, squadRows);
+/**
+ * Avalia trocas concretas (orçamento, posição, máximo por clube) contra o plantel atual.
+ * Devolve null se as trocas não forem legais.
+ */
+export function makeEvaluator(ctx: Ctx, squadRows: Row[], bank: number, free: number, gameday: number, base = squadValue(ctx, squadRows)) {
   const limit = clubLimit(gameday);
   const inSquad = new Set(squadRows.map((r) => r.id));
-  const poolBig = pools(ctx, rows, inSquad, 30, 12);
-  const poolSmall = pools(ctx, rows, inSquad, 16, 6);
-
   const clubCount = new Map<string, number>();
   for (const r of squadRows) clubCount.set(r.teamId, (clubCount.get(r.teamId) ?? 0) + 1);
 
@@ -211,6 +202,27 @@ export function adviseTransfers(
       bankAfter,
     };
   };
+
+  return { base, evaluate, legal };
+}
+
+export function adviseTransfers(
+  rows: Row[],
+  squadRows: Row[],
+  bank: number,
+  free: number,
+  gameday: number,
+  /** jogadores que o Fernando não quer vender */
+  keep: ReadonlySet<string> = new Set(),
+): TransferAdvice {
+  const ctx = makeCtx(rows, gameday);
+  const base = squadValue(ctx, squadRows);
+  const limit = clubLimit(gameday);
+  const inSquad = new Set(squadRows.map((r) => r.id));
+  const poolBig = pools(ctx, rows, inSquad, 30, 12);
+  const poolSmall = pools(ctx, rows, inSquad, 16, 6);
+
+  const { evaluate } = makeEvaluator(ctx, squadRows, bank, free, gameday, base);
 
   // 1 troca: todas as combinações
   const singles: Plan[] = [];

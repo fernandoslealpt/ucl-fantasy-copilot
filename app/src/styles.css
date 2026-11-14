@@ -1714,21 +1714,21 @@ ul.plain {
   font-weight: 600;
   margin-bottom: 8px;
 }
-.bars {
+.dchart-bars {
   display: flex;
   gap: 10px;
   align-items: flex-end;
   height: 140px;
   overflow-x: auto;
 }
-.bar-col {
+.dchart-col {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
   min-width: 34px;
 }
-.bar-pair {
+.dchart-pair {
   flex: 1;
   display: flex;
   align-items: flex-end;
@@ -1736,21 +1736,21 @@ ul.plain {
   width: 100%;
   justify-content: center;
 }
-.bar {
+.dchart-bar {
   width: 12px;
   border-radius: 3px 3px 0 0;
   min-height: 2px;
 }
-.bar.xp,
+.dchart-bar.xp,
 .dot.xp {
   background: var(--d2);
 }
-.bar.real,
+.dchart-bar.real,
 .dot.real {
   background: var(--pitch);
 }
-.bar-label,
-.bar-value {
+.dchart-label,
+.dchart-value {
   font-size: 0.72rem;
 }
 .dot {
@@ -2021,7 +2021,7 @@ ul.plain {
   flex: 1;
   min-width: 10rem;
 }
-.sheet-backdrop {
+.bsheet-backdrop {
   position: fixed;
   inset: 0;
   z-index: 50;
@@ -2030,7 +2030,7 @@ ul.plain {
   align-items: flex-end;
   justify-content: center;
 }
-.sheet {
+.bsheet {
   background: var(--surface);
   color: var(--ink);
   width: 100%;
@@ -2039,22 +2039,22 @@ ul.plain {
   display: flex;
   flex-direction: column;
 }
-.sheet.wide {
+.bsheet.wide {
   max-height: 94vh;
 }
 @media (min-width: 760px) {
-  .sheet-backdrop {
+  .bsheet-backdrop {
     align-items: center;
   }
-  .sheet {
+  .bsheet {
     width: min(520px, 94vw);
     border-radius: 12px;
   }
-  .sheet.wide {
+  .bsheet.wide {
     width: min(980px, 96vw);
   }
 }
-.sheet-head {
+.bsheet-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2062,7 +2062,7 @@ ul.plain {
   padding: 12px 14px;
   border-bottom: 1px solid var(--line);
 }
-.sheet-body {
+.bsheet-body {
   overflow: auto;
   padding: 12px 14px 20px;
 }
@@ -2226,4 +2226,26 @@ ul.plain {
 }
 .count-table th[scope='row'] small {
   display: block;
+}
+.question {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--focus);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+.question h3 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+}
+.changes-card {
+  margin: 10px 0;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--focus);
+  background: color-mix(in srgb, var(--focus) 10%, var(--surface));
+}
+.changes-card ul {
+  margin-top: 4px;
 }

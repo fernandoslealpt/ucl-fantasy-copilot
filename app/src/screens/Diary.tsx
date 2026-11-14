@@ -69,15 +69,15 @@ function PointsChart({ evals }: { evals: GdEvaluation[] }) {
   return (
     <figure className="chart">
       <figcaption>{t('diaryChart')}</figcaption>
-      <div className="bars">
+      <div className="dchart-bars">
         {xs.map((e) => (
-          <div key={e.gameday} className="bar-col">
-            <div className="bar-pair">
-              <span className="bar xp" style={{ height: `${((e.teamXp ?? 0) / max) * 100}%` }} title={`xP ${num(e.teamXp ?? 0)}`} />
-              <span className="bar real" style={{ height: `${((e.officialPoints ?? 0) / max) * 100}%` }} title={`${e.officialPoints ?? '—'}`} />
+          <div key={e.gameday} className="dchart-col">
+            <div className="dchart-pair">
+              <span className="dchart-bar xp" style={{ height: `${((e.teamXp ?? 0) / max) * 100}%` }} title={`xP ${num(e.teamXp ?? 0)}`} />
+              <span className="dchart-bar real" style={{ height: `${((e.officialPoints ?? 0) / max) * 100}%` }} title={`${e.officialPoints ?? '—'}`} />
             </div>
-            <span className="bar-label">J{e.gameday}</span>
-            <span className="bar-value">{e.officialPoints ?? '—'}</span>
+            <span className="dchart-label">J{e.gameday}</span>
+            <span className="dchart-value">{e.officialPoints ?? '—'}</span>
           </div>
         ))}
       </div>

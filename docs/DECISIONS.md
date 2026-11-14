@@ -103,3 +103,12 @@
 - O motor passou a calcular **até 5 trocas** (feixe a partir das melhores do nível anterior; ~0,6 s). Não há limite matemático: a 4.ª/5.ª raramente compensam porque as melhores trocas já foram usadas, mas agora a app mostra os números em vez de as excluir à partida.
 - **Quadro "Quantas transferências?"** no Plantel: melhor opção para 0–5 trocas, líquido na jornada e nas 3 jornadas (já com −4 por cada paga), custo, ganho por jornada, "Experimentar" (carrega a opção no plantel) e 3 razões numeradas: a regra, porque a recomendada e porque não mais uma. J5 (13 nov): 2 grátis +5,9; 3 trocas +9,6 − 4 = +5,6; 4 → +3,1; 5 → +0,2.
 - **Resumo em tempo real** enquanto se fazem experiências: xP na jornada de quem sai e de quem entra, total, "na tua equipa" (melhor onze + capitão), transferências além das grátis (−4 cada), líquido na jornada e nas 3 jornadas.
+
+## 14 nov 2026 — Perguntas que a app responde sozinha (sem IA)
+- O Fernando perguntou por um chat com IA na app. Recomendação: não (custo, chave exposta num site público, números inventados). Em vez disso, as perguntas mais frequentes respondidas pela app com a conta à vista; depois, uma ponte para o projeto "UCL Fantasy" do claude.ai (copiar contexto + colar a decisão de volta) para as perguntas abertas.
+- **Porque não este jogador?** (ficha do jogador): disponibilidade, sem jogos, orçamento (quanto falta), limite por clube, titularidade < 70%, pontos de um só jogo, e o ganho dele contra a melhor troca possível (quanto lhe falta).
+- **E se eu guardar uma transferência?** (Plantel): para 0, 1 ou 2 trocas agora, melhor plano grátis agora + melhor plano grátis na jornada seguinte (3 ou 2 grátis), total. J5 (14 nov): usar as 2 agora +15,9; guardar 1 +15,2; não mexer +13,1. Substitui, nesta análise, o valor fixo de 1 ponto por guardar.
+- **E se o X não jogar?** (Jornada → tocar no jogador): quem entra do banco pela ordem, vice a capitão, xP do onze antes/depois.
+- **Capitão diferencial** (Jornada → Capitão): vantagem ≈ xP × % que não o tem; custo face ao capitão com mais xP.
+- **O que mudou desde a última atualização vista** (topo da Equipa): recomendação, capitão sugerido e maiores mudanças de xP (retrato guardado no dispositivo).
+- Correção: nomes de estilos novos (`.bars`, `.sheet`) colidiam com a ficha do jogador; passaram a `dchart-*` e `bsheet-*`.

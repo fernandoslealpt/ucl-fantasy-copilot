@@ -3,6 +3,8 @@ import { matchTeam, type ImportResult } from '../importer/match';
 import { readLabelMode, writeLabelMode, type LabelMode } from '../components/Field';
 import { lineupFor, type Lineup } from '../squad';
 import { SquadView } from './Squad';
+import { ChangesCard } from '../components/Questions';
+import { diffSnapshots, rotateSnapshot, type SnapshotDiff } from '../advice/questions';
 import { MatchdayView } from './Matchday';
 import { SortTable, type Column } from '../components/SortTable';
 import { Difficulty, Opponent, pct, StatusMark, surnameOf, teamCode, useNote } from '../components/ui';
@@ -137,6 +139,27 @@ function TeamView({
   const viceId = dec?.captain ? dec.vice ?? null : captain.vice?.row.id ?? null;
   const pending = pendingDecisions(team, gd);
   const [msg, setMsg] = useState('');
+  const [changes, setChanges] = useState<SnapshotDiff | null>(null);
+
+  // O que mudou desde a última atualização de dados que viste
+  useEffect(() => {
+    if (!advice || !complete) return;
+    const ids = new Set([...squad.map((r) => r.id), ...(advice.recommended?.swaps ?? []).map((s) => s.in.id)]);
+    const xp: Record<string, number> = {};
+    for (const id of ids) {
+      const r = data.byId.get(id);
+      if (r) xp[id] = Math.round(xpAt(r) * 10) / 10;
+    }
+    const cur = {
+      generatedAt: data.meta.generatedAt,
+      gameday: gd,
+      recommended: (advice.recommended?.swaps ?? []).map((s) => `${s.out.name} → ${s.in.name}`),
+      captain: captain.captain?.row.id ?? null,
+      xp,
+    };
+    setChanges(diffSnapshots(rotateSnapshot(cur), cur));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [advice, data.meta.generatedAt]);
 
   // Diário: guarda a recomendação e o xP previsto (a última antes do fecho fica)
   useEffect(() => {
@@ -371,6 +394,8 @@ function TeamView({
           </button>
         </p>
       ) : null}
+
+      {changes ? <ChangesCard diff={changes} data={data} onClose={() => setChanges(null)} /> : null}
 
       <div className="todo-card" aria-label={t('todoTitle', { gd })}>
         <h2 className="todo-title">{pending.length ? t('todoTitle', { gd }) : t('todoDone', { gd })}</h2>

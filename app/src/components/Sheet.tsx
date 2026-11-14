@@ -15,15 +15,15 @@ export function Sheet({ title, onClose, children, wide = false }: { title: React
     };
   }, [onClose]);
   return (
-    <div className="sheet-backdrop" onClick={onClose}>
-      <div className={`sheet ${wide ? 'wide' : ''}`} role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
-        <div className="sheet-head">
-          <div className="sheet-title">{title}</div>
+    <div className="bsheet-backdrop" onClick={onClose}>
+      <div className={`bsheet ${wide ? 'wide' : ''}`} role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
+        <div className="bsheet-head">
+          <div className="bsheet-title">{title}</div>
           <button type="button" className="icon-btn" onClick={onClose} aria-label={t('close')}>
             ✕
           </button>
         </div>
-        <div className="sheet-body">{children}</div>
+        <div className="bsheet-body">{children}</div>
       </div>
     </div>
   );

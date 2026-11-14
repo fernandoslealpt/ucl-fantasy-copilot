@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { PlayerSheet } from './components/PlayerSheet';
+import { WhyNotPanel } from './components/Questions';
 import { Scoreboard } from './components/Scoreboard';
 import { TabBar, type Tab } from './components/TabBar';
 import { useDataset } from './data';
@@ -190,7 +191,9 @@ export function App() {
         {tab === 'calendario' ? <FixturesScreen data={data} /> : null}
         {tab === 'noticias' ? <NewsScreen data={data} team={team} onOpen={setOpen} /> : null}
       </main>
-      {open ? <PlayerSheet row={open} data={data} onClose={() => setOpen(null)} /> : null}
+      {open ? (
+        <PlayerSheet row={open} data={data} onClose={() => setOpen(null)} extra={<WhyNotPanel key={open.id} data={data} team={team} gd={gdTarget} row={open} />} />
+      ) : null}
       {settings ? (
         <SettingsSheet theme={theme} setTheme={setThemeState} lastSync={lastSync} onSyncNow={sync} onClose={() => setSettings(false)} />
       ) : null}
