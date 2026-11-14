@@ -112,3 +112,9 @@
 - **Capitão diferencial** (Jornada → Capitão): vantagem ≈ xP × % que não o tem; custo face ao capitão com mais xP.
 - **O que mudou desde a última atualização vista** (topo da Equipa): recomendação, capitão sugerido e maiores mudanças de xP (retrato guardado no dispositivo).
 - Correção: nomes de estilos novos (`.bars`, `.sheet`) colidiam com a ficha do jogador; passaram a `dchart-*` e `bsheet-*`.
+
+## 14 nov 2026 — Ponte simples para o Claude e fecho da Fase 2
+- Ponte para o claude.ai reduzida ao essencial (decisão do Fernando, por recomendação): botão **"Copiar para o Claude"** na Equipa com um resumo em Markdown (regras da app, plantel com xP J+0/J+1/J+2, titularidade, avisos, onze/banco, quadro "Quantas transferências?", capitão e histórico). O caminho de volta (colar a decisão do Claude na app) fica adiado até se ver se é usado.
+- **Barra lateral** no computador (≥ 1100 px); barra inferior no telemóvel; barra no topo entre 900 e 1100 px.
+- **Explicação de todas as colunas ao tocar** (ⓘ no cabeçalho, sem depender de hover) em Jogadores e no plantel; a lista de jogadores do Plantel já tinha "O que quer dizer cada coluna".
+- **Emblemas** em Jogadores, plantel, lista de jogadores do Plantel e Calendário (com o código do clube quando a imagem falha).

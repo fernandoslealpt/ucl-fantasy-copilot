@@ -7,6 +7,7 @@ import { makeCtx, squadValue } from '../advice/engine';
 import { useI18n } from '../i18n';
 import type { Dataset, Position, Row } from '../types';
 import { StatusMark, teamCode } from './ui';
+import { Crest } from './Field';
 
 type SortKey = 'gain' | 'price' | 'points' | 'last' | 'avg' | 'xp' | 'xp3' | 'sel' | 'ppm';
 
@@ -142,6 +143,7 @@ export function Catalog({
     return (
       <span className="player-cell">
         <StatusMark a={r.availability} />
+        <Crest data={data} teamId={r.teamId} size={20} />
         <span>
           <span className="player-name">
             {r.name}

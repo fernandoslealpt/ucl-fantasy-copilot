@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { SortTable, type Column } from '../components/SortTable';
+import { Crest } from '../components/Field';
 import { Difficulty, Opponent, pct, StatusMark, teamCode } from '../components/ui';
 import { useI18n } from '../i18n';
 import { POSITIONS } from '../team';
@@ -34,11 +35,13 @@ export function PlayersScreen({ data, onOpen }: { data: Dataset; onOpen: (r: Row
     {
       key: 'name',
       label: t('colPlayer'),
+      tip: t('tipPlayer'),
       sticky: true,
       value: (r) => r.name,
       render: (r) => (
         <span className="player-cell">
           <StatusMark a={r.availability} />
+          <Crest data={data} teamId={r.teamId} size={20} />
           <span>
             <span className="player-name">{r.name}</span>
             <span className="player-team">
@@ -48,7 +51,7 @@ export function PlayersScreen({ data, onOpen }: { data: Dataset; onOpen: (r: Row
         </span>
       ),
     },
-    { key: 'price', label: t('colPrice'), numeric: true, value: (r) => r.price, render: (r) => num(r.price) },
+    { key: 'price', label: t('colPrice'), tip: t('tipPrice'), numeric: true, value: (r) => r.price, render: (r) => num(r.price) },
     { key: 'xp1', label: t('colXp', { gd }), tip: t('tipXp'), numeric: true, value: (r) => r.xp?.xp1 ?? 0, render: (r) => <strong>{num(r.xp?.xp1 ?? 0)}</strong> },
     { key: 'xp3', label: t('colXp3'), tip: t('tipXp3'), numeric: true, value: (r) => r.xp?.xp3 ?? 0, render: (r) => num(r.xp?.xp3 ?? 0) },
     { key: 'value', label: t('colValue'), tip: t('tipValue'), numeric: true, value: (r) => r.xp?.valuePerM ?? 0, render: (r) => num(r.xp?.valuePerM ?? 0, 2) },
@@ -56,6 +59,7 @@ export function PlayersScreen({ data, onOpen }: { data: Dataset; onOpen: (r: Row
     {
       key: 'opp',
       label: t('colOpp'),
+      tip: t('tipOpp'),
       render: (r) => {
         const f = r.xp?.fixtures[0];
         const diff = f ? (data.ratingById.get(r.teamId)?.fixtures.find((x) => x.gameday === f.gameday)?.difficulty ?? 3) : 3;
@@ -68,11 +72,11 @@ export function PlayersScreen({ data, onOpen }: { data: Dataset; onOpen: (r: Row
         );
       },
     },
-    { key: 'pts', label: t('colPts'), numeric: true, value: (r) => r.stats.points, render: (r) => r.stats.points },
-    { key: 'min', label: t('colMin'), numeric: true, value: (r) => r.stats.minutes, render: (r) => r.stats.minutes },
-    { key: 'g90', label: t('colG90'), numeric: true, value: (r) => r.xp?.rates.goals90 ?? 0, render: (r) => num(r.xp?.rates.goals90 ?? 0, 2) },
-    { key: 'a90', label: t('colA90'), numeric: true, value: (r) => r.xp?.rates.assists90 ?? 0, render: (r) => num(r.xp?.rates.assists90 ?? 0, 2) },
-    { key: 'r90', label: t('colR90'), numeric: true, value: (r) => r.xp?.rates.recoveries90 ?? 0, render: (r) => num(r.xp?.rates.recoveries90 ?? 0, 1) },
+    { key: 'pts', label: t('colPts'), tip: t('tipPts'), numeric: true, value: (r) => r.stats.points, render: (r) => r.stats.points },
+    { key: 'min', label: t('colMin'), tip: t('tipMin'), numeric: true, value: (r) => r.stats.minutes, render: (r) => r.stats.minutes },
+    { key: 'g90', label: t('colG90'), tip: t('tipG90'), numeric: true, value: (r) => r.xp?.rates.goals90 ?? 0, render: (r) => num(r.xp?.rates.goals90 ?? 0, 2) },
+    { key: 'a90', label: t('colA90'), tip: t('tipA90'), numeric: true, value: (r) => r.xp?.rates.assists90 ?? 0, render: (r) => num(r.xp?.rates.assists90 ?? 0, 2) },
+    { key: 'r90', label: t('colR90'), tip: t('tipR90'), numeric: true, value: (r) => r.xp?.rates.recoveries90 ?? 0, render: (r) => num(r.xp?.rates.recoveries90 ?? 0, 1) },
     { key: 'sel', label: t('colSel'), tip: t('tipSel'), numeric: true, value: (r) => r.selectedPct, render: (r) => num(r.selectedPct, 0) },
   ];
 

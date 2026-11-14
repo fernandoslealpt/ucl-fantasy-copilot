@@ -1,4 +1,5 @@
 import { useMemo, useState, type ReactNode } from 'react';
+import { useI18n } from '../i18n';
 
 export interface Column<T> {
   key: string;
@@ -24,7 +25,10 @@ interface Props<T> {
 }
 
 export function SortTable<T>({ rows, columns, rowKey, initialSort, limit, onRowClick, footer, caption }: Props<T>) {
+  const { t } = useI18n();
   const [sort, setSort] = useState(initialSort ?? null);
+  const [tip, setTip] = useState<string | null>(null);
+  const tipCol = columns.find((c) => c.key === tip);
   const sorted = useMemo(() => {
     if (!sort) return rows;
     const col = columns.find((c) => c.key === sort.key);
@@ -45,6 +49,15 @@ export function SortTable<T>({ rows, columns, rowKey, initialSort, limit, onRowC
   };
 
   return (
+    <>
+      {tipCol?.tip ? (
+        <p className="tip-bar" role="status">
+          <strong>{tipCol.label}:</strong> {tipCol.tip}
+          <button type="button" className="link" onClick={() => setTip(null)} aria-label={t('close')}>
+            ✕
+          </button>
+        </p>
+      ) : null}
     <div className="table-wrap">
       <table className="table">
         {caption ? <caption className="sr-only">{caption}</caption> : null}
@@ -69,6 +82,17 @@ export function SortTable<T>({ rows, columns, rowKey, initialSort, limit, onRowC
                   ) : (
                     c.label
                   )}
+                  {c.tip ? (
+                    <button
+                      type="button"
+                      className="tip-btn"
+                      aria-label={`${t('tipHelp')} (${typeof c.label === 'string' ? c.label : c.key})`}
+                      aria-expanded={tip === c.key}
+                      onClick={() => setTip(tip === c.key ? null : c.key)}
+                    >
+                      ⓘ
+                    </button>
+                  ) : null}
                 </th>
               );
             })}
@@ -94,5 +118,6 @@ export function SortTable<T>({ rows, columns, rowKey, initialSort, limit, onRowC
       </table>
       {footer}
     </div>
+    </>
   );
 }

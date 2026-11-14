@@ -2249,3 +2249,106 @@ ul.plain {
 .changes-card ul {
   margin-top: 4px;
 }
+/* emblemas nas listas */
+.player-cell .crest,
+.team-with-crest .crest {
+  flex: 0 0 auto;
+}
+.team-with-crest {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+/* explicações das colunas ao tocar (sem depender de hover) */
+.tip-btn {
+  margin-left: 2px;
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+  font-size: 0.85rem;
+  vertical-align: middle;
+}
+.table th {
+  white-space: nowrap;
+}
+.tip-bar {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 0 0 6px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--focus) 10%, var(--surface));
+  border: 1px solid var(--focus);
+  font-size: 0.88rem;
+}
+/* barra lateral no computador */
+@media (min-width: 1100px) {
+  .app {
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr);
+    grid-template-areas: 'head head' 'nav main';
+    align-items: start;
+  }
+  .scoreboard {
+    grid-area: head;
+  }
+  .tabbar {
+    grid-area: nav;
+    position: sticky;
+    top: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 2px;
+    padding: 16px 10px;
+    border: 0;
+    border-right: 1px solid var(--line);
+    background: transparent;
+    min-height: calc(100vh - 130px);
+  }
+  .tabbar a {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+    min-height: 46px;
+    padding: 0 14px;
+    border-radius: var(--radius);
+    font-size: 0.98rem;
+  }
+  .tabbar a.active {
+    background: color-mix(in srgb, var(--pitch) 12%, transparent);
+  }
+  .tabbar a.active::before {
+    top: 8px;
+    bottom: 8px;
+    left: 0;
+    right: auto;
+    width: 3px;
+    height: auto;
+    border-radius: 0 3px 3px 0;
+  }
+  .tabbar .badge {
+    position: static;
+    margin-left: auto;
+  }
+  .main {
+    grid-area: main;
+    width: 100%;
+    max-width: 1180px;
+    padding-bottom: 32px;
+  }
+}
+
+.tip-bar strong {
+  white-space: nowrap;
+}
+.tip-bar .link {
+  margin-left: auto;
+}

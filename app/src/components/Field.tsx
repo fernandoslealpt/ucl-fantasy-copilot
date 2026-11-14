@@ -25,18 +25,24 @@ export interface FieldSlot {
 
 const failedLogos = new Set<string>();
 
-function Crest({ data, teamId }: { data: Dataset; teamId: string }) {
+export function Crest({ data, teamId, size = 22 }: { data: Dataset; teamId: string; size?: number }) {
   const t = data.teamById.get(teamId);
   const [failed, setFailed] = useState(() => !t?.logo || failedLogos.has(t.logo));
   const code = t?.code ?? '';
-  if (failed || !t?.logo) return <span className="crest crest-code">{code}</span>;
+  if (failed || !t?.logo)
+    return (
+      <span className="crest crest-code" style={{ width: size, height: size }}>
+        {code}
+      </span>
+    );
   return (
     <img
       className="crest"
       src={t.logo}
       alt=""
-      width={22}
-      height={22}
+      width={size}
+      height={size}
+      style={{ width: size, height: size }}
       loading="lazy"
       onError={() => {
         failedLogos.add(t.logo!);

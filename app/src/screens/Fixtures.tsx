@@ -1,6 +1,7 @@
 import { useI18n } from '../i18n';
 import type { Dataset } from '../types';
 import { Difficulty, teamCode } from '../components/ui';
+import { Crest } from '../components/Field';
 
 export function FixturesScreen({ data }: { data: Dataset }) {
   const { t, num } = useI18n();
@@ -43,7 +44,10 @@ export function FixturesScreen({ data }: { data: Dataset }) {
             {rows.map(({ r, team }) => (
               <tr key={r.id}>
                 <th scope="row" className="sticky team-cell">
-                  {r.name}
+                  <span className="team-with-crest">
+                    <Crest data={data} teamId={r.id} size={20} />
+                    {r.name}
+                  </span>
                 </th>
                 {targets.map((g) => {
                   const f = r.fixtures.find((x) => x.gameday === g);

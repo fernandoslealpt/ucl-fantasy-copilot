@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { matchTeam, type ImportResult } from '../importer/match';
-import { readLabelMode, writeLabelMode, type LabelMode } from '../components/Field';
+import { Crest, readLabelMode, writeLabelMode, type LabelMode } from '../components/Field';
 import { lineupFor, type Lineup } from '../squad';
 import { SquadView } from './Squad';
 import { ChangesCard } from '../components/Questions';
+import { buildSummary } from '../advice/summary';
+import { loadLocalHistory } from '../history';
 import { diffSnapshots, rotateSnapshot, type SnapshotDiff } from '../advice/questions';
 import { MatchdayView } from './Matchday';
 import { SortTable, type Column } from '../components/SortTable';
@@ -317,13 +319,15 @@ function TeamView({
     {
       key: 'name',
       label: t('colPlayer'),
+      tip: t('tipPlayer'),
       sticky: true,
       value: (r) => r.name,
-      render: (r) => <PlayerCell r={r} />,
+      render: (r) => <PlayerCell data={data} r={r} />,
     },
     {
       key: 'pos',
       label: t('colPos'),
+      tip: t('tipPos'),
       value: (r) => POSITIONS.indexOf(r.position),
       render: (r) => d.pos[r.position],
     },
@@ -354,6 +358,7 @@ function TeamView({
     {
       key: 'opp',
       label: t('colOpp'),
+      tip: t('tipOpp'),
       render: (r) => {
         const f = r.xp?.fixtures[0];
         const diff = f ? (data.ratingById.get(r.teamId)?.fixtures.find((x) => x.gameday === f.gameday)?.difficulty ?? 3) : 3;
@@ -369,6 +374,7 @@ function TeamView({
     {
       key: 'price',
       label: t('colPrice'),
+      tip: t('tipPrice'),
       numeric: true,
       value: (r) => r.price,
       render: (r) => num(r.price),
@@ -384,6 +390,24 @@ function TeamView({
           <button type="button" className="btn" onClick={onEdit}>
             {t('editTeam')}
           </button>
+          {complete ? (
+            <button
+              type="button"
+              className="btn"
+              onClick={async () => {
+                const text = buildSummary({ data, team, squad, gd, free, advice, captain, lineup, captainId: dec?.captain ?? null, viceId: dec?.captain ? dec.vice ?? null : null, history: loadLocalHistory() });
+                try {
+                  await navigator.clipboard.writeText(text);
+                  setMsg(t('copiedForClaude'));
+                } catch {
+                  window.prompt(t('copyManually'), text);
+                }
+              }}
+              title={t('copyForClaudeHelp')}
+            >
+              📋 {t('copyForClaude')}
+            </button>
+          ) : null}
         </div>
       </div>
       {msg ? (
@@ -556,11 +580,12 @@ function TeamView({
   );
 }
 
-function PlayerCell({ r, pos = false }: { r: Row; pos?: boolean }) {
+function PlayerCell({ r, pos = false, data }: { r: Row; pos?: boolean; data?: Dataset }) {
   const { d } = useI18n();
   return (
     <span className="player-cell">
       <StatusMark a={r.availability} />
+      {data ? <Crest data={data} teamId={r.teamId} size={20} /> : null}
       <span>
         <span className="player-name">{r.name}</span>
         <span className="player-team">
@@ -740,7 +765,7 @@ function TeamBuilder({
           const full = v.counts[r.position] >= SQUAD[r.position];
           return (
             <li key={r.id}>
-              <PlayerCell r={r} pos />
+              <PlayerCell data={data} r={r} pos />
               <span className="result-nums">
                 <span className="num">€{num(r.price)}M</span>
                 <span className="num muted">xP {num(r.xp?.xp3 ?? 0)}</span>
@@ -776,7 +801,7 @@ function TeamBuilder({
               <ul>
                 {rows.map((r) => (
                   <li key={r.id}>
-                    <PlayerCell r={r} />
+                    <PlayerCell data={data} r={r} />
                     <span className="num">€{num(r.price)}M</span>
                     <button type="button" className="link" onClick={() => remove(r.id)} aria-label={`${t('remove')} ${r.name}`}>
                       {t('remove')}
