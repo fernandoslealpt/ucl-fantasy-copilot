@@ -291,7 +291,7 @@ function PlanCard({
         </div>
       </div>
       <p className="muted small-print">
-        {t('netGain', { n: ctx.gds.length, net: s(plan.net) })} · {t('confidence', { c: conf })}
+        {t('netGain', { n: ctx.gds.length, net: s(plan.deltaGd.reduce((a, x) => a + x, 0) - HIT * plan.hits) })} · {t('confidence', { c: conf })}
       </p>
       {warnings.length ? (
         <ul className="warnings">

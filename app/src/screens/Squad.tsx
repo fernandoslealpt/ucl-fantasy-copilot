@@ -55,6 +55,7 @@ export function SquadView({
   onConfirm,
   onCaptain,
   onOpen,
+  plan,
 }: {
   data: Dataset;
   team: MyTeam;
@@ -68,10 +69,20 @@ export function SquadView({
   onConfirm: (swaps: { out: Row; in: Row }[], bankAfter: number, hits: number, limitless: boolean) => Promise<void>;
   onCaptain: (id: string, role: 'C' | 'V') => void;
   onOpen: (r: Row) => void;
+  /** modo plano de várias jornadas: um passo; começa em edição e "guardar" só regista o passo (não confirma na UEFA) */
+  plan?: { initial: { out: string; in: string }[]; onSave: (swaps: { out: Row; in: Row }[]) => void };
 }) {
   const { t, num } = useI18n();
-  const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState<Draft>(() => draftFrom(team, data.byId));
+  const [editing, setEditing] = useState(!!plan);
+  const [draft, setDraft] = useState<Draft>(() => {
+    let d = draftFrom(team, data.byId);
+    for (const sw of plan?.initial ?? []) {
+      const i = d.slots.findIndex((x) => x.original === sw.out);
+      const r = data.byId.get(sw.in);
+      if (i >= 0 && r) d = placeInSlot(removeSlot(d, i), i, r);
+    }
+    return d;
+  });
   const [pick, setPick] = useState<number | null>(null);
   const [action, setAction] = useState<Row | null>(null);
   const [review, setReview] = useState(false);
@@ -83,7 +94,7 @@ export function SquadView({
   const byId = data.byId;
   const playersKey = team.players.join(',');
   useEffect(() => {
-    if (!editing) setDraft(draftFrom(team, byId));
+    if (!editing && !plan) setDraft(draftFrom(team, byId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playersKey, byId]);
 
@@ -179,9 +190,12 @@ export function SquadView({
           </>
         ) : (
           <>
-            <button type="button" className="btn" onClick={cancel}>
-              ← {t('cancel')}
-            </button>
+            {plan ? null : (
+              <button type="button" className="btn" onClick={cancel}>
+                ← {t('cancel')}
+              </button>
+            )}
+            {plan ? null : (
             <button
               type="button"
               className={`btn ${draft.limitless ? 'primary' : ''}`}
@@ -192,6 +206,7 @@ export function SquadView({
             >
               ∞ {t('chipLimitless')}
             </button>
+            )}
             <LabelPicker mode={mode} onMode={onMode} />
           </>
         )}
@@ -218,14 +233,30 @@ export function SquadView({
             <button type="button" className="btn" onClick={() => setDraft(resetDraft(draft))} aria-label={t('resetAll')} title={t('resetAll')}>
               ↺
             </button>
-            {recommended ? (
+            {recommended && !plan ? (
               <button type="button" className="btn" onClick={() => loadPlan(recommended.swaps.map((s) => ({ out: s.out.id, in: s.in.id })))} title={t('autoFill')}>
                 ⭐ {t('autoFillShort')}
               </button>
             ) : null}
-            <button type="button" className="btn primary" disabled={!sum.valid || sum.swaps.length === 0} onClick={() => setReview(true)}>
-              {t('reviewTransfers')}
-            </button>
+            {plan ? (
+              <>
+                <button type="button" className="btn" disabled={!sum.valid || sum.swaps.length === 0} onClick={() => setReview(true)}>
+                  {t('reviewTransfers')}
+                </button>
+                <button
+                  type="button"
+                  className="btn primary"
+                  disabled={!sum.valid}
+                  onClick={() => plan.onSave(sum.swaps.map((x) => ({ out: byId.get(x.out)!, in: byId.get(x.in)! })))}
+                >
+                  ✓ {t('saveStep')}
+                </button>
+              </>
+            ) : (
+              <button type="button" className="btn primary" disabled={!sum.valid || sum.swaps.length === 0} onClick={() => setReview(true)}>
+                {t('reviewTransfers')}
+              </button>
+            )}
           </div>
           {sum.empty ? <p className="hint">{t('emptySlots', { n: sum.empty })}</p> : null}
           {sum.bank < 0 && !draft.limitless ? <p className="hint error">{t('overBudget', { x: num(-sum.bank) })}</p> : null}
@@ -435,9 +466,23 @@ export function SquadView({
             <button type="button" className="btn" onClick={() => setReview(false)}>
               ← {t('back')}
             </button>
-            <button type="button" className="btn" onClick={saveScenario}>
-              {t('saveScenario')}
-            </button>
+            {plan ? null : (
+              <button type="button" className="btn" onClick={saveScenario}>
+                {t('saveScenario')}
+              </button>
+            )}
+            {plan ? (
+              <button
+                type="button"
+                className="btn primary"
+                onClick={() => {
+                  plan.onSave(swapRows);
+                  setReview(false);
+                }}
+              >
+                ✓ {t('saveStep')}
+              </button>
+            ) : (
             <button
               type="button"
               className="btn primary"
@@ -453,6 +498,7 @@ export function SquadView({
             >
               ✓ {t('confirmDone')}
             </button>
+            )}
           </div>
         </Sheet>
       ) : null}

@@ -24,6 +24,8 @@ export interface GdRecord {
     captain: string | null;
     vice: string | null;
   };
+  /** 1.º passo do plano de várias jornadas (sem cortes), calculado pela app */
+  recommendedNoCut?: { swaps: SwapIds[]; hits: number; net: number };
   /** o que o Fernando fez */
   done?: {
     swaps: SwapIds[];
@@ -117,6 +119,8 @@ export interface GdEvaluation {
   played: boolean;
   done: SwapResult[];
   recommended: SwapResult[];
+  noCut: SwapResult[];
+  noCutGain: number | null;
   /** ganho real das trocas feitas, já com o custo das pagas */
   doneGain: number | null;
   recommendedGain: number | null;
@@ -147,6 +151,7 @@ export function evaluateGameday(rec: GdRecord, byId: Map<string, Row>): GdEvalua
   const gd = rec.gameday;
   const done = swapResults(rec.done?.swaps ?? [], gd, byId);
   const recommended = swapResults(rec.recommended?.swaps ?? [], gd, byId);
+  const noCut = swapResults(rec.recommendedNoCut?.swaps ?? [], gd, byId);
   const squadPts = (rec.squad ?? []).map((id) => ({ id, pts: pointsIn(byId.get(id), gd) })).filter((x): x is { id: string; pts: number } => x.pts != null);
   const played = squadPts.length > 0;
   const cap = rec.done?.captain ?? null;
@@ -157,6 +162,8 @@ export function evaluateGameday(rec: GdRecord, byId: Map<string, Row>): GdEvalua
     played,
     done,
     recommended,
+    noCut,
+    noCutGain: rec.recommendedNoCut ? total(noCut, rec.recommendedNoCut.hits) : null,
     doneGain: rec.done ? total(done, rec.done.hits) : null,
     recommendedGain: rec.recommended ? total(recommended, rec.recommended.hits) : null,
     captain: cap ? { id: cap, pts: pointsIn(byId.get(cap), gd) } : null,

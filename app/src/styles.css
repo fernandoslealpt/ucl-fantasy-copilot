@@ -2352,3 +2352,41 @@ ul.plain {
 .tip-bar .link {
   margin-left: auto;
 }
+
+.seg-sub {
+  margin-top: 0;
+  background: transparent;
+  border-radius: var(--radius);
+}
+.seg-sub button {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.seg-sub button.on {
+  border-color: var(--pitch);
+}
+.suggest-bar.agree {
+  background: color-mix(in srgb, var(--green) 14%, var(--surface));
+  border-color: var(--green);
+}
+.plan-top {
+  margin: 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.plan-table th,
+.plan-table td {
+  white-space: nowrap;
+}
+.how-read {
+  margin-top: 14px;
+  font-size: 0.9rem;
+}
+.how-read summary {
+  cursor: pointer;
+  font-weight: 700;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}

@@ -3,6 +3,7 @@ import { matchTeam, type ImportResult } from '../importer/match';
 import { Crest, readLabelMode, writeLabelMode, type LabelMode } from '../components/Field';
 import { lineupFor, type Lineup } from '../squad';
 import { SquadView } from './Squad';
+import { PlanView } from './Plan';
 import { ChangesCard } from '../components/Questions';
 import { buildSummary } from '../advice/summary';
 import { loadLocalHistory } from '../history';
@@ -221,6 +222,7 @@ function TeamView({
     if (!used) onRecord(gd, (cur) => ({ done: { ...(cur?.done ?? { swaps: [], hits: 0 }), chip } }));
   };
   const [view, setView] = useState<'plantel' | 'jornada'>('plantel');
+  const [plantelMode, setPlantelMode] = useState<'now' | 'plan'>('now');
   const [label, setLabelState] = useState<LabelMode>(readLabelMode);
   const setLabel = (m: LabelMode) => {
     setLabelState(m);
@@ -472,20 +474,51 @@ function TeamView({
             </button>
           </div>
           {view === 'plantel' ? (
-            <SquadView
-              data={data}
-              team={team}
-              gd={gd}
-              free={free}
-              mode={label}
-              onMode={setLabel}
-              captainId={capId}
-              viceId={viceId}
-              advice={advice}
-              onConfirm={confirmTransfers}
-              onCaptain={setRole}
-              onOpen={onOpen}
-            />
+            <>
+              <div className="seg seg-sub" role="tablist" aria-label={t('viewSquad')}>
+                <button type="button" role="tab" aria-selected={plantelMode === 'now'} className={plantelMode === 'now' ? 'on' : ''} onClick={() => setPlantelMode('now')}>
+                  {t('viewNow')}
+                </button>
+                <button type="button" role="tab" aria-selected={plantelMode === 'plan'} className={plantelMode === 'plan' ? 'on' : ''} onClick={() => setPlantelMode('plan')}>
+                  {t('viewPlan')}
+                </button>
+              </div>
+              {plantelMode === 'now' ? (
+                <SquadView
+                  data={data}
+                  team={team}
+                  gd={gd}
+                  free={free}
+                  mode={label}
+                  onMode={setLabel}
+                  captainId={capId}
+                  viceId={viceId}
+                  advice={advice}
+                  onConfirm={confirmTransfers}
+                  onCaptain={setRole}
+                  onOpen={onOpen}
+                />
+              ) : (
+                <PlanView
+                  data={data}
+                  team={team}
+                  squad={squad}
+                  gd={gd}
+                  free={free}
+                  mode={label}
+                  onMode={setLabel}
+                  oldRecommended={advice?.recommended ?? null}
+                  onOpen={onOpen}
+                  onSuggested={(res) => {
+                    const r0 = res.rows[0];
+                    if (!r0) return;
+                    onRecord(gd, {
+                      recommendedNoCut: { swaps: r0.swaps.map((x) => ({ out: x.out.id, in: x.in.id })), hits: r0.hits, net: Math.round(res.net * 100) / 100 },
+                    });
+                  }}
+                />
+              )}
+            </>
           ) : (
             <MatchdayView
               data={data}
@@ -523,7 +556,7 @@ function TeamView({
 
       {complete ? (
         <>
-          {view === 'plantel' ? (
+          {view === 'plantel' && plantelMode === 'now' ? (
           <TransfersSection
             data={data}
             team={team}
@@ -536,9 +569,9 @@ function TeamView({
             onSave={onSave}
             onOpen={onOpen}
           />
-          ) : (
+          ) : view === 'jornada' ? (
           <CaptainSection c={captain} team={team} gd={gd} onConfirm={confirmCaptain} onOpen={onOpen} />
-          )}
+          ) : null}
         </>
       ) : (
         <p className="hint">{t('adviceNoTeamText')}</p>

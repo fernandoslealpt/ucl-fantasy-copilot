@@ -131,6 +131,12 @@ function GamedayCard({ ev, data, onPoints }: { ev: GdEvaluation; data: Dataset; 
         <div>
           <h3>{t('diaryAppSaid')}</h3>
           {ev.recommended.length ? <ul className="plain">{swapList(ev.recommended)}</ul> : <p className="muted">{t('diaryNoSwapsRec')}</p>}
+          {ev.noCut.length && ev.noCutGain != null ? (
+            <>
+              <h3>{t('diaryNoCut')}</h3>
+              <ul className="plain">{swapList(ev.noCut)}</ul>
+            </>
+          ) : null}
           {ev.recommendedCaptain ? (
             <p>
               {t('captain')}: <strong>{name(ev.recommendedCaptain.id)}</strong> ({pts(ev.recommendedCaptain.pts)} × 2)
