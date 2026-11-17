@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** terça, 17/11, 02:58 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** terça, 17/11, 13:33 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | terça, 17/11, 02:58 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | terça, 17/11, 02:58 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | terça, 17/11, 02:58 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | terça, 17/11, 02:58 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | terça, 17/11, 02:58 |  |
+| uefaMatches | ✅ ok | 3 | 144 | terça, 17/11, 13:33 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | terça, 17/11, 13:33 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | terça, 17/11, 13:33 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | terça, 17/11, 13:33 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | terça, 17/11, 13:33 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 40 | 250 | terça, 17/11, 02:58 |  |
-| rotowire | ✅ ok | 1 | 0 | terça, 17/11, 02:58 |  |
+| googleNews | ✅ ok | 36 | 245 | terça, 17/11, 13:33 |  |
+| rotowire | ✅ ok | 1 | 0 | terça, 17/11, 13:33 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -95,13 +95,13 @@
 
 <details><summary>Valores de estado no feed</summary>
 
-- 863 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
+- 862 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
 - 126 × pStatus=NIS · qStatus=∅ · trained=∅
 - 91 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
 - 54 × pStatus=∅ · qStatus=∅ · trained=∅
 - 20 × pStatus=D · qStatus=∅ · trained=In contention to start next game
 - 16 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
-- 2 × pStatus=S · qStatus=∅ · trained=∅
+- 3 × pStatus=S · qStatus=∅ · trained=∅
 - 1 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
 
 </details>
