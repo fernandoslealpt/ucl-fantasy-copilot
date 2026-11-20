@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** quinta, 19/11, 20:44 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** sexta, 20/11, 03:26 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | quinta, 19/11, 20:44 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | quinta, 19/11, 20:44 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | quinta, 19/11, 20:44 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | quinta, 19/11, 20:44 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | quinta, 19/11, 20:44 |  |
+| uefaMatches | ✅ ok | 3 | 144 | sexta, 20/11, 03:26 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | sexta, 20/11, 03:26 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | sexta, 20/11, 03:26 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | sexta, 20/11, 03:26 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | sexta, 20/11, 03:26 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 262 | quinta, 19/11, 20:44 |  |
-| rotowire | ✅ ok | 1 | 36 | quinta, 19/11, 20:44 |  |
+| googleNews | ✅ ok | 36 | 266 | sexta, 20/11, 03:26 |  |
+| rotowire | ✅ ok | 1 | 36 | sexta, 20/11, 03:26 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -37,7 +37,7 @@
 
 | # | Jogador | Equipa | Pos | €M | xP J | xP 3J | xP/€M | P(titular) | Adversário | Confiança |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | N. Paz | Como | MID | 7.1 | 8.2 | 17.5 | 2.47 | 78% | vs AEK Athens | média |
+| 1 | N. Paz | Como | MID | 7.1 | 8.2 | 17.6 | 2.47 | 78% | vs AEK Athens | média |
 | 2 | Raphinha | Barcelona | MID | 9.6 | 7.8 | 19.0 | 1.98 | 87% | @ Sabah | alta |
 | 3 | T. Douvikas | Como | FWD | 6.6 | 7.7 | 16.8 | 2.54 | 81% | vs AEK Athens | média |
 | 4 | L. Yamal | Barcelona | MID | 10.2 | 7.7 | 19.4 | 1.90 | 89% | @ Sabah | alta |
