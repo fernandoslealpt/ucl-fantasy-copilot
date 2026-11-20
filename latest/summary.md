@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** sexta, 20/11, 03:26 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** sexta, 20/11, 13:02 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | sexta, 20/11, 03:26 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | sexta, 20/11, 03:26 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | sexta, 20/11, 03:26 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | sexta, 20/11, 03:26 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | sexta, 20/11, 03:26 |  |
+| uefaMatches | ✅ ok | 3 | 144 | sexta, 20/11, 13:02 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | sexta, 20/11, 13:02 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | sexta, 20/11, 13:02 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | sexta, 20/11, 13:02 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | sexta, 20/11, 13:02 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 266 | sexta, 20/11, 03:26 |  |
-| rotowire | ✅ ok | 1 | 36 | sexta, 20/11, 03:26 |  |
+| googleNews | ✅ ok | 36 | 267 | sexta, 20/11, 13:02 |  |
+| rotowire | ✅ ok | 1 | 36 | sexta, 20/11, 13:02 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -46,13 +46,13 @@
 | 7 | Fermín López | Barcelona | MID | 7.0 | 6.5 | 15.8 | 2.26 | 85% | @ Sabah | alta |
 | 8 | H. Kane | Bayern München | FWD | 11.2 | 6.5 | 22.2 | 1.98 | 88% | @ Lille | alta |
 | 9 | K. Mbappé | Real Madrid | FWD | 11.1 | 6.4 | 21.4 | 1.92 | 88% | vs PSV | alta |
-| 10 | A. Gordon | Barcelona | MID | 8.0 | 6.3 | 14.6 | 1.83 | 80% | @ Sabah | média |
-| 11 | A. Grimaldo | Atleti | DEF | 5.5 | 6.3 | 14.9 | 2.71 | 86% | vs Viking | alta |
-| 12 | D. Doué | Paris | MID | 8.6 | 5.6 | 17.8 | 2.07 | 73% | vs Roma | alta |
+| 10 | D. Doué | Paris | MID | 8.6 | 6.3 | 18.5 | 2.15 | 86% | vs Roma | alta |
+| 11 | A. Gordon | Barcelona | MID | 8.0 | 6.3 | 14.6 | 1.83 | 80% | @ Sabah | média |
+| 12 | A. Grimaldo | Atleti | DEF | 5.5 | 6.3 | 14.9 | 2.71 | 86% | vs Viking | alta |
 | 13 | M. Llorente | Atleti | MID | 6.7 | 5.5 | 14.0 | 2.09 | 88% | vs Viking | alta |
 | 14 | E. Anderson | Man City | MID | 7.0 | 5.4 | 15.0 | 2.15 | 83% | vs Napoli | média |
-| 15 | P. Foden | Man City | MID | 7.1 | 5.3 | 15.1 | 2.12 | 86% | vs Napoli | alta |
-| 16 | Vitinha | Paris | MID | 7.7 | 5.3 | 16.2 | 2.11 | 89% | vs Roma | alta |
+| 15 | Vitinha | Paris | MID | 7.7 | 5.3 | 16.2 | 2.11 | 89% | vs Roma | alta |
+| 16 | P. Foden | Man City | MID | 7.1 | 5.3 | 15.1 | 2.12 | 86% | vs Napoli | alta |
 | 17 | C. Nkunku | Leipzig | FWD | 7.0 | 5.3 | 11.3 | 1.62 | 78% | vs Lens | média |
 | 18 | Fabián Ruiz | Paris | MID | 6.8 | 5.3 | 15.6 | 2.29 | 87% | vs Roma | alta |
 | 19 | S. Brunstad Fet | Bodø/Glimt | MID | 5.1 | 5.1 | 13.9 | 2.72 | 87% | vs LASK | alta |
