@@ -30,7 +30,7 @@ async function sitemapProbe(): Promise<string[]> {
     const res = await fetch(url, { headers: { 'user-agent': USER_AGENT, accept: 'application/xml,text/xml,*/*;q=0.8' }, signal: AbortSignal.timeout(20_000), redirect: 'follow' });
     return { status: res.status, ct: res.headers.get('content-type') ?? '?', text: await res.text(), final: res.url };
   };
-  for (const url of ['https://www.uefa.com/sitemap/news/latest.xml', 'https://www.uefa.com/sitemap/news/index.xml']) {
+  for (const url of ['https://www.uefa.com/sitemap/news/uefachampionsleague.xml']) {
     try {
       const r = await get(url);
       const locs = [...r.text.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => ({
@@ -40,9 +40,11 @@ async function sitemapProbe(): Promise<string[]> {
       }));
       const subs = [...r.text.matchAll(/<sitemap>([\s\S]*?)<\/sitemap>/g)].map((m) => tag(m[1]!, 'loc'));
       out.push(`- ${url}: ${r.status} · ${r.ct} · ${r.text.length} bytes · urls: ${locs.length} · sub-mapas: ${subs.length}`);
-      const rel = locs.filter((l) => /fantasy|team-news|matchday|preview|tips|injur/i.test(l.loc + ' ' + l.title));
+      const rel = locs.filter((l) => /fantasy|team-news|matchday|preview|tips|injur|doubt/i.test(l.loc + ' ' + l.title)).sort((a, b) => b.date.localeCompare(a.date));
       out.push(`  - com fantasy/team-news/matchday/preview/tips/injury no endereço ou título: ${rel.length}`);
-      for (const l of locs.slice(0, 12)) out.push(`  - ${l.date.slice(0, 19)} | ${l.title.slice(0, 70)} | ${l.loc}`);
+      const sorted = [...locs].sort((a, b) => b.date.localeCompare(a.date));
+      out.push(`  - mais recente: ${sorted[0]?.date ?? '-'}; mais antigo: ${sorted.at(-1)?.date ?? '-'}`);
+      for (const l of sorted.slice(0, 15)) out.push(`  - ${l.date.slice(0, 19)} | ${l.title.slice(0, 70)} | ${l.loc}`);
       for (const l of rel.slice(0, 8)) out.push(`  - [relevante] ${l.date.slice(0, 19)} | ${l.title.slice(0, 70)} | ${l.loc}`);
       for (const sub of subs.slice(0, 3)) out.push(`  - sub-mapa: ${sub}`);
       // o primeiro artigo relevante (ou o primeiro): o texto vem no HTML?
