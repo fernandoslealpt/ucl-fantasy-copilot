@@ -35,6 +35,11 @@ const tag = (xml: string, name: string) => {
 /** Fora: competições femininas, seleções, Liga Europa/Conferência, jovens, qualificação. */
 const EXCLUDE = /women|nations league|conference league|europa league|under[- ]?\d|futsal|beach|youth|euro 20|qualif|super cup/i;
 
+/** Só interessa o que ajuda a decidir a equipa: Fantasy, notícias de equipas/lesões e antevisões de jornada. */
+const USEFUL = /fantasy|team news|injur|doubt|suspend|ruled out|matchday \d|key stats|look out for|facts|form guide|predicted|line-?ups?/i;
+/** Mesmo com palavras úteis, não serve: calendário, classificação, tática, "melhores momentos", apresentações. */
+const NOISE = /fixtures|results|standings|tactical|reaction saves|meet the|how teams|history|greatest|classic|best goals|top scorers table/i;
+
 export function classifyRead(title: string): UefaRead['kind'] {
   if (/fantasy/i.test(title)) return 'fantasy';
   if (/team news|injur|doubt|suspend|ruled out|return/i.test(title)) return 'team-news';
@@ -51,7 +56,7 @@ export function parseUefaReads(xml: string, now: Date, maxAgeDays = 10, max = 12
       const pub = new Date(tag(m[1]!, 'pubDate'));
       return { title, source, url: tag(m[1]!, 'link'), pub };
     })
-    .filter((i) => i.title && !Number.isNaN(i.pub.getTime()) && /uefa/i.test(i.source) && /champions league|fantasy/i.test(i.title) && !EXCLUDE.test(i.title))
+    .filter((i) => i.title && !Number.isNaN(i.pub.getTime()) && /uefa/i.test(i.source) && /champions league|fantasy/i.test(i.title) && !EXCLUDE.test(i.title) && USEFUL.test(i.title) && !NOISE.test(i.title))
     .filter((i) => now.getTime() - i.pub.getTime() <= maxAgeDays * 86_400_000 && i.pub.getTime() <= now.getTime() + 3_600_000)
     .sort((a, b) => b.pub.getTime() - a.pub.getTime())
     .filter((i) => {
