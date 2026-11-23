@@ -13,6 +13,9 @@ export interface UefaRead {
   kind: 'fantasy' | 'team-news' | 'preview';
 }
 
+/** Sobe quando muda a regra de seleção (força o refrescar do ficheiro guardado). */
+export const UEFA_READS_FILTER = 2;
+
 const QUERY = 'site:uefa.com (fantasy OR "team news" OR "what to look out for" OR "key stats" OR injuries) "Champions League" when:10d';
 
 export const uefaReadsUrl = () => `https://news.google.com/rss/search?q=${encodeURIComponent(QUERY)}&hl=en-GB&gl=GB&ceid=GB:en`;

@@ -26,7 +26,7 @@ import { fetchClubElo, type EloClub } from './sources/clubElo.ts';
 import { fetchUefaCoefficients, type Coefficient } from './sources/uefaCoefficients.ts';
 import { EmptyFeedError, fantasyPlayersUrl, fetchFantasyFeed, parseFantasyFeed, type ParsedFeed } from './sources/uefaFantasy.ts';
 import { fetchTeamNews, fold, type NewsItem } from './sources/news.ts';
-import { fetchUefaReads, type UefaRead } from './sources/uefaReads.ts';
+import { fetchUefaReads, UEFA_READS_FILTER, type UefaRead } from './sources/uefaReads.ts';
 import { fetchUefaMatches } from './sources/uefaMatches.ts';
 import { fantasyTourId, fetchPlayerHistory, mapPool, PLAYER_HISTORY_PARSER_VERSION } from './sources/uefaPlayerHistory.ts';
 import { ensurePrevSeason, type PrevSeasonResult } from './prevSeason.ts';
@@ -460,12 +460,13 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
 
     // Leituras da UEFA (dicas do Fantasy, team news): 1 pedido a cada ~3 h. Falhar aqui nunca afeta o resto.
     {
-      const prevReads = readJsonIfExists<{ fetchedAt: string; items: UefaRead[] }>(join(latest, 'uefa-reads.json'));
-      if (!prevReads || Date.parse(nowIso) - Date.parse(prevReads.fetchedAt) >= NEWS_EVERY_MS) {
+      const prevReads = readJsonIfExists<{ fetchedAt: string; filter?: number; items: UefaRead[] }>(join(latest, 'uefa-reads.json'));
+      // `filter` sobe quando muda a regra de seleção: o ficheiro antigo é refeito logo, sem esperar 3 h
+      if (!prevReads || prevReads.filter !== UEFA_READS_FILTER || Date.parse(nowIso) - Date.parse(prevReads.fetchedAt) >= NEWS_EVERY_MS) {
         const uHttp = httpFactory('uefaReads');
         try {
           const items = await fetchUefaReads(uHttp, now);
-          writeJsonLines(join(latest, 'uefa-reads.json'), { fetchedAt: nowIso }, 'items', items);
+          writeJsonLines(join(latest, 'uefa-reads.json'), { fetchedAt: nowIso, filter: UEFA_READS_FILTER }, 'items', items);
           record('uefaReads', uHttp, null, items.length);
         } catch (e) {
           record('uefaReads', uHttp, e);
