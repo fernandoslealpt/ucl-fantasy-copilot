@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-23T09:10:52.811Z",
+  "fetchedAt": "2026-11-23T09:16:09.200Z",
   "source": "rotowire",
   "teams": [
     {
@@ -161,19 +161,15 @@
           "tag": "QUES"
         },
         {
-          "id": "250092129",
-          "tag": "QUES"
-        },
-        {
-          "id": "250174851",
-          "tag": "QUES"
-        },
-        {
           "id": "250187221",
           "tag": "OUT"
         },
         {
           "id": "250192004",
+          "tag": "OUT"
+        },
+        {
+          "id": "250092129",
           "tag": "OUT"
         },
         {
@@ -1307,7 +1303,7 @@
   "stats": {
     "matches": 18,
     "sides": 36,
-    "listed": 532,
-    "matched": 512
+    "listed": 531,
+    "matched": 511
   }
 }
