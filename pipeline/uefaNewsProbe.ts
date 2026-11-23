@@ -23,6 +23,44 @@ const CANDIDATES: { name: string; url: string; kind: 'rss' | 'html' | 'text' }[]
   { name: 'UEFA Fantasy — página inicial', url: 'https://gaming.uefa.com/en/uclfantasy/overview', kind: 'html' },
 ];
 
+/** Mapa de notícias da UEFA (indicado no robots.txt): lista de artigos com data; testa-se também se um artigo traz o texto no HTML. */
+async function sitemapProbe(): Promise<string[]> {
+  const out: string[] = ['## Mapa de notícias da UEFA (sitemap)'];
+  const get = async (url: string) => {
+    const res = await fetch(url, { headers: { 'user-agent': USER_AGENT, accept: 'application/xml,text/xml,*/*;q=0.8' }, signal: AbortSignal.timeout(20_000), redirect: 'follow' });
+    return { status: res.status, ct: res.headers.get('content-type') ?? '?', text: await res.text(), final: res.url };
+  };
+  for (const url of ['https://www.uefa.com/sitemap/news/latest.xml', 'https://www.uefa.com/sitemap/news/index.xml']) {
+    try {
+      const r = await get(url);
+      const locs = [...r.text.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => ({
+        loc: tag(m[1]!, 'loc'),
+        date: tag(m[1]!, 'lastmod') || tag(m[1]!, 'news:publication_date'),
+        title: tag(m[1]!, 'news:title'),
+      }));
+      const subs = [...r.text.matchAll(/<sitemap>([\s\S]*?)<\/sitemap>/g)].map((m) => tag(m[1]!, 'loc'));
+      out.push(`- ${url}: ${r.status} · ${r.ct} · ${r.text.length} bytes · urls: ${locs.length} · sub-mapas: ${subs.length}`);
+      const rel = locs.filter((l) => /fantasy|team-news|matchday|preview|tips|injur/i.test(l.loc + ' ' + l.title));
+      out.push(`  - com fantasy/team-news/matchday/preview/tips/injury no endereço ou título: ${rel.length}`);
+      for (const l of locs.slice(0, 12)) out.push(`  - ${l.date.slice(0, 19)} | ${l.title.slice(0, 70)} | ${l.loc}`);
+      for (const l of rel.slice(0, 8)) out.push(`  - [relevante] ${l.date.slice(0, 19)} | ${l.title.slice(0, 70)} | ${l.loc}`);
+      for (const sub of subs.slice(0, 3)) out.push(`  - sub-mapa: ${sub}`);
+      // o primeiro artigo relevante (ou o primeiro): o texto vem no HTML?
+      const pick = rel[0] ?? locs[0];
+      if (pick?.loc) {
+        const a = await get(pick.loc);
+        const body = strip(a.text);
+        const paragraphs = (a.text.match(/<p[ >]/g) ?? []).length;
+        const hits = NAMES.filter((n) => body.includes(n));
+        out.push(`  - artigo de teste: ${pick.loc} → ${a.status} · ${a.text.length} bytes · <p>: ${paragraphs} · nomes: ${hits.join(', ') || '—'}`, '    ```', `    ${body.slice(0, 500)}`, '    ```');
+      }
+    } catch (e) {
+      out.push(`- ${url}: ERRO ${e instanceof Error ? e.message : String(e)}`);
+    }
+  }
+  return out;
+}
+
 const strip = (html: string) =>
   html
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
@@ -70,6 +108,7 @@ async function main() {
       out.push(`## ${c.name}`, `- URL: ${c.url}`, `- ERRO: ${e instanceof Error ? e.message : String(e)} (${Date.now() - t0} ms)`, '');
     }
   }
+  out.push(...(await sitemapProbe()));
   console.log(out.join('\n'));
 }
 
