@@ -145,6 +145,19 @@ describe('Leituras da UEFA', () => {
     expect(r[0]!.kind).toBe('fantasy');
     expect(r[1]!.kind).toBe('preview');
   });
+  it('tira o que não ajuda a decidir (calendário, classificação, tática) e mantém "facts" de jogos', () => {
+    const d = 'Fri, 20 Nov 2026 08:00:00 GMT';
+    const xml = rss([
+      { title: '2026/27 Champions League: All the league phase fixtures and results', date: d },
+      { title: 'Champions League tactical insights: Combining to penetrate centrally', date: d },
+      { title: 'Classic Champions League reaction saves', date: d },
+      { title: 'Champions League league phase standings: How teams level on points are separated', date: d },
+      { title: 'Meet the 2026/27 Champions League league phase teams', date: d },
+      { title: 'Champions League Matchday 5: Sporting CP vs Manchester United facts', date: d },
+      { title: 'Champions League team news: Doue out', date: d },
+    ]);
+    expect(parseUefaReads(xml, now).map((x) => x.title)).toEqual(['Champions League Matchday 5: Sporting CP vs Manchester United facts', 'Champions League team news: Doue out']);
+  });
   it('classifica team news e lesões', () => {
     expect(classifyRead('Champions League team news: Doue out')).toBe('team-news');
     expect(classifyRead('Champions League Fantasy tips')).toBe('fantasy');
