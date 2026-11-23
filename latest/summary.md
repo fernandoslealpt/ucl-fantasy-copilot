@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** domingo, 22/11, 20:45 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** segunda, 23/11, 02:52 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | domingo, 22/11, 20:45 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | domingo, 22/11, 20:45 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | domingo, 22/11, 20:45 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | domingo, 22/11, 20:45 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | domingo, 22/11, 20:45 |  |
+| uefaMatches | ✅ ok | 3 | 144 | segunda, 23/11, 02:52 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | segunda, 23/11, 02:52 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | segunda, 23/11, 02:52 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | segunda, 23/11, 02:52 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | segunda, 23/11, 02:52 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 273 | domingo, 22/11, 20:45 |  |
-| rotowire | ✅ ok | 1 | 36 | domingo, 22/11, 20:45 |  |
+| googleNews | ✅ ok | 36 | 266 | segunda, 23/11, 02:52 |  |
+| rotowire | ✅ ok | 1 | 36 | segunda, 23/11, 02:52 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -64,7 +64,7 @@
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1 | N. Paz | Como | MID | 7.1 | 43 | 13 (J4) | 318 | 21 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
 | 2 | L. Yamal | Barcelona | MID | 10.2 | 41 | 8 (J4) | 360 | 49 | disponível | J5 @ Sabah · quarta, 25/11, 17:45 |
-| 3 | H. Kane | Bayern München | FWD | 11.2 | 39 | 5 (J4) | 360 | 49 | disponível | J5 @ Lille · quarta, 25/11, 20:00 |
+| 3 | H. Kane | Bayern München | FWD | 11.2 | 39 | 5 (J4) | 360 | 49 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
 | 4 | Fabián Ruiz | Paris | MID | 6.8 | 37 | 16 (J4) | 354 | 4 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
 | 5 | T. Douvikas | Como | FWD | 6.6 | 37 | 20 (J4) | 246 | 4 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
 | 6 | D. Doué | Paris | MID | 8.6 | 35 | 9 (J4) | 218 | 15 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
@@ -73,7 +73,7 @@
 | 9 | Raphinha | Barcelona | MID | 9.6 | 33 | 15 (J4) | 201 | 36 | disponível | J5 @ Sabah · quarta, 25/11, 17:45 |
 | 10 | K. Mbappé | Real Madrid | FWD | 11.1 | 32 | 6 (J4) | 357 | 62 | disponível | J5 vs PSV · terça, 24/11, 20:00 |
 | 11 | Vitinha | Paris | MID | 7.7 | 32 | 7 (J4) | 344 | 19 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
-| 12 | A. Davies | Bayern München | DEF | 5.2 | 32 | 7 (J4) | 289 | 11 | disponível | J5 @ Lille · quarta, 25/11, 20:00 |
+| 12 | A. Davies | Bayern München | DEF | 5.2 | 32 | 7 (J4) | 289 | 11 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
 | 13 | A. Batrakov | Galatasaray | MID | 4.6 | 32 | 17 (J4) | 284 | 2 | disponível | J5 vs Aston Villa · terça, 24/11, 17:45 |
 | 14 | D. Malen | Roma | FWD | 6.8 | 31 | 5 (J4) | 314 | 12 | disponível | J5 @ Paris · quarta, 25/11, 20:00 |
 | 15 | Carlos Forbs | Club Brugge | MID | 6.3 | 31 | 6 (J4) | 349 | 2 | disponível | J5 vs Liverpool · quarta, 25/11, 20:00 |
@@ -95,13 +95,13 @@
 
 <details><summary>Valores de estado no feed</summary>
 
-- 862 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
+- 856 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
 - 126 × pStatus=NIS · qStatus=∅ · trained=∅
-- 91 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
+- 92 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
 - 54 × pStatus=∅ · qStatus=∅ · trained=∅
-- 20 × pStatus=D · qStatus=∅ · trained=In contention to start next game
+- 23 × pStatus=D · qStatus=∅ · trained=In contention to start next game
 - 16 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
+- 3 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
 - 3 × pStatus=S · qStatus=∅ · trained=∅
-- 1 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
 
 </details>
