@@ -1,4 +1,4 @@
-# Modelo de pontos esperados (xP) — v1.3
+# Modelo de pontos esperados (xP) — v1.4
 
 > Código: `pipeline/model/`. Resultados: branch `data` → `latest/xp.json`, `latest/team-ratings.json`, `latest/model-report.json`.
 
@@ -51,6 +51,9 @@ Para cada jornada já jogada, o modelo prevê usando só o que se sabia antes (h
 Métricas: erro médio absoluto, RMSE, correlação de ordem (Spearman) e **pontos reais médios do top 20/50** segundo cada método, o que mais interessa para escolher jogadores.
 
 Primeiro resultado (1 nov 2026, jornadas 1–3): o modelo tem erro menor em todas as jornadas e o seu top 20 fez **mais pontos reais** (J2: 4,8 vs 2,7; J3: 6,4 vs 4,8). O resultado atualizado está no `summary.md` em cada execução.
+
+## Lesões longas (v1.4)
+Lesões detetadas nas notícias com duração (`latest/injuries.json`, ver DECISIONS 23 nov) zeram a titularidade em todas as jornadas até ao regresso estimado (confirmadas) ou reduzem-na (suspeitas: ×0,6 titular, ×0,7 jogar). Antes, só a próxima jornada via o sinal.
 
 ## Amostra de um jogo
 `sample` em cada jogador do `xp.json`: jogos com minutos, pontos, melhor jogo e a sua quota. `spiky` = só 1 jogo, ou ≥ 50% dos pontos (com ≥ 8) num só jogo. A app avisa e não usa a forma como razão nesses casos.

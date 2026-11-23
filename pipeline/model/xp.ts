@@ -13,7 +13,7 @@ import { expectedFloorDiv, pZero } from './poisson.ts';
 import { expectedGoals, type TeamRatings } from './ratings.ts';
 import { SCORING } from './scoring.ts';
 
-export const MODEL_VERSION = '1.3.0';
+export const MODEL_VERSION = '1.4.0';
 
 /** Parâmetros (ver docs/MODEL.md). */
 export const PARAMS = {
@@ -95,6 +95,8 @@ export interface FixtureXp {
   components: XpComponents;
   /** sinais da próxima jornada (onze provável, lesões, notícias) */
   signal?: Pick<StartSignal, 'lineup' | 'confirmed' | 'tag' | 'news'>;
+  /** ausência por lesão detetada nas notícias (confirmada: xP 0; suspeita: probabilidades reduzidas) */
+  absence?: 'confirmed' | 'suspected';
 }
 
 export interface PlayerXp {
@@ -346,6 +348,8 @@ export interface XpInput {
   ignoreAvailability?: boolean;
   /** onze provável, lesões e notícias da próxima jornada */
   signals?: Map<string, StartSignal>;
+  /** lesões detetadas com prazo: ausência certa até à jornada indicada (várias jornadas) */
+  absences?: Map<string, { outUntilGameday: number; status: 'confirmed' | 'suspected' }>;
 }
 
 export function computeXp(input: XpInput): PlayerXp[] {
@@ -437,6 +441,19 @@ export function computeXp(input: XpInput): PlayerXp[] {
       const sig = input.ignoreAvailability ? undefined : input.signals?.get(p.id);
       const useSig = sig && sig.gameday === gd && (sig.lineup || sig.tag || sig.news);
       if (useSig) ({ start: pStart, play: pPlay } = applySignal(pStart, pPlay, sig, p.position, av.start === 0));
+      // lesão detetada com prazo: vale para TODAS as jornadas até ao regresso (a não ser que o onze confirmado o ponha a jogar)
+      const abs = input.ignoreAvailability ? undefined : input.absences?.get(p.id);
+      let absence: 'confirmed' | 'suspected' | undefined;
+      if (abs && gd <= abs.outUntilGameday && !(sig?.gameday === gd && sig.confirmed && sig.lineup === 'start')) {
+        absence = abs.status;
+        if (abs.status === 'confirmed') {
+          pStart = 0;
+          pPlay = 0;
+        } else {
+          pStart = clamp(pStart * 0.6, 0, 1);
+          pPlay = clamp(pPlay * 0.7, 0, 1);
+        }
+      }
       const expMinutes = pStart * PARAMS.minutesIfStart + (pPlay - pStart) * PARAMS.minutesIfSub;
       const f90 = expMinutes / 90;
       const attackAdj = goalsFor / (teamAvgFor.get(p.teamId) ?? goalsFor);
@@ -474,6 +491,7 @@ export function computeXp(input: XpInput): PlayerXp[] {
         pCleanSheet: r2(pZero(goalsAgainst)),
         components: Object.fromEntries(Object.entries(c).map(([k, v]) => [k, r2(v)])) as unknown as XpComponents,
         ...(useSig ? { signal: { lineup: sig.lineup, confirmed: sig.confirmed, tag: sig.tag, news: sig.news } } : {}),
+        ...(absence ? { absence } : {}),
       });
     });
 

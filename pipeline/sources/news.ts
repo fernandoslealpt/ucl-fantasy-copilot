@@ -16,9 +16,48 @@ export interface NewsItem {
   teamName: string;
   kind: NewsKind;
   playerIds: string[];
+  /** duração da lesão lida do título (só quando kind = 'injury') */
+  duration?: InjuryDuration;
 }
 
-const KEYWORDS = '(injury OR injured OR doubt OR doubtful OR "ruled out" OR sidelined OR "back in training" OR return OR lesão OR lesionado OR baja OR lesión)';
+/** 'long' = época/meses (ligamento cruzado, "rest of the season"…); 'weeks' = semanas; 'days' = dias; 'unknown' = sem duração no título. */
+export interface InjuryDuration {
+  kind: 'long' | 'weeks' | 'days' | 'unknown';
+  /** semanas estimadas de ausência (null se desconhecido) */
+  weeks: number | null;
+}
+
+/** Ausência (semanas) assumida para lesões longas sem prazo explícito (ligamento cruzado: 6–9 meses). */
+export const LONG_WEEKS = 26;
+
+const NUM: Record<string, number> = { a: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, few: 3, several: 4, couple: 2 };
+const num = (w: string) => (/^\d+$/.test(w) ? Number(w) : (NUM[w] ?? null));
+
+/**
+ * Lê a duração de uma lesão a partir do título, sem IA: prazos explícitos (semanas, meses, dias) primeiro;
+ * depois lesões que implicam meses (ligamento cruzado, tendão de Aquiles, "season-ending"); cirurgia/fratura = semanas.
+ */
+export function classifyDuration(title: string): InjuryDuration {
+  const t = title.toLowerCase();
+  const months = /(\d+|one|two|three|four|five|six|seven|eight|nine|ten|a few|several|a couple of)[- ]+months?/.exec(t);
+  if (months) {
+    const n = num(months[1]!.replace(/^a couple of$/, 'couple').replace(/^a few$/, 'few')) ?? 3;
+    return { kind: 'long', weeks: Math.round(n * 4.3) };
+  }
+  if (/season[- ]ending|(out|ruled out|sidelined) for (the )?(rest of the |remainder of the |whole |entire )?season|rest of the season|\bacl\b|cruciate|cruzado|achilles|aquiles|months/.test(t)) return { kind: 'long', weeks: LONG_WEEKS };
+  const weeks = /(\d+|one|two|three|four|five|six|seven|eight|a few|several|a couple of)[- ]+weeks?/.exec(t);
+  if (weeks) {
+    const n = num(weeks[1]!.replace(/^a couple of$/, 'couple').replace(/^a few$/, 'few')) ?? 3;
+    return { kind: 'weeks', weeks: n };
+  }
+  if (/a month/.test(t)) return { kind: 'weeks', weeks: 4 };
+  const days = /(\d+)[- ]+days?/.exec(t);
+  if (days) return { kind: 'days', weeks: Math.max(0.5, Math.round((Number(days[1]) / 7) * 10) / 10) };
+  if (/surgery|operation|operado|cirurgia|fractur|broken|ruptur|torn/.test(t)) return { kind: 'weeks', weeks: 8 };
+  return { kind: 'unknown', weeks: null };
+}
+
+const KEYWORDS = '(injury OR injured OR doubt OR doubtful OR "ruled out" OR sidelined OR surgery OR ACL OR "back in training" OR return OR lesão OR lesionado OR baja OR lesión)';
 
 export function newsUrl(teamName: string): string {
   const q = encodeURIComponent(`"${teamName}" ${KEYWORDS} when:3d`);
@@ -46,7 +85,7 @@ export function classify(title: string): NewsKind {
   // Frases de regresso primeiro ("returns from injury" é regresso, não lesão)
   if (/back in training|returns? (to|from) (training|injury|fitness)|returns? from|fit again|available again|comeback from|regressa|regresa|de volta aos treinos/.test(t))
     return 'return';
-  if (/ruled out|sidelined|injur|lesão|lesion|lesión|baja|out for|surgery|operado|fracture|torn/.test(t)) return 'injury';
+  if (/ruled out|sidelined|injur|lesão|lesion|lesión|baja|out for|surgery|operado|fracture|torn|\bacl\b|cruciate|ruptur/.test(t)) return 'injury';
   if (/doubt|fitness|late test|dúvida|duda|knock|race to be fit/.test(t)) return 'doubt';
   return 'other';
 }
@@ -86,6 +125,7 @@ export function parseNewsRss(
         return s != null && words.includes(` ${s} `);
       })
       .map((p) => p.id);
+    const kind = classify(title);
     items.push({
       id: tag(it, 'guid') || tag(it, 'link'),
       title,
@@ -94,8 +134,9 @@ export function parseNewsRss(
       publishedAt: pub.toISOString(),
       teamId: team.id,
       teamName: team.name,
-      kind: classify(title),
+      kind,
       playerIds,
+      ...(kind === 'injury' ? { duration: classifyDuration(title) } : {}),
     });
   }
   return items;

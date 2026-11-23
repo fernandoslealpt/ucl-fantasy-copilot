@@ -31,6 +31,7 @@ import { fantasyTourId, fetchPlayerHistory, mapPool, PLAYER_HISTORY_PARSER_VERSI
 import { ensurePrevSeason, type PrevSeasonResult } from './prevSeason.ts';
 import { modelWindow, runModel, type ModelSummary } from './model/publish.ts';
 import { matchLineups, startSignals, type Lineups } from './normalize/lineups.ts';
+import { injuryAbsences, updateInjuries, type InjuryRegistry } from './normalize/injuries.ts';
 import { fetchRotowire } from './sources/rotowire.ts';
 import type { PlayerXp } from './model/xp.ts';
 import type {
@@ -473,6 +474,16 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
     const newsNow = readJsonIfExists<{ items: NewsItem[] }>(join(latest, 'news.json'))?.items ?? [];
     const signals = startSignals(lineups, newsNow, players, nowIso, modelWindow(gameday, timing.state).first);
 
+    // Lesões detetadas nas notícias, com duração e memória entre execuções (uma lesão longa não pode "desaparecer" ao fim de 72 h).
+    let absences: ReturnType<typeof injuryAbsences> | undefined;
+    try {
+      const reg = updateInjuries(readJsonIfExists<InjuryRegistry>(join(latest, 'injuries.json')), newsNow, players, fixtures, nowIso, lineups);
+      writeJson(join(latest, 'injuries.json'), reg);
+      absences = injuryAbsences(reg);
+    } catch (e) {
+      warnings.push(`Lesões detetadas falhou: ${errorMessage(e)}`);
+    }
+
     // Modelo xP (Fase 2). Uma falha aqui nunca impede a publicação dos dados.
     try {
       const coefMap = new Map<string, number>(
@@ -493,6 +504,7 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
         prev: prevSeason?.players?.players ?? {},
         coefficients: coefMap,
         signals,
+        absences,
       });
       modelSummary = out.summary;
       topXp = out.xp.slice(0, 20);

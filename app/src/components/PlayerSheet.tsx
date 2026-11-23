@@ -2,6 +2,7 @@ import { useEffect, useRef, type ReactNode } from 'react';
 import { useI18n } from '../i18n';
 import type { Dataset, Row, XpComponents } from '../types';
 import { Difficulty, Opponent, pct, StatusMark, useNote, useSignalText } from './ui';
+import { InjuryBlock } from './InjuryBlock';
 
 const COMPONENT_LABEL: Record<
   keyof XpComponents,
@@ -67,6 +68,8 @@ export function PlayerSheet({ row, data, onClose, extra }: { row: Row; data: Dat
           <StatusMark a={row.availability} label />
           {row.status.note ? <span className="muted"> {noteOf(row.status.note)}</span> : null}
         </p>
+
+        {row.injury ? <InjuryBlock row={row} /> : null}
 
         {row.xp ? (
           <>

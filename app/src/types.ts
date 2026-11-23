@@ -90,6 +90,31 @@ export interface FixtureXp {
   components: XpComponents;
   /** sinais da próxima jornada: onze provável/confirmado e lesões (RotoWire), notícias recentes */
   signal?: FixtureSignal;
+  /** ausência por lesão detetada nas notícias (modelo ≥ 1.4.0) */
+  absence?: 'confirmed' | 'suspected';
+}
+
+export interface InjuryEvidence {
+  title: string;
+  source: string;
+  url: string;
+  publishedAt: string;
+}
+
+/** Lesão detetada nas notícias com duração (ver pipeline/normalize/injuries.ts). */
+export interface Injury {
+  playerId: string;
+  name: string;
+  teamName: string;
+  since: string;
+  severity: 'long' | 'weeks' | 'days';
+  status: 'confirmed' | 'suspected';
+  expectedBack: string;
+  /** a duração não vem escrita nas notícias: estimada pelo tipo de lesão */
+  assumed: boolean;
+  outUntilGameday: number | null;
+  evidence: InjuryEvidence[];
+  basis: string;
 }
 
 export interface FixtureSignal {
@@ -171,6 +196,8 @@ export interface NewsItem {
 /** Jogador com o xP juntado (o que os ecrãs usam). */
 export interface Row extends Player {
   xp: XpPlayer | null;
+  /** lesão detetada nas notícias (se houver) */
+  injury?: Injury | null;
 }
 
 export interface Dataset {
@@ -183,4 +210,5 @@ export interface Dataset {
   ratingById: Map<string, TeamRating>;
   news: NewsItem[];
   targets: number[];
+  injuries: Injury[];
 }

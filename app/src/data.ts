@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { Dataset, Meta, NewsItem, Player, Row, Team, TeamRating, XpPlayer } from './types';
+import type { Dataset, Injury, Meta, NewsItem, Player, Row, Team, TeamRating, XpPlayer } from './types';
 
 /** Dados publicados pelo GitHub Actions (branch `data`). `?data=<url>` permite testar com outra origem. */
 export const DATA_BASE =
@@ -17,16 +17,29 @@ async function getJson<T>(file: string, optional = false): Promise<T | null> {
 }
 
 export async function loadDataset(): Promise<Dataset> {
-  const [meta, xp, players, teams, ratings, news] = await Promise.all([
+  const [meta, xp, players, teams, ratings, news, inj] = await Promise.all([
     getJson<Meta>('meta.json'),
     getJson<{ targets: number[]; players: XpPlayer[] }>('xp.json', true),
     getJson<{ players: Player[] }>('players.json'),
     getJson<{ teams: Team[] }>('teams.json'),
     getJson<{ teams: TeamRating[] }>('team-ratings.json', true),
     getJson<{ items: NewsItem[] }>('news.json', true),
+    getJson<{ injuries: Injury[] }>('injuries.json', true).catch(() => null),
   ]);
+  const injuries = inj?.injuries ?? [];
+  const injById = new Map(injuries.map((i) => [i.playerId, i]));
   const xpById = new Map((xp?.players ?? []).map((x) => [x.id, x]));
-  const rows: Row[] = players!.players.map((p) => ({ ...p, xp: xpById.get(p.id) ?? null }));
+  const nextGd = (xp?.targets ?? [])[0] ?? meta!.currentGameday ?? 0;
+  const rows: Row[] = players!.players.map((p) => {
+    const injury = injById.get(p.id) ?? null;
+    const row: Row = { ...p, xp: xpById.get(p.id) ?? null, injury };
+    // lesão confirmada que cobre a próxima jornada: aparece como "fora" em todo o lado (listas, filtros, transferências)
+    if (injury?.status === 'confirmed' && injury.outUntilGameday != null && injury.outUntilGameday >= nextGd) {
+      row.availability = 'out';
+      row.status = { ...p.status, note: injury.basis };
+    }
+    return row;
+  });
   return {
     meta: meta!,
     rows,
@@ -37,6 +50,7 @@ export async function loadDataset(): Promise<Dataset> {
     ratingById: new Map((ratings?.teams ?? []).map((t) => [t.id, t])),
     news: news?.items ?? [],
     targets: xp?.targets ?? [],
+    injuries,
   };
 }
 

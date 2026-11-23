@@ -5,6 +5,7 @@ import { lineupFor, type Lineup } from '../squad';
 import { SquadView } from './Squad';
 import { PlanView } from './Plan';
 import { ChangesCard } from '../components/Questions';
+import { injuryHeadline } from '../components/InjuryBlock';
 import { buildSummary } from '../advice/summary';
 import { loadLocalHistory } from '../history';
 import { diffSnapshots, rotateSnapshot, type SnapshotDiff } from '../advice/questions';
@@ -120,7 +121,7 @@ function TeamView({
   onSave: (team: MyTeam) => Promise<string>;
   onRecord: RecordFn;
 }) {
-  const { t, d, num } = useI18n();
+  const { t, d, num, lang } = useI18n();
   const noteOf = useNote();
   const playersKey = team.players.join(',');
   const squad = useMemo(
@@ -419,6 +420,31 @@ function TeamView({
             ✕
           </button>
         </p>
+      ) : null}
+
+      {squad.some((r) => r.injury) ? (
+        <div className="injury-alert" role="alert">
+          <h2>🩹 {t('injTeamTitle')}</h2>
+          <ul className="plain">
+            {squad
+              .filter((r) => r.injury)
+              .map((r) => {
+                const i = r.injury!;
+                const back = new Date(i.expectedBack).toLocaleDateString(lang === 'en' ? 'en-GB' : 'pt-PT', { day: '2-digit', month: 'short' });
+                return (
+                  <li key={r.id}>
+                    <button type="button" className="link" onClick={() => onOpen(r)}>
+                      <strong>{r.name}:</strong>
+                    </button>{' '}
+                    {injuryHeadline(t, i)} ({i.status === 'confirmed' ? t('injConfirmed') : t('injSuspected')}),{' '}
+                    {i.outUntilGameday != null ? t('injOutUntilShort', { gd: i.outUntilGameday, back }) : t('injBackShort', { back })}.
+                    {i.status === 'confirmed' && i.outUntilGameday != null && i.outUntilGameday >= gd ? ` ${t('injSell', { price: num(r.price) })}` : ''}{' '}
+                    <span className="muted">({i.evidence.length} {t(i.evidence.length === 1 ? 'injSource' : 'injSources')}{i.assumed ? `, ${t('injEstimatedShort')}` : ''})</span>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
       ) : null}
 
       {changes ? <ChangesCard diff={changes} data={data} onClose={() => setChanges(null)} /> : null}

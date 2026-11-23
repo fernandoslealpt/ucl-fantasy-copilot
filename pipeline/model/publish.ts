@@ -115,6 +115,8 @@ export interface RunModelInput {
   coefficients: Map<string, number>;
   /** onze provável, lesões e notícias da próxima jornada */
   signals?: Map<string, StartSignal>;
+  /** lesões detetadas com prazo (várias jornadas) */
+  absences?: Map<string, { outUntilGameday: number; status: 'confirmed' | 'suspected' }>;
 }
 
 export function runModel(input: RunModelInput): { xp: PlayerXp[]; summary: ModelSummary; teamRatings: TeamRating[] } {
@@ -137,6 +139,7 @@ export function runModel(input: RunModelInput): { xp: PlayerXp[]; summary: Model
     targets,
     lastGameday: lastPlayed,
     signals: input.signals,
+    absences: input.absences,
   });
   const btInput = {
     players: input.players,
