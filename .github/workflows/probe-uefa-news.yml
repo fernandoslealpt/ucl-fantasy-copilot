@@ -1,0 +1,28 @@
+name: Sonda de notícias da UEFA
+
+# Manual (ou ao alterar a sonda): testa notícias oficiais da UEFA (team news, Fantasy tips) a partir dos runners do GitHub.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['pipeline/uefaNewsProbe.ts', '.github/workflows/probe-uefa-news.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Sondar
+        run: npx tsx pipeline/uefaNewsProbe.ts | tee uefa-news-probe.md
+      - name: Resumo
+        if: always()
+        run: if [ -f uefa-news-probe.md ]; then cat uefa-news-probe.md >> "$GITHUB_STEP_SUMMARY"; fi
