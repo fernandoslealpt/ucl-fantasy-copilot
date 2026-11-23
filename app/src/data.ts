@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { Dataset, Injury, Meta, NewsItem, Player, Row, Team, TeamRating, XpPlayer } from './types';
+import type { Dataset, Injury, Meta, NewsItem, Player, Row, Team, TeamRating, UefaRead, XpPlayer } from './types';
 
 /** Dados publicados pelo GitHub Actions (branch `data`). `?data=<url>` permite testar com outra origem. */
 export const DATA_BASE =
@@ -17,7 +17,7 @@ async function getJson<T>(file: string, optional = false): Promise<T | null> {
 }
 
 export async function loadDataset(): Promise<Dataset> {
-  const [meta, xp, players, teams, ratings, news, inj] = await Promise.all([
+  const [meta, xp, players, teams, ratings, news, inj, reads] = await Promise.all([
     getJson<Meta>('meta.json'),
     getJson<{ targets: number[]; players: XpPlayer[] }>('xp.json', true),
     getJson<{ players: Player[] }>('players.json'),
@@ -25,6 +25,7 @@ export async function loadDataset(): Promise<Dataset> {
     getJson<{ teams: TeamRating[] }>('team-ratings.json', true),
     getJson<{ items: NewsItem[] }>('news.json', true),
     getJson<{ injuries: Injury[] }>('injuries.json', true).catch(() => null),
+    getJson<{ items: UefaRead[] }>('uefa-reads.json', true).catch(() => null),
   ]);
   const injuries = inj?.injuries ?? [];
   const injById = new Map(injuries.map((i) => [i.playerId, i]));
@@ -51,6 +52,7 @@ export async function loadDataset(): Promise<Dataset> {
     news: news?.items ?? [],
     targets: xp?.targets ?? [],
     injuries,
+    uefaReads: reads?.items ?? [],
   };
 }
 

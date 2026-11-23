@@ -84,7 +84,7 @@ export function Scoreboard({
   }
   const urgent = left != null && left > 0 && left < 6 * 3600_000;
   const failing = Object.entries(meta.sources)
-    .filter(([k, s]) => s.status === 'failed' && k !== 'clubElo')
+    .filter(([k, s]) => s.status === 'failed' && k !== 'clubElo' && k !== 'uefaReads')
     .map(([k]) => k);
   const deadlineText =
     deadline != null

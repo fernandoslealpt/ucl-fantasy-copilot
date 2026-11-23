@@ -2408,3 +2408,10 @@ ul.plain {
 .injury-block a {
   color: inherit;
 }
+
+.uefa-reads {
+  margin-bottom: 16px;
+}
+.news-uefa {
+  border-left-color: var(--focus);
+}

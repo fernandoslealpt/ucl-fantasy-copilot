@@ -26,6 +26,7 @@ import { fetchClubElo, type EloClub } from './sources/clubElo.ts';
 import { fetchUefaCoefficients, type Coefficient } from './sources/uefaCoefficients.ts';
 import { EmptyFeedError, fantasyPlayersUrl, fetchFantasyFeed, parseFantasyFeed, type ParsedFeed } from './sources/uefaFantasy.ts';
 import { fetchTeamNews, fold, type NewsItem } from './sources/news.ts';
+import { fetchUefaReads, type UefaRead } from './sources/uefaReads.ts';
 import { fetchUefaMatches } from './sources/uefaMatches.ts';
 import { fantasyTourId, fetchPlayerHistory, mapPool, PLAYER_HISTORY_PARSER_VERSION } from './sources/uefaPlayerHistory.ts';
 import { ensurePrevSeason, type PrevSeasonResult } from './prevSeason.ts';
@@ -55,6 +56,7 @@ export type SourceName =
   | 'uefaCoefficients'
   | 'clubElo'
   | 'googleNews'
+  | 'uefaReads'
   | 'rotowire';
 
 export interface RunOptions {
@@ -456,6 +458,20 @@ export async function runPipeline(opts: RunOptions): Promise<Meta> {
       }
     }
 
+    // Leituras da UEFA (dicas do Fantasy, team news): 1 pedido a cada ~3 h. Falhar aqui nunca afeta o resto.
+    {
+      const prevReads = readJsonIfExists<{ fetchedAt: string; items: UefaRead[] }>(join(latest, 'uefa-reads.json'));
+      if (!prevReads || Date.parse(nowIso) - Date.parse(prevReads.fetchedAt) >= NEWS_EVERY_MS) {
+        const uHttp = httpFactory('uefaReads');
+        try {
+          const items = await fetchUefaReads(uHttp, now);
+          writeJsonLines(join(latest, 'uefa-reads.json'), { fetchedAt: nowIso }, 'items', items);
+          record('uefaReads', uHttp, null, items.length);
+        } catch (e) {
+          record('uefaReads', uHttp, e);
+        }
+      }
+    }
 
     // Onzes prováveis e lesões (RotoWire): 1 pedido por execução. Se falhar, usa o ficheiro anterior (até 24 h).
     const rHttp = httpFactory('rotowire');

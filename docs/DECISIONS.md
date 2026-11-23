@@ -136,3 +136,8 @@
 - **App**: aviso no topo da Equipa ("A app detetou lesões na tua equipa", com "Vende-o" e nº de fontes), bloco com as fontes na ficha do jogador, jogador confirmado passa a "Fora" em listas/filtros/transferências. Duração estimada (não escrita nas notícias) fica sempre assinalada.
 - Hoje (23 nov, dados de 02:52): Doué (longa, confirmada, fora até J8) e Kane (cirurgia ao ligamento do tornozelo, estimada 8 semanas, fora até J6). Recomendação passou de "Suárez → Douvikas, Barcola → Paz" (+10,7 em 3 jornadas) para "Doué → Paz, Guéhi → Grimaldo" (+14,3).
 - Limitações: títulos de notícias, não texto completo; duração estimada por tipo de lesão quando não há prazo; Raya sem duração conhecida. Sem LLM (regra do projeto).
+
+## 23 nov 2026 — Fontes oficiais da UEFA: go/no-go e "Leituras da UEFA"
+- Sondas (3, manuais, só leitura): `robots.txt` da UEFA permite; páginas de notícias e do Fantasy são JavaScript (sem conteúdo no HTML); RSS clássicos dão 404; a UEFA quase não publica notícias de lesões; o mapa `sitemap/news/uefachampionsleague.xml` tem 1 só artigo (calendário). **NO-GO** para raspar o site/mapas da UEFA.
+- **GO** (só ligações): Google News `site:uefa.com` (dicas do Fantasy, "team news", "key stats") → `latest/uefa-reads.json`, a cada ~3 h, falha não afeta o resto. A app mostra título + ligação para o artigo da UEFA (não copia texto nem imagens), em "Leituras da UEFA" no ecrã Notícias, acima das notícias da imprensa. Sem login, sem LLM, custo zero.
+- Não alimenta o modelo xP: serve para o Fernando ler a fonte oficial. As lesões continuam a vir das notícias + RotoWire.

@@ -121,3 +121,32 @@ describe('modelo: lesão longa vale para todas as jornadas', () => {
     expect(s.fixtures[1]!.pStart).toBeLessThan(normal.fixtures[1]!.pStart);
   });
 });
+
+import { classifyRead, parseUefaReads } from '../sources/uefaReads.ts';
+
+describe('Leituras da UEFA', () => {
+  const rss = (items: { title: string; source?: string; date: string; link?: string }[]) =>
+    `<rss><channel>${items
+      .map((i) => `<item><title>${i.title} - ${i.source ?? 'UEFA.com'}</title><link>${i.link ?? 'https://news.google.com/x/' + i.title.length}</link><pubDate>${i.date}</pubDate><source url="https://www.uefa.com">${i.source ?? 'UEFA.com'}</source></item>`)
+      .join('')}</channel></rss>`;
+  const now = new Date('2026-11-23T10:00:00Z');
+  it('fica só com artigos da UEFA sobre a Champions League masculina, recentes e sem duplicados', () => {
+    const xml = rss([
+      { title: 'Champions League Fantasy Football: Popular picks and potential differentials', date: 'Thu, 19 Nov 2026 10:37:00 GMT' },
+      { title: 'Champions League Matchday 5: Key stats and what to look out for in every game', date: 'Wed, 18 Nov 2026 08:32:00 GMT' },
+      { title: "Women's Champions League Fantasy Football: Matchday 5 tips", date: 'Mon, 16 Nov 2026 14:10:00 GMT' },
+      { title: 'Conference League league phase fixtures and results by team', date: 'Thu, 19 Nov 2026 08:00:00 GMT' },
+      { title: 'Champions League Fantasy Football: Popular picks and potential differentials', date: 'Thu, 19 Nov 2026 10:37:00 GMT' },
+      { title: 'Champions League Fantasy Football: old tips', date: 'Mon, 02 Mar 2026 10:00:00 GMT' },
+      { title: 'Champions League Fantasy: Reuters piece', source: 'Reuters', date: 'Fri, 20 Nov 2026 10:00:00 GMT' },
+    ]);
+    const r = parseUefaReads(xml, now);
+    expect(r.map((x) => x.title)).toEqual(['Champions League Fantasy Football: Popular picks and potential differentials', 'Champions League Matchday 5: Key stats and what to look out for in every game']);
+    expect(r[0]!.kind).toBe('fantasy');
+    expect(r[1]!.kind).toBe('preview');
+  });
+  it('classifica team news e lesões', () => {
+    expect(classifyRead('Champions League team news: Doue out')).toBe('team-news');
+    expect(classifyRead('Champions League Fantasy tips')).toBe('fantasy');
+  });
+});
