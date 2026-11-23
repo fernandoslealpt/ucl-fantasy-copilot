@@ -115,7 +115,7 @@ export function updateInjuries(
     const explicit = live.filter((e) => e.duration.kind === severity && e.duration.weeks != null).map((e) => e.duration.weeks!);
     const weeks = explicit.length ? Math.max(...explicit) : LONG_WEEKS;
     // "assumida": o título não traz o prazo (só o tipo de lesão: cruzado, cirurgia…); explícita: "6 semanas", "3 meses"
-    const assumed = !live.some((e) => e.duration.kind === severity && /\d|few|several|couple|month|week|day/i.test(e.title));
+    const assumed = !live.some((e) => e.duration.kind === severity && e.duration.explicit);
     const expectedBack = new Date(Date.parse(since) + weeks * 7 * DAY).toISOString();
     if (Date.parse(expectedBack) < now) continue; // já deve ter voltado
     const outUntilGameday = gamedayAt(p.teamId, fixtures, expectedBack);

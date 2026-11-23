@@ -25,6 +25,8 @@ export interface InjuryDuration {
   kind: 'long' | 'weeks' | 'days' | 'unknown';
   /** semanas estimadas de ausência (null se desconhecido) */
   weeks: number | null;
+  /** true = o título escreve o prazo ("6 semanas", "3 meses"); ausente/false = estimado pelo tipo de lesão */
+  explicit?: boolean;
 }
 
 /** Ausência (semanas) assumida para lesões longas sem prazo explícito (ligamento cruzado: 6–9 meses). */
@@ -42,17 +44,17 @@ export function classifyDuration(title: string): InjuryDuration {
   const months = /(\d+|one|two|three|four|five|six|seven|eight|nine|ten|a few|several|a couple of)[- ]+months?/.exec(t);
   if (months) {
     const n = num(months[1]!.replace(/^a couple of$/, 'couple').replace(/^a few$/, 'few')) ?? 3;
-    return { kind: 'long', weeks: Math.round(n * 4.3) };
+    return { kind: 'long', weeks: Math.round(n * 4.3), explicit: true };
   }
   if (/season[- ]ending|(out|ruled out|sidelined) for (the )?(rest of the |remainder of the |whole |entire )?season|rest of the season|\bacl\b|cruciate|cruzado|achilles|aquiles|months/.test(t)) return { kind: 'long', weeks: LONG_WEEKS };
   const weeks = /(\d+|one|two|three|four|five|six|seven|eight|a few|several|a couple of)[- ]+weeks?/.exec(t);
   if (weeks) {
     const n = num(weeks[1]!.replace(/^a couple of$/, 'couple').replace(/^a few$/, 'few')) ?? 3;
-    return { kind: 'weeks', weeks: n };
+    return { kind: 'weeks', weeks: n, explicit: true };
   }
-  if (/a month/.test(t)) return { kind: 'weeks', weeks: 4 };
+  if (/a month/.test(t)) return { kind: 'weeks', weeks: 4, explicit: true };
   const days = /(\d+)[- ]+days?/.exec(t);
-  if (days) return { kind: 'days', weeks: Math.max(0.5, Math.round((Number(days[1]) / 7) * 10) / 10) };
+  if (days) return { kind: 'days', weeks: Math.max(0.5, Math.round((Number(days[1]) / 7) * 10) / 10), explicit: true };
   if (/surgery|operation|operado|cirurgia|fractur|broken|ruptur|torn/.test(t)) return { kind: 'weeks', weeks: 8 };
   return { kind: 'unknown', weeks: null };
 }

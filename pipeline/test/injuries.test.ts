@@ -12,13 +12,13 @@ describe('duração da lesão lida do título', () => {
     expect(classifyDuration('Season-ending injury for Kane').kind).toBe('long');
   });
   it('prazos explícitos: semanas, meses, dias', () => {
-    expect(classifyDuration('Haaland out for six weeks with foot injury')).toEqual({ kind: 'weeks', weeks: 6 });
-    expect(classifyDuration('Saka to miss 3 months after surgery')).toEqual({ kind: 'long', weeks: 13 });
-    expect(classifyDuration('Rodri ruled out for a few weeks')).toEqual({ kind: 'weeks', weeks: 3 });
-    expect(classifyDuration('Bellingham out for 10 days')).toEqual({ kind: 'days', weeks: 1.4 });
+    expect(classifyDuration('Haaland out for six weeks with foot injury')).toEqual({ kind: 'weeks', weeks: 6, explicit: true });
+    expect(classifyDuration('Saka to miss 3 months after surgery')).toEqual({ kind: 'long', weeks: 13, explicit: true });
+    expect(classifyDuration('Rodri ruled out for a few weeks')).toEqual({ kind: 'weeks', weeks: 3, explicit: true });
+    expect(classifyDuration('Bellingham out for 10 days')).toEqual({ kind: 'days', weeks: 1.4, explicit: true });
   });
   it('cirurgia sem prazo = semanas; sem pistas = desconhecida', () => {
-    expect(classifyDuration('Player to undergo surgery').kind).toBe('weeks');
+    expect(classifyDuration('Player to undergo surgery')).toEqual({ kind: 'weeks', weeks: 8 });
     expect(classifyDuration('Could David Raya’s Injury Cost Arsenal Everything This Season? – Opinion')).toEqual({ kind: 'unknown', weeks: null });
   });
   it('"regressa" não é lesão', () => {
@@ -87,6 +87,10 @@ describe('registo de lesões', () => {
     expect(updateInjuries(null, doue, players, fixtures, NOW).injuries[0]!.assumed).toBe(true);
     const w = item('Doue out for 3 weeks', 'A', ['d'], '2026-11-22T10:00:00Z');
     expect(updateInjuries(null, [w], players, fixtures, NOW).injuries[0]!.assumed).toBe(false);
+  });
+  it('um número no título que não é prazo (ex.: "2026 Ballon d\'Or") não torna a duração explícita', () => {
+    const k = item('2026 Ballon d’Or winner Kane undergoes surgery after ankle ligament injury', 'A', ['d'], '2026-11-22T10:00:00Z');
+    expect(updateInjuries(null, [k], players, fixtures, NOW).injuries[0]!.assumed).toBe(true);
   });
   it('notícias com 2 jogadores no título são ignoradas (ambíguas)', () => {
     expect(updateInjuries(null, [item('Doue and Raya hit by ACL injuries', 'X', ['d', 'r'], '2026-11-22T17:00:00Z')], players, fixtures, NOW).injuries).toHaveLength(0);
