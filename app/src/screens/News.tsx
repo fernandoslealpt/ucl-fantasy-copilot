@@ -23,6 +23,24 @@ export function NewsScreen({ data, team, onOpen }: { data: Dataset; team: MyTeam
           </label>
         ) : null}
       </div>
+      {data.uefaReads.length ? (
+        <section className="uefa-reads">
+          <h2>{t('uefaReads')}</h2>
+          <p className="muted small-print">{t('uefaReadsHelp')}</p>
+          <ul className="news">
+            {data.uefaReads.slice(0, 8).map((r) => (
+              <li key={r.id} className="news-item news-uefa">
+                <span className="news-kind">{t(r.kind === 'fantasy' ? 'readFantasy' : r.kind === 'team-news' ? 'readTeamNews' : 'readPreview')}</span>
+                <a href={r.url} target="_blank" rel="noreferrer" className="news-title">
+                  {r.title}
+                </a>
+                <span className="news-meta muted">UEFA.com, {ago(r.publishedAt)}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+      <h2>{t('uefaNewsTitle')}</h2>
       {items.length === 0 ? <p className="muted">{t('noNews')}</p> : null}
       <ul className="news">
         {items.map((n) => (

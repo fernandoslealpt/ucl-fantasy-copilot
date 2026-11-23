@@ -179,6 +179,15 @@ export interface TeamRating {
   fixtures: TeamFixtureRating[];
 }
 
+/** Artigo do site oficial da UEFA (dicas do Fantasy, team news, antevisões): só título, link e data. */
+export interface UefaRead {
+  id: string;
+  title: string;
+  url: string;
+  publishedAt: string;
+  kind: 'fantasy' | 'team-news' | 'preview';
+}
+
 export type NewsKind = 'injury' | 'doubt' | 'return' | 'other';
 
 export interface NewsItem {
@@ -211,4 +220,5 @@ export interface Dataset {
   news: NewsItem[];
   targets: number[];
   injuries: Injury[];
+  uefaReads: UefaRead[];
 }
