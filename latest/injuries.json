@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-23T09:05:12.372Z",
+  "updatedAt": "2026-11-23T09:10:52.811Z",
   "injuries": [
     {
       "playerId": "250162177",
@@ -10,7 +10,7 @@
       "severity": "long",
       "status": "confirmed",
       "expectedBack": "2027-05-23T13:03:35.000Z",
-      "assumed": false,
+      "assumed": true,
       "outUntilGameday": 8,
       "evidence": [
         {
@@ -54,7 +54,7 @@
           }
         }
       ],
-      "basis": "Lesão longa (4 fontes): ausência indicada de 6 meses — \"Paris Saint-Germain Forward Desire Doue to Undergo Knee Surgery\"."
+      "basis": "Lesão longa (4 fontes): ausência estimada de 6 meses — \"Paris Saint-Germain Forward Desire Doue to Undergo Knee Surgery\"."
     },
     {
       "playerId": "250016833",
@@ -65,7 +65,7 @@
       "severity": "weeks",
       "status": "confirmed",
       "expectedBack": "2027-01-16T18:25:22.000Z",
-      "assumed": false,
+      "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
         {
@@ -99,7 +99,7 @@
           }
         }
       ],
-      "basis": "Lesão de semanas (3 fontes): ausência indicada de 8 semanas — \"Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury\"."
+      "basis": "Lesão de semanas (3 fontes): ausência estimada de 8 semanas — \"Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury\"."
     },
     {
       "playerId": "250106003",
