@@ -1,0 +1,180 @@
+{
+  "updatedAt": "2026-11-23T09:00:53.866Z",
+  "injuries": [
+    {
+      "playerId": "250162177",
+      "name": "D. Doué",
+      "teamId": "52747",
+      "teamName": "Paris",
+      "since": "2026-11-22T13:03:35.000Z",
+      "severity": "long",
+      "status": "confirmed",
+      "expectedBack": "2027-05-23T13:03:35.000Z",
+      "assumed": false,
+      "outUntilGameday": 8,
+      "evidence": [
+        {
+          "title": "PSG confirm Desire Doue ruled out for months with torn ACL",
+          "source": "Vanguard News",
+          "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQdDFaRmJTTWxmTkJtMUk1Nll2WlNUZVJxcy1xTjU5SS1QdTBRUXkzY3JqZVpmbkp5bndLcmtPY1VoYWxjdGlQNDh1Tjh2MmlIWmdxSE1qMmtGRzU1aE1TS2hNUGZzMzdzUjdBVWVRWnY1VWdMUUE0eGhQSFdVMWZOcnlYTVFUVkNsWVBWZGljQm9YY0UtLUVKdDRnSdIBoAFBVV95cUxNTURYNUpGWkk3Wk5kbDB4emprbGlEOWlJZzNOeGZNZW45ZFNCRUZFOFJCYVR0bE5GNHY5ZWliWS1IcGxBcHA4Y3Awakl2Skp2R2lMQTNHdUJnUDhvQjIxZkZNT1ZnQzQwRjVvZXVJSDZJUmtjc2FyTWEwVXJZN3VZYWhKaTd1UGExdFlBTEJ2b3J5aHlLWEZXUVJ3dkJ5QnA1?oc=5",
+          "publishedAt": "2026-11-22T13:03:35.000Z",
+          "duration": {
+            "kind": "long",
+            "weeks": 26
+          }
+        },
+        {
+          "title": "PSG winger Désiré Doué faces knee injury during Ligue 1 clash, to undergo surgery in November",
+          "source": "ANI News",
+          "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQVzM0MHZhOG1xZ29rTVNRcG1Kb3dUYm5xY2NOQ2RoeC1RVXIwWExGMzlSX0NRLURhbjdIWkpReldBeXA3aXh1UWd0RFBmRl9GSzhsbkFNaHA5eXlsazMxX2xHN0NFX3hsQTRvY1pKSnNfaldwNTgtSnV0M0R4UEoySWhfV2RmVUZPMXhNWWgtVkgzRHNkRUYzUTNzTFNDWEt3X3EteExVc2NOZDBVWmVnN2o1NVdOZ1BQaHo3di1KR1VfZm5kWmlKWUd0VVU1SFRqS09MTFkzVU53NW5ObXJlcGpiazNUUjFENjNZMg?oc=5",
+          "publishedAt": "2026-11-22T14:10:00.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "PSG's Doue to have surgery on ruptured ACL",
+          "source": "BBC",
+          "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1rNlpZNnZlemJUUmN2a2VMMGpwb09teUVHVUJnTnlfSnRzSEZvOVQtVS1Iak1aemFWRVdSTzBhLXhJb2dhMEVtSUpfSTNwQ2JacnVZQzJNOUtITTR3WXlLR25TQVd5TWJr?oc=5",
+          "publishedAt": "2026-11-22T15:50:05.000Z",
+          "duration": {
+            "kind": "long",
+            "weeks": 26
+          }
+        },
+        {
+          "title": "Paris Saint-Germain Forward Desire Doue to Undergo Knee Surgery",
+          "source": "ASHARQ AL-AWSAT English",
+          "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNVjN1emYxWkEyblNpS0lJZ21EYnNnS3B6V0tLY0ZqcEM2SUhrR3hFSWdKWmxnMEJrX2V2Y3dDLWF4UTlKOUliRHA0M1ltLXQ3NGdKRWVjb3g5aHItOUtYbTNjZFVIS29fVktvTW52ZVJSUVE5UWhpOUtzWUV3dmVNYXFNRmVuWEJaZ2xMZmtzU2xpcURzMURjdTNLWGxtSHlLdDlQVQ?oc=5",
+          "publishedAt": "2026-11-22T17:23:16.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        }
+      ],
+      "basis": "Lesão longa (4 fontes): ausência indicada de 6 meses — \"Paris Saint-Germain Forward Desire Doue to Undergo Knee Surgery\"."
+    },
+    {
+      "playerId": "250016833",
+      "name": "H. Kane",
+      "teamId": "50037",
+      "teamName": "Bayern München",
+      "since": "2026-11-21T18:25:22.000Z",
+      "severity": "weeks",
+      "status": "confirmed",
+      "expectedBack": "2027-01-16T18:25:22.000Z",
+      "assumed": false,
+      "outUntilGameday": 6,
+      "evidence": [
+        {
+          "title": "2026 Ballon d’Or winner Harry Kane undergoes surgery after suffering ankle ligament injury",
+          "source": "Citi Sports Online",
+          "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPcUtRSkowSzBMU2xDUzlfRzB5SDE4UmhHNWFoUWxLeG1qRFlpdjl3WEFWZDFmSy1CNTdRb2JJUnBwYTNJR2R3WlBZUk5xak9VdHB5X0tDaE0xNjQ2a3hEWEZkZkRIUkxrLWMwZG9ndk1nS0pKd002V05xMkF6dVJtcHl2aGI1QTktT3dZcmR4UThJOGMxa05uREJ6S3VJclpQcXlGX2c0Y2k2dnhxemtRb095TXNJekItczBDM2I2STQzZ2ZqekE?oc=5",
+          "publishedAt": "2026-11-21T18:25:22.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "Bayern draw 1-1 with Cologne and lose Kane to injury",
+          "source": "Tu Futbolero",
+          "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNTmlsUjkzX0QyTTJRU0MzdDRtRjhrUDh5d0daaURiQzVxMWluNUxHdDA1LW1WQ0x6OXhOcks0ek1RTXVQVWFEVUtlTDF1WDdiaVAxa1k3cFJlWlFwN04tRTRFLVZNdVFCa3lfeE9rS0lWTVFocGZxbU9jZmdDekh3OU5uQ0daVU44OFZvdTUtQWVVQ2xVSXdPU2VXUQ?oc=5",
+          "publishedAt": "2026-11-22T23:27:28.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
+        },
+        {
+          "title": "Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury",
+          "source": "Bavarian Football Works",
+          "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNczRpakptN1JMQjU4V05aTGVLckRJWGNWM0FacjdpclRWbjc2ODdTMkI0dmpfbTM3Y2ZBakNpVW1pT1plWUR3bHRZQmo4cmowNFN5bnFEdEloU1JVVmVFMEExNTVyLVBXTmtONGJSYVBlQUE0SEQ0MEZzT0dxY3I4aEUyY09ESm5NaVNhelc3cWUxdnVoSUU4Nk5GajRZSWp1bkVrSXM1LWNnRHZVaUlzQXhZR0NGdWpwS0ZkRk8zSEJWYWkwT2FNdl9HcURqa2NzV3ZpM1c2NUFsWEtfUFVRWg?oc=5",
+          "publishedAt": "2026-11-23T05:00:00.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
+        }
+      ],
+      "basis": "Lesão de semanas (3 fontes): ausência indicada de 8 semanas — \"Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury\"."
+    },
+    {
+      "playerId": "250106003",
+      "name": "N. Pépé",
+      "teamId": "70691",
+      "teamName": "Villarreal",
+      "since": "2026-11-22T22:26:00.000Z",
+      "severity": "weeks",
+      "status": "confirmed",
+      "expectedBack": "2027-01-17T22:26:00.000Z",
+      "assumed": true,
+      "outUntilGameday": 6,
+      "evidence": [
+        {
+          "title": "Villarreal forced to make statement about cause of Nicolas Pepe eye injury",
+          "source": "talkSPORT",
+          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQcFBLc3F6bUJwcVVGTDQwYWFQUWVZZEZXbk1PMWlvQmFJN2lRTUtjUlNObzZ3bkcxSk9rMDRlMDFaNm13ZnNNLUhHRWtFTE5SVGRJQjFUR3RPOFdhdmhEa3pHUVZUd1dYdjhWZXBmOTJfWTlJVGpubXI2M1ZGaGc0SHhqSG1fRks4aEdXWE9R?oc=5",
+          "publishedAt": "2026-11-22T23:10:25.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
+        },
+        {
+          "title": "Villarreal say Pepe’s eye surgery not linked to watching solar eclipse",
+          "source": "Free Malaysia Today",
+          "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPWENQNzFaWkd3U05ZNlFnS0REQkpKVmVqY3Z5ZF8xUzFhejRNamFCbHBlT0FxNVFsVEU1c19QRFA0R1NMQ3NqV0duZjd1X0oxSXFkOE02bE1iRHlQa1ZWLUlrc2lvYUdmVFJhRDBZdDhmWlpHT2lLUWdOMGNGRG44aEF0b20tM21oNzFZYXBPU0Zzdk9lQ1JLbnJUOGZsOUFsX3pjdnd6UHJxVTVKV3RaaE81V0NDWDFYSGhtY2l6c1BMMjdWOUU0TjNxWQ?oc=5",
+          "publishedAt": "2026-11-23T03:12:00.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "Pepe’s eye surgery unrelated to solar eclipse – Villarreal",
+          "source": "Punch Newspapers",
+          "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOc2FEMFZHcEV0bWtnOXBBbnFDZ042ODZ5R1FEUG1LcFNXZEdUMHl0YTd1YjY5b0U0Sk1CY1VGVFZXOWx0ZjlFVURfUkEzUllQdGZPRGFqQ1hHVUxGYkRKUTBJSDhuNjROd1pFMGg2RzNfUUlvcGFMMlMwR0oxT2JsbzJqNDROODA?oc=5",
+          "publishedAt": "2026-11-23T05:41:57.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "Villarreal blast 'false' claims that former Arsenal record signing Nicolas Pepe required eye surgery after watching solar eclipse",
+          "source": "Goal.com",
+          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNUUFaUHhOeEdrY2Uwd0RIVk9JN0NkTHVJcUFMWENOdjlhN0FGdUlhTzVZSmNHbFZKQU80d21HZkt2bG9LTU5XSUUxVVd5VF9EUHZSZlloWFhtVVJaa0dMd0RkRGwzMjhIdWo2WFdLZ0Qwdnp6NnpkemlsNEJnQlJPWHUzTU8xX3hfdExqbnJablZJc21GTW5mTUxsdTdFR0VxY3k1dWxHWlhadw?oc=5",
+          "publishedAt": "2026-11-23T06:00:31.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "Villarreal Denies Solar Eclipse Link to Nicolas Pepe Surgery",
+          "source": "streamlinefeed.co.ke",
+          "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPWkRteHNxZDdTWUhkelowWF91c2tPczZUeWwyeU9ueGV0dFk2N3MzekpmM0RZWGdlc3BxaXNZeTRMTzRVbU8xLU5fcDVzeXd6NGFMUWlqd2M5cFdXdzZONFh3Z01ra21EQWEzVlVfbDM4X2J5QlpqaDlwQVd6bTRUQUl4NUdmTjdsVUx3ZHgwNklRVUdDUUlucURB?oc=5",
+          "publishedAt": "2026-11-23T06:15:00.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "Nicolas Pépé hits back at reports linking his eye surgery to the solar eclipse",
+          "source": "Dailysports",
+          "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQMFpvTDI3RzNBU0l3WFNVVWJWMWtKZVdBRFZqV2RKRV9Vei1CUkx3czRkbHlxZU5yZVNEa21rbXhKa1oxTUhuZkJXSW9Zenp4bERLZC1uWVJxX1YySXpWWmJrUUZLV190UFJwVXBsVUkwcjlMTERlY3lQWW4zX3FoTXJDQnotcmhZZzdUVlJ3cXh0QjdkeEpyY1FOTHJpYUFCc0RoeW43bHFCeUR3?oc=5",
+          "publishedAt": "2026-11-23T07:39:53.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        }
+      ],
+      "basis": "Lesão de semanas (8 fontes): ausência estimada de 8 semanas — \"Nicolas Pépé hits back at reports linking his eye surgery to the solar eclipse\"."
+    }
+  ]
+}

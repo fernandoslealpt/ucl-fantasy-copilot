@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** segunda, 23/11, 02:52 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** segunda, 23/11, 09:00 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | segunda, 23/11, 02:52 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | segunda, 23/11, 02:52 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | segunda, 23/11, 02:52 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | segunda, 23/11, 02:52 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | segunda, 23/11, 02:52 |  |
+| uefaMatches | ✅ ok | 3 | 144 | segunda, 23/11, 09:00 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | segunda, 23/11, 09:00 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | segunda, 23/11, 09:00 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | segunda, 23/11, 09:00 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | segunda, 23/11, 09:00 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 266 | segunda, 23/11, 02:52 |  |
-| rotowire | ✅ ok | 1 | 36 | segunda, 23/11, 02:52 |  |
+| googleNews | ✅ ok | 37 | 265 | segunda, 23/11, 09:00 |  |
+| rotowire | ✅ ok | 1 | 36 | segunda, 23/11, 09:00 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -22,7 +22,7 @@
 
 - Pontos por jornada: 274/1173 diferem do valor oficial do feed
 
-## Modelo xP v1.3.0 — próximas jornadas J5, J6, J7, J8
+## Modelo xP v1.4.0 — próximas jornadas J5, J6, J7, J8
 
 **Teste nas jornadas jogadas** (previsão feita só com dados anteriores):
 
@@ -39,7 +39,7 @@
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1 | N. Paz | Como | MID | 7.1 | 8.2 | 17.6 | 2.47 | 78% | vs AEK Athens | média |
 | 2 | Raphinha | Barcelona | MID | 9.6 | 7.8 | 19.0 | 1.98 | 87% | @ Sabah | alta |
-| 3 | L. Yamal | Barcelona | MID | 10.2 | 7.7 | 19.4 | 1.91 | 89% | @ Sabah | alta |
+| 3 | L. Yamal | Barcelona | MID | 10.2 | 7.7 | 19.4 | 1.90 | 89% | @ Sabah | alta |
 | 4 | T. Douvikas | Como | FWD | 6.6 | 7.7 | 16.8 | 2.54 | 81% | vs AEK Athens | média |
 | 5 | J. Alvarez | Atleti | FWD | 10.0 | 7.1 | 16.4 | 1.64 | 88% | vs Viking | alta |
 | 6 | Fermín López | Barcelona | MID | 7.0 | 6.5 | 15.8 | 2.26 | 85% | @ Sabah | alta |
@@ -67,7 +67,7 @@
 | 3 | H. Kane | Bayern München | FWD | 11.2 | 39 | 5 (J4) | 360 | 49 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
 | 4 | Fabián Ruiz | Paris | MID | 6.8 | 37 | 16 (J4) | 354 | 4 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
 | 5 | T. Douvikas | Como | FWD | 6.6 | 37 | 20 (J4) | 246 | 4 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
-| 6 | D. Doué | Paris | MID | 8.6 | 35 | 9 (J4) | 218 | 15 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
+| 6 | D. Doué | Paris | MID | 8.6 | 35 | 9 (J4) | 218 | 15 | fora | J5 vs Roma · quarta, 25/11, 20:00 |
 | 7 | N. Tresoldi | Club Brugge | FWD | 7.3 | 34 | 6 (J4) | 336 | 4 | disponível | J5 vs Liverpool · quarta, 25/11, 20:00 |
 | 8 | Carlos Augusto | Inter | DEF | 4.2 | 34 | 9 (J4) | 263 | 7 | disponível | J5 vs Stuttgart · quarta, 25/11, 20:00 |
 | 9 | Raphinha | Barcelona | MID | 9.6 | 33 | 15 (J4) | 201 | 36 | disponível | J5 @ Sabah · quarta, 25/11, 17:45 |
@@ -95,13 +95,13 @@
 
 <details><summary>Valores de estado no feed</summary>
 
-- 856 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
+- 864 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
 - 126 × pStatus=NIS · qStatus=∅ · trained=∅
-- 92 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
+- 86 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
 - 54 × pStatus=∅ · qStatus=∅ · trained=∅
-- 23 × pStatus=D · qStatus=∅ · trained=In contention to start next game
-- 16 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
-- 3 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
-- 3 × pStatus=S · qStatus=∅ · trained=∅
+- 19 × pStatus=D · qStatus=∅ · trained=In contention to start next game
+- 14 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
+- 6 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
+- 4 × pStatus=S · qStatus=∅ · trained=∅
 
 </details>
