@@ -59,7 +59,14 @@ export function DiaryScreen({ data, history, onRecord }: { data: Dataset; histor
           ev={ev}
           data={data}
           onPoints={(p) => onRecord(rec.gameday, { officialPoints: p })}
-          onClear={() => confirm(t('diaryClearConfirm', { gd: rec.gameday })) && onRecord(rec.gameday, { done: undefined })}
+          squad={rec.squad ?? []}
+          onClear={() => confirm(t('diaryClearConfirm', { gd: rec.gameday })) && onRecord(rec.gameday, { done: undefined, clearedAt: new Date().toISOString() })}
+          onAddSwap={(out, inn) =>
+            onRecord(rec.gameday, (cur) => ({
+              done: { ...(cur?.done ?? { swaps: [], hits: 0 }), swaps: [...(cur?.done?.swaps ?? []), { out, in: inn }], noMove: false },
+              squad: cur?.squad ? cur.squad.map((x) => (x === out ? inn : x)) : cur?.squad,
+            }))
+          }
         />
       ))}
     </section>
@@ -94,7 +101,26 @@ function PointsChart({ evals }: { evals: GdEvaluation[] }) {
   );
 }
 
-function GamedayCard({ ev, data, onPoints, onClear }: { ev: GdEvaluation; data: Dataset; onPoints: (p: number | null) => void; onClear: () => void }) {
+function GamedayCard({
+  ev,
+  data,
+  onPoints,
+  onClear,
+  squad,
+  onAddSwap,
+}: {
+  ev: GdEvaluation;
+  data: Dataset;
+  onPoints: (p: number | null) => void;
+  onClear: () => void;
+  squad: string[];
+  onAddSwap: (out: string, inn: string) => void;
+}) {
+  const [addOut, setAddOut] = useState('');
+  const [addIn, setAddIn] = useState('');
+  const squadSet = new Set(squad);
+  const outOptions = squad.length ? squad : data.rows.map((r) => r.id);
+  const inOptions = data.rows.filter((r) => !squadSet.has(r.id)).sort((a, b) => a.name.localeCompare(b.name));
   const { t, num } = useI18n();
   const name = (id: string) => data.byId.get(id)?.name ?? id;
   const [input, setInput] = useState(ev.officialPoints != null ? String(ev.officialPoints) : '');
@@ -166,6 +192,45 @@ function GamedayCard({ ev, data, onPoints, onClear }: { ev: GdEvaluation; data: 
         <span className="muted small-print">{t('diaryOfficialHelp')}</span>
         {err ? <span className="hint error">{err}</span> : null}
       </div>
+      <details className="diary-add">
+        <summary>{t('diaryAddSwap')}</summary>
+        <div className="diary-points">
+          <label>
+            {t('diaryOut')}
+            <select value={addOut} onChange={(e) => setAddOut(e.target.value)}>
+              <option value="">—</option>
+              {outOptions.map((id) => (
+                <option key={id} value={id}>
+                  {name(id)}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            {t('diaryIn')}
+            <select value={addIn} onChange={(e) => setAddIn(e.target.value)}>
+              <option value="">—</option>
+              {inOptions.map((r) => (
+                <option key={r.id} value={r.id}>
+                  {r.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button
+            type="button"
+            className="btn small"
+            disabled={!addOut || !addIn}
+            onClick={() => {
+              onAddSwap(addOut, addIn);
+              setAddOut('');
+              setAddIn('');
+            }}
+          >
+            {t('diaryAdd')}
+          </button>
+        </div>
+      </details>
       {ev.done.length || ev.captain ? (
         <p className="small-print">
           <button type="button" className="link" onClick={onClear}>
