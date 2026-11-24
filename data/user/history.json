@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-24T08:55:15.991Z",
+  "updatedAt": "2026-11-24T10:30:22.819Z",
   "gamedays": {
     "5": {
       "gameday": 5,
-      "updatedAt": "2026-11-24T08:55:15.991Z",
+      "updatedAt": "2026-11-24T10:30:22.819Z",
       "recommended": {
         "swaps": [
           {
@@ -57,6 +57,11 @@
         "250218560": 2.11
       },
       "teamXp": 55.24,
+      "done": {
+        "swaps": [],
+        "hits": 0,
+        "chip": "wildcard"
+      },
       "recommendedNoCut": {
         "swaps": [
           {
