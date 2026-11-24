@@ -1,18 +1,18 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** segunda, 23/11, 14:48 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** terça, 24/11, 02:55 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | segunda, 23/11, 14:48 |  |
-| uefaFantasy | ✅ ok | 1 | 1173 | segunda, 23/11, 14:48 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | segunda, 23/11, 14:48 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1173 | segunda, 23/11, 14:48 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | segunda, 23/11, 14:48 |  |
+| uefaMatches | ✅ ok | 3 | 144 | terça, 24/11, 02:55 |  |
+| uefaFantasy | ✅ ok | 1 | 1173 | terça, 24/11, 02:55 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | terça, 24/11, 02:55 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1173 | terça, 24/11, 02:55 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | terça, 24/11, 02:55 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 270 | segunda, 23/11, 14:48 |  |
-| uefaReads | ✅ ok | 1 | 7 | segunda, 23/11, 14:48 |  |
-| rotowire | ✅ ok | 1 | 36 | segunda, 23/11, 14:48 |  |
+| googleNews | ✅ ok | 36 | 275 | terça, 24/11, 02:55 |  |
+| uefaReads | ✅ ok | 1 | 8 | terça, 24/11, 02:55 |  |
+| rotowire | ✅ ok | 1 | 36 | terça, 24/11, 02:55 |  |
 
 **Totais:** 1173 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -51,30 +51,30 @@
 | 11 | E. Anderson | Man City | MID | 7.0 | 5.4 | 15.0 | 2.14 | 83% | vs Napoli | média |
 | 12 | Vitinha | Paris | MID | 7.7 | 5.3 | 16.3 | 2.11 | 89% | vs Roma | alta |
 | 13 | C. Nkunku | Leipzig | FWD | 7.0 | 5.3 | 11.3 | 1.62 | 78% | vs Lens | média |
-| 14 | Fabián Ruiz | Paris | MID | 6.8 | 5.3 | 15.6 | 2.29 | 87% | vs Roma | alta |
+| 14 | Fabián Ruiz | Paris | MID | 6.8 | 5.3 | 15.6 | 2.30 | 87% | vs Roma | alta |
 | 15 | S. Brunstad Fet | Bodø/Glimt | MID | 5.1 | 5.1 | 13.9 | 2.72 | 87% | vs LASK | alta |
 | 16 | J. Ramón | Como | DEF | 4.1 | 5.1 | 10.8 | 2.64 | 81% | vs AEK Athens | média |
 | 17 | E. Fernández | Man City | MID | 7.5 | 5.1 | 14.6 | 1.95 | 86% | vs Napoli | alta |
-| 18 | D. Hancko | Atleti | DEF | 4.5 | 5.0 | 12.7 | 2.82 | 88% | vs Viking | alta |
-| 19 | B. Gruda | Leipzig | MID | 5.2 | 5.0 | 10.9 | 2.10 | 80% | vs Lens | média |
-| 20 | K. Adeyemi | Barcelona | FWD | 7.2 | 5.0 | 9.3 | 1.29 | 68% | @ Sabah | média |
+| 18 | M. Baturina | Como | MID | 5.7 | 5.1 | 10.9 | 1.91 | 76% | vs AEK Athens | média |
+| 19 | D. Hancko | Atleti | DEF | 4.5 | 5.0 | 12.7 | 2.82 | 88% | vs Viking | alta |
+| 20 | B. Gruda | Leipzig | MID | 5.2 | 5.0 | 10.9 | 2.10 | 80% | vs Lens | média |
 
 ## Top 15 por pontos
 
 | # | Jogador | Equipa | Pos | €M | Pts | Últ. J | Min | % sel. | Estado | Próximo jogo |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | N. Paz | Como | MID | 7.1 | 43 | 13 (J4) | 318 | 22 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
-| 2 | L. Yamal | Barcelona | MID | 10.2 | 41 | 8 (J4) | 360 | 48 | fora | J5 @ Sabah · quarta, 25/11, 17:45 |
-| 3 | H. Kane | Bayern München | FWD | 11.2 | 39 | 5 (J4) | 360 | 48 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
+| 1 | N. Paz | Como | MID | 7.1 | 43 | 13 (J4) | 318 | 23 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
+| 2 | L. Yamal | Barcelona | MID | 10.2 | 41 | 8 (J4) | 360 | 45 | fora | J5 @ Sabah · quarta, 25/11, 17:45 |
+| 3 | H. Kane | Bayern München | FWD | 11.2 | 39 | 5 (J4) | 360 | 45 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
 | 4 | Fabián Ruiz | Paris | MID | 6.8 | 37 | 16 (J4) | 354 | 4 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
-| 5 | T. Douvikas | Como | FWD | 6.6 | 37 | 20 (J4) | 246 | 4 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
-| 6 | D. Doué | Paris | MID | 8.6 | 35 | 9 (J4) | 218 | 14 | fora | J5 vs Roma · quarta, 25/11, 20:00 |
+| 5 | T. Douvikas | Como | FWD | 6.6 | 37 | 20 (J4) | 246 | 5 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
+| 6 | D. Doué | Paris | MID | 8.6 | 35 | 9 (J4) | 218 | 13 | fora | J5 vs Roma · quarta, 25/11, 20:00 |
 | 7 | N. Tresoldi | Club Brugge | FWD | 7.3 | 34 | 6 (J4) | 336 | 4 | disponível | J5 vs Liverpool · quarta, 25/11, 20:00 |
-| 8 | Carlos Augusto | Inter | DEF | 4.2 | 34 | 9 (J4) | 263 | 7 | disponível | J5 vs Stuttgart · quarta, 25/11, 20:00 |
-| 9 | Raphinha | Barcelona | MID | 9.6 | 33 | 15 (J4) | 201 | 37 | disponível | J5 @ Sabah · quarta, 25/11, 17:45 |
+| 8 | Carlos Augusto | Inter | DEF | 4.2 | 34 | 9 (J4) | 263 | 8 | disponível | J5 vs Stuttgart · quarta, 25/11, 20:00 |
+| 9 | Raphinha | Barcelona | MID | 9.6 | 33 | 15 (J4) | 201 | 38 | disponível | J5 @ Sabah · quarta, 25/11, 17:45 |
 | 10 | K. Mbappé | Real Madrid | FWD | 11.1 | 32 | 6 (J4) | 357 | 63 | disponível | J5 vs PSV · terça, 24/11, 20:00 |
 | 11 | Vitinha | Paris | MID | 7.7 | 32 | 7 (J4) | 344 | 19 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
-| 12 | A. Davies | Bayern München | DEF | 5.2 | 32 | 7 (J4) | 289 | 11 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
+| 12 | A. Davies | Bayern München | DEF | 5.2 | 32 | 7 (J4) | 289 | 10 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
 | 13 | A. Batrakov | Galatasaray | MID | 4.6 | 32 | 17 (J4) | 284 | 2 | disponível | J5 vs Aston Villa · terça, 24/11, 17:45 |
 | 14 | D. Malen | Roma | FWD | 6.8 | 31 | 5 (J4) | 314 | 12 | disponível | J5 @ Paris · quarta, 25/11, 20:00 |
 | 15 | Carlos Forbs | Club Brugge | MID | 6.3 | 31 | 6 (J4) | 349 | 2 | disponível | J5 vs Liverpool · quarta, 25/11, 20:00 |
@@ -98,11 +98,11 @@
 
 - 860 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
 - 126 × pStatus=NIS · qStatus=∅ · trained=∅
-- 89 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
+- 88 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
 - 54 × pStatus=∅ · qStatus=∅ · trained=∅
 - 20 × pStatus=D · qStatus=∅ · trained=In contention to start next game
 - 14 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
-- 6 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
+- 7 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
 - 4 × pStatus=S · qStatus=∅ · trained=∅
 
 </details>

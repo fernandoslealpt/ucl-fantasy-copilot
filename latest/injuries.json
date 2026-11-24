@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-23T14:48:21.627Z",
+  "updatedAt": "2026-11-24T02:55:53.585Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -95,16 +95,6 @@
       "outUntilGameday": 6,
       "evidence": [
         {
-          "title": "David Raya injury: Arsenal goalkeeper avoids surgery and blow is not as bad as first feared, says Mikel Arteta",
-          "source": "Sky Sports",
-          "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPR0xkZEJHWkFBQmhQYW44Q2NuYmdvc0luSTZYdWIydWlKNmwxSGxlSFY1cExfWjFCNmxiT1NtY3JRajA5bTFiYzFuXzZBMVF4bDJXcDZoR1BaLUZ3NU85VHg0Rm94NUlrUEpvam5ZVmFBLTRaTFFkYTRjS18ydjh3ZWxGUnVPMGYwVnpOTkpCemhHX1A5QlU0QzNVZ0ZaMHVDa3JGVHRzRXo4V2lFT1BBQ0N3ZUtUVVFtcXBNZ2wxdGJWeGZYdEdIUHkzS0o1UlVrZ3Y1SEgyN21lMk1uQWVsWTF1djROQW8zcW1VcHdn?oc=5",
-          "publishedAt": "2026-11-23T14:21:43.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 8
-          }
-        },
-        {
           "title": "Arsenal: Arteta gives shock Raya injury update as the goalkeeper is ruled out of Dortmund clash",
           "source": "Football365",
           "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOZy15blpTR1VNZlFLMmdjRjlKZXJkSkJ1TUVZbU5GenNxekMyc0JEZFZZdnluVjdVamllMHFQZnJkaXc2ZXlnNHlxcDYteS1tQWxRN0l0Znc1a1d0S2ViOUlHTWtLdWRxM1lIUnR1cjF1WS1aTkVpa3V6dURhM3FCcQ?oc=5",
@@ -153,9 +143,19 @@
             "kind": "weeks",
             "weeks": 8
           }
+        },
+        {
+          "title": "David Raya’s shoulder injury ‘not too serious’ and no surgery needed for Arsenal goalkeeper",
+          "source": "The Guardian",
+          "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQUTFJR1FEOFFEQWNMaGFxeEFUUnBHWGdQUUlzOThHaG9ac2pyTTBreHFpVHlvcV91Y0NHWlpGWW1PVU1PTnBNMDlVTkVGbXRjcGdnNTNLcHg4dGZLNVFDQi1uOFBHanJiSjhvLWZBZEdlYVpNX3NNSXhTWHcwdWw1ZF9UbUctQU4tU0UyMjdDcng1N1dGUm1JcGkyS0JqSEdraGlvQ3dCYw?oc=5",
+          "publishedAt": "2026-11-23T21:50:00.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Relief for Arteta and Arsenal as Raya avoids surgery on injured arm\"."
+      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"David Raya’s shoulder injury ‘not too serious’ and no surgery needed for Arsenal goalkeeper\"."
     },
     {
       "playerId": "250194573",
@@ -269,7 +269,7 @@
           "title": "Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury",
           "source": "Bavarian Football Works",
           "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNczRpakptN1JMQjU4V05aTGVLckRJWGNWM0FacjdpclRWbjc2ODdTMkI0dmpfbTM3Y2ZBakNpVW1pT1plWUR3bHRZQmo4cmowNFN5bnFEdEloU1JVVmVFMEExNTVyLVBXTmtONGJSYVBlQUE0SEQ0MEZzT0dxY3I4aEUyY09ESm5NaVNhelc3cWUxdnVoSUU4Nk5GajRZSWp1bkVrSXM1LWNnRHZVaUlzQXhZR0NGdWpwS0ZkRk8zSEJWYWkwT2FNdl9HcURqa2NzV3ZpM1c2NUFsWEtfUFVRWg?oc=5",
-          "publishedAt": "2026-11-23T13:00:00.000Z",
+          "publishedAt": "2026-11-23T18:15:00.000Z",
           "duration": {
             "kind": "unknown",
             "weeks": null
@@ -283,43 +283,13 @@
       "name": "N. Pépé",
       "teamId": "70691",
       "teamName": "Villarreal",
-      "since": "2026-11-22T23:10:25.000Z",
+      "since": "2026-11-23T06:15:00.000Z",
       "severity": "weeks",
       "status": "confirmed",
-      "expectedBack": "2027-01-17T23:10:25.000Z",
+      "expectedBack": "2027-01-18T06:15:00.000Z",
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
-        {
-          "title": "Villarreal Denies Solar Eclipse Link to Nicolas Pepe Surgery",
-          "source": "streamlinefeed.co.ke",
-          "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPWkRteHNxZDdTWUhkelowWF91c2tPczZUeWwyeU9ueGV0dFk2N3MzekpmM0RZWGdlc3BxaXNZeTRMTzRVbU8xLU5fcDVzeXd6NGFMUWlqd2M5cFdXdzZONFh3Z01ra21EQWEzVlVfbDM4X2J5QlpqaDlwQVd6bTRUQUl4NUdmTjdsVUx3ZHgwNklRVUdDUUlucURB?oc=5",
-          "publishedAt": "2026-11-23T06:15:00.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 8
-          }
-        },
-        {
-          "title": "Nicolas Pépé hits back at reports linking his eye surgery to the solar eclipse",
-          "source": "Dailysports",
-          "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQMFpvTDI3RzNBU0l3WFNVVWJWMWtKZVdBRFZqV2RKRV9Vei1CUkx3czRkbHlxZU5yZVNEa21rbXhKa1oxTUhuZkJXSW9Zenp4bERLZC1uWVJxX1YySXpWWmJrUUZLV190UFJwVXBsVUkwcjlMTERlY3lQWW4zX3FoTXJDQnotcmhZZzdUVlJ3cXh0QjdkeEpyY1FOTHJpYUFCc0RoeW43bHFCeUR3?oc=5",
-          "publishedAt": "2026-11-23T07:39:53.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 8
-          }
-        },
-        {
-          "title": "Villarreal shut down viral story blaming Pepe’s eye surgery on the solar eclipse",
-          "source": "Lente Desportiva",
-          "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOdGN3WkxzT25CcmR2M2puMEJXdnZDZDJsNEZucWU1VlE2MmdjTF94Sll4Nk44aFR0bDlPQ0paU1FLUE4ybEdWZFI5UTg5eTNHckJlLUI1TnZ3WmY0VHhoeUdWUlFRZkswV0VIRzRpZ0pzcXdTSnpYNnlSV1RFZ29QRExjaGNScXhfVTVNQ0lINWhVblp2ZGQ2QXJKaVVtYmI1RkRWaFl0ZHNmX1l5?oc=5",
-          "publishedAt": "2026-11-23T11:00:00.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 8
-          }
-        },
         {
           "title": "FILE: Villarreal deny Nicolas Pépé eye surgery was due to viewing solar eclipse",
           "source": "News.com.au",
@@ -349,9 +319,39 @@
             "kind": "weeks",
             "weeks": 8
           }
+        },
+        {
+          "title": "Villarreal deny link between Nicolas Pepe's eye surgery and watching solar eclipse",
+          "source": "Elbotola",
+          "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBsbnJ2aXBta1hwU2k1TW1NNGhmNEttR0NtSG9kMkNwRjhlU2NUeGFDZGpMbTlvWHNsWC1vYlVKWXk1YVF2eHBzQ0dUY3FseC1TZWJSaXZKd1BmLXEzWTEtcGJsVFZzOUVmMm1F?oc=5",
+          "publishedAt": "2026-11-23T15:10:46.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "Villarreal dismiss claims Pepe’s eye surgery linked to solar eclipse |",
+          "source": "The Eagle Online",
+          "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNcW9MM1VYR2xzeGF6Q19qbFk4M19PTW1hdE1NMjZsN28wR0tGTEdQYldWa1JUTnV6ZnZoM0ZPOTJsdlNEQUFzTU0tWEpwU2NhVm15dF9namdMUl9scWRXT21ja01WcnBiR0tBSmlGTmJxVWo3LTlQNDZnNlJ1SzJvQXB0R1dqY0ZIUUJSWWE4VmpCN3ZBMlJ5Xy1TTUIybE0?oc=5",
+          "publishedAt": "2026-11-23T15:24:26.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "Villarreal dismiss reports claiming Nicolas Pepe underwent eye surgery after watching solar eclipse",
+          "source": "Pulse Ghana",
+          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQZTdEU0gwV1pXeG5Wby1oaGpib1ZpZll1ZVB4VWgzeXpKM2JOdUFzR0JfRjRpTlF4R05zQkpGMjlQWWVTWU4wWXY5YS1IRTdUaXRLZHcyWmMxOHV0WmxmeTRlUlZNSUpEZ0RkcmZMb1NuOElrYnVYZUh3R2NoaHJQcktIdjV6S3RsY2toOS1RSTZwUGVOR3R2V18xeURGRENjVXRjWDl0WnRRdw?oc=5",
+          "publishedAt": "2026-11-23T16:16:56.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
         }
       ],
-      "basis": "Lesão de semanas (9 fontes): ausência estimada de 8 semanas — \"Villarreal say Pepe’s eye surgery not linked to watching solar eclipse\"."
+      "basis": "Lesão de semanas (9 fontes): ausência estimada de 8 semanas — \"Villarreal dismiss reports claiming Nicolas Pepe underwent eye surgery after watching solar eclipse\"."
     },
     {
       "playerId": "250132987",
@@ -374,9 +374,19 @@
             "kind": "weeks",
             "weeks": 8
           }
+        },
+        {
+          "title": "'Very important striker' - Emery insists Galatasaray can cope without injured Osimhen",
+          "source": "AllNigeriaSoccer",
+          "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPYWdQY0oxVnRrX0Y3cnAyQ00yZkt2ajYxX0lyNGdIQUhqQUZpUW5IMTVKdWk5VEdNbHVqZ0t0MVRhV0ZWTXAzMF9XYm5zLTdUU1RvNW9XSDdRSnFQaHhkdXc2WVRweS1QLWlyNHVsdjhtTFlCdG5mZjBSVGJfUjJYaERoMGF5RWhNclVHV1lrX3hkQlBaZzlfVVhvTW5MMHpicmN3bEtHZ016Ums3bng2X3BUM2k?oc=5",
+          "publishedAt": "2026-11-23T19:06:42.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (1 fonte): ausência estimada de 8 semanas — \"Osimhen to miss Galatasaray v Aston Villa after knee surgery\"."
+      "basis": "Lesão de semanas (2 fontes): ausência estimada de 8 semanas — \"'Very important striker' - Emery insists Galatasaray can cope without injured Osimhen\"."
     }
   ]
 }
