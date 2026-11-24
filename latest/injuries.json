@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T08:47:58.664Z",
+  "updatedAt": "2026-11-24T08:54:24.087Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -97,10 +97,10 @@
       "name": "D. Raya",
       "teamId": "52280",
       "teamName": "Arsenal",
-      "since": "2026-11-23T14:24:39.000Z",
+      "since": "2026-11-23T14:42:00.000Z",
       "severity": "weeks",
       "status": "confirmed",
-      "expectedBack": "2027-01-18T14:24:39.000Z",
+      "expectedBack": "2027-01-18T14:42:00.000Z",
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
@@ -165,82 +165,7 @@
           }
         }
       ],
-      "basis": "Lesão de semanas (8 fontes): ausência estimada de 8 semanas — \"'Doesn't look too serious' - Arteta delivers encouraging Raya Arsenal injury update\"."
-    },
-    {
-      "playerId": "250194573",
-      "name": "Endrick",
-      "teamId": "50051",
-      "teamName": "Real Madrid",
-      "since": "2026-11-23T13:16:07.000Z",
-      "severity": "weeks",
-      "status": "confirmed",
-      "expectedBack": "2026-12-14T13:16:07.000Z",
-      "assumed": false,
-      "outUntilGameday": 6,
-      "evidence": [
-        {
-          "title": "Real Madrid: Endrick suffers second muscle injury of season as Milan watch, but what could change in January?",
-          "source": "LiveScore",
-          "url": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxQdjlaUG9DSlppa2lmSjQ4OWpiX0U3Nm81T1JHNkN2WVpfV2NINFVxUnpETTlDd0RReGhaYm5tTWRQUndHRGdqRUxQNTJhUnJybWNJeC1PX0lOcUhWbFRPMkRRNVM2WGgzT0tLWmtKS1JOc29henJoT3Bmb1hDSU1Pb1FjTnBpZDdrc0dnTmI4N0U0RV81RHl1U1Rld1ZYcXktN3c1aEw3RDZTUzZyNzAta2ZlSGkzb2RpWVdka0NSckJZMXVnbWxwN3d1UFhHdzc0MUp3OWt0bEl6SWhKcEU0ZDRNTlBCMW5teHR6VEZCSDhISFpZOFNzdnZSQlVhenM?oc=5",
-          "publishedAt": "2026-11-23T14:18:16.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
-          "title": "Real Madrid says striker Endrick will be sidelined with a muscle injury",
-          "source": "巴士的報",
-          "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQaE1Ua1pwTXEyRXFONlp0d3N4SDdZLTJGVzRqLTFGeU5wLU95OTNFRnYzYXlnOFpyaHlSTnNQNHhrZVl1VF9VTGN6VWlnTDZnRlBsR3pVcGphYXo0akRjUVNSbUR3bUVYYm1JY2drbklNZHRvMXJiemF6eXZXS2NaRjRiTTFETEpJYU9mMWtBclQ1RGluRVk4MUlMM0RfclcwOVhyYm95YkZBT2xJbWZYY3ljVkM4RU11d0Zwa0M4MUQ?oc=5",
-          "publishedAt": "2026-11-23T14:31:34.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
-          "title": "Endrick suffers fresh injury blow ahead of Real Madrid’s UCL clash against PSV amid transfer speculation",
-          "source": "Sports Tiger",
-          "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxQM0QtVkxHWUJIazZjN3hDdzBzaEFBTU95YVN2WjZKZTkzMEpQcmktT1dUQUYxY1RlSjU4Tmw5cGNtWXpuZkxtOUVmTzk2S3M3NVkzWEVWUlpCdV93UGdpdmhtRXBUY2FfT2FoRG9sQTZNQ1M1WlpDQ1o3YnNwWm1tZEc3dEh3dzliYTFWRjlZZUFHbXRuTmt6eUhISGhlT0hZTm03NHQxWVJWa1p6R2V4Y0hoS1B5aEhvYWU2VWIxUUVwc2ctOVpObW80N2VyUnNTQ05QZy1QWno?oc=5",
-          "publishedAt": "2026-11-23T14:32:52.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
-          "title": "Real Madrid striker Endrick ruled out with thigh injury",
-          "source": "bdnews24.com",
-          "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5rRW5KdFhHZFJrTGk1czBrQkh6OVNJdkRxck9WcXNEUW4tSjFTY0pkVTZtLTJKLXVBMkN5WnZfaG1KenZTY3VWNVp4QWZjUQ?oc=5",
-          "publishedAt": "2026-11-23T14:33:00.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
-          "title": "Real Madrid's Endrick Sidelined With Leg Injury Before PSV Match",
-          "source": "roundtable.io",
-          "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQZ0doQlRibUdGT1hPTkN4cWFxaEF2MHV4Ungwd0VTMkpMYnpSVW1EUEtObFZhbDJ4b1dxeUxweUVtcGJOeFFSVDdhcnpwSTJfR3ZmUktNRTZYc2RyUXV4ZW43RjNDSHE5eXZwRmNpSEtKSDBDLS1CNFRFRDQ1dWRXMExrTEd1YnJOLXRHMFVuZUJvNDFaa25UcE90QlE3MDJTZkxoLUg5TkY5R2RnMEJtZ2J3QzN1Qm9OREpzRTJEdUhXdw?oc=5",
-          "publishedAt": "2026-11-24T05:11:45.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
-          "title": "News | Endrick sidelined as Real Madrid face injury setback",
-          "source": "Vodacom Soccer",
-          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQVGRGcXpaNFNVVXlVVGUxV2xjUjFubEJLdmNOWkN5WG5OSHFWWk16c1pHY3k1NnUzSzZrM21QcUNGc3Fpb2taQ1lXWUJkSjJ1d2JvZVdMSnRpdzg1OFN2ckR0cTRfMlNHZU9wTEVvNEtqWi1lcEtkRGNKSS03TjZqdXFVRGN6X3ZtdjhBdWNB?oc=5",
-          "publishedAt": "2026-11-24T08:07:16.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        }
-      ],
-      "basis": "Lesão de semanas (8 fontes): ausência indicada de 3 semanas — \"News | Endrick sidelined as Real Madrid face injury setback\"."
+      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"'Doesn't look too serious' - Arteta delivers encouraging Raya Arsenal injury update\"."
     },
     {
       "playerId": "250016833",
