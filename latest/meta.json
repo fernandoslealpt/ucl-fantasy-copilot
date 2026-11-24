@@ -1,48 +1,48 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-24T14:56:41.523Z",
+  "generatedAt": "2026-11-24T14:57:38.510Z",
   "currentGameday": 5,
   "gamedayState": "upcoming",
   "deadline": "2026-11-24T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T14:56:41.523Z",
-      "lastSuccess": "2026-11-24T14:56:41.523Z",
+      "lastAttempt": "2026-11-24T14:57:38.510Z",
+      "lastSuccess": "2026-11-24T14:57:38.510Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T14:56:41.523Z",
-      "lastSuccess": "2026-11-24T14:56:41.523Z",
-      "requests": 1,
+      "lastAttempt": "2026-11-24T14:57:38.510Z",
+      "lastSuccess": "2026-11-24T14:57:38.510Z",
+      "requests": 2,
       "records": 1175
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T14:56:41.523Z",
-      "lastSuccess": "2026-11-24T14:56:41.523Z",
+      "lastAttempt": "2026-11-24T14:57:38.510Z",
+      "lastSuccess": "2026-11-24T14:57:38.510Z",
       "requests": 0,
       "records": 0
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T14:56:41.523Z",
-      "lastSuccess": "2026-11-24T14:56:41.523Z",
-      "requests": 2,
+      "lastAttempt": "2026-11-24T14:57:38.510Z",
+      "lastSuccess": "2026-11-24T14:57:38.510Z",
+      "requests": 0,
       "records": 1175
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T14:56:41.523Z",
-      "lastSuccess": "2026-11-24T14:56:41.523Z",
+      "lastAttempt": "2026-11-24T14:57:38.510Z",
+      "lastSuccess": "2026-11-24T14:57:38.510Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-24T14:56:41.523Z",
+      "lastAttempt": "2026-11-24T14:57:38.510Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
@@ -56,8 +56,8 @@
     },
     "rotowire": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T14:56:41.523Z",
-      "lastSuccess": "2026-11-24T14:56:41.523Z",
+      "lastAttempt": "2026-11-24T14:57:38.510Z",
+      "lastSuccess": "2026-11-24T14:57:38.510Z",
       "requests": 1,
       "records": 36
     }
@@ -151,5 +151,5 @@
   "warnings": [
     "Pontos por jornada: 274/1173 diferem do valor oficial do feed"
   ],
-  "durationMs": 30818
+  "durationMs": 33093
 }
