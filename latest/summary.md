@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** terça, 24/11, 14:57 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** terça, 24/11, 16:53 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | terça, 24/11, 14:57 |  |
-| uefaFantasy | ✅ ok | 2 | 1175 | terça, 24/11, 14:57 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | terça, 24/11, 14:57 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1175 | terça, 24/11, 14:57 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | terça, 24/11, 14:57 |  |
+| uefaMatches | ✅ ok | 3 | 144 | terça, 24/11, 16:53 |  |
+| uefaFantasy | ✅ ok | 1 | 1175 | terça, 24/11, 16:53 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | terça, 24/11, 16:53 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1175 | terça, 24/11, 16:53 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | terça, 24/11, 16:53 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
 | googleNews | ✅ ok | 0 | 274 | terça, 24/11, 14:46 |  |
-| rotowire | ✅ ok | 1 | 36 | terça, 24/11, 14:57 |  |
+| rotowire | ✅ ok | 1 | 36 | terça, 24/11, 16:53 |  |
 
 **Totais:** 1175 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -46,35 +46,35 @@
 | 7 | K. Mbappé | Real Madrid | FWD | 11.1 | 6.4 | 21.4 | 1.93 | 88% | vs PSV | alta |
 | 8 | A. Gordon | Barcelona | MID | 8.0 | 6.3 | 14.6 | 1.83 | 80% | @ Sabah | média |
 | 9 | A. Grimaldo | Atleti | DEF | 5.5 | 6.3 | 14.9 | 2.71 | 86% | vs Viking | alta |
-| 10 | M. Llorente | Atleti | MID | 6.7 | 5.5 | 14.0 | 2.09 | 88% | vs Viking | alta |
-| 11 | E. Anderson | Man City | MID | 7.0 | 5.4 | 15.0 | 2.14 | 83% | vs Napoli | média |
-| 12 | Vitinha | Paris | MID | 7.7 | 5.3 | 16.3 | 2.11 | 89% | vs Roma | alta |
-| 13 | C. Nkunku | Leipzig | FWD | 7.0 | 5.3 | 11.3 | 1.62 | 78% | vs Lens | média |
-| 14 | Fabián Ruiz | Paris | MID | 6.8 | 5.3 | 15.6 | 2.30 | 87% | vs Roma | alta |
-| 15 | S. Brunstad Fet | Bodø/Glimt | MID | 5.1 | 5.1 | 13.9 | 2.72 | 87% | vs LASK | alta |
-| 16 | J. Ramón | Como | DEF | 4.1 | 5.1 | 10.8 | 2.64 | 81% | vs AEK Athens | média |
-| 17 | E. Fernández | Man City | MID | 7.5 | 5.1 | 14.6 | 1.95 | 86% | vs Napoli | alta |
-| 18 | M. Baturina | Como | MID | 5.7 | 5.1 | 10.9 | 1.91 | 76% | vs AEK Athens | média |
-| 19 | D. Hancko | Atleti | DEF | 4.5 | 5.0 | 12.7 | 2.82 | 88% | vs Viking | alta |
-| 20 | B. Gruda | Leipzig | MID | 5.2 | 5.0 | 10.9 | 2.10 | 80% | vs Lens | média |
+| 10 | O. Brynhildsen | Bodø/Glimt | FWD | 4.8 | 6.2 | 9.9 | 2.05 | 99% | vs LASK | média |
+| 11 | R. Ljubičić | LASK | MID | 5.6 | 5.7 | 14.6 | 2.61 | 99% | @ Bodø/Glimt | média |
+| 12 | S. Brunstad Fet | Bodø/Glimt | MID | 5.1 | 5.7 | 14.4 | 2.83 | 99% | vs LASK | alta |
+| 13 | A. Batrakov | Galatasaray | MID | 4.6 | 5.7 | 14.9 | 3.23 | 99% | vs Aston Villa | média |
+| 14 | M. Llorente | Atleti | MID | 6.7 | 5.5 | 14.0 | 2.09 | 88% | vs Viking | alta |
+| 15 | E. Anderson | Man City | MID | 7.0 | 5.4 | 15.0 | 2.14 | 83% | vs Napoli | média |
+| 16 | Vitinha | Paris | MID | 7.7 | 5.3 | 16.3 | 2.11 | 89% | vs Roma | alta |
+| 17 | C. Nkunku | Leipzig | FWD | 7.0 | 5.3 | 11.3 | 1.62 | 78% | vs Lens | média |
+| 18 | Fabián Ruiz | Paris | MID | 6.8 | 5.3 | 15.6 | 2.30 | 87% | vs Roma | alta |
+| 19 | J. Ramón | Como | DEF | 4.1 | 5.1 | 10.8 | 2.64 | 81% | vs AEK Athens | média |
+| 20 | E. Fernández | Man City | MID | 7.5 | 5.1 | 14.6 | 1.95 | 86% | vs Napoli | alta |
 
 ## Top 15 por pontos
 
 | # | Jogador | Equipa | Pos | €M | Pts | Últ. J | Min | % sel. | Estado | Próximo jogo |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | N. Paz | Como | MID | 7.1 | 43 | 13 (J4) | 318 | 26 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
-| 2 | L. Yamal | Barcelona | MID | 10.2 | 41 | 8 (J4) | 360 | 41 | fora | J5 @ Sabah · quarta, 25/11, 17:45 |
-| 3 | H. Kane | Bayern München | FWD | 11.2 | 39 | 5 (J4) | 360 | 40 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
+| 1 | N. Paz | Como | MID | 7.1 | 43 | 13 (J4) | 318 | 27 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
+| 2 | L. Yamal | Barcelona | MID | 10.2 | 41 | 8 (J4) | 360 | 39 | fora | J5 @ Sabah · quarta, 25/11, 17:45 |
+| 3 | H. Kane | Bayern München | FWD | 11.2 | 39 | 5 (J4) | 360 | 38 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
 | 4 | Fabián Ruiz | Paris | MID | 6.8 | 37 | 16 (J4) | 354 | 5 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
-| 5 | T. Douvikas | Como | FWD | 6.6 | 37 | 20 (J4) | 246 | 7 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
-| 6 | D. Doué | Paris | MID | 8.6 | 35 | 9 (J4) | 218 | 11 | fora | J5 vs Roma · quarta, 25/11, 20:00 |
+| 5 | T. Douvikas | Como | FWD | 6.6 | 37 | 20 (J4) | 246 | 8 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
+| 6 | D. Doué | Paris | MID | 8.6 | 35 | 9 (J4) | 218 | 10 | fora | J5 vs Roma · quarta, 25/11, 20:00 |
 | 7 | N. Tresoldi | Club Brugge | FWD | 7.3 | 34 | 6 (J4) | 336 | 4 | disponível | J5 vs Liverpool · quarta, 25/11, 20:00 |
-| 8 | Carlos Augusto | Inter | DEF | 4.2 | 34 | 9 (J4) | 263 | 8 | disponível | J5 vs Stuttgart · quarta, 25/11, 20:00 |
-| 9 | Raphinha | Barcelona | MID | 9.6 | 33 | 15 (J4) | 201 | 42 | disponível | J5 @ Sabah · quarta, 25/11, 17:45 |
+| 8 | Carlos Augusto | Inter | DEF | 4.2 | 34 | 9 (J4) | 263 | 9 | disponível | J5 vs Stuttgart · quarta, 25/11, 20:00 |
+| 9 | Raphinha | Barcelona | MID | 9.6 | 33 | 15 (J4) | 201 | 43 | disponível | J5 @ Sabah · quarta, 25/11, 17:45 |
 | 10 | K. Mbappé | Real Madrid | FWD | 11.1 | 32 | 6 (J4) | 357 | 65 | disponível | J5 vs PSV · terça, 24/11, 20:00 |
 | 11 | Vitinha | Paris | MID | 7.7 | 32 | 7 (J4) | 344 | 20 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
 | 12 | A. Davies | Bayern München | DEF | 5.2 | 32 | 7 (J4) | 289 | 9 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
-| 13 | A. Batrakov | Galatasaray | MID | 4.6 | 32 | 17 (J4) | 284 | 2 | disponível | J5 vs Aston Villa · terça, 24/11, 17:45 |
+| 13 | A. Batrakov | Galatasaray | MID | 4.6 | 32 | 17 (J4) | 284 | 3 | disponível | J5 vs Aston Villa · terça, 24/11, 17:45 |
 | 14 | D. Malen | Roma | FWD | 6.8 | 31 | 5 (J4) | 314 | 12 | disponível | J5 @ Paris · quarta, 25/11, 20:00 |
 | 15 | Carlos Forbs | Club Brugge | MID | 6.3 | 31 | 6 (J4) | 349 | 2 | disponível | J5 vs Liverpool · quarta, 25/11, 20:00 |
 
@@ -95,13 +95,17 @@
 
 <details><summary>Valores de estado no feed</summary>
 
-- 847 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
+- 769 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
 - 126 × pStatus=NIS · qStatus=∅ · trained=∅
-- 95 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
-- 56 × pStatus=∅ · qStatus=∅ · trained=∅
-- 27 × pStatus=D · qStatus=∅ · trained=In contention to start next game
-- 12 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
-- 8 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
+- 97 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
+- 54 × pStatus=∅ · qStatus=∅ · trained=∅
+- 41 × pStatus=P · qStatus=∅ · trained=In contention to start next game
+- 38 × pStatus=B · qStatus=∅ · trained=In contention to start next game
+- 23 × pStatus=D · qStatus=∅ · trained=In contention to start next game
+- 10 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
+- 9 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
 - 4 × pStatus=S · qStatus=∅ · trained=∅
+- 2 × pStatus=P · qStatus=∅ · trained=Unlikely to start next game
+- 2 × pStatus=B · qStatus=∅ · trained=Unlikely to start next game
 
 </details>
