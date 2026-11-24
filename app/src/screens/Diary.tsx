@@ -118,9 +118,10 @@ function GamedayCard({
 }) {
   const [addOut, setAddOut] = useState('');
   const [addIn, setAddIn] = useState('');
-  const squadSet = new Set(squad);
-  const outOptions = squad.length ? squad : data.rows.map((r) => r.id);
-  const inOptions = data.rows.filter((r) => !squadSet.has(r.id)).sort((a, b) => a.name.localeCompare(b.name));
+  // todos os jogadores nas duas listas: a equipa guardada já é a de depois das trocas, por isso não se pode filtrar por ela
+  const allSorted = [...data.rows].sort((a, b) => a.name.localeCompare(b.name));
+  const outOptions = allSorted;
+  const inOptions = allSorted;
   const { t, num } = useI18n();
   const name = (id: string) => data.byId.get(id)?.name ?? id;
   const [input, setInput] = useState(ev.officialPoints != null ? String(ev.officialPoints) : '');
@@ -199,9 +200,9 @@ function GamedayCard({
             {t('diaryOut')}
             <select value={addOut} onChange={(e) => setAddOut(e.target.value)}>
               <option value="">—</option>
-              {outOptions.map((id) => (
-                <option key={id} value={id}>
-                  {name(id)}
+              {outOptions.map((r) => (
+                <option key={r.id} value={r.id}>
+                  {r.name}
                 </option>
               ))}
             </select>
