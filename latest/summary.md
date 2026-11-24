@@ -1,17 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** terça, 24/11, 16:53 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** terça, 24/11, 17:22 (Lisboa) · **Jornada:** 5 (por jogar) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | terça, 24/11, 16:53 |  |
-| uefaFantasy | ✅ ok | 1 | 1175 | terça, 24/11, 16:53 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | terça, 24/11, 16:53 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1175 | terça, 24/11, 16:53 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | terça, 24/11, 16:53 |  |
+| uefaMatches | ✅ ok | 3 | 144 | terça, 24/11, 17:22 |  |
+| uefaFantasy | ✅ ok | 1 | 1175 | terça, 24/11, 17:22 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | terça, 24/11, 17:22 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1175 | terça, 24/11, 17:22 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | terça, 24/11, 17:22 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
 | googleNews | ✅ ok | 0 | 274 | terça, 24/11, 14:46 |  |
-| rotowire | ✅ ok | 1 | 36 | terça, 24/11, 16:53 |  |
+| rotowire | ✅ ok | 1 | 36 | terça, 24/11, 17:22 |  |
 
 **Totais:** 1175 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 899/1173 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -62,18 +62,18 @@
 
 | # | Jogador | Equipa | Pos | €M | Pts | Últ. J | Min | % sel. | Estado | Próximo jogo |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | N. Paz | Como | MID | 7.1 | 43 | 13 (J4) | 318 | 27 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
-| 2 | L. Yamal | Barcelona | MID | 10.2 | 41 | 8 (J4) | 360 | 39 | fora | J5 @ Sabah · quarta, 25/11, 17:45 |
-| 3 | H. Kane | Bayern München | FWD | 11.2 | 39 | 5 (J4) | 360 | 38 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
-| 4 | Fabián Ruiz | Paris | MID | 6.8 | 37 | 16 (J4) | 354 | 5 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
-| 5 | T. Douvikas | Como | FWD | 6.6 | 37 | 20 (J4) | 246 | 8 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
-| 6 | D. Doué | Paris | MID | 8.6 | 35 | 9 (J4) | 218 | 10 | fora | J5 vs Roma · quarta, 25/11, 20:00 |
+| 1 | N. Paz | Como | MID | 7.1 | 43 | 13 (J4) | 318 | 28 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
+| 2 | L. Yamal | Barcelona | MID | 10.2 | 41 | 8 (J4) | 360 | 37 | fora | J5 @ Sabah · quarta, 25/11, 17:45 |
+| 3 | H. Kane | Bayern München | FWD | 11.2 | 39 | 5 (J4) | 360 | 35 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
+| 4 | Fabián Ruiz | Paris | MID | 6.8 | 37 | 16 (J4) | 354 | 6 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
+| 5 | T. Douvikas | Como | FWD | 6.6 | 37 | 20 (J4) | 246 | 9 | disponível | J5 vs AEK Athens · terça, 24/11, 20:00 |
+| 6 | D. Doué | Paris | MID | 8.6 | 35 | 9 (J4) | 218 | 9 | fora | J5 vs Roma · quarta, 25/11, 20:00 |
 | 7 | N. Tresoldi | Club Brugge | FWD | 7.3 | 34 | 6 (J4) | 336 | 4 | disponível | J5 vs Liverpool · quarta, 25/11, 20:00 |
 | 8 | Carlos Augusto | Inter | DEF | 4.2 | 34 | 9 (J4) | 263 | 9 | disponível | J5 vs Stuttgart · quarta, 25/11, 20:00 |
-| 9 | Raphinha | Barcelona | MID | 9.6 | 33 | 15 (J4) | 201 | 43 | disponível | J5 @ Sabah · quarta, 25/11, 17:45 |
-| 10 | K. Mbappé | Real Madrid | FWD | 11.1 | 32 | 6 (J4) | 357 | 65 | disponível | J5 vs PSV · terça, 24/11, 20:00 |
+| 9 | Raphinha | Barcelona | MID | 9.6 | 33 | 15 (J4) | 201 | 44 | disponível | J5 @ Sabah · quarta, 25/11, 17:45 |
+| 10 | K. Mbappé | Real Madrid | FWD | 11.1 | 32 | 6 (J4) | 357 | 66 | disponível | J5 vs PSV · terça, 24/11, 20:00 |
 | 11 | Vitinha | Paris | MID | 7.7 | 32 | 7 (J4) | 344 | 20 | disponível | J5 vs Roma · quarta, 25/11, 20:00 |
-| 12 | A. Davies | Bayern München | DEF | 5.2 | 32 | 7 (J4) | 289 | 9 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
+| 12 | A. Davies | Bayern München | DEF | 5.2 | 32 | 7 (J4) | 289 | 8 | fora | J5 @ Lille · quarta, 25/11, 20:00 |
 | 13 | A. Batrakov | Galatasaray | MID | 4.6 | 32 | 17 (J4) | 284 | 3 | disponível | J5 vs Aston Villa · terça, 24/11, 17:45 |
 | 14 | D. Malen | Roma | FWD | 6.8 | 31 | 5 (J4) | 314 | 12 | disponível | J5 @ Paris · quarta, 25/11, 20:00 |
 | 15 | Carlos Forbs | Club Brugge | MID | 6.3 | 31 | 6 (J4) | 349 | 2 | disponível | J5 vs Liverpool · quarta, 25/11, 20:00 |
