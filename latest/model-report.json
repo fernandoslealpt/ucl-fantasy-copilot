@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T14:46:34.062Z",
+  "generatedAt": "2026-11-24T14:56:41.523Z",
   "season": 2027,
   "gameday": 5,
   "targets": [
@@ -28,12 +28,12 @@
     "predictedBench": 0.12
   },
   "version": "1.4.0",
-  "players": 1173,
+  "players": 1175,
   "backtest": [
     {
       "gameday": 1,
       "model": {
-        "n": 949,
+        "n": 950,
         "mae": 1.91,
         "rmse": 2.7,
         "spearman": 0.17,
@@ -43,10 +43,10 @@
         "meanActual": 1.81
       },
       "baseline": {
-        "n": 949,
+        "n": 950,
         "mae": 1.97,
         "rmse": 3.09,
-        "spearman": 0.13,
+        "spearman": 0.14,
         "top20Actual": 5.05,
         "top50Actual": 4.22,
         "meanPred": 1.31,
@@ -57,7 +57,7 @@
     {
       "gameday": 2,
       "model": {
-        "n": 910,
+        "n": 908,
         "mae": 1.99,
         "rmse": 2.83,
         "spearman": 0.42,
@@ -67,9 +67,9 @@
         "meanActual": 2.08
       },
       "baseline": {
-        "n": 910,
+        "n": 908,
         "mae": 2.16,
-        "rmse": 3.71,
+        "rmse": 3.72,
         "spearman": 0.38,
         "top20Actual": 2.6,
         "top50Actual": 2.56,
@@ -83,7 +83,7 @@
       "model": {
         "n": 801,
         "mae": 1.96,
-        "rmse": 2.77,
+        "rmse": 2.76,
         "spearman": 0.39,
         "top20Actual": 6.4,
         "top50Actual": 5.28,
