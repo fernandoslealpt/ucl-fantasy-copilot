@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-24T10:31:16.129Z",
+  "updatedAt": "2026-11-24T10:33:59.904Z",
   "gamedays": {
     "5": {
       "gameday": 5,
-      "updatedAt": "2026-11-24T10:31:16.129Z",
+      "updatedAt": "2026-11-24T10:33:59.904Z",
       "recommended": {
         "swaps": [],
         "deltaNow": 0,
@@ -66,18 +66,9 @@
         "vice": "250112880"
       },
       "recommendedNoCut": {
-        "swaps": [
-          {
-            "out": "250176450",
-            "in": "250153621"
-          },
-          {
-            "out": "250162177",
-            "in": "250164780"
-          }
-        ],
+        "swaps": [],
         "hits": 0,
-        "net": 25.36
+        "net": 10.06
       }
     }
   }
