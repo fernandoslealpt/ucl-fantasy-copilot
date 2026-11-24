@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-24T10:31:16.129Z",
+  "updatedAt": "2026-11-24T10:47:15.425Z",
   "players": [
     "250076574",
     "250088061",
@@ -22,7 +22,7 @@
   "freeTransfers": 0,
   "ftGameday": 5,
   "chips": {
-    "wildcard": 5
+    "wildcard": null
   },
   "decisions": {
     "gameday": 5,
