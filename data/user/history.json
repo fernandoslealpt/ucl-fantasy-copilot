@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-24T10:47:47.673Z",
+  "updatedAt": "2026-11-24T14:53:06.754Z",
   "gamedays": {
     "5": {
       "gameday": 5,
-      "updatedAt": "2026-11-24T10:47:47.673Z",
+      "updatedAt": "2026-11-24T14:53:06.754Z",
       "recommended": {
         "swaps": [],
         "deltaNow": 0,
@@ -51,7 +51,7 @@
       "recommendedNoCut": {
         "swaps": [],
         "hits": 0,
-        "net": 10.06
+        "net": 10.05
       },
       "done": {
         "swaps": [],
