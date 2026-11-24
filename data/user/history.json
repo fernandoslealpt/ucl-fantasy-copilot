@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-24T10:46:27.871Z",
+  "updatedAt": "2026-11-24T10:47:47.673Z",
   "gamedays": {
     "5": {
       "gameday": 5,
-      "updatedAt": "2026-11-24T10:46:27.871Z",
+      "updatedAt": "2026-11-24T10:47:47.673Z",
       "recommended": {
         "swaps": [],
         "deltaNow": 0,
@@ -52,6 +52,11 @@
         "swaps": [],
         "hits": 0,
         "net": 10.06
+      },
+      "done": {
+        "swaps": [],
+        "hits": 0,
+        "chip": "wildcard"
       }
     }
   }
