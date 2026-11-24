@@ -1,70 +1,70 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-24T02:55:53.585Z",
+  "generatedAt": "2026-11-24T08:47:58.664Z",
   "currentGameday": 5,
   "gamedayState": "upcoming",
   "deadline": "2026-11-24T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T02:55:53.585Z",
-      "lastSuccess": "2026-11-24T02:55:53.585Z",
+      "lastAttempt": "2026-11-24T08:47:58.664Z",
+      "lastSuccess": "2026-11-24T08:47:58.664Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T02:55:53.585Z",
-      "lastSuccess": "2026-11-24T02:55:53.585Z",
+      "lastAttempt": "2026-11-24T08:47:58.664Z",
+      "lastSuccess": "2026-11-24T08:47:58.664Z",
       "requests": 1,
       "records": 1173
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T02:55:53.585Z",
-      "lastSuccess": "2026-11-24T02:55:53.585Z",
+      "lastAttempt": "2026-11-24T08:47:58.664Z",
+      "lastSuccess": "2026-11-24T08:47:58.664Z",
       "requests": 0,
       "records": 0
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T02:55:53.585Z",
-      "lastSuccess": "2026-11-24T02:55:53.585Z",
+      "lastAttempt": "2026-11-24T08:47:58.664Z",
+      "lastSuccess": "2026-11-24T08:47:58.664Z",
       "requests": 0,
       "records": 1173
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T02:55:53.585Z",
-      "lastSuccess": "2026-11-24T02:55:53.585Z",
+      "lastAttempt": "2026-11-24T08:47:58.664Z",
+      "lastSuccess": "2026-11-24T08:47:58.664Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-24T02:55:53.585Z",
+      "lastAttempt": "2026-11-24T08:47:58.664Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
     },
     "googleNews": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T02:55:53.585Z",
-      "lastSuccess": "2026-11-24T02:55:53.585Z",
+      "lastAttempt": "2026-11-24T08:47:58.664Z",
+      "lastSuccess": "2026-11-24T08:47:58.664Z",
       "requests": 36,
-      "records": 275
+      "records": 273
     },
     "uefaReads": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T02:55:53.585Z",
-      "lastSuccess": "2026-11-24T02:55:53.585Z",
+      "lastAttempt": "2026-11-24T08:47:58.664Z",
+      "lastSuccess": "2026-11-24T08:47:58.664Z",
       "requests": 1,
-      "records": 8
+      "records": 7
     },
     "rotowire": {
       "status": "ok",
-      "lastAttempt": "2026-11-24T02:55:53.585Z",
-      "lastSuccess": "2026-11-24T02:55:53.585Z",
+      "lastAttempt": "2026-11-24T08:47:58.664Z",
+      "lastSuccess": "2026-11-24T08:47:58.664Z",
       "requests": 1,
       "records": 36
     }
@@ -106,13 +106,13 @@
     }
   },
   "statusValues": {
-    "pStatus=∅ · qStatus=∅ · trained=In contention to start next game": 860,
+    "pStatus=∅ · qStatus=∅ · trained=In contention to start next game": 847,
     "pStatus=NIS · qStatus=∅ · trained=∅": 126,
-    "pStatus=I · qStatus=∅ · trained=Unlikely to start next game": 88,
+    "pStatus=I · qStatus=∅ · trained=Unlikely to start next game": 95,
     "pStatus=∅ · qStatus=∅ · trained=∅": 54,
-    "pStatus=D · qStatus=∅ · trained=In contention to start next game": 20,
-    "pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game": 14,
-    "pStatus=D · qStatus=∅ · trained=Unlikely to start next game": 7,
+    "pStatus=D · qStatus=∅ · trained=In contention to start next game": 27,
+    "pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game": 12,
+    "pStatus=D · qStatus=∅ · trained=Unlikely to start next game": 8,
     "pStatus=S · qStatus=∅ · trained=∅": 4
   },
   "model": {
@@ -158,5 +158,5 @@
   "warnings": [
     "Pontos por jornada: 274/1173 diferem do valor oficial do feed"
   ],
-  "durationMs": 37078
+  "durationMs": 36977
 }

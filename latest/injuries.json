@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T02:55:53.585Z",
+  "updatedAt": "2026-11-24T08:47:58.664Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -23,9 +23,19 @@
             "weeks": 13,
             "explicit": true
           }
+        },
+        {
+          "title": "Vergara suffers serious muscle injury: out until February",
+          "source": "la Repubblica",
+          "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQRUlxSlVobmM5M1Z1MmFxeFFwV1lXcHcxWXdlcFNNaHFBel8wZ2ZsTmN3SklZWmQwQkV4ZFhmbENCRWd6dmtsbGR6N0VqV1ZCcWhPcU14S2txdTBjMVRfdFU4M1p5dTF2aHdhekNlR2ZHTnZQNE5VX2dqYzNTbDlid1FEMXd5QVJwU3JfMVVkUXNra2tSR21PdUlsOGlsUzZVc0o5dDNjMENMdEFwa3ZURVNPMThERXVQMEFCbkJZQ2ZCY1RUN2dDeTQzclNIX2RC?oc=5",
+          "publishedAt": "2026-11-24T08:23:00.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão longa (1 fonte): ausência indicada de 13 semanas — \"Vergara, three-month lay-off: Napoli battered by injuries\"."
+      "basis": "Lesão longa (2 fontes): ausência indicada de 13 semanas — \"Vergara suffers serious muscle injury: out until February\"."
     },
     {
       "playerId": "250162177",
@@ -87,33 +97,13 @@
       "name": "D. Raya",
       "teamId": "52280",
       "teamName": "Arsenal",
-      "since": "2026-11-23T14:21:43.000Z",
+      "since": "2026-11-23T14:24:39.000Z",
       "severity": "weeks",
       "status": "confirmed",
-      "expectedBack": "2027-01-18T14:21:43.000Z",
+      "expectedBack": "2027-01-18T14:24:39.000Z",
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
-        {
-          "title": "Arsenal: Arteta gives shock Raya injury update as the goalkeeper is ruled out of Dortmund clash",
-          "source": "Football365",
-          "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOZy15blpTR1VNZlFLMmdjRjlKZXJkSkJ1TUVZbU5GenNxekMyc0JEZFZZdnluVjdVamllMHFQZnJkaXc2ZXlnNHlxcDYteS1tQWxRN0l0Znc1a1d0S2ViOUlHTWtLdWRxM1lIUnR1cjF1WS1aTkVpa3V6dURhM3FCcQ?oc=5",
-          "publishedAt": "2026-11-23T14:24:39.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
-          "title": "David Raya won't need surgery - Arsenal boss Mikel Arteta",
-          "source": "ESPN",
-          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNcFY0azdIN0lBejVwc3BDSUtsbnJTMThkN09nTElPZTNUOWZLeXh4c1dzQjJNTUx1MHQzWEhqZVFtclNhRk5wZlJaTEl6Z2RiT3NyV0xNZXpueHIxNUMtUVJuVnVVZ3dnVHRPdkQyRW9nQ3U2T3pSRFFDbXhGZ2I1aUZEd2p2VXZsbGtGYw?oc=5",
-          "publishedAt": "2026-11-23T14:36:00.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 8
-          }
-        },
         {
           "title": "Arsenal's Raya ruled out of Dortmund clash",
           "source": "The Straits Times",
@@ -153,9 +143,29 @@
             "kind": "weeks",
             "weeks": 8
           }
+        },
+        {
+          "title": "Mikel Arteta confirms David Raya doesn’t need surgery in huge Arsenal injury boost",
+          "source": "The Independent",
+          "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNOXVVc29NT3hNc3pvZDg2MkYtTndzYVFhelZvd19LU3k3QlFleHE0MXNkRG5IZEwwY3FiQ05vTXpLTVU3RmZCYmptMDQ5RXVrMkJaZkRCeTFETWRFWTZUTGtzbER4S0RqazVmd0NhSFU1Q1ZHSElmRXp1YTg2SV9zWDhjRnhYMVdRZVBVQnFaZldCMlg1aFozVTJiejQyaWpvRHJ4SzB3VQ?oc=5",
+          "publishedAt": "2026-11-24T06:27:00.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "'Doesn't look too serious' - Arteta delivers encouraging Raya Arsenal injury update",
+          "source": "SABC Sport",
+          "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOQzJ2dDRTa3d4RnEzRGFrZE12dkc4UG85eFR5U3pOWTRpNWtjNHpNYVdYMUk4TGx0bVRNOGFYLU50amlEeGd5NE5QaHJ2N0hqXzVGT0U5a0JfejRnZkQ2eFo1T05GUGNPbmg1UldHSm56SlN6cGE0SXNZZnV2S1hGbXlabDFSTVdNUGtxc0dRT1BtUm5NcjJUWFl0bHYwUldxdXJPUnloNEFCRXRiZ3o0c3R2LXloTEtS?oc=5",
+          "publishedAt": "2026-11-24T07:27:23.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"David Raya’s shoulder injury ‘not too serious’ and no surgery needed for Arsenal goalkeeper\"."
+      "basis": "Lesão de semanas (8 fontes): ausência estimada de 8 semanas — \"'Doesn't look too serious' - Arteta delivers encouraging Raya Arsenal injury update\"."
     },
     {
       "playerId": "250194573",
@@ -169,27 +179,6 @@
       "assumed": false,
       "outUntilGameday": 6,
       "evidence": [
-        {
-          "title": "Endrick Injury Update: Real Madrid Confirm Left Leg Abductor Muscle Injury",
-          "source": "The Sunday Guardian",
-          "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPeF9Yazg4QTF3aWFKb21fYktJZkhoX0trbGlNVEhvbGFCRnY4VFdUeFNHdEFEWjJCRG1zVFl2UkNmd3k2ZmhISDBQWHp1bzd6MUtRR0lLWjJ5Wlc2bWVockZCRmplRmM5VHdjSDRDd1RXSEUtbVE4akZLSmJ4MGVycURLY19XOEVGczJ2VWlBTDZCcEFmNHoyTnFoblNHR3pSQVpuV2pfbmlwTDNtUXVRanJxUzh2T0U4ejFN0gHAAUFVX3lxTE02OE85MzJmN2ltY1lISl8tQmdmYmJzQ19LYXZKWlFZTWJBTWM0ZWlBajE4bDlKY1dxVXFpU1F4NkRjWnBBRGFuNFNMTzdSZlJLMXZoWlUxOFpfZWdrVHpURmxySFRWWDlpMTJfaWZNY1l3enBnelZfZXVmc0Z0R3pIODRGX0hOUG9kMWYxTklhNW9FNkZ0ODJzWGdMeGlPaVJRMEdEUndMejhSakstdlI3YTNMZkxQNXhNSVgtNUhXbQ?oc=5",
-          "publishedAt": "2026-11-23T13:16:07.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
-          "title": "Real Madrid forward Endrick ruled out for a few weeks with thigh strain",
-          "source": "TribalFootball",
-          "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxQaFc5dzhDRVBHeHM1VTgza1plZWpqdFNzbnNCaUdwX19nN0xCX0h6T3VLUEYzczJYbkNRMWp5YnRvQlB0ZXBpNVBUc1A2aktqTnVzRDhQVXRDVmFaM1BOMWNDc1hMMmRlOFZuZ013Q2NOWlVwaDZRemNQUUhpRG1XZmtoUVRsT29ETE15YmpKekpqY0c0aXVRaU1IRHRzQ1cyeE90dERFSFhFUnlQUnRDTDR3dGdsMmpfV3gwbi02RnJpSXk2X1NlZUpKdmxlZ2tYbXh4VXZIaktVMDZfNU00SkduTnp6WnJwX1A3N3M1T2pnZHM?oc=5",
-          "publishedAt": "2026-11-23T13:29:34.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 3,
-            "explicit": true
-          }
-        },
         {
           "title": "Real Madrid: Endrick suffers second muscle injury of season as Milan watch, but what could change in January?",
           "source": "LiveScore",
@@ -229,9 +218,29 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "Real Madrid's Endrick Sidelined With Leg Injury Before PSV Match",
+          "source": "roundtable.io",
+          "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQZ0doQlRibUdGT1hPTkN4cWFxaEF2MHV4Ungwd0VTMkpMYnpSVW1EUEtObFZhbDJ4b1dxeUxweUVtcGJOeFFSVDdhcnpwSTJfR3ZmUktNRTZYc2RyUXV4ZW43RjNDSHE5eXZwRmNpSEtKSDBDLS1CNFRFRDQ1dWRXMExrTEd1YnJOLXRHMFVuZUJvNDFaa25UcE90QlE3MDJTZkxoLUg5TkY5R2RnMEJtZ2J3QzN1Qm9OREpzRTJEdUhXdw?oc=5",
+          "publishedAt": "2026-11-24T05:11:45.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
+        },
+        {
+          "title": "News | Endrick sidelined as Real Madrid face injury setback",
+          "source": "Vodacom Soccer",
+          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQVGRGcXpaNFNVVXlVVGUxV2xjUjFubEJLdmNOWkN5WG5OSHFWWk16c1pHY3k1NnUzSzZrM21QcUNGc3Fpb2taQ1lXWUJkSjJ1d2JvZVdMSnRpdzg1OFN2ckR0cTRfMlNHZU9wTEVvNEtqWi1lcEtkRGNKSS03TjZqdXFVRGN6X3ZtdjhBdWNB?oc=5",
+          "publishedAt": "2026-11-24T08:07:16.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência indicada de 3 semanas — \"Real Madrid striker Endrick ruled out with thigh injury\"."
+      "basis": "Lesão de semanas (8 fontes): ausência indicada de 3 semanas — \"News | Endrick sidelined as Real Madrid face injury setback\"."
     },
     {
       "playerId": "250016833",
@@ -269,7 +278,7 @@
           "title": "Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury",
           "source": "Bavarian Football Works",
           "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNczRpakptN1JMQjU4V05aTGVLckRJWGNWM0FacjdpclRWbjc2ODdTMkI0dmpfbTM3Y2ZBakNpVW1pT1plWUR3bHRZQmo4cmowNFN5bnFEdEloU1JVVmVFMEExNTVyLVBXTmtONGJSYVBlQUE0SEQ0MEZzT0dxY3I4aEUyY09ESm5NaVNhelc3cWUxdnVoSUU4Nk5GajRZSWp1bkVrSXM1LWNnRHZVaUlzQXhZR0NGdWpwS0ZkRk8zSEJWYWkwT2FNdl9HcURqa2NzV3ZpM1c2NUFsWEtfUFVRWg?oc=5",
-          "publishedAt": "2026-11-23T18:15:00.000Z",
+          "publishedAt": "2026-11-24T01:30:00.000Z",
           "duration": {
             "kind": "unknown",
             "weeks": null
@@ -283,10 +292,10 @@
       "name": "N. Pépé",
       "teamId": "70691",
       "teamName": "Villarreal",
-      "since": "2026-11-23T06:15:00.000Z",
+      "since": "2026-11-23T11:43:51.000Z",
       "severity": "weeks",
       "status": "confirmed",
-      "expectedBack": "2027-01-18T06:15:00.000Z",
+      "expectedBack": "2027-01-18T11:43:51.000Z",
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
@@ -351,7 +360,7 @@
           }
         }
       ],
-      "basis": "Lesão de semanas (9 fontes): ausência estimada de 8 semanas — \"Villarreal dismiss reports claiming Nicolas Pepe underwent eye surgery after watching solar eclipse\"."
+      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Villarreal dismiss reports claiming Nicolas Pepe underwent eye surgery after watching solar eclipse\"."
     },
     {
       "playerId": "250132987",
@@ -384,9 +393,29 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "Osimhen ruled out of Galatasaray's clash with Aston Villa",
+          "source": "TribalFootball",
+          "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPY0l1cW1SSi1McmFZVk1KVFpleF91RU43SGtSS0N2Sk1VLW1xaUpZbjcxMVVzOVFaWWhCZ1BpUlF1Si1GY0tIeV9MZFFSTHpFWi1vSEVIbmtMSWNseW1jV2pEZ2pIb0l3QUtEUVVqeVg3SHBHYktzdnJKak53dzdaSUZ6TXlMX3c0VE1VeW5ON0lheE5XUmVaYnZqYTc0cWtPeWtSNU4wWl9UVWhmSmhkRW1PZ2ZJZ2hpLXBYTUl1WV9nMjdpcGpQUkJHSWs3dw?oc=5",
+          "publishedAt": "2026-11-24T01:43:08.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
+        },
+        {
+          "title": "Osimhen Ruled Out of Villa Clash After Knee Surgery",
+          "source": "www.footballinnigeria.com.ng",
+          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOOGxwcDhBMG9RRFFVVzJSeUpFdmRHeTE2TDBqRWY2VWVHV3d3OWdsQnRWRlNuSGRMdWtZbzZHbUxWQjBHbG5kdjljcXlKUGE2SXhRQkQ1dW5BXzV4NE5EWk85ZE52NmlSMnJiVDMxbUtqaC04Tk9fR2NiXzY0T2JBaURLcW15TFktVUtuU3pwYTM2YWNOQl91eDVDT1doQmpGX1JvMm5ZNGkwZw?oc=5",
+          "publishedAt": "2026-11-24T06:26:11.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
         }
       ],
-      "basis": "Lesão de semanas (2 fontes): ausência estimada de 8 semanas — \"'Very important striker' - Emery insists Galatasaray can cope without injured Osimhen\"."
+      "basis": "Lesão de semanas (4 fontes): ausência estimada de 8 semanas — \"Osimhen Ruled Out of Villa Clash After Knee Surgery\"."
     }
   ]
 }
