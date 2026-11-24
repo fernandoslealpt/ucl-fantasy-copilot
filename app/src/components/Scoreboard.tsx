@@ -23,6 +23,7 @@ export function Scoreboard({
   const [upd, setUpd] = useState<{ state: 'idle' | 'busy' | 'error'; msg?: string }>({ state: 'idle' });
   const poll = useRef<ReturnType<typeof setInterval> | null>(null);
   useEffect(() => () => void (poll.current && clearInterval(poll.current)), []);
+  const hora = () => new Date().toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' });
   const refresh = async () => {
     if (upd.state === 'busy') return;
     try {
@@ -35,7 +36,7 @@ export function Scoreboard({
       });
       return;
     }
-    setUpd({ state: 'busy', msg: t('refreshBusy') });
+    setUpd({ state: 'busy', msg: t('refreshSent', { h: hora() }) });
     const started = Date.now();
     const before = meta.generatedAt;
     poll.current = setInterval(async () => {
@@ -44,7 +45,7 @@ export function Scoreboard({
         const m = (await r.json()) as Meta;
         if (m.generatedAt !== before) {
           clearInterval(poll.current!);
-          setUpd({ state: 'idle' });
+          setUpd({ state: 'idle', msg: t('refreshDone', { h: hora() }) });
           onReload();
           return;
         }
@@ -142,7 +143,7 @@ export function Scoreboard({
       {upd.msg ? (
         <p className={`source-warning ${upd.state === 'busy' ? 'info' : ''}`} role="status">
           {upd.msg}
-          {upd.state === 'error' ? (
+          {upd.state !== 'busy' ? (
             <button type="button" className="link" onClick={() => setUpd({ state: 'idle' })} aria-label={t('close')}>
               {' '}
               ✕

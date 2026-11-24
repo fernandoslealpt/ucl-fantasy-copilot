@@ -54,7 +54,13 @@ export function DiaryScreen({ data, history, onRecord }: { data: Dataset; histor
       ) : null}
       {played.some((e) => e.ev.officialPoints != null) ? <PointsChart evals={played.map((e) => e.ev)} /> : null}
       {evals.map(({ rec, ev }) => (
-        <GamedayCard key={rec.gameday} ev={ev} data={data} onPoints={(p) => onRecord(rec.gameday, { officialPoints: p })} />
+        <GamedayCard
+          key={rec.gameday}
+          ev={ev}
+          data={data}
+          onPoints={(p) => onRecord(rec.gameday, { officialPoints: p })}
+          onClear={() => confirm(t('diaryClearConfirm', { gd: rec.gameday })) && onRecord(rec.gameday, { done: undefined })}
+        />
       ))}
     </section>
   );
@@ -88,7 +94,7 @@ function PointsChart({ evals }: { evals: GdEvaluation[] }) {
   );
 }
 
-function GamedayCard({ ev, data, onPoints }: { ev: GdEvaluation; data: Dataset; onPoints: (p: number | null) => void }) {
+function GamedayCard({ ev, data, onPoints, onClear }: { ev: GdEvaluation; data: Dataset; onPoints: (p: number | null) => void; onClear: () => void }) {
   const { t, num } = useI18n();
   const name = (id: string) => data.byId.get(id)?.name ?? id;
   const [input, setInput] = useState(ev.officialPoints != null ? String(ev.officialPoints) : '');
@@ -160,6 +166,13 @@ function GamedayCard({ ev, data, onPoints }: { ev: GdEvaluation; data: Dataset; 
         <span className="muted small-print">{t('diaryOfficialHelp')}</span>
         {err ? <span className="hint error">{err}</span> : null}
       </div>
+      {ev.done.length || ev.captain ? (
+        <p className="small-print">
+          <button type="button" className="link" onClick={onClear}>
+            {t('diaryClear')}
+          </button>
+        </p>
+      ) : null}
     </article>
   );
 }
