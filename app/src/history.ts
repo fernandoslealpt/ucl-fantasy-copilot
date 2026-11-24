@@ -42,6 +42,8 @@ export interface GdRecord {
   teamXp?: number;
   /** pontos oficiais da equipa na jornada (escritos pelo Fernando) */
   officialPoints?: number | null;
+  /** quando o Fernando limpou o registo "o que fiz" desta jornada (impede que outro aparelho o repita) */
+  clearedAt?: string;
 }
 
 export interface History {
@@ -71,14 +73,50 @@ export function saveLocalHistory(h: History): void {
   }
 }
 
-/** Junta duas versões (telemóvel e PC): por jornada fica a mais recente. Nunca perde jornadas. */
+/** Trocas do registo que o outro aparelho ainda não sabe que foram limpas. */
+function doneOf(rec: GdRecord, other: GdRecord): GdRecord['done'] {
+  const cleared = rec.clearedAt && Date.parse(other.updatedAt) <= Date.parse(rec.clearedAt);
+  return cleared ? undefined : other.done;
+}
+
+/** Junta dois registos da mesma jornada: as trocas dos dois aparelhos somam-se (sem repetir); o resto fica com o mais recente. */
+function mergeRecord(a: GdRecord, b: GdRecord): GdRecord {
+  const [base, other] = Date.parse(a.updatedAt) >= Date.parse(b.updatedAt) ? [a, b] : [b, a];
+  const out: GdRecord = { ...other, ...base, done: undefined };
+  const clearedAt = [a.clearedAt, b.clearedAt].filter(Boolean).sort().at(-1);
+  if (clearedAt) out.clearedAt = clearedAt;
+  const bDone = base.done;
+  const oDone = doneOf(base, other);
+  if (bDone || oDone) {
+    const seen = new Set<string>();
+    const swaps = [...(bDone?.swaps ?? []), ...(oDone?.swaps ?? [])].filter((x) => {
+      const k = `${x.out}>${x.in}`;
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+    const chip = bDone?.chip ?? oDone?.chip;
+    out.done = {
+      ...(oDone ?? {}),
+      ...(bDone ?? {}),
+      swaps,
+      hits: Math.max(bDone?.hits ?? 0, oDone?.hits ?? 0),
+      noMove: swaps.length ? false : (bDone?.noMove ?? oDone?.noMove),
+      ...(chip ? { chip } : {}),
+    };
+  }
+  if (!out.done) delete out.done;
+  return out;
+}
+
+/** Junta duas versões (telemóvel e PC): por jornada fica o mais recente, mas as trocas dos dois aparelhos somam-se. Nunca perde jornadas. */
 export function mergeHistory(a: History | null, b: History | null): History {
   if (!a) return b ?? emptyHistory();
   if (!b) return a;
   const gamedays: Record<string, GdRecord> = { ...a.gamedays };
   for (const [k, r] of Object.entries(b.gamedays)) {
     const cur = gamedays[k];
-    if (!cur || Date.parse(r.updatedAt) > Date.parse(cur.updatedAt)) gamedays[k] = r;
+    gamedays[k] = cur ? mergeRecord(cur, r) : r;
   }
   return { version: 1, updatedAt: a.updatedAt > b.updatedAt ? a.updatedAt : b.updatedAt, gamedays };
 }

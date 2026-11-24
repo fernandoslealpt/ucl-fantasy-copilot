@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { emptyHistory, evaluateGameday, mergeHistory, updateGameday, type History } from './history';
+import { emptyHistory, evaluateGameday, mergeHistory, updateGameday, type GdRecord, type History } from './history';
 import { pendingDecisions, withDecisions, type MyTeam } from './team';
 import type { Row } from './types';
 
@@ -74,5 +74,21 @@ describe('decisões pendentes', () => {
   });
   it('sem equipa completa pede a equipa', () => {
     expect(pendingDecisions(null, 5)).toEqual(['team']);
+  });
+});
+
+describe('Diário: trocas de dois aparelhos', () => {
+  const base = (done: GdRecord['done'], updatedAt: string): History => ({ version: 1, updatedAt, gamedays: { '5': { gameday: 5, updatedAt, done } as GdRecord } });
+  it('junta as trocas feitas em cada aparelho, sem repetir', () => {
+    const phone = base({ swaps: [{ out: 'a', in: 'b' }], hits: 0 }, '2026-11-24T10:00:00Z');
+    const pc = base({ swaps: [{ out: 'a', in: 'b' }, { out: 'c', in: 'd' }], hits: 0 }, '2026-11-24T09:00:00Z');
+    const m = mergeHistory(phone, pc).gamedays['5']!;
+    expect(m.done!.swaps).toEqual([{ out: 'a', in: 'b' }, { out: 'c', in: 'd' }]);
+  });
+  it('um registo "limpo" não volta a aparecer com as trocas do outro aparelho', () => {
+    const cleared: History = { version: 1, updatedAt: '2026-11-24T11:00:00Z', gamedays: { '5': { gameday: 5, updatedAt: '2026-11-24T11:00:00Z', clearedAt: '2026-11-24T11:00:00Z' } as GdRecord } };
+    const oldPc = base({ swaps: [{ out: 'a', in: 'b' }], hits: 0 }, '2026-11-24T10:00:00Z');
+    expect(mergeHistory(cleared, oldPc).gamedays['5']!.done).toBeUndefined();
+    expect(mergeHistory(oldPc, cleared).gamedays['5']!.done).toBeUndefined();
   });
 });
