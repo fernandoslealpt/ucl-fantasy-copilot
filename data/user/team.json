@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-23T18:19:41.750Z",
+  "updatedAt": "2026-11-24T10:30:22.818Z",
   "players": [
     "250076574",
     "250176450",
@@ -20,5 +20,8 @@
   ],
   "bank": 1.2,
   "freeTransfers": 2,
-  "ftGameday": 5
+  "ftGameday": 5,
+  "chips": {
+    "wildcard": 5
+  }
 }
