@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-24T10:30:48.690Z",
+  "updatedAt": "2026-11-24T10:31:16.129Z",
   "gamedays": {
     "5": {
       "gameday": 5,
-      "updatedAt": "2026-11-24T10:30:48.690Z",
+      "updatedAt": "2026-11-24T10:31:16.129Z",
       "recommended": {
         "swaps": [],
         "deltaNow": 0,
@@ -61,7 +61,9 @@
         ],
         "hits": 0,
         "chip": "wildcard",
-        "noMove": false
+        "noMove": false,
+        "captain": "250153621",
+        "vice": "250112880"
       },
       "recommendedNoCut": {
         "swaps": [
