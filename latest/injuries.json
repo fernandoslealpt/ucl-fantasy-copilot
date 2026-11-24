@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T08:54:24.087Z",
+  "updatedAt": "2026-11-24T14:46:34.062Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -93,6 +93,32 @@
       "basis": "Lesão longa (4 fontes): ausência estimada de 6 meses — \"Paris Saint-Germain Forward Desire Doue to Undergo Knee Surgery\"."
     },
     {
+      "playerId": "250209018",
+      "name": "N. Saliba",
+      "teamId": "70691",
+      "teamName": "Villarreal",
+      "since": "2026-11-24T11:01:30.000Z",
+      "severity": "long",
+      "status": "confirmed",
+      "expectedBack": "2027-02-23T11:01:30.000Z",
+      "assumed": false,
+      "outUntilGameday": 8,
+      "evidence": [
+        {
+          "title": "Nathan Saliba to undergo ankle surgery: three months out",
+          "source": "Tu Futbolero",
+          "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQYW1ZR200VXZoajVNeUxlcU5NeFIyZXFWUmdZdm5PNHd5MzEwRHBpTFA2VzRvWERGN29LZkdnekptYm94SXh2WXlVN1hOd3VQN05jeUNULTh2MW1scl90eVFGOFotdnhuS25ySklvRWxIalJfQWc5dE5USkhuZGtvemFyUXR3akJXUkJyQ252cXhnajF2V1RXdTl2NHAzTms?oc=5",
+          "publishedAt": "2026-11-24T11:01:30.000Z",
+          "duration": {
+            "kind": "long",
+            "weeks": 13,
+            "explicit": true
+          }
+        }
+      ],
+      "basis": "Lesão longa (1 fonte): ausência indicada de 13 semanas — \"Nathan Saliba to undergo ankle surgery: three months out\"."
+    },
+    {
       "playerId": "250171278",
       "name": "D. Raya",
       "teamId": "52280",
@@ -104,16 +130,6 @@
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
-        {
-          "title": "Arsenal's Raya ruled out of Dortmund clash",
-          "source": "The Straits Times",
-          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNOUJZaHFhQndqUmNDOFdlcFprdkhudHRucFdWYXoxSFVzMlVJYUpKU3dkTlhXaUwzblEwdmRoMWZEZWZ4a2FOXzVBeEFyZl9LbE1PZ2tCY01NWldfcXRrUkd1RDhGOVN4dnRiMEg3Z3ViVTZRaW9JYmRlYjk3QWhNc3BUSHJ5WGE4Z19VUU53?oc=5",
-          "publishedAt": "2026-11-23T14:42:00.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
         {
           "title": "David Raya injury “doesn’t look too serious”",
           "source": "The Short Fuse",
@@ -163,9 +179,19 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "Who will start in goal for Arsenal tonight? Mikel Arteta facing tricky decision after David Raya injury blow",
+          "source": "AOL.co.uk",
+          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQUEdBZDJwRWs4Q045OW1mUExUUEhPbXZBeVFPdERzbTFiYWdSYW5BQXA5WDdNaU42WGpXUDA1ZXlndTZ0SDBIVzFyYkl0czBWR2t6anFVcC1HU3VfckRWa000TFM2eFNSUWpOY2t1MFhWU2RQMlV2aFVVV2U2MkJielhKYS0?oc=5",
+          "publishedAt": "2026-11-24T11:13:12.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"'Doesn't look too serious' - Arteta delivers encouraging Raya Arsenal injury update\"."
+      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"Who will start in goal for Arsenal tonight? Mikel Arteta facing tricky decision after David Raya injury blow\"."
     },
     {
       "playerId": "250016833",
@@ -300,16 +326,6 @@
       "outUntilGameday": 6,
       "evidence": [
         {
-          "title": "Osimhen to miss Galatasaray v Aston Villa after knee surgery",
-          "source": "Goalball Live",
-          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNS09EcThiWHFpWTR5c1RicFFnZXlHTTBybE1haXlaLVlqZkliTEtwSlphV3E2d0ZkZjdTR2Fmamp0SlZwaTNjQzkzR0NJQnZtcDExeV93Mk5iSFdmUjlCeVNyM1pUZ0hCbXgzSHlJdThjUkN2dU5LMDFUWUZTeTFSZ1BtNXc?oc=5",
-          "publishedAt": "2026-11-23T12:00:00.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 8
-          }
-        },
-        {
           "title": "'Very important striker' - Emery insists Galatasaray can cope without injured Osimhen",
           "source": "AllNigeriaSoccer",
           "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPYWdQY0oxVnRrX0Y3cnAyQ00yZkt2ajYxX0lyNGdIQUhqQUZpUW5IMTVKdWk5VEdNbHVqZ0t0MVRhV0ZWTXAzMF9XYm5zLTdUU1RvNW9XSDdRSnFQaHhkdXc2WVRweS1QLWlyNHVsdjhtTFlCdG5mZjBSVGJfUjJYaERoMGF5RWhNclVHV1lrX3hkQlBaZzlfVVhvTW5MMHpicmN3bEtHZ016Ums3bng2X3BUM2k?oc=5",
@@ -338,9 +354,39 @@
             "kind": "weeks",
             "weeks": 8
           }
+        },
+        {
+          "title": "Blow for Galatasaray as Victor Osimhen is ruled out of Aston Villa Champions League clash",
+          "source": "Pan Africa Football",
+          "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1iR2xZNDQzekdiS3RzakphRUxtQjdQSHpaZlRPZ2c2QlgxaEJQQWFpb25XTU5IUGRkMUdwekp5UmlMZ3pHR0ZZZ3B4NnkydVJ1MW9NYzdob05CSTBLRGg3cExQU3VfakdraVpiaG80Z0h2TjB6Y1pzQ3JR?oc=5",
+          "publishedAt": "2026-11-24T10:23:03.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
+        },
+        {
+          "title": "Turkey: Journalist Reveals Osimhen’s Emotional State Amid Injury Absence",
+          "source": "New Telegraph",
+          "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOQVZJQXJtVU9TeUg0NHJJdFliUy1DZGJ3VkQxYXh3TEtSdS1jdWRsWnFwSWFneVFraVNhbzJfa29Lcm1TUVdnOXZXSVoxWHV1WG80dFBkU1gwQWcyUWl5LVZxVkNuVzVhdml3ZmVxblZBT3cyeXZ2ZDNGaWJ0cWhJdDY5cE5KVVkwcmpyVzBkbnk2Y0hHak9ELTVISlFIUGc?oc=5",
+          "publishedAt": "2026-11-24T10:35:05.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
+        },
+        {
+          "title": "UCL: Victor Osimhen ruled out of Galatasaray vs Aston Villa Champions League clash",
+          "source": "Pulse Nigeria",
+          "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQZEExSXpXOGRwd0FZUE81ZlJEbW1udWxLaHpiQ1NDSlNQRGxoYzRlRkc5dVFjdTBnZTIxMlpndXJubnp3bXNuT1poVUxWRWl6ZmoxZWlOZl9NVzNlelE5Vko1d2RPM1lqVENkZUhyWmgtSTRJQVFmRmd2MWxBRmdpNWdRd2E2ZmZIU0x6N21MN3daLTdIQmNUYU9RSlkxRWVlZHNFODN2TklhN0t0RmVDczRlRjE5WTA1NXh2ZFNjSmFnQ2lmdzN3?oc=5",
+          "publishedAt": "2026-11-24T10:50:12.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (4 fontes): ausência estimada de 8 semanas — \"Osimhen Ruled Out of Villa Clash After Knee Surgery\"."
+      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"UCL: Victor Osimhen ruled out of Galatasaray vs Aston Villa Champions League clash\"."
     }
   ]
 }
