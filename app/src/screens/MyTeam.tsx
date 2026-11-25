@@ -15,7 +15,8 @@ import { Difficulty, Opponent, pct, StatusMark, surnameOf, teamCode, useNote } f
 import { useI18n } from '../i18n';
 import { bestXI, clubLimit, decisionsFor, freeTransfersFor, pendingDecisions, POSITIONS, SQUAD, validate, withDecisions, type MyTeam } from '../team';
 import type { Dataset, Position, Row } from '../types';
-import type { GdRecord } from '../history';
+import type { GdRecord, History } from '../history';
+import { LastGameday } from '../components/LastGameday';
 import { HIT, sameMatchWarnings, type Plan } from '../advice/engine';
 import { CaptainSection, targetGameday, TransfersSection, useCaptainAdvice, useTransferAdvice, WarningText, xpAtGd } from './Advice';
 
@@ -27,9 +28,10 @@ interface Props {
   onSave: (team: MyTeam) => Promise<string>;
   onOpen: (r: Row) => void;
   onRecord: RecordFn;
+  history?: History;
 }
 
-export function MyTeamScreen({ data, team, onSave, onOpen, onRecord }: Props) {
+export function MyTeamScreen({ data, team, onSave, onOpen, onRecord, history }: Props) {
   const [editing, setEditing] = useState(false);
   const [importFile, setImportFile] = useState<File | null>(null);
   const { t } = useI18n();
@@ -76,7 +78,7 @@ export function MyTeamScreen({ data, team, onSave, onOpen, onRecord }: Props) {
     );
   }
   return (
-    <TeamView data={data} team={team} onEdit={() => setEditing(true)} onImport={startImport} onOpen={onOpen} onSave={onSave} onRecord={onRecord} />
+    <TeamView data={data} team={team} onEdit={() => setEditing(true)} onImport={startImport} onOpen={onOpen} onSave={onSave} onRecord={onRecord} history={history} />
   );
 }
 
@@ -112,7 +114,9 @@ function TeamView({
   onOpen,
   onSave,
   onRecord,
+  history,
 }: {
+  history?: History;
   data: Dataset;
   team: MyTeam;
   onEdit: () => void;
@@ -448,6 +452,8 @@ function TeamView({
       ) : null}
 
       {changes ? <ChangesCard diff={changes} data={data} onClose={() => setChanges(null)} /> : null}
+
+      <LastGameday data={data} squad={squad} team={team} history={history} onOpen={onOpen} />
 
       <div className="todo-card" aria-label={t('todoTitle', { gd })}>
         <h2 className="todo-title">{pending.length ? t('todoTitle', { gd }) : t('todoDone', { gd })}</h2>
