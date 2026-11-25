@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-25T16:32:46.222Z",
+  "generatedAt": "2026-11-25T21:46:44.507Z",
   "season": 2027,
   "gameday": 5,
   "targets": [
@@ -35,11 +35,11 @@
       "model": {
         "n": 950,
         "mae": 1.91,
-        "rmse": 2.7,
+        "rmse": 2.69,
         "spearman": 0.17,
         "top20Actual": 6.65,
-        "top50Actual": 5.04,
-        "meanPred": 1.95,
+        "top50Actual": 5.02,
+        "meanPred": 1.96,
         "meanActual": 1.81
       },
       "baseline": {
@@ -57,24 +57,24 @@
     {
       "gameday": 2,
       "model": {
-        "n": 910,
+        "n": 914,
         "mae": 1.99,
-        "rmse": 2.83,
-        "spearman": 0.42,
+        "rmse": 2.82,
+        "spearman": 0.43,
         "top20Actual": 4.15,
-        "top50Actual": 4.36,
+        "top50Actual": 4.34,
         "meanPred": 2.16,
-        "meanActual": 2.08
+        "meanActual": 2.07
       },
       "baseline": {
-        "n": 910,
-        "mae": 2.16,
-        "rmse": 3.71,
+        "n": 914,
+        "mae": 2.15,
+        "rmse": 3.7,
         "spearman": 0.38,
         "top20Actual": 2.6,
         "top50Actual": 2.56,
-        "meanPred": 1.89,
-        "meanActual": 2.08
+        "meanPred": 1.88,
+        "meanActual": 2.07
       },
       "population": "jogadores com minutos na jornada ou previsão ≥ 1 ponto"
     },
@@ -85,9 +85,9 @@
         "mae": 1.96,
         "rmse": 2.77,
         "spearman": 0.39,
-        "top20Actual": 6.4,
-        "top50Actual": 5.28,
-        "meanPred": 2.33,
+        "top20Actual": 6.65,
+        "top50Actual": 5.3,
+        "meanPred": 2.35,
         "meanActual": 2.27
       },
       "baseline": {
@@ -105,39 +105,39 @@
     {
       "gameday": 4,
       "model": {
-        "n": 752,
+        "n": 755,
         "mae": 2.05,
-        "rmse": 2.99,
+        "rmse": 2.97,
         "spearman": 0.41,
-        "top20Actual": 6,
-        "top50Actual": 5.44,
-        "meanPred": 2.35,
-        "meanActual": 2.52
+        "top20Actual": 5.75,
+        "top50Actual": 5.6,
+        "meanPred": 2.37,
+        "meanActual": 2.51
       },
       "baseline": {
-        "n": 752,
-        "mae": 2.19,
+        "n": 755,
+        "mae": 2.18,
         "rmse": 3.25,
         "spearman": 0.37,
         "top20Actual": 4.45,
         "top50Actual": 4.66,
-        "meanPred": 2.38,
-        "meanActual": 2.52
+        "meanPred": 2.37,
+        "meanActual": 2.51
       },
       "population": "jogadores com minutos na jornada ou previsão ≥ 1 ponto"
     }
   ],
   "ratings": {
-    "mu": 0.44,
+    "mu": 0.4,
     "home": 0.28,
-    "beta": 0.19,
+    "beta": 0.2,
     "gamma": 0.21,
-    "observations": 270
+    "observations": 272
   },
   "ratingsTuning": {
     "chosen": {
       "sigma": 0.2,
-      "halfLifeDays": 90,
+      "halfLifeDays": 180,
       "prevWeight": 1
     },
     "gamedays": [
@@ -146,18 +146,18 @@
       4,
       5
     ],
-    "matches": 171,
+    "matches": 173,
     "chosenScore": {
-      "logLik": -1.677,
-      "mae": 1.146,
-      "meanPred": 1.791,
-      "meanActual": 1.76
+      "logLik": -1.675,
+      "mae": 1.14,
+      "meanPred": 1.778,
+      "meanActual": 1.757
     },
     "defaultScore": {
-      "logLik": -1.689,
-      "mae": 1.159,
-      "meanPred": 1.775,
-      "meanActual": 1.76
+      "logLik": -1.686,
+      "mae": 1.154,
+      "meanPred": 1.778,
+      "meanActual": 1.757
     },
     "grid": [
       {
@@ -166,17 +166,8 @@
           "halfLifeDays": 90,
           "prevWeight": 1
         },
-        "logLik": -1.677,
-        "mae": 1.146
-      },
-      {
-        "params": {
-          "sigma": 0.2,
-          "halfLifeDays": 180,
-          "prevWeight": 0.5
-        },
-        "logLik": -1.677,
-        "mae": 1.145
+        "logLik": -1.675,
+        "mae": 1.144
       },
       {
         "params": {
@@ -184,8 +175,8 @@
           "halfLifeDays": 180,
           "prevWeight": 1
         },
-        "logLik": -1.677,
-        "mae": 1.144
+        "logLik": -1.675,
+        "mae": 1.14
       },
       {
         "params": {
@@ -193,35 +184,26 @@
           "halfLifeDays": 180,
           "prevWeight": 1
         },
-        "logLik": -1.678,
-        "mae": 1.143
+        "logLik": -1.676,
+        "mae": 1.14
       },
       {
         "params": {
-          "sigma": 0.2,
-          "halfLifeDays": 90,
-          "prevWeight": 0.5
+          "sigma": 0.15,
+          "halfLifeDays": 365,
+          "prevWeight": 1
         },
-        "logLik": -1.678,
-        "mae": 1.147
+        "logLik": -1.676,
+        "mae": 1.137
       },
       {
         "params": {
           "sigma": 0.2,
           "halfLifeDays": 180,
-          "prevWeight": 0.25
+          "prevWeight": 0.5
         },
-        "logLik": -1.678,
-        "mae": 1.146
-      },
-      {
-        "params": {
-          "sigma": 0.2,
-          "halfLifeDays": 365,
-          "prevWeight": 0.25
-        },
-        "logLik": -1.678,
-        "mae": 1.145
+        "logLik": -1.676,
+        "mae": 1.142
       },
       {
         "params": {
@@ -229,34 +211,52 @@
           "halfLifeDays": 365,
           "prevWeight": 0.5
         },
-        "logLik": -1.678,
-        "mae": 1.144
+        "logLik": -1.676,
+        "mae": 1.14
       },
       {
         "params": {
-          "sigma": 0.3,
-          "halfLifeDays": 45,
-          "prevWeight": 1
-        },
-        "logLik": -1.678,
-        "mae": 1.148
-      },
-      {
-        "params": {
-          "sigma": 0.3,
+          "sigma": 0.15,
           "halfLifeDays": 90,
           "prevWeight": 1
         },
-        "logLik": -1.678,
-        "mae": 1.148
+        "logLik": -1.677,
+        "mae": 1.145
+      },
+      {
+        "params": {
+          "sigma": 0.15,
+          "halfLifeDays": 180,
+          "prevWeight": 0.5
+        },
+        "logLik": -1.677,
+        "mae": 1.142
+      },
+      {
+        "params": {
+          "sigma": 0.15,
+          "halfLifeDays": 365,
+          "prevWeight": 0.5
+        },
+        "logLik": -1.677,
+        "mae": 1.14
+      },
+      {
+        "params": {
+          "sigma": 0.15,
+          "halfLifeDays": null,
+          "prevWeight": 0.25
+        },
+        "logLik": -1.677,
+        "mae": 1.14
       }
     ]
   },
   "spikyCalibration": {
-    "factor": 0.88,
-    "relative": 0.88,
-    "spiky": 148,
-    "normal": 228,
+    "factor": 0.87,
+    "relative": 0.87,
+    "spiky": 149,
+    "normal": 232,
     "gamedays": [
       3,
       4

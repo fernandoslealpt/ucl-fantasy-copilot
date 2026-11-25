@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T16:32:46.222Z",
+  "updatedAt": "2026-11-25T21:46:44.507Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -175,7 +175,7 @@
       "teamName": "Galatasaray",
       "since": "2026-11-25T10:17:41.000Z",
       "severity": "weeks",
-      "status": "suspected",
+      "status": "confirmed",
       "expectedBack": "2027-01-20T10:17:41.000Z",
       "assumed": true,
       "outUntilGameday": 7,
@@ -189,9 +189,19 @@
             "kind": "weeks",
             "weeks": 8
           }
+        },
+        {
+          "title": "Galatasaray Confirm Deniz Gül Surgery After Aston Villa Winner Ahead of Beşiktaş Derby",
+          "source": "turkish football",
+          "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxON0FVMjJ5VVVNYV9SYnVVUmR4aFo5RUE2T0NTTUcyVEc1TlI0ZXRJM1NvSzFBTlF2THpyUTN5RUlVamotOTZxRGJYbXc2bGtXbk9nU2h6djNxRVhXVmwxOTBNd0RPZlo5SkVtajRWaExaRVNrVkdqZUVKcmZXRUhsbGp0WUNUMmR3WUo3TEJWMWtjakZidkRYZmFxRkI3U0toVDFGdEc4aVJKZEgwYkkzUUQwbXJuMFk?oc=5",
+          "publishedAt": "2026-11-25T14:03:55.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
         }
       ],
-      "basis": "Possível lesão de semanas (1 fonte): ausência estimada de 8 semanas — \"Galatasaray player Deniz Gül undergoes surgery after facial injury\"."
+      "basis": "Lesão de semanas (2 fontes): ausência estimada de 8 semanas — \"Galatasaray Confirm Deniz Gül Surgery After Aston Villa Winner Ahead of Beşiktaş Derby\"."
     },
     {
       "playerId": "250016833",
