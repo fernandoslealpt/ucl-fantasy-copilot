@@ -135,6 +135,7 @@ export function SettingsSheet({ theme, setTheme, lastSync, onSyncNow, onClose }:
           </p>
         ) : null}
         {lastSync ? <p className="muted">{t('syncedAt', { t: ago(lastSync) })}</p> : null}
+        <p className="muted small-print">{t('appVersion', { v: __APP_VERSION__ })}</p>
       </div>
     </dialog>
   );

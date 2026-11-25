@@ -19,7 +19,9 @@ export function SubsTodayCard({
   locked,
   xpAt,
   onSaveLineup,
+  bare = false,
 }: {
+  bare?: boolean;
   gd: number;
   lineup: Lineup;
   saved: boolean;
@@ -44,8 +46,8 @@ export function SubsTodayCard({
   const worstXi = [...xiLeft].sort((a, b) => xpAt(a) - xpAt(b))[0];
 
   return (
-    <section className="subs-card" aria-label={t('subsTitle', { gd })}>
-      <h2>{t('subsTitle', { gd })}</h2>
+    <section className={bare ? '' : 'subs-card'} aria-label={t('subsTitle', { gd })}>
+      {bare ? null : <h2>{t('subsTitle', { gd })}</h2>}
       {worth ? (
         <>
           <ul className="plain">

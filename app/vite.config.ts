@@ -5,6 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 // Publicado em https://fernandoslealpt.github.io/ucl-fantasy-copilot/
 export default defineConfig({
   base: '/ucl-fantasy-copilot/',
+  define: { __APP_VERSION__: JSON.stringify((process.env.GITHUB_SHA ?? 'local').slice(0, 7)) },
   plugins: [
     react(),
     VitePWA({
