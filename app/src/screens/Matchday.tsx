@@ -5,6 +5,8 @@
 import { useMemo, useState } from 'react';
 import { Field, LabelPicker, type FieldSlot, type LabelMode } from '../components/Field';
 import { ActionList, Sheet } from '../components/Sheet';
+import { isLocked, liveXp, realPoints } from '../advice/live';
+import { useNow } from '../data';
 import { useI18n } from '../i18n';
 import { applySwap, canSwap, defaultLineup, ifAbsent, lineupSuggestion, type Lineup } from '../squad';
 import type { Dataset, Position, Row } from '../types';
@@ -45,7 +47,10 @@ export function MatchdayView({
   const [action, setAction] = useState<Row | null>(null);
   const [subFrom, setSubFrom] = useState<string | null>(null);
   const [absent, setAbsent] = useState<ReturnType<typeof ifAbsent> | null>(null);
-  const sug = useMemo(() => lineupSuggestion(lineup, squad, xpAt), [lineup, squad, xpAt]);
+  const now = useNow(60_000);
+  const locked = useMemo(() => new Set(squad.filter((r) => isLocked(r, gd, now)).map((r) => r.id)), [squad, gd, now]);
+  const xpLive = useMemo(() => (r: Row) => liveXp(r, gd, now, xpAt), [gd, now, xpAt]);
+  const sug = useMemo(() => lineupSuggestion(lineup, squad, xpLive, locked), [lineup, squad, xpLive, locked]);
 
   const slot = (id: string, bench?: string): FieldSlot => {
     const r = byId.get(id) ?? null;
@@ -124,7 +129,7 @@ export function MatchdayView({
           }
           onClose={() => (setAction(null), setAbsent(null))}
         >
-          <p className="muted small-print">{t('xpThisGd', { gd, xp: num(xpAt(action)) })}</p>
+          <p className="muted small-print">{locked.has(action.id) && realPoints(action, gd) != null ? t('realThisGd', { gd, pts: realPoints(action, gd)! }) : t('xpThisGd', { gd, xp: num(xpAt(action)) })}</p>
           {absent ? (
             <div className="question">
               <h3>❓ {t('qAbsent', { name: action.name })}</h3>

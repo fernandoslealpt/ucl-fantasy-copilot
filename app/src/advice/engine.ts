@@ -426,7 +426,7 @@ const dayOf = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString('e
  * Plano: começar com um capitão que joga primeiro e passar a braçadeira a quem joga depois
  * se o primeiro fizer menos pontos do que o xP do segundo.
  */
-export function adviseCaptain(xi: Row[], gameday: number): CaptainAdvice {
+export function adviseCaptain(xi: Row[], gameday: number, now?: number): CaptainAdvice {
   const ranking: CaptainPick[] = xi
     .map((row) => {
       const f = row.xp?.fixtures.filter((x) => x.gameday === gameday) ?? [];
@@ -434,7 +434,8 @@ export function adviseCaptain(xi: Row[], gameday: number): CaptainAdvice {
       const kickoff = f[0]?.kickoff ?? null;
       return { row, xp, pStart: f[0]?.pStart ?? 0, kickoff, day: dayOf(kickoff) };
     })
-    .filter((c) => c.xp > 0)
+    // jogo já começado: já não se pode ser capitão (nem vice) novo
+    .filter((c) => c.xp > 0 && !(now != null && c.kickoff && Date.parse(c.kickoff) <= now))
     .sort((a, b) => capScore(b) - capScore(a));
   const best = ranking[0] ?? null;
   let captain = best;
