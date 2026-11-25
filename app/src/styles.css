@@ -2460,3 +2460,44 @@ ul.plain {
 .switch-card p {
   margin: 0 0 10px;
 }
+
+/* Jogador do jogo no campo */
+.ftoken-star {
+  position: absolute;
+  top: -7px;
+  right: -5px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: #1d1a00;
+  font-size: 0.8rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+/* Substituições de hoje */
+.subs-card {
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.subs-card h2 {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+}
+.subs-card p {
+  margin: 0 0 8px;
+}
+.last-gd-details {
+  margin: 12px 0;
+}
+.last-gd-details > summary {
+  cursor: pointer;
+  font-weight: 600;
+}

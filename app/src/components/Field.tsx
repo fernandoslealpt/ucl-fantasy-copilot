@@ -7,8 +7,8 @@ import { useI18n } from '../i18n';
 import type { Dataset, Position, Row } from '../types';
 import { surnameOf, teamCode } from './ui';
 
-export type LabelMode = 'points' | 'xp' | 'price' | 'next' | 'opp';
-export const LABEL_MODES: LabelMode[] = ['points', 'xp', 'price', 'next', 'opp'];
+export type LabelMode = 'points' | 'xp' | 'price' | 'next' | 'opp' | 'day';
+export const LABEL_MODES: LabelMode[] = ['day', 'points', 'xp', 'price', 'next', 'opp'];
 
 export interface FieldSlot {
   key: string;
@@ -56,7 +56,18 @@ export function Crest({ data, teamId, size = 22 }: { data: Dataset; teamId: stri
 export function useSlotLabel(data: Dataset, gd: number) {
   const { num, lang } = useI18n();
   const loc = lang === 'en' ? 'en-GB' : 'pt-PT';
-  return (r: Row, mode: LabelMode, captain = false): { main: string; sub?: string; diff?: number } => {
+  return (r: Row, mode: LabelMode, captain = false): { main: string; sub?: string; diff?: number; star?: boolean } => {
+    // "jornada em curso": pontos já feitos (e jogador do jogo) para quem já jogou; adversário para quem falta jogar
+    if (mode === 'day') {
+      const dg = data.meta.gamedayState === 'live' && data.meta.currentGameday != null ? data.meta.currentGameday : gd;
+      const fx = r.xp?.fixtures.find((x) => x.gameday === dg);
+      const line = r.history.find((h) => h.gameday === dg);
+      const started = !!fx?.kickoff && Date.parse(fx.kickoff) <= Date.now();
+      if (line) return { main: `${captain ? 2 * line.points : line.points} pts`, star: (line.stats?.playerOfTheMatch ?? 0) > 0 };
+      if (started) return { main: '—' };
+      const d = fx ? data.ratingById.get(r.teamId)?.fixtures.find((x) => x.gameday === dg && x.opponentId === fx.opponentId)?.difficulty : undefined;
+      return { main: fx ? `${fx.home ? '' : '@'}${teamCode(data, fx.opponentId, fx.opponentName)}` : '—', diff: d };
+    }
     const f = r.xp?.fixtures.find((x) => x.gameday === gd);
     const diff = f ? data.ratingById.get(r.teamId)?.fixtures.find((x) => x.gameday === gd && x.opponentId === f.opponentId)?.difficulty : undefined;
     switch (mode) {
@@ -128,6 +139,11 @@ function Token({
         </span>
       </button>
       {s.badge ? <span className={`ftoken-badge ${s.badge === 'V' ? 'vice' : ''}`}>{s.badge}</span> : null}
+      {l.star ? (
+        <span className="ftoken-star" title={t('lastGdMotm')} aria-label={t('lastGdMotm')}>
+          ★
+        </span>
+      ) : null}
       {s.overlay ? (
         <button
           type="button"
@@ -211,6 +227,14 @@ export function LabelPicker({ mode, onMode }: { mode: LabelMode; onMode: (m: Lab
 }
 
 const LABEL_KEY = 'ucl.fieldLabel';
+export function hasStoredLabelMode(): boolean {
+  try {
+    return localStorage.getItem(LABEL_KEY) != null;
+  } catch {
+    return false;
+  }
+}
+
 export function readLabelMode(): LabelMode {
   try {
     const v = localStorage.getItem(LABEL_KEY) as LabelMode | null;

@@ -165,3 +165,6 @@
 - Com a jornada `live`, o ecrã da Equipa passa a trabalhar sobre a **jornada em curso** (onze, capitão, separador da jornada), e não sobre a seguinte. Antes olhava para a J6 enquanto a J5 decorria.
 - O Diário continua a guardar o xP **do modelo** (sem pontos reais), para a comparação previsto/real não se estragar.
 - Pressuposto: a UEFA deixa passar a braçadeira a quem ainda não jogou (o plano de troca de capitão que já existia assume o mesmo). O cartão pede para confirmar isso na UEFA.
+- (25 nov, a pedido do Fernando) Em vez da lista grande no topo, os **pontos da jornada e o jogador do jogo (★) aparecem no campo**, como na app da UEFA ("Jornada em curso": pontos de quem já jogou, adversário de quem falta; capitão a dobrar). É o rótulo por defeito enquanto a jornada decorre, se não houver preferência guardada. A lista passou para um bloco recolhido "Como correu a J{N}".
+- **Substituições de hoje**: cartão sempre visível durante a jornada, mesmo quando a resposta é "nenhuma compensa" (explica com o melhor suplente por jogar e o titular mais fraco por jogar). Só mexe em jogadores que ainda não jogaram; mínimo de 0,3 pontos esperados.
+- Onze assumido quando o da jornada não está guardado: melhor onze pelo xP que a app tinha ao fecho (guardado no Diário), e não pelo xP de agora (que já mistura pontos reais). Botão "Guardar este onze".
