@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { matchTeam, type ImportResult } from '../importer/match';
-import { Crest, readLabelMode, writeLabelMode, type LabelMode } from '../components/Field';
-import { lineupFor, type Lineup } from '../squad';
+import { Crest, hasStoredLabelMode, readLabelMode, writeLabelMode, type LabelMode } from '../components/Field';
+import { lineupFor, lineupSuggestion, type Lineup } from '../squad';
 import { SquadView } from './Squad';
 import { PlanView } from './Plan';
 import { ChangesCard } from '../components/Questions';
@@ -16,9 +16,10 @@ import { useI18n } from '../i18n';
 import { bestXI, clubLimit, decisionsFor, freeTransfersFor, pendingDecisions, POSITIONS, SQUAD, validate, withDecisions, type MyTeam } from '../team';
 import type { Dataset, Position, Row } from '../types';
 import type { GdRecord, History } from '../history';
-import { LastGameday } from '../components/LastGameday';
+import { LastGameday, lastResultGameday } from '../components/LastGameday';
 import { CaptainSwitchCard } from '../components/CaptainSwitchCard';
-import { captainSwitch } from '../advice/live';
+import { captainSwitch, isLocked, liveXp } from '../advice/live';
+import { SubsTodayCard } from '../components/SubsTodayCard';
 import { useNow } from '../data';
 import { HIT, sameMatchWarnings, type Plan } from '../advice/engine';
 import { CaptainSection, targetGameday, TransfersSection, useCaptainAdvice, useTransferAdvice, WarningText, xpAtGd } from './Advice';
@@ -239,17 +240,26 @@ function TeamView({
   };
   const [view, setView] = useState<'plantel' | 'jornada'>('plantel');
   const [plantelMode, setPlantelMode] = useState<'now' | 'plan'>('now');
-  const [label, setLabelState] = useState<LabelMode>(readLabelMode);
+  const [label, setLabelState] = useState<LabelMode>(() => (data.meta.gamedayState === 'live' && !hasStoredLabelMode() ? 'day' : readLabelMode()));
   const setLabel = (m: LabelMode) => {
     setLabelState(m);
     writeLabelMode(m);
   };
-  const { lineup, saved: lineupSaved } = useMemo(() => lineupFor(team, squad, dayGd, xpDay, data.byId), [team, squad, dayGd, xpDay, data.byId]);
+  // Se o onze desta jornada não está guardado, assume-se o melhor onze pelo xP que a app tinha ao fecho (guardado no Diário)
+  const xpLineup = useMemo(() => {
+    const snap = liveGd != null ? history?.gamedays[String(dayGd)]?.xp : undefined;
+    return snap ? (r: Row) => snap[r.id] ?? xpDay(r) : xpDay;
+  }, [liveGd, history, dayGd, xpDay]);
+  const { lineup, saved: lineupSaved } = useMemo(() => lineupFor(team, squad, dayGd, xpLineup, data.byId), [team, squad, dayGd, xpLineup, data.byId]);
   const nowTick = useNow(60_000);
   const capSwitch = useMemo(
     () => captainSwitch(lineup.xi.map((id) => data.byId.get(id)).filter((r): r is Row => !!r), capIdDay, dayGd, nowTick, xpDay),
     [lineup, data.byId, capIdDay, dayGd, nowTick, xpDay],
   );
+  const lockedSet = useMemo(() => new Set(squad.filter((r) => isLocked(r, dayGd, nowTick)).map((r) => r.id)), [squad, dayGd, nowTick]);
+  const xpLive = useMemo(() => (r: Row) => liveXp(r, dayGd, nowTick, xpDay), [dayGd, nowTick, xpDay]);
+  const subs = useMemo(() => (liveGd != null ? lineupSuggestion(lineup, squad, xpLive, lockedSet) : null), [liveGd, lineup, squad, xpLive, lockedSet]);
+  const xiLeft = lineup.xi.filter((id) => !lockedSet.has(id)).length;
   const saveLineup = async (l: Lineup) => setMsg(await onSave({ ...team, lineup: { ...l, gameday: dayGd }, updatedAt: new Date().toISOString() }));
   const setRole = (id: string, role: 'C' | 'V') => {
     const c = role === 'C' ? id : capIdDay === id ? viceIdDay : capIdDay;
@@ -477,7 +487,26 @@ function TeamView({
         />
       ) : null}
 
-      <LastGameday data={data} squad={squad} team={team} history={history} onOpen={onOpen} />
+      {liveGd != null && subs && xiLeft > 0 ? (
+        <SubsTodayCard
+          gd={dayGd}
+          lineup={lineup}
+          saved={lineupSaved}
+          byId={data.byId}
+          pairs={subs.pairs}
+          gain={subs.gain}
+          locked={lockedSet}
+          xpAt={xpDay}
+          onSaveLineup={(l) => void saveLineup(l)}
+        />
+      ) : null}
+
+      {lastResultGameday(squad) ? (
+        <details className="last-gd-details">
+          <summary>{t('lastGdTitle', { gd: lastResultGameday(squad) })}</summary>
+          <LastGameday data={data} squad={squad} team={team} history={history} onOpen={onOpen} />
+        </details>
+      ) : null}
 
       <div className="todo-card" aria-label={t('todoTitle', { gd })}>
         <h2 className="todo-title">{pending.length ? t('todoTitle', { gd }) : t('todoDone', { gd })}</h2>
@@ -547,8 +576,8 @@ function TeamView({
                   free={free}
                   mode={label}
                   onMode={setLabel}
-                  captainId={capId}
-                  viceId={viceId}
+                  captainId={liveGd != null && label === 'day' ? capIdDay : capId}
+                  viceId={liveGd != null && label === 'day' ? viceIdDay : viceId}
                   advice={advice}
                   onConfirm={confirmTransfers}
                   onCaptain={setRole}
