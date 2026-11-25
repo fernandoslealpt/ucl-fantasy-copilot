@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T00:49:56.023Z",
+  "updatedAt": "2026-11-25T01:06:14.920Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -143,10 +143,10 @@
       "name": "D. Raya",
       "teamId": "52280",
       "teamName": "Arsenal",
-      "since": "2026-11-23T14:42:57.000Z",
+      "since": "2026-11-23T21:50:00.000Z",
       "severity": "weeks",
       "status": "confirmed",
-      "expectedBack": "2027-01-18T14:42:57.000Z",
+      "expectedBack": "2027-01-18T21:50:00.000Z",
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
@@ -211,7 +211,7 @@
           }
         }
       ],
-      "basis": "Lesão de semanas (8 fontes): ausência estimada de 8 semanas — \"How Big A Blow Is David Raya’s Injury To Arsenal?\"."
+      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"How Big A Blow Is David Raya’s Injury To Arsenal?\"."
     },
     {
       "playerId": "250016833",
@@ -358,10 +358,10 @@
       "name": "V. Osimhen",
       "teamId": "50067",
       "teamName": "Galatasaray",
-      "since": "2026-11-23T19:06:42.000Z",
+      "since": "2026-11-24T01:43:08.000Z",
       "severity": "weeks",
       "status": "confirmed",
-      "expectedBack": "2027-01-18T19:06:42.000Z",
+      "expectedBack": "2027-01-19T01:43:08.000Z",
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
@@ -426,7 +426,7 @@
           }
         }
       ],
-      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"Aston Villa handed major boost as Victor Osimhen ruled out of Galatasaray Champions League clash\"."
+      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Aston Villa handed major boost as Victor Osimhen ruled out of Galatasaray Champions League clash\"."
     }
   ]
 }
