@@ -1,18 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** quarta, 25/11, 15:19 (Lisboa) · **Jornada:** 5 (a decorrer) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** quarta, 25/11, 16:32 (Lisboa) · **Jornada:** 5 (a decorrer) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | quarta, 25/11, 15:19 |  |
-| uefaFantasy | ✅ ok | 2 | 1175 | quarta, 25/11, 15:19 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | quarta, 25/11, 15:19 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1175 | quarta, 25/11, 15:19 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | quarta, 25/11, 15:19 |  |
+| uefaMatches | ✅ ok | 3 | 144 | quarta, 25/11, 16:32 |  |
+| uefaFantasy | ✅ ok | 1 | 1175 | quarta, 25/11, 16:32 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | quarta, 25/11, 16:32 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1175 | quarta, 25/11, 16:32 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | quarta, 25/11, 16:32 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 278 | quarta, 25/11, 15:19 |  |
-| uefaReads | ✅ ok | 1 | 8 | quarta, 25/11, 15:19 |  |
-| rotowire | ✅ ok | 1 | 18 | quarta, 25/11, 15:19 |  |
+| googleNews | ✅ ok | 0 | 278 | quarta, 25/11, 15:19 |  |
+| rotowire | ✅ ok | 1 | 18 | quarta, 25/11, 16:32 |  |
 
 **Totais:** 1175 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 1800/2348 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -96,12 +95,14 @@
 
 <details><summary>Valores de estado no feed</summary>
 
-- 846 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
+- 806 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
 - 126 × pStatus=NIS · qStatus=∅ · trained=∅
-- 99 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
+- 98 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
 - 54 × pStatus=∅ · qStatus=∅ · trained=∅
-- 25 × pStatus=D · qStatus=∅ · trained=In contention to start next game
-- 14 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
+- 22 × pStatus=D · qStatus=∅ · trained=In contention to start next game
+- 22 × pStatus=P · qStatus=∅ · trained=In contention to start next game
+- 21 × pStatus=B · qStatus=∅ · trained=In contention to start next game
+- 15 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
 - 9 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
 - 2 × pStatus=S · qStatus=∅ · trained=∅
 
