@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T08:54:27.049Z",
+  "updatedAt": "2026-11-25T11:25:35.356Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -163,10 +163,10 @@
       "name": "D. Raya",
       "teamId": "52280",
       "teamName": "Arsenal",
-      "since": "2026-11-23T21:50:00.000Z",
+      "since": "2026-11-24T06:27:00.000Z",
       "severity": "weeks",
       "status": "confirmed",
-      "expectedBack": "2027-01-18T21:50:00.000Z",
+      "expectedBack": "2027-01-19T06:27:00.000Z",
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
@@ -231,7 +231,7 @@
           }
         }
       ],
-      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"Arsenal injury news: Mikel Arteta drops update on whether David Raya will be fit to face Man City\"."
+      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Arsenal injury news: Mikel Arteta drops update on whether David Raya will be fit to face Man City\"."
     },
     {
       "playerId": "250016833",

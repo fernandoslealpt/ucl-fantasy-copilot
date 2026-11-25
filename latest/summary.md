@@ -1,18 +1,17 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** quarta, 25/11, 08:54 (Lisboa) · **Jornada:** 5 (a decorrer) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** quarta, 25/11, 11:25 (Lisboa) · **Jornada:** 5 (a decorrer) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | quarta, 25/11, 08:54 |  |
-| uefaFantasy | ✅ ok | 2 | 1175 | quarta, 25/11, 08:54 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | quarta, 25/11, 08:54 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1175 | quarta, 25/11, 08:54 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | quarta, 25/11, 08:54 |  |
+| uefaMatches | ✅ ok | 3 | 144 | quarta, 25/11, 11:25 |  |
+| uefaFantasy | ✅ ok | 1 | 1175 | quarta, 25/11, 11:25 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | quarta, 25/11, 11:25 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1175 | quarta, 25/11, 11:25 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | quarta, 25/11, 11:25 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 277 | quarta, 25/11, 08:54 |  |
-| uefaReads | ✅ ok | 1 | 8 | quarta, 25/11, 08:54 |  |
-| rotowire | ✅ ok | 1 | 18 | quarta, 25/11, 08:54 |  |
+| googleNews | ✅ ok | 0 | 277 | quarta, 25/11, 08:54 |  |
+| rotowire | ✅ ok | 1 | 18 | quarta, 25/11, 11:25 |  |
 
 **Totais:** 1175 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 1800/2348 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -48,7 +47,7 @@
 | 8 | A. Grimaldo | Atleti | DEF | 5.5 | 6.4 | 15.2 | 2.76 | 86% | vs Viking | alta |
 | 9 | A. Gordon | Barcelona | MID | 8.0 | 6.3 | 14.8 | 1.85 | 80% | @ Sabah | média |
 | 10 | M. Llorente | Atleti | MID | 6.7 | 5.5 | 14.0 | 2.09 | 88% | vs Viking | alta |
-| 11 | P. Foden | Man City | MID | 7.1 | 5.4 | 15.2 | 2.15 | 87% | vs Napoli | alta |
+| 11 | P. Foden | Man City | MID | 7.1 | 5.4 | 15.2 | 2.14 | 87% | vs Napoli | alta |
 | 12 | Vitinha | Paris | MID | 7.7 | 5.4 | 16.2 | 2.11 | 89% | vs Roma | alta |
 | 13 | Fabián Ruiz | Paris | MID | 6.8 | 5.3 | 15.6 | 2.29 | 87% | vs Roma | alta |
 | 14 | S. Brunstad Fet | Bodø/Glimt | MID | 5.1 | 5.2 | 14.1 | 2.76 | 91% | vs LASK | alta |
@@ -98,11 +97,11 @@
 
 - 846 × pStatus=∅ · qStatus=∅ · trained=In contention to start next game
 - 126 × pStatus=NIS · qStatus=∅ · trained=∅
-- 98 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
+- 99 × pStatus=I · qStatus=∅ · trained=Unlikely to start next game
 - 54 × pStatus=∅ · qStatus=∅ · trained=∅
 - 25 × pStatus=D · qStatus=∅ · trained=In contention to start next game
-- 13 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
-- 10 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
-- 3 × pStatus=S · qStatus=∅ · trained=∅
+- 14 × pStatus=∅ · qStatus=∅ · trained=Unlikely to start next game
+- 9 × pStatus=D · qStatus=∅ · trained=Unlikely to start next game
+- 2 × pStatus=S · qStatus=∅ · trained=∅
 
 </details>
