@@ -18,7 +18,8 @@ import type { Dataset, Position, Row } from '../types';
 import type { GdRecord, History } from '../history';
 import { LastGameday, lastResultGameday } from '../components/LastGameday';
 import { CaptainSwitchCard } from '../components/CaptainSwitchCard';
-import { captainSwitch, isLocked, liveXp } from '../advice/live';
+import { captainSwitch, isLocked, kickoffOf, liveXp } from '../advice/live';
+import { Sheet } from '../components/Sheet';
 import { SubsTodayCard } from '../components/SubsTodayCard';
 import { useNow } from '../data';
 import { HIT, sameMatchWarnings, type Plan } from '../advice/engine';
@@ -151,7 +152,12 @@ function TeamView({
   const viceId = dec?.captain ? dec.vice ?? null : captain.vice?.row.id ?? null;
   const pending = pendingDecisions(team, gd);
   // Com a jornada a decorrer, "hoje" é a jornada em curso (onze, substituições e capitão), não a seguinte
-  const liveGd = data.meta.gamedayState === 'live' ? data.meta.currentGameday : null;
+  const nowTick = useNow(60_000);
+  // jornada em curso: o estado dos dados diz "a decorrer", ou já há jogos começados e jogos por começar nessa jornada
+  const curGd = data.meta.currentGameday;
+  const started = curGd != null && squad.some((r) => isLocked(r, curGd, nowTick));
+  const toStart = curGd != null && squad.some((r) => kickoffOf(r, curGd) != null && !isLocked(r, curGd, nowTick));
+  const liveGd = curGd != null && (data.meta.gamedayState === 'live' || (started && toStart)) ? curGd : null;
   const dayGd = liveGd ?? gd;
   const xpDay = useMemo(() => xpAtGd(dayGd), [dayGd]);
   const captainDay = useCaptainAdvice(squad, dayGd);
@@ -251,14 +257,14 @@ function TeamView({
     return snap ? (r: Row) => snap[r.id] ?? xpDay(r) : xpDay;
   }, [liveGd, history, dayGd, xpDay]);
   const { lineup, saved: lineupSaved } = useMemo(() => lineupFor(team, squad, dayGd, xpLineup, data.byId), [team, squad, dayGd, xpLineup, data.byId]);
-  const nowTick = useNow(60_000);
   const capSwitch = useMemo(
     () => captainSwitch(lineup.xi.map((id) => data.byId.get(id)).filter((r): r is Row => !!r), capIdDay, dayGd, nowTick, xpDay),
     [lineup, data.byId, capIdDay, dayGd, nowTick, xpDay],
   );
   const lockedSet = useMemo(() => new Set(squad.filter((r) => isLocked(r, dayGd, nowTick)).map((r) => r.id)), [squad, dayGd, nowTick]);
   const xpLive = useMemo(() => (r: Row) => liveXp(r, dayGd, nowTick, xpDay), [dayGd, nowTick, xpDay]);
-  const subs = useMemo(() => (liveGd != null ? lineupSuggestion(lineup, squad, xpLive, lockedSet) : null), [liveGd, lineup, squad, xpLive, lockedSet]);
+  const subs = useMemo(() => lineupSuggestion(lineup, squad, xpLive, lockedSet), [lineup, squad, xpLive, lockedSet]);
+  const [subsOpen, setSubsOpen] = useState(false);
   const xiLeft = lineup.xi.filter((id) => !lockedSet.has(id)).length;
   const saveLineup = async (l: Lineup) => setMsg(await onSave({ ...team, lineup: { ...l, gameday: dayGd }, updatedAt: new Date().toISOString() }));
   const setRole = (id: string, role: 'C' | 'V') => {
@@ -487,7 +493,7 @@ function TeamView({
         />
       ) : null}
 
-      {liveGd != null && subs && xiLeft > 0 ? (
+      {liveGd != null && xiLeft > 0 ? (
         <SubsTodayCard
           gd={dayGd}
           lineup={lineup}
@@ -558,6 +564,30 @@ function TeamView({
               {t('viewMatchday', { gd: dayGd })}
             </button>
           </div>
+          <div className="plan-actions">
+            <button type="button" className="btn" onClick={() => setSubsOpen(true)}>
+              ⇅ {t('subsButton')}
+            </button>
+          </div>
+          {subsOpen ? (
+            <Sheet title={t('subsTitle', { gd: dayGd })} onClose={() => setSubsOpen(false)}>
+              <SubsTodayCard
+                bare
+                gd={dayGd}
+                lineup={lineup}
+                saved={lineupSaved}
+                byId={data.byId}
+                pairs={subs.pairs}
+                gain={subs.gain}
+                locked={lockedSet}
+                xpAt={xpDay}
+                onSaveLineup={(l) => {
+                  void saveLineup(l);
+                  setSubsOpen(false);
+                }}
+              />
+            </Sheet>
+          ) : null}
           {view === 'plantel' ? (
             <>
               <div className="seg seg-sub" role="tablist" aria-label={t('viewSquad')}>
