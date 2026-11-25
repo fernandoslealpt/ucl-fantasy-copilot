@@ -157,3 +157,11 @@
 - Os pontos e o jogador do jogo já chegavam sozinhos aos dados (a cada 2 h, de hora a hora nas noites de Champions). Faltava mostrá-los: cartão no topo da Equipa com pontos, minutos, golos, assistências e selo de jogador do jogo, ordenado por pontos.
 - A jornada mostrada é a última com resultados no plantel. **Provisório** enquanto alguma equipa do plantel ainda não jogou nessa jornada (campo `nextMatch.gameday` das equipas). Aviso: os pontos oficiais podem ser corrigidos e o jogador do jogo pode chegar tarde.
 - Total do onze guardado + capitão a dobrar (só quando o onze e o capitão guardados são dessa jornada), ao lado do xP previsto do Diário.
+
+## 25 nov 2026 — A meio da jornada: pontos reais, jogadores bloqueados e troca de capitão
+- Falha apontada pelo Fernando: as sugestões de capitão e de onze ignoravam o que já tinha acontecido (o Paz, capitão, fez 2 pontos na terça; a app continuava a tratar todos pelo xP do modelo).
+- Novo `app/src/advice/live.ts`: jogador com o jogo **já começado** fica bloqueado (kickoff ≤ agora) e conta pelos **pontos reais** (se ainda não há registo e passaram 3 h, assume-se 0). `captainSwitch`: se o capitão está bloqueado e há alguém do onze por jogar cujo xP (penalizado pela dúvida de titularidade) excede os pontos reais do capitão em ≥ 2, sugere passar a braçadeira (e o vice).
+- O conselho de capitão ignora quem já tem o jogo começado; as sugestões de substituição só mexem em jogadores por jogar (bloqueados no onze ficam, bloqueados no banco não entram).
+- Com a jornada `live`, o ecrã da Equipa passa a trabalhar sobre a **jornada em curso** (onze, capitão, separador da jornada), e não sobre a seguinte. Antes olhava para a J6 enquanto a J5 decorria.
+- O Diário continua a guardar o xP **do modelo** (sem pontos reais), para a comparação previsto/real não se estragar.
+- Pressuposto: a UEFA deixa passar a braçadeira a quem ainda não jogou (o plano de troca de capitão que já existia assume o mesmo). O cartão pede para confirmar isso na UEFA.

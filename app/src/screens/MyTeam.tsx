@@ -17,6 +17,9 @@ import { bestXI, clubLimit, decisionsFor, freeTransfersFor, pendingDecisions, PO
 import type { Dataset, Position, Row } from '../types';
 import type { GdRecord, History } from '../history';
 import { LastGameday } from '../components/LastGameday';
+import { CaptainSwitchCard } from '../components/CaptainSwitchCard';
+import { captainSwitch } from '../advice/live';
+import { useNow } from '../data';
 import { HIT, sameMatchWarnings, type Plan } from '../advice/engine';
 import { CaptainSection, targetGameday, TransfersSection, useCaptainAdvice, useTransferAdvice, WarningText, xpAtGd } from './Advice';
 
@@ -146,6 +149,14 @@ function TeamView({
   const capId = dec?.captain ?? captain.captain?.row.id ?? null;
   const viceId = dec?.captain ? dec.vice ?? null : captain.vice?.row.id ?? null;
   const pending = pendingDecisions(team, gd);
+  // Com a jornada a decorrer, "hoje" é a jornada em curso (onze, substituições e capitão), não a seguinte
+  const liveGd = data.meta.gamedayState === 'live' ? data.meta.currentGameday : null;
+  const dayGd = liveGd ?? gd;
+  const xpDay = useMemo(() => xpAtGd(dayGd), [dayGd]);
+  const captainDay = useCaptainAdvice(squad, dayGd);
+  const decDay = decisionsFor(team, dayGd);
+  const capIdDay = decDay?.captain ?? captainDay.captain?.row.id ?? null;
+  const viceIdDay = decDay?.captain ? decDay.vice ?? null : captainDay.vice?.row.id ?? null;
   const [msg, setMsg] = useState('');
   const [changes, setChanges] = useState<SnapshotDiff | null>(null);
 
@@ -216,9 +227,9 @@ function TeamView({
     onRecord(gd, (cur) => ({ done: { ...(cur?.done ?? {}), swaps: cur?.done?.swaps ?? [], hits: cur?.done?.hits ?? 0, noMove: !(cur?.done?.swaps?.length) } }));
     setMsg(await onSave(withDecisions(team, gd, { transfers: true })));
   };
-  const confirmCaptain = async (c: string, v: string | null) => {
-    onRecord(gd, (cur) => ({ done: { ...(cur?.done ?? { swaps: [], hits: 0 }), captain: c, ...(v ? { vice: v } : {}) } }));
-    setMsg(await onSave(withDecisions(team, gd, { captain: c, ...(v ? { vice: v } : {}) })));
+  const confirmCaptain = async (c: string, v: string | null, forGd = gd) => {
+    onRecord(forGd, (cur) => ({ done: { ...(cur?.done ?? { swaps: [], hits: 0 }), captain: c, ...(v ? { vice: v } : {}) } }));
+    setMsg(await onSave(withDecisions(team, forGd, { captain: c, ...(v ? { vice: v } : {}) })));
   };
   const toggleChip = (chip: 'wildcard' | 'limitless') => {
     const used = team.chips?.[chip] != null;
@@ -233,12 +244,17 @@ function TeamView({
     setLabelState(m);
     writeLabelMode(m);
   };
-  const { lineup, saved: lineupSaved } = useMemo(() => lineupFor(team, squad, gd, xpAt, data.byId), [team, squad, gd, xpAt, data.byId]);
-  const saveLineup = async (l: Lineup) => setMsg(await onSave({ ...team, lineup: { ...l, gameday: gd }, updatedAt: new Date().toISOString() }));
+  const { lineup, saved: lineupSaved } = useMemo(() => lineupFor(team, squad, dayGd, xpDay, data.byId), [team, squad, dayGd, xpDay, data.byId]);
+  const nowTick = useNow(60_000);
+  const capSwitch = useMemo(
+    () => captainSwitch(lineup.xi.map((id) => data.byId.get(id)).filter((r): r is Row => !!r), capIdDay, dayGd, nowTick, xpDay),
+    [lineup, data.byId, capIdDay, dayGd, nowTick, xpDay],
+  );
+  const saveLineup = async (l: Lineup) => setMsg(await onSave({ ...team, lineup: { ...l, gameday: dayGd }, updatedAt: new Date().toISOString() }));
   const setRole = (id: string, role: 'C' | 'V') => {
-    const c = role === 'C' ? id : capId === id ? viceId : capId;
-    const v = role === 'V' ? id : viceId === id ? capId : viceId;
-    if (c) void confirmCaptain(c, v && v !== c ? v : null);
+    const c = role === 'C' ? id : capIdDay === id ? viceIdDay : capIdDay;
+    const v = role === 'V' ? id : viceIdDay === id ? capIdDay : viceIdDay;
+    if (c) void confirmCaptain(c, v && v !== c ? v : null, dayGd);
   };
   const confirmTransfers = async (swaps: { out: Row; in: Row }[], bankAfter: number, hits: number, limitless: boolean) => {
     const outs = new Set(swaps.map((s) => s.out.id));
@@ -453,6 +469,14 @@ function TeamView({
 
       {changes ? <ChangesCard diff={changes} data={data} onClose={() => setChanges(null)} /> : null}
 
+      {capSwitch ? (
+        <CaptainSwitchCard
+          sw={capSwitch}
+          onOpen={onOpen}
+          onDone={() => void confirmCaptain(capSwitch.to.id, capSwitch.vice && capSwitch.vice.id !== capSwitch.to.id ? capSwitch.vice.id : null, dayGd)}
+        />
+      ) : null}
+
       <LastGameday data={data} squad={squad} team={team} history={history} onOpen={onOpen} />
 
       <div className="todo-card" aria-label={t('todoTitle', { gd })}>
@@ -502,7 +526,7 @@ function TeamView({
               {t('viewSquad')}
             </button>
             <button type="button" role="tab" aria-selected={view === 'jornada'} className={view === 'jornada' ? 'on' : ''} onClick={() => setView('jornada')}>
-              {t('viewMatchday', { gd })}
+              {t('viewMatchday', { gd: dayGd })}
             </button>
           </div>
           {view === 'plantel' ? (
@@ -555,14 +579,14 @@ function TeamView({
             <MatchdayView
               data={data}
               squad={squad}
-              gd={gd}
+              gd={dayGd}
               lineup={lineup}
               saved={lineupSaved}
               mode={label}
               onMode={setLabel}
-              captainId={capId}
-              viceId={viceId}
-              xpAt={xpAt}
+              captainId={capIdDay}
+              viceId={viceIdDay}
+              xpAt={xpDay}
               onLineup={saveLineup}
               onCaptain={setRole}
               onOpen={onOpen}

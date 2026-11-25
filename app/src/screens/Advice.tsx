@@ -25,6 +25,7 @@ import {
 } from '../advice/engine';
 import { StatusMark, pct, useSignalText } from '../components/ui';
 import { DifferentialTable } from '../components/Questions';
+import { useNow } from '../data';
 import { useI18n } from '../i18n';
 import { bestXI, decisionsFor, type MyTeam } from '../team';
 import type { Dataset, Row } from '../types';
@@ -52,7 +53,8 @@ export function useTransferAdvice(data: Dataset, team: MyTeam, squad: Row[], gd:
 }
 
 export function useCaptainAdvice(squad: Row[], gd: number): CaptainAdvice {
-  return useMemo(() => adviseCaptain(bestXI(squad, xpAtGd(gd)).xi, gd), [squad, gd]);
+  const now = useNow(60_000);
+  return useMemo(() => adviseCaptain(bestXI(squad, xpAtGd(gd)).xi, gd, now), [squad, gd, now]);
 }
 
 // ———————————————————————————— Transferências ————————————————————————————

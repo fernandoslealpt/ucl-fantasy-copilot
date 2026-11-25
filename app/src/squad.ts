@@ -163,9 +163,20 @@ export function applySwap(l: Lineup, a: string, b: string): Lineup {
   return { ...l, xi: l.xi.map(sw), bench: l.bench.map(sw) };
 }
 
-/** Sugestão para o onze: trocas titular↔suplente que o onze com mais xP faria, e o ganho. */
-export function lineupSuggestion(l: Lineup, squad: Row[], xpAt: (r: Row) => number): { pairs: { out: string; in: string }[]; gain: number } {
-  const best = bestXI(squad, xpAt).xi.map((r) => r.id);
+/**
+ * Sugestão para o onze: trocas titular↔suplente que o onze com mais xP faria, e o ganho.
+ * Jogadores com o jogo já começado (`locked`) ficam onde estão: não se mexe neles e não entram.
+ */
+export function lineupSuggestion(
+  l: Lineup,
+  squad: Row[],
+  xpAt: (r: Row) => number,
+  locked: ReadonlySet<string> = new Set(),
+): { pairs: { out: string; in: string }[]; gain: number } {
+  const inXi = new Set(l.xi);
+  // bloqueados no onze ficam sempre; bloqueados no banco nunca entram (só afeta a escolha, o ganho usa o xP real)
+  const forced = (r: Row) => (locked.has(r.id) ? (inXi.has(r.id) ? 1000 : -1000) : 0) + xpAt(r);
+  const best = bestXI(squad, forced).xi.map((r) => r.id);
   const byId = new Map(squad.map((r) => [r.id, r]));
   const val = (ids: string[]) => ids.reduce((a, id) => a + xpAt(byId.get(id)!), 0);
   const gain = val(best) - val(l.xi);
