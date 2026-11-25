@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T17:22:03.949Z",
+  "generatedAt": "2026-11-25T00:49:56.023Z",
   "season": 2027,
   "gameday": 5,
   "targets": [
@@ -38,7 +38,7 @@
         "rmse": 2.7,
         "spearman": 0.17,
         "top20Actual": 6.65,
-        "top50Actual": 5.16,
+        "top50Actual": 5.04,
         "meanPred": 1.95,
         "meanActual": 1.81
       },
@@ -57,19 +57,19 @@
     {
       "gameday": 2,
       "model": {
-        "n": 908,
+        "n": 910,
         "mae": 1.99,
         "rmse": 2.83,
         "spearman": 0.42,
-        "top20Actual": 3.75,
-        "top50Actual": 4.32,
+        "top20Actual": 4.15,
+        "top50Actual": 4.36,
         "meanPred": 2.16,
         "meanActual": 2.08
       },
       "baseline": {
-        "n": 908,
+        "n": 910,
         "mae": 2.16,
-        "rmse": 3.72,
+        "rmse": 3.71,
         "spearman": 0.38,
         "top20Actual": 2.6,
         "top50Actual": 2.56,
@@ -83,7 +83,7 @@
       "model": {
         "n": 801,
         "mae": 1.96,
-        "rmse": 2.76,
+        "rmse": 2.77,
         "spearman": 0.39,
         "top20Actual": 6.4,
         "top50Actual": 5.28,
@@ -128,11 +128,11 @@
     }
   ],
   "ratings": {
-    "mu": 0.5,
-    "home": 0.27,
-    "beta": 0.15,
-    "gamma": 0.22,
-    "observations": 261
+    "mu": 0.44,
+    "home": 0.28,
+    "beta": 0.19,
+    "gamma": 0.21,
+    "observations": 270
   },
   "ratingsTuning": {
     "chosen": {
@@ -143,66 +143,31 @@
     "gamedays": [
       2,
       3,
-      4
+      4,
+      5
     ],
-    "matches": 162,
+    "matches": 171,
     "chosenScore": {
-      "logLik": -1.686,
-      "mae": 1.148,
-      "meanPred": 1.78,
-      "meanActual": 1.79
+      "logLik": -1.677,
+      "mae": 1.146,
+      "meanPred": 1.791,
+      "meanActual": 1.76
     },
     "defaultScore": {
-      "logLik": -1.699,
-      "mae": 1.162,
-      "meanPred": 1.765,
-      "meanActual": 1.79
+      "logLik": -1.689,
+      "mae": 1.159,
+      "meanPred": 1.775,
+      "meanActual": 1.76
     },
     "grid": [
       {
         "params": {
           "sigma": 0.2,
           "halfLifeDays": 90,
-          "prevWeight": 0.5
-        },
-        "logLik": -1.686,
-        "mae": 1.148
-      },
-      {
-        "params": {
-          "sigma": 0.2,
-          "halfLifeDays": 90,
           "prevWeight": 1
         },
-        "logLik": -1.686,
-        "mae": 1.148
-      },
-      {
-        "params": {
-          "sigma": 0.3,
-          "halfLifeDays": 45,
-          "prevWeight": 1
-        },
-        "logLik": -1.686,
-        "mae": 1.147
-      },
-      {
-        "params": {
-          "sigma": 0.2,
-          "halfLifeDays": 90,
-          "prevWeight": 0.25
-        },
-        "logLik": -1.687,
-        "mae": 1.148
-      },
-      {
-        "params": {
-          "sigma": 0.2,
-          "halfLifeDays": 180,
-          "prevWeight": 0.25
-        },
-        "logLik": -1.687,
-        "mae": 1.147
+        "logLik": -1.677,
+        "mae": 1.146
       },
       {
         "params": {
@@ -210,8 +175,8 @@
           "halfLifeDays": 180,
           "prevWeight": 0.5
         },
-        "logLik": -1.687,
-        "mae": 1.147
+        "logLik": -1.677,
+        "mae": 1.145
       },
       {
         "params": {
@@ -219,34 +184,70 @@
           "halfLifeDays": 180,
           "prevWeight": 1
         },
-        "logLik": -1.687,
+        "logLik": -1.677,
+        "mae": 1.144
+      },
+      {
+        "params": {
+          "sigma": 0.15,
+          "halfLifeDays": 180,
+          "prevWeight": 1
+        },
+        "logLik": -1.678,
+        "mae": 1.143
+      },
+      {
+        "params": {
+          "sigma": 0.2,
+          "halfLifeDays": 90,
+          "prevWeight": 0.5
+        },
+        "logLik": -1.678,
+        "mae": 1.147
+      },
+      {
+        "params": {
+          "sigma": 0.2,
+          "halfLifeDays": 180,
+          "prevWeight": 0.25
+        },
+        "logLik": -1.678,
+        "mae": 1.146
+      },
+      {
+        "params": {
+          "sigma": 0.2,
+          "halfLifeDays": 365,
+          "prevWeight": 0.25
+        },
+        "logLik": -1.678,
+        "mae": 1.145
+      },
+      {
+        "params": {
+          "sigma": 0.2,
+          "halfLifeDays": 365,
+          "prevWeight": 0.5
+        },
+        "logLik": -1.678,
+        "mae": 1.144
+      },
+      {
+        "params": {
+          "sigma": 0.3,
+          "halfLifeDays": 45,
+          "prevWeight": 1
+        },
+        "logLik": -1.678,
         "mae": 1.148
       },
       {
         "params": {
           "sigma": 0.3,
-          "halfLifeDays": 45,
-          "prevWeight": 0.25
-        },
-        "logLik": -1.687,
-        "mae": 1.147
-      },
-      {
-        "params": {
-          "sigma": 0.3,
-          "halfLifeDays": 45,
-          "prevWeight": 0.5
-        },
-        "logLik": -1.687,
-        "mae": 1.147
-      },
-      {
-        "params": {
-          "sigma": 0.3,
           "halfLifeDays": 90,
-          "prevWeight": 0.5
+          "prevWeight": 1
         },
-        "logLik": -1.687,
+        "logLik": -1.678,
         "mae": 1.148
       }
     ]

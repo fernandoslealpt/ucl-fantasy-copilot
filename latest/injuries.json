@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T17:22:03.949Z",
+  "updatedAt": "2026-11-25T00:49:56.023Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -114,9 +114,29 @@
             "weeks": 13,
             "explicit": true
           }
+        },
+        {
+          "title": "Midfielder Nathan Saliba needs ankle surgery, adding to Canadian national team's injury list",
+          "source": "CBC",
+          "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPSHFYczVxNFE4ekJSUVlCdTgtU1FZcTRLZmlSb1lPT3l0azloVE0yYlhUN1ZkVUktWTZneWNydjZ6enRHcHpETkVFNk5DY0RNTVdsR3NvRlVaR3NMXzRsc0U1LWhYTTdiLXh0N2I3ckdlMW54MWNOWjNiWlFKdXdudlpHWG5vTURBTXdDdXQyYlV4Qmt1U2hLdDFJMA?oc=5",
+          "publishedAt": "2026-11-24T18:42:47.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "Canadian international and Villarreal midfielder Saliba to undergo surgery to left ankle",
+          "source": "TSN",
+          "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOb1Y1SFBxSlkzeUQ4bUI2QlNpT2oyVTczY1dGcnFGcE9jcGF4MWJMUVl0R2JMVjdEUGRtNW1TUUZMMWFzLXVLX3pmckNvQWQxRnlQYlFUOUpKa0RxRHJkQnNOSlR1Q21lU09YMG1ia3pFRXNKWGVQM1dqaEpfR1B0M0JybDFYUFJoRXZPdDVuQjVsdXhyTEl5RUJLQlpDZXMzOVBLc01MaDEzMGhFSEIzM3I2YUFKaFl4c25OaE02WjFUMmItbUR5aVlXZHc?oc=5",
+          "publishedAt": "2026-11-25T00:26:00.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
         }
       ],
-      "basis": "Lesão longa (1 fonte): ausência indicada de 13 semanas — \"Nathan Saliba to undergo ankle surgery: three months out\"."
+      "basis": "Lesão longa (3 fontes): ausência indicada de 13 semanas — \"Canadian international and Villarreal midfielder Saliba to undergo surgery to left ankle\"."
     },
     {
       "playerId": "250171278",
@@ -130,26 +150,6 @@
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
-        {
-          "title": "David Raya injury “doesn’t look too serious”",
-          "source": "The Short Fuse",
-          "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPdWVjT1Y1cGFXdEZ6dDl4YlZTbXA2UW5FYjR0MjZUZDUxcHN0NEUwM1lhNWl2OEZ3Q3JQUE5INFZzejBHVDZfZkN2czQzQUZCRzdXUTdzdnZNeDZ6bTBkMkxfX1ZZMDZWVm1ZTFVHUWVGaEdzb2pMWWhFZXBwcGtyWmF2QTRwdWNtSDN3eDFnQUpPRk5obUJRVm9WNENJcVR5MFln?oc=5",
-          "publishedAt": "2026-11-23T14:42:57.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
-          "title": "Relief for Arteta and Arsenal as Raya avoids surgery on injured arm",
-          "source": "101 Great Goals",
-          "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOYXFubmRRQWpKc2g2Q0JWUkkxVW9KZzZNay1udEp5TkJLOUVsdU1GNkJRT3JNNE5IZlY0aHprWjU3Y1dZQUVJT1Flc2hZdkJ5SFJIYzZ0VGFwUlJaZmc4U2VDemhtWVFHYnVqREpsUV9HSVp3X0RzUkRoazAyZ1U2SjhNQmZQVlRISUdHSWJTbzVGaUU0cW9IVDhlVE1EejZSRGQzQmdjMDF0MTRLY2xfckxublk2UUFTa1ZHVFhqckp0QlJyVVZkeg?oc=5",
-          "publishedAt": "2026-11-23T14:46:47.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 8
-          }
-        },
         {
           "title": "David Raya’s shoulder injury ‘not too serious’ and no surgery needed for Arsenal goalkeeper",
           "source": "The Guardian",
@@ -189,9 +189,29 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "Arteta issues fresh Raya injury update ahead of Arsenal vs Man City",
+          "source": "London Evening Standard",
+          "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNcVlMUnNla1NMRUlFTHNGeXNicllxQk4tT0xCSmhFM3d6ZzZGWkxSaG84dXVkV0NCOU0wVTkwUlYyMjc1dEctRm9uWFFDaG9jVFBvcEdlRkdLdEF1eEd2WHlHSHpjSW5zeGVtTmxpUmpuSDR3SVhxdTFabE1weEhMRUtKb1NzMmNkRDRiSG8yazhJZUNGVVh1UWF5NVBOVThwNkYw?oc=5",
+          "publishedAt": "2026-11-24T22:57:10.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
+        },
+        {
+          "title": "How Big A Blow Is David Raya’s Injury To Arsenal?",
+          "source": "Yahoo",
+          "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE83UUp2ZDZLRVAtRG5ZVkt1MUJ5Qjdscm93UUlMOHVjTTNKQmpjMkYySFpmQmJ0WVE4a0dKb2JycmhQak84QnVfOEE0VlNQUGF4WWR0QmJuSDVSdU9INHRRZzRiNWdGZUF5TUFoSzJKazZRanpaVHVKb0RZanFvQQ?oc=5",
+          "publishedAt": "2026-11-24T23:45:53.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Who will start in goal for Arsenal tonight? Mikel Arteta facing tricky decision after David Raya injury blow\"."
+      "basis": "Lesão de semanas (8 fontes): ausência estimada de 8 semanas — \"How Big A Blow Is David Raya’s Injury To Arsenal?\"."
     },
     {
       "playerId": "250016833",
@@ -229,14 +249,34 @@
           "title": "Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury",
           "source": "Bavarian Football Works",
           "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNczRpakptN1JMQjU4V05aTGVLckRJWGNWM0FacjdpclRWbjc2ODdTMkI0dmpfbTM3Y2ZBakNpVW1pT1plWUR3bHRZQmo4cmowNFN5bnFEdEloU1JVVmVFMEExNTVyLVBXTmtONGJSYVBlQUE0SEQ0MEZzT0dxY3I4aEUyY09ESm5NaVNhelc3cWUxdnVoSUU4Nk5GajRZSWp1bkVrSXM1LWNnRHZVaUlzQXhZR0NGdWpwS0ZkRk8zSEJWYWkwT2FNdl9HcURqa2NzV3ZpM1c2NUFsWEtfUFVRWg?oc=5",
-          "publishedAt": "2026-11-24T01:30:00.000Z",
+          "publishedAt": "2026-11-24T10:30:00.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
+        },
+        {
+          "title": "Bayern Munich identify seven-man striker shortlist to replace injured Ballon d'Or winner Harry Kane",
+          "source": "Goal.com",
+          "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQMWxWNE43VWxBV19wN2ZvRmVjalhaWFlLOTJNWFVYdHBza1hYcGtUdkw0cklUWHZMMmhUMFdqQjFwY3A0TDFZc2xPTWxxeDdzWl9RV1RLYk85QTlMSzI0aHVjeTJfRUFnS1hRbHJ6c09WbVRMM1EyOG5VQUpueFpEVUcxSGQ3dkxJLUlyYjVRQ243bGJkaVZDdU8wNm9RWXBv?oc=5",
+          "publishedAt": "2026-11-24T12:42:15.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
+        },
+        {
+          "title": "Max Eberl gives estimate for Harry Kane’s injury layoff",
+          "source": "Bavarian Football Works",
+          "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOQUlTY2Y3Q3JGdFEwd2loMVZaRWFxVGhacHR4V1hWZ3QzMTVNTjVHcVdjSUFGYzctTm5xSFFZVXJiNGRERFJjZE9KMWtSRGhQNU9DczhpZHQzcFlfNE94dzA1WTBLTnBsU2pOZk9jcjhTc0VvNlFVanZsMC13ajBLaUcxUi13V0dCQ2V4ZUg1Vi1hSlZxMjlhOWx1LU5YUURFQmtad0d2bUpYZFJIUndadE5sWEJnTjhrelVnTE5YRQ?oc=5",
+          "publishedAt": "2026-11-24T21:30:00.000Z",
           "duration": {
             "kind": "unknown",
             "weeks": null
           }
         }
       ],
-      "basis": "Lesão de semanas (3 fontes): ausência estimada de 8 semanas — \"Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury\"."
+      "basis": "Lesão de semanas (4 fontes): ausência estimada de 8 semanas — \"Max Eberl gives estimate for Harry Kane’s injury layoff\"."
     },
     {
       "playerId": "250106003",
@@ -326,16 +366,6 @@
       "outUntilGameday": 6,
       "evidence": [
         {
-          "title": "'Very important striker' - Emery insists Galatasaray can cope without injured Osimhen",
-          "source": "AllNigeriaSoccer",
-          "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPYWdQY0oxVnRrX0Y3cnAyQ00yZkt2ajYxX0lyNGdIQUhqQUZpUW5IMTVKdWk5VEdNbHVqZ0t0MVRhV0ZWTXAzMF9XYm5zLTdUU1RvNW9XSDdRSnFQaHhkdXc2WVRweS1QLWlyNHVsdjhtTFlCdG5mZjBSVGJfUjJYaERoMGF5RWhNclVHV1lrX3hkQlBaZzlfVVhvTW5MMHpicmN3bEtHZ016Ums3bng2X3BUM2k?oc=5",
-          "publishedAt": "2026-11-23T19:06:42.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
           "title": "Osimhen ruled out of Galatasaray's clash with Aston Villa",
           "source": "TribalFootball",
           "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPY0l1cW1SSi1McmFZVk1KVFpleF91RU43SGtSS0N2Sk1VLW1xaUpZbjcxMVVzOVFaWWhCZ1BpUlF1Si1GY0tIeV9MZFFSTHpFWi1vSEVIbmtMSWNseW1jV2pEZ2pIb0l3QUtEUVVqeVg3SHBHYktzdnJKak53dzdaSUZ6TXlMX3c0VE1VeW5ON0lheE5XUmVaYnZqYTc0cWtPeWtSNU4wWl9UVWhmSmhkRW1PZ2ZJZ2hpLXBYTUl1WV9nMjdpcGpQUkJHSWs3dw?oc=5",
@@ -384,9 +414,19 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "Aston Villa handed major boost as Victor Osimhen ruled out of Galatasaray Champions League clash",
+          "source": "AfricaSoccer.com",
+          "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPYWRSdE5DT09XVXRxam55TUE0WktqV0l3UE1TOXFrRzNHakU0eXNFVE5YZk9LdjdNdUxBb0xNdXdiZ2Jhc0hJMzh4SzlFQnVoSGVDRTBJeWhTSVhLU3dmY21kem9RNmtUWUhZMklnc3RjcWJKd1AwanlWNWN5dTExbFVvQkt6bTdEbDZPcno2YWFhR2hqT0czWmtOSmpUdmlvRTQ5SFdmSFR4a3E4eXdWSHB2M05ETW1lQ3R3N2Vrbw?oc=5",
+          "publishedAt": "2026-11-24T12:57:51.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"UCL: Victor Osimhen ruled out of Galatasaray vs Aston Villa Champions League clash\"."
+      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"Aston Villa handed major boost as Victor Osimhen ruled out of Galatasaray Champions League clash\"."
     }
   ]
 }
