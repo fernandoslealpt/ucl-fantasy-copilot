@@ -1,17 +1,18 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** quarta, 25/11, 01:06 (Lisboa) · **Jornada:** 5 (a decorrer) · **Fecho da equipa:** terça, 24/11, 17:45
+**Gerado:** quarta, 25/11, 08:54 (Lisboa) · **Jornada:** 5 (a decorrer) · **Fecho da equipa:** terça, 24/11, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | quarta, 25/11, 01:06 |  |
-| uefaFantasy | ✅ ok | 1 | 1175 | quarta, 25/11, 01:06 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | quarta, 25/11, 01:06 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1175 | quarta, 25/11, 01:06 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | quarta, 25/11, 01:06 |  |
+| uefaMatches | ✅ ok | 3 | 144 | quarta, 25/11, 08:54 |  |
+| uefaFantasy | ✅ ok | 2 | 1175 | quarta, 25/11, 08:54 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | quarta, 25/11, 08:54 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1175 | quarta, 25/11, 08:54 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | quarta, 25/11, 08:54 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 0 | 279 | quarta, 25/11, 00:49 |  |
-| rotowire | ✅ ok | 1 | 18 | quarta, 25/11, 01:06 |  |
+| googleNews | ✅ ok | 36 | 277 | quarta, 25/11, 08:54 |  |
+| uefaReads | ✅ ok | 1 | 8 | quarta, 25/11, 08:54 |  |
+| rotowire | ✅ ok | 1 | 18 | quarta, 25/11, 08:54 |  |
 
 **Totais:** 1175 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 1800/2348 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -51,7 +52,7 @@
 | 12 | Vitinha | Paris | MID | 7.7 | 5.4 | 16.2 | 2.11 | 89% | vs Roma | alta |
 | 13 | Fabián Ruiz | Paris | MID | 6.8 | 5.3 | 15.6 | 2.29 | 87% | vs Roma | alta |
 | 14 | S. Brunstad Fet | Bodø/Glimt | MID | 5.1 | 5.2 | 14.1 | 2.76 | 91% | vs LASK | alta |
-| 15 | E. Fernández | Man City | MID | 7.5 | 5.2 | 14.8 | 1.98 | 88% | vs Napoli | alta |
+| 15 | E. Fernández | Man City | MID | 7.5 | 5.2 | 14.8 | 1.97 | 88% | vs Napoli | alta |
 | 16 | D. Hancko | Atleti | DEF | 4.5 | 5.2 | 13.0 | 2.89 | 88% | vs Viking | alta |
 | 17 | E. Anderson | Man City | MID | 7.0 | 5.1 | 14.8 | 2.11 | 77% | vs Napoli | média |
 | 18 | João Cancelo | Barcelona | DEF | 5.0 | 5.0 | 12.6 | 2.52 | 87% | @ Sabah | alta |

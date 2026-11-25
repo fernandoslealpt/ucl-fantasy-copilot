@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T01:06:14.920Z",
+  "updatedAt": "2026-11-25T08:54:27.049Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -116,6 +116,26 @@
           }
         },
         {
+          "title": "Canadian MF Saliba set for ankle surgery, Villareal announces",
+          "source": "CP24",
+          "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNVjllNjVHV0dQU0xKeG5KZXRYMUU0TUJSY3c5ZjljRTV3RFFXQ3RGTDBCc2QzU19OTWVLMnZvUmVfcmVIYlhqVWVnN2dfN1k4UW9ieVpSZlJhd1l4NkZHN240R2swYVJKTmNJZE9wZ1lnbkR6anZobjVjekVpQzhlSDdHUkhmOTQwUnRKUkF3UFRvVkhoWkRHajVuaDBuV01Hc0NEMmZ0Q28?oc=5",
+          "publishedAt": "2026-11-24T13:29:32.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "Canada’s Nathan Saliba set for ankle surgery as national team’s injury list grows",
+          "source": "CKPG Today",
+          "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNTHAzZy0zRUMtNmNDX0ZGWXU0T01Ea2RsZ0JJSGNyTEVxX1BUMzdEWlNvdHBoSFpPWEZndjIwUWxENjh3SnNCaFFJYWVWVHJBeXZiTzkxNzhwdmxXOW9NaWt2NF9zQVptb3UzMjEtTGlaSndTOFJxTi1adGVJSlRCMEpNMk5ZbHJxUVJhZDgwRnUyQUJ3bzNZV3NINXpaWlRXR2U1ZXRsRVJZUDNNaV9pRXdR?oc=5",
+          "publishedAt": "2026-11-24T16:21:00.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
           "title": "Midfielder Nathan Saliba needs ankle surgery, adding to Canadian national team's injury list",
           "source": "CBC",
           "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPSHFYczVxNFE4ekJSUVlCdTgtU1FZcTRLZmlSb1lPT3l0azloVE0yYlhUN1ZkVUktWTZneWNydjZ6enRHcHpETkVFNk5DY0RNTVdsR3NvRlVaR3NMXzRsc0U1LWhYTTdiLXh0N2I3ckdlMW54MWNOWjNiWlFKdXdudlpHWG5vTURBTXdDdXQyYlV4Qmt1U2hLdDFJMA?oc=5",
@@ -136,7 +156,7 @@
           }
         }
       ],
-      "basis": "Lesão longa (3 fontes): ausência indicada de 13 semanas — \"Canadian international and Villarreal midfielder Saliba to undergo surgery to left ankle\"."
+      "basis": "Lesão longa (5 fontes): ausência indicada de 13 semanas — \"Canadian international and Villarreal midfielder Saliba to undergo surgery to left ankle\"."
     },
     {
       "playerId": "250171278",
@@ -150,16 +170,6 @@
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
-        {
-          "title": "David Raya’s shoulder injury ‘not too serious’ and no surgery needed for Arsenal goalkeeper",
-          "source": "The Guardian",
-          "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQUTFJR1FEOFFEQWNMaGFxeEFUUnBHWGdQUUlzOThHaG9ac2pyTTBreHFpVHlvcV91Y0NHWlpGWW1PVU1PTnBNMDlVTkVGbXRjcGdnNTNLcHg4dGZLNVFDQi1uOFBHanJiSjhvLWZBZEdlYVpNX3NNSXhTWHcwdWw1ZF9UbUctQU4tU0UyMjdDcng1N1dGUm1JcGkyS0JqSEdraGlvQ3dCYw?oc=5",
-          "publishedAt": "2026-11-23T21:50:00.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 8
-          }
-        },
         {
           "title": "Mikel Arteta confirms David Raya doesn’t need surgery in huge Arsenal injury boost",
           "source": "The Independent",
@@ -194,7 +204,7 @@
           "title": "Arteta issues fresh Raya injury update ahead of Arsenal vs Man City",
           "source": "London Evening Standard",
           "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNcVlMUnNla1NMRUlFTHNGeXNicllxQk4tT0xCSmhFM3d6ZzZGWkxSaG84dXVkV0NCOU0wVTkwUlYyMjc1dEctRm9uWFFDaG9jVFBvcEdlRkdLdEF1eEd2WHlHSHpjSW5zeGVtTmxpUmpuSDR3SVhxdTFabE1weEhMRUtKb1NzMmNkRDRiSG8yazhJZUNGVVh1UWF5NVBOVThwNkYw?oc=5",
-          "publishedAt": "2026-11-24T22:57:10.000Z",
+          "publishedAt": "2026-11-24T23:38:49.000Z",
           "duration": {
             "kind": "unknown",
             "weeks": null
@@ -209,9 +219,19 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "Arsenal injury news: Mikel Arteta drops update on whether David Raya will be fit to face Man City",
+          "source": "Sports Mole",
+          "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQRFZNLTRMdFFUNWVlYnVUQ3VJck1CdHJkNXJTWlBqY1FjYk5lcmhlVjhBczl1UnFhd3k4UldMNnpvcmZqcTVUa0JRdmtjWEZUUV9KQ0k2WUpHeGhwUzRvNUZUS0paOGQ5cFluamw4eXRmbE9RWE1HYlZ1WGNIaDlYOVVFcV9yNFhTVEVZamtJUXpJaWpnczVxbFFteHdfM24xUXhNUVZBODg0eEFnWHZ4ZHV0aGg0NnMwWV9McnJ6cmJGdzR1Q2g5QXRNOHRvZHRUYmFQSm13TGdIbVJWbkhQcVVONm9DMmxmeHVOcXA5N0U?oc=5",
+          "publishedAt": "2026-11-25T07:29:08.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"How Big A Blow Is David Raya’s Injury To Arsenal?\"."
+      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"Arsenal injury news: Mikel Arteta drops update on whether David Raya will be fit to face Man City\"."
     },
     {
       "playerId": "250016833",
@@ -246,16 +266,6 @@
           }
         },
         {
-          "title": "Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury",
-          "source": "Bavarian Football Works",
-          "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNczRpakptN1JMQjU4V05aTGVLckRJWGNWM0FacjdpclRWbjc2ODdTMkI0dmpfbTM3Y2ZBakNpVW1pT1plWUR3bHRZQmo4cmowNFN5bnFEdEloU1JVVmVFMEExNTVyLVBXTmtONGJSYVBlQUE0SEQ0MEZzT0dxY3I4aEUyY09ESm5NaVNhelc3cWUxdnVoSUU4Nk5GajRZSWp1bkVrSXM1LWNnRHZVaUlzQXhZR0NGdWpwS0ZkRk8zSEJWYWkwT2FNdl9HcURqa2NzV3ZpM1c2NUFsWEtfUFVRWg?oc=5",
-          "publishedAt": "2026-11-24T10:30:00.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
           "title": "Bayern Munich identify seven-man striker shortlist to replace injured Ballon d'Or winner Harry Kane",
           "source": "Goal.com",
           "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQMWxWNE43VWxBV19wN2ZvRmVjalhaWFlLOTJNWFVYdHBza1hYcGtUdkw0cklUWHZMMmhUMFdqQjFwY3A0TDFZc2xPTWxxeDdzWl9RV1RLYk85QTlMSzI0aHVjeTJfRUFnS1hRbHJ6c09WbVRMM1EyOG5VQUpueFpEVUcxSGQ3dkxJLUlyYjVRQ243bGJkaVZDdU8wNm9RWXBv?oc=5",
@@ -274,9 +284,19 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury",
+          "source": "Bavarian Football Works",
+          "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNczRpakptN1JMQjU4V05aTGVLckRJWGNWM0FacjdpclRWbjc2ODdTMkI0dmpfbTM3Y2ZBakNpVW1pT1plWUR3bHRZQmo4cmowNFN5bnFEdEloU1JVVmVFMEExNTVyLVBXTmtONGJSYVBlQUE0SEQ0MEZzT0dxY3I4aEUyY09ESm5NaVNhelc3cWUxdnVoSUU4Nk5GajRZSWp1bkVrSXM1LWNnRHZVaUlzQXhZR0NGdWpwS0ZkRk8zSEJWYWkwT2FNdl9HcURqa2NzV3ZpM1c2NUFsWEtfUFVRWg?oc=5",
+          "publishedAt": "2026-11-25T06:00:00.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (4 fontes): ausência estimada de 8 semanas — \"Max Eberl gives estimate for Harry Kane’s injury layoff\"."
+      "basis": "Lesão de semanas (4 fontes): ausência estimada de 8 semanas — \"Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury\"."
     },
     {
       "playerId": "250106003",
