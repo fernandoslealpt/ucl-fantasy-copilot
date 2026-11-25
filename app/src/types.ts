@@ -158,6 +158,8 @@ export interface Team {
   coefficient: number | null;
   coefficientRank: number | null;
   record: { played: number; won: number; drawn: number; lost: number; goalsFor: number; goalsAgainst: number; points: number };
+  /** próximo jogo da equipa (a jornada diz se ainda falta jogar na jornada em curso) */
+  nextMatch?: { gameday: number } | null;
 }
 
 export interface TeamFixtureRating {

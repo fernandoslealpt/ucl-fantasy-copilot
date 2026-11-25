@@ -185,7 +185,7 @@ export function App() {
             </button>
           </p>
         ) : null}
-        {tab === 'equipa' ? <MyTeamScreen data={data} team={team} onSave={saveTeam} onOpen={setOpen} onRecord={record} /> : null}
+        {tab === 'equipa' ? <MyTeamScreen data={data} team={team} onSave={saveTeam} onOpen={setOpen} onRecord={record} history={history} /> : null}
         {tab === 'diario' ? <DiaryScreen data={data} history={history} onRecord={record} /> : null}
         {tab === 'jogadores' ? <PlayersScreen data={data} onOpen={setOpen} /> : null}
         {tab === 'calendario' ? <FixturesScreen data={data} /> : null}

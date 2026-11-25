@@ -151,3 +151,9 @@
 - **Desconto dos "pontos concentrados" (0,88):** com ele o MAE é menor (J3+J4: 1,978 vs 1,994 sem desconto; com K=1, J3 1,900 vs 1,919 e J4 2,013 vs 2,030) e o onze ideal fica calibrado (razão 1,06); sem ele passa a sobrestimar (razão 0,91, com K=1). **Manter.**
 - **startPriorStrength 1,5 → 1,0:** melhora MAE, RMSE e Spearman **nas duas jornadas** (J3 MAE 1,929→1,900, Spearman 0,405→0,431; J4 2,030→2,013, 0,422→0,436). Ganho pequeno (~1–2%). **Não aplicado**: só 2 jornadas, risco de sobreajuste. Repetir com a J5 (3.ª jornada fora da amostra) e mudar só se continuar melhor.
 - Conclusão: não há prova de subestimativa grande e sistemática; o hiato 65 vs 79 vem sobretudo da seleção dos jogadores e da variância. A comparação direta é a previsão de equipa da J5 (65,0) com os pontos oficiais, no Diário.
+
+## 25 nov 2026 — Cartão "Como correu a J{N}" na Equipa
+- Pedido do Fernando: ver, sem abrir cada ficha, os pontos de cada jogador e o jogador do jogo da jornada anterior para decidir as substituições seguintes.
+- Os pontos e o jogador do jogo já chegavam sozinhos aos dados (a cada 2 h, de hora a hora nas noites de Champions). Faltava mostrá-los: cartão no topo da Equipa com pontos, minutos, golos, assistências e selo de jogador do jogo, ordenado por pontos.
+- A jornada mostrada é a última com resultados no plantel. **Provisório** enquanto alguma equipa do plantel ainda não jogou nessa jornada (campo `nextMatch.gameday` das equipas). Aviso: os pontos oficiais podem ser corrigidos e o jogador do jogo pode chegar tarde.
+- Total do onze guardado + capitão a dobrar (só quando o onze e o capitão guardados são dessa jornada), ao lado do xP previsto do Diário.

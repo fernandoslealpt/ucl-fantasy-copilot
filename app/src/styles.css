@@ -2415,3 +2415,32 @@ ul.plain {
 .news-uefa {
   border-left-color: var(--focus);
 }
+
+/* Como correu a jornada */
+.last-gd {
+  margin: 16px 0;
+}
+.last-gd .motm-tag {
+  display: inline-block;
+  background: var(--yellow);
+  color: #1d1a00;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 1px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+.last-gd .prov-tag {
+  display: inline-block;
+  border: 1px solid var(--yellow);
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+.last-gd td:last-child {
+  white-space: normal;
+  min-width: 8rem;
+}
