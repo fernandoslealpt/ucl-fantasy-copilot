@@ -1,6 +1,6 @@
 /**
  * Jornada: onze, banco ordenado e capitão (só contam nos dias de jogo), como no ecrã da equipa da app oficial.
- * Tocar num jogador: Capitão, Vice, Substituir, Ficha. Substituir: setas e só trocas com formação válida.
+ * Tocar num jogador: Capitão, Substituir, Ficha. Substituir: setas e só trocas com formação válida.
  */
 import { useMemo, useState } from 'react';
 import { Field, LabelPicker, type FieldSlot, type LabelMode } from '../components/Field';
@@ -22,7 +22,6 @@ export function MatchdayView({
   mode,
   onMode,
   captainId,
-  viceId,
   xpAt,
   onLineup,
   onCaptain,
@@ -36,10 +35,9 @@ export function MatchdayView({
   mode: LabelMode;
   onMode: (m: LabelMode) => void;
   captainId: string | null;
-  viceId: string | null;
   xpAt: (r: Row) => number;
   onLineup: (l: Lineup) => void;
-  onCaptain: (id: string, role: 'C' | 'V') => void;
+  onCaptain: (id: string) => void;
   onOpen: (r: Row) => void;
 }) {
   const { t, num } = useI18n();
@@ -59,7 +57,7 @@ export function MatchdayView({
       key: id,
       pos: r?.position ?? 'MID',
       row: r,
-      badge: id === captainId ? 'C' : id === viceId ? 'V' : null,
+      badge: id === captainId ? 'C' : null,
       overlay: subFrom == null ? null : id === subFrom ? 'subOut' : target ? 'subIn' : null,
       state: subFrom == null ? null : id === subFrom ? 'selected' : target ? 'target' : 'dim',
       benchLabel: bench,
@@ -141,17 +139,16 @@ export function MatchdayView({
                       ? t('abNoSub')
                       : t('abBench')}
                 </li>
-                {captainId === action.id ? <li>{absent.newCaptain ? t('abVice', { name: byId.get(absent.newCaptain)?.name ?? '' }) : t('abNoVice')}</li> : null}
+                {captainId === action.id ? <li>{t('abNoVice')}</li> : null}
                 <li>{t('abTotal', { before: num(absent.before), after: num(absent.after), diff: `${absent.after - absent.before >= 0 ? '+' : '−'}${num(Math.abs(absent.after - absent.before))}` })}</li>
               </ol>
             </div>
           ) : null}
           <ActionList
             actions={[
-              { key: 'c', icon: 'C', label: t('makeCaptain'), disabled: action.id === captainId || !lineup.xi.includes(action.id), onClick: () => (onCaptain(action.id, 'C'), setAction(null)) },
-              { key: 'v', icon: 'V', label: t('makeVice'), disabled: action.id === viceId || !lineup.xi.includes(action.id), onClick: () => (onCaptain(action.id, 'V'), setAction(null)) },
+              { key: 'c', icon: 'C', label: t('makeCaptain'), disabled: action.id === captainId || !lineup.xi.includes(action.id), onClick: () => (onCaptain(action.id), setAction(null)) },
               { key: 's', icon: '⇅', label: t('substitute'), onClick: () => (setSubFrom(action.id), setAction(null)) },
-              { key: 'a', icon: '?', label: t('qAbsent', { name: action.name }), onClick: () => setAbsent(ifAbsent(lineup, action.id, byId, xpAt, captainId, viceId)) },
+              { key: 'a', icon: '?', label: t('qAbsent', { name: action.name }), onClick: () => setAbsent(ifAbsent(lineup, action.id, byId, xpAt, captainId)) },
               { key: 'f', icon: 'ⓘ', label: t('playerInfo'), onClick: () => (onOpen(action), setAction(null)) },
             ]}
           />

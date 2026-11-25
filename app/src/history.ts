@@ -22,7 +22,8 @@ export interface GdRecord {
     delta: number;
     hits: number;
     captain: string | null;
-    vice: string | null;
+    /** legado: já não há vice-capitão */
+    vice?: string | null;
   };
   /** 1.º passo do plano de várias jornadas (sem cortes), calculado pela app */
   recommendedNoCut?: { swaps: SwapIds[]; hits: number; net: number };

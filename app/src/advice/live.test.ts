@@ -30,7 +30,6 @@ describe('jornada em curso', () => {
     const fer = row('fer', before, 6.5);
     const s = captainSwitch([cap, rap, fer], 'paz', 5, T0, model)!;
     expect(s.to.id).toBe('rap');
-    expect(s.vice?.id).toBe('fer');
     expect(s.fromPts).toBe(2);
     expect(s.gain).toBeGreaterThan(5);
   });

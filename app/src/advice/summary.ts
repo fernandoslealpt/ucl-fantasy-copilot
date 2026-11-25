@@ -20,10 +20,9 @@ export function buildSummary(opts: {
   captain: CaptainAdvice;
   lineup: { xi: string[]; bench: string[] };
   captainId: string | null;
-  viceId: string | null;
   history: History | null;
 }): string {
-  const { data, team, squad, gd, free, advice, captain, lineup, captainId, viceId, history } = opts;
+  const { data, team, squad, gd, free, advice, captain, lineup, captainId, history } = opts;
   const gds = advice?.ctx.gds ?? [gd, gd + 1, gd + 2];
   const name = (id: string | null) => (id ? data.byId.get(id)?.name ?? id : '—');
   const xpAt = (r: Row, g: number) => (r.xp?.fixtures ?? []).filter((f) => f.gameday === g).reduce((a, f) => a + f.xp, 0);
@@ -40,7 +39,7 @@ export function buildSummary(opts: {
   L.push(`|---|---|---|---|${gds.map(() => '---').join('|')}|---|---|---|`);
   const order = { GK: 0, DEF: 1, MID: 2, FWD: 3 } as const;
   for (const r of [...squad].sort((a, b) => order[a.position] - order[b.position])) {
-    const where = lineup.xi.includes(r.id) ? (r.id === captainId ? 'C' : r.id === viceId ? 'V' : 'onze') : (lineup.bench.indexOf(r.id) === 0 ? 'banco (GR)' : `banco ${lineup.bench.indexOf(r.id)}`);
+    const where = lineup.xi.includes(r.id) ? (r.id === captainId ? 'C' : 'onze') : (lineup.bench.indexOf(r.id) === 0 ? 'banco (GR)' : `banco ${lineup.bench.indexOf(r.id)}`);
     const flags = [r.availability !== 'available' ? r.availability : '', r.xp?.sample?.spiky ? 'pontos de 1 jogo' : ''].filter(Boolean).join(', ') || 'ok';
     L.push(
       `| ${r.position} | ${r.name} | ${r.teamName} | ${f1(r.price)} | ${gds.map((g) => f1(xpAt(r, g))).join(' | ')} | ${pc(r.xp?.fixtures.find((x) => x.gameday === gd)?.pStart)} | ${flags} | ${where} |`,
@@ -60,7 +59,7 @@ export function buildSummary(opts: {
     L.push('');
   }
   L.push(`## Capitão (J${gd})`);
-  L.push(`Sugerido: ${name(captain.captain?.row.id ?? null)} · vice ${name(captain.vice?.row.id ?? null)} · escolhido por mim: ${captainId ? name(captainId) : 'ainda não'}`);
+  L.push(`Sugerido: ${name(captain.captain?.row.id ?? null)} · escolhido por mim: ${captainId ? name(captainId) : 'ainda não'}`);
   for (const c of captain.ranking.slice(0, 5)) L.push(`- ${c.row.name}: xP ${f1(c.xp)}, titular ${pc(c.pStart)}, ${c.kickoff ? new Date(c.kickoff).toLocaleString('pt-PT', { weekday: 'short', hour: '2-digit', minute: '2-digit' }) : '—'}, ${Math.round(c.row.selectedPct)}% das equipas`);
   L.push('');
   const past = history ? Object.values(history.gamedays).filter((r) => r.officialPoints != null).sort((a, b) => a.gameday - b.gameday) : [];

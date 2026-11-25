@@ -2,7 +2,7 @@ import { useI18n } from '../i18n';
 import type { Dataset, Position, Row } from '../types';
 import { surnameOf, teamCode } from './ui';
 
-function Token({ r, data, onOpen, gd, badge }: { r: Row; data: Dataset; onOpen: (r: Row) => void; gd?: number; badge?: 'C' | 'V' | null }) {
+function Token({ r, data, onOpen, gd, badge }: { r: Row; data: Dataset; onOpen: (r: Row) => void; gd?: number; badge?: 'C' | null }) {
   const { num, t } = useI18n();
   const fs = (r.xp?.fixtures ?? []).filter((x) => (gd == null ? true : x.gameday === gd));
   const f = gd == null ? r.xp?.fixtures[0] : fs[0];
@@ -13,9 +13,9 @@ function Token({ r, data, onOpen, gd, badge }: { r: Row; data: Dataset; onOpen: 
       type="button"
       className={`token token-${r.availability}`}
       onClick={() => onOpen(r)}
-      aria-label={badge ? `${r.name} (${badge === 'C' ? t('captain') : t('viceCaptain')})` : r.name}
+      aria-label={badge ? `${r.name} (${t('captain')})` : r.name}
     >
-      {badge ? <span className={`token-badge ${badge === 'V' ? 'vice' : ''}`}>{badge}</span> : null}
+      {badge ? <span className="token-badge">{badge}</span> : null}
       <span className="token-xp">{r.xp && xp != null ? num(badge === 'C' ? xp * 2 : xp) : '—'}</span>
       <span className="token-name">{surnameOf(r)}</span>
       <span className={`token-opp diff-${diff}`}>
@@ -35,7 +35,6 @@ export function Pitch({
   onOpen,
   gd,
   captainId = null,
-  viceId = null,
 }: {
   xi: Row[];
   bench: Row[];
@@ -43,9 +42,8 @@ export function Pitch({
   onOpen: (r: Row) => void;
   gd?: number;
   captainId?: string | null;
-  viceId?: string | null;
 }) {
-  const badge = (r: Row) => (r.id === captainId ? 'C' : r.id === viceId ? 'V' : null);
+  const badge = (r: Row) => (r.id === captainId ? 'C' : null);
   const { t } = useI18n();
   return (
     <div className="pitch-wrap">

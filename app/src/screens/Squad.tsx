@@ -50,7 +50,6 @@ export function SquadView({
   mode,
   onMode,
   captainId,
-  viceId,
   advice,
   onConfirm,
   onCaptain,
@@ -64,10 +63,9 @@ export function SquadView({
   mode: LabelMode;
   onMode: (m: LabelMode) => void;
   captainId: string | null;
-  viceId: string | null;
   advice: TransferAdvice | null;
   onConfirm: (swaps: { out: Row; in: Row }[], bankAfter: number, hits: number, limitless: boolean) => Promise<void>;
-  onCaptain: (id: string, role: 'C' | 'V') => void;
+  onCaptain: (id: string) => void;
   onOpen: (r: Row) => void;
   /** modo plano de várias jornadas: um passo; começa em edição e "guardar" só regista o passo (não confirma na UEFA) */
   plan?: { initial: { out: string; in: string }[]; onSave: (swaps: { out: Row; in: Row }[]) => void };
@@ -131,7 +129,7 @@ export function SquadView({
           pos,
           row,
           ghost: byId.get(s.original) ?? null,
-          badge: !editing && row ? (row.id === captainId ? 'C' : row.id === viceId ? 'V' : null) : null,
+          badge: !editing && row ? (row.id === captainId ? 'C' : null) : null,
           overlay: !editing ? null : row ? (changed ? 'restore' : 'remove') : 'restore',
           state: changed && row ? 'new' : null,
         } satisfies FieldSlot;
@@ -336,8 +334,7 @@ export function SquadView({
               },
               ...(!editing
                 ? [
-                    { key: 'c', icon: 'C', label: t('makeCaptain'), disabled: action.id === captainId, onClick: () => (onCaptain(action.id, 'C'), setAction(null)) },
-                    { key: 'v', icon: 'V', label: t('makeVice'), disabled: action.id === viceId, onClick: () => (onCaptain(action.id, 'V'), setAction(null)) },
+                    { key: 'c', icon: 'C', label: t('makeCaptain'), disabled: action.id === captainId, onClick: () => (onCaptain(action.id), setAction(null)) },
                   ]
                 : []),
               { key: 'f', icon: 'ⓘ', label: t('playerInfo'), onClick: () => (onOpen(action), setAction(null)) },

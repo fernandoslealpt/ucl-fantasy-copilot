@@ -169,3 +169,10 @@
 - **Substituições de hoje**: cartão sempre visível durante a jornada, mesmo quando a resposta é "nenhuma compensa" (explica com o melhor suplente por jogar e o titular mais fraco por jogar). Só mexe em jogadores que ainda não jogaram; mínimo de 0,3 pontos esperados.
 - Onze assumido quando o da jornada não está guardado: melhor onze pelo xP que a app tinha ao fecho (guardado no Diário), e não pelo xP de agora (que já mistura pontos reais). Botão "Guardar este onze".
 - (25 nov) Botão **⇅ Substituições** sempre visível na Equipa (abre o mesmo conteúdo do cartão, em folha), porque o cartão só aparecia com a jornada marcada "a decorrer" e o Fernando não o via. A jornada em curso passa a deduzir-se também dos jogos: há jogadores do plantel com o jogo começado e outros por começar. Definições mostram a **versão da app** (7 primeiros caracteres do commit) para saber se está atualizada.
+
+## 2026-11-25 — Sem vice-capitão; avisos no onze
+- **Não existe vice-capitão** no Fantasy da UEFA (confirmado pelo Fernando). Removido da app (campo, ações, recomendações, "e se não jogar?"). Se o capitão não jogar, ninguém dobra.
+- Escolha do capitão: `capScore = xP × (0,6 + 0,4 × pStart)` (antes 0,75/0,25), para pesar mais a certeza de ser titular. Não validado por backtest; rever com a J5.
+- Dados antigos com `vice` continuam a ler-se mas são ignorados.
+- Novo cartão "Atenção no teu onze" no ecrã Equipa: alertas (OUT/SUS, fora do onze previsto/confirmado, baixa probabilidade de titular) para quem está no **meu** onze e ainda não jogou, na jornada em curso (antes usava o onze ideal da app e a jornada seguinte).
+- Erro meu registado: confundi o ID do Yamal com o do Raphinha ao analisar sinais; o Raphinha só saiu do onze previsto às 16:33 de 25/11 e nunca teve tag de lesão.

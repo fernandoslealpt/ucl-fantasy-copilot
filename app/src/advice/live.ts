@@ -37,7 +37,6 @@ export interface CaptainSwitch {
   /** ganho esperado (pontos a dobrar do novo capitão menos os do atual) */
   gain: number;
   kickoff: string | null;
-  vice: Row | null;
 }
 
 /**
@@ -57,5 +56,5 @@ export function captainSwitch(xi: Row[], captainId: string | null | undefined, g
   if (!best) return null;
   const gain = score(best) - fromPts;
   if (gain < SWITCH_MARGIN) return null;
-  return { from: cap, fromPts, to: best, toXp: model(best), gain, kickoff: kickoffOf(best, gd), vice: cands[1] ?? null };
+  return { from: cap, fromPts, to: best, toXp: model(best), gain, kickoff: kickoffOf(best, gd) };
 }

@@ -134,15 +134,14 @@ describe('Jornada (onze e banco)', () => {
 });
 
 describe('E se o X não jogar?', () => {
-  it('entra o primeiro suplente válido e o vice passa a capitão', () => {
+  it('entra o primeiro suplente válido e, sem vice, ninguém dobra', () => {
     const { squad } = build();
     const byId = new Map(squad.map((r) => [r.id, r]));
     const l = defaultLineup(squad, 5, xpAt);
     const cap = l.xi.find((id) => byId.get(id)!.position === 'FWD')!;
-    const vice = l.xi.find((id) => byId.get(id)!.position === 'MID')!;
-    const res = ifAbsent(l, cap, byId, xpAt, cap, vice);
+    const res = ifAbsent(l, cap, byId, xpAt, cap);
     expect(res.subIn).toBe(l.bench.find((b) => byId.get(b)!.position !== 'GK'));
-    expect(res.newCaptain).toBe(vice);
+    expect(res.newCaptain).toBeNull();
     expect(res.after).toBeLessThan(res.before);
   });
   it('GR substituído pelo GR do banco; suplente não muda nada', () => {
@@ -150,8 +149,8 @@ describe('E se o X não jogar?', () => {
     const byId = new Map(squad.map((r) => [r.id, r]));
     const l = defaultLineup(squad, 5, xpAt);
     const gk = l.xi.find((id) => byId.get(id)!.position === 'GK')!;
-    expect(ifAbsent(l, gk, byId, xpAt, null, null).subIn).toBe(l.bench[0]);
-    const r = ifAbsent(l, l.bench[1]!, byId, xpAt, null, null);
+    expect(ifAbsent(l, gk, byId, xpAt, null).subIn).toBe(l.bench[0]);
+    const r = ifAbsent(l, l.bench[1]!, byId, xpAt, null);
     expect(r.after).toBe(r.before);
   });
 });

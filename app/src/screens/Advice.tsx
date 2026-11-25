@@ -432,7 +432,7 @@ export function CaptainSection({
   c: CaptainAdvice;
   team: MyTeam;
   gd: number;
-  onConfirm: (captain: string, vice: string | null) => void;
+  onConfirm: (captain: string) => void;
   onOpen: (r: Row) => void;
 }) {
   const { t, num, lang } = useI18n();
@@ -474,17 +474,6 @@ export function CaptainSection({
               </span>
             </span>
           </button>
-          {c.vice ? (
-            <button type="button" className="cap-pick" onClick={() => onOpen(c.vice!.row)}>
-              <span className="cap-badge vice">V</span>
-              <span>
-                <span className="player-name">{c.vice.row.name}</span>
-                <span className="muted">
-                  {num(c.vice.xp)} xP · {when(c.vice)}
-                </span>
-              </span>
-            </button>
-          ) : null}
         </div>
         <ol className="reasons">
           {captainReasons(c, t, num).map((r, i) => (
@@ -523,7 +512,7 @@ export function CaptainSection({
           <button
             type="button"
             className="btn primary"
-            onClick={() => onConfirm(c.captain!.row.id, c.vice?.row.id ?? null)}
+            onClick={() => onConfirm(c.captain!.row.id)}
             disabled={dec?.captain === c.captain.row.id}
           >
             {dec?.captain === c.captain.row.id ? `✓ ${t('captainSet')}` : t('captainConfirm')}
@@ -563,7 +552,7 @@ export function CaptainSection({
                     <td>{x.kickoff ? new Date(x.kickoff).toLocaleTimeString(loc, { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Lisbon' }) : '—'}</td>
                     <td>
                       {dec?.captain !== x.row.id ? (
-                        <button type="button" className="btn small" onClick={() => onConfirm(x.row.id, c.captain!.row.id === x.row.id ? c.vice?.row.id ?? null : c.captain!.row.id)}>
+                        <button type="button" className="btn small" onClick={() => onConfirm(x.row.id)}>
                           C
                         </button>
                       ) : (

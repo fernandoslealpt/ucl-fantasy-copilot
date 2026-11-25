@@ -187,7 +187,7 @@ export function lineupSuggestion(
 
 /**
  * E se o jogador `id` não jogar? Substituição automática pela ordem do banco (GR por GR; de campo, o primeiro
- * do banco que mantenha a formação válida) e, se era capitão, o vice passa a contar a dobrar.
+ * do banco que mantenha a formação válida) e. Não há vice-capitão: se o capitão não jogar, ninguém conta a dobrar.
  */
 export function ifAbsent(
   l: Lineup,
@@ -195,7 +195,6 @@ export function ifAbsent(
   byId: Map<string, Row>,
   xpAt: (r: Row) => number,
   captainId: string | null,
-  viceId: string | null,
 ): { before: number; after: number; subIn: string | null; newCaptain: string | null } {
   const val = (xi: string[], cap: string | null) => xi.reduce((a, x) => a + xpAt(byId.get(x)!), 0) + (cap && xi.includes(cap) ? xpAt(byId.get(cap)!) : 0);
   const before = val(l.xi, captainId);
@@ -211,6 +210,6 @@ export function ifAbsent(
     }
   }
   const xi = subIn ? [...rest, subIn] : rest;
-  const newCaptain = captainId === id ? (viceId && xi.includes(viceId) ? viceId : null) : captainId;
+  const newCaptain = captainId === id ? null : captainId;
   return { before, after: val(xi, newCaptain), subIn, newCaptain };
 }

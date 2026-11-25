@@ -173,16 +173,14 @@ describe('capitão', () => {
     const b = P('FWD', 'B', 10, [7, 0, 0], { pStart: 0.95 });
     const c = adviseCaptain([a, b], 4);
     expect(c.captain?.row.id).toBe(b.id);
-    expect(c.vice?.row.id).toBe(a.id);
   });
 
   it('plano a meio da jornada: começa com quem joga primeiro e troca se fizer menos que o xP do outro', () => {
     const tue = P('MID', 'T', 10, [6.5, 0, 0], { day: '2026-11-03' });
     const wed = P('FWD', 'W', 10, [7.4, 0, 0], { day: '2026-11-04' });
     const c = adviseCaptain([tue, wed], 4);
-    // começa com quem joga primeiro; o melhor fica como vice e alvo da troca
+    // começa com quem joga primeiro; o melhor fica como alvo da troca
     expect(c.captain?.row.id).toBe(tue.id);
-    expect(c.vice?.row.id).toBe(wed.id);
     expect(c.ranking[0]?.row.id).toBe(wed.id);
     expect(c.plan?.start.row.id).toBe(tue.id);
     expect(c.plan?.switchTo.row.id).toBe(wed.id);

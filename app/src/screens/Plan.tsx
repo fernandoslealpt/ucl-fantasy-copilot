@@ -238,7 +238,6 @@ export function PlanView({
             mode={mode}
             onMode={onMode}
             captainId={null}
-            viceId={null}
             advice={null}
             onConfirm={async () => undefined}
             onCaptain={() => undefined}

@@ -414,7 +414,6 @@ export interface CaptainAdvice {
   gameday: number;
   ranking: CaptainPick[];
   captain: CaptainPick | null;
-  vice: CaptainPick | null;
   /** plano de troca a meio da jornada */
   plan: { start: CaptainPick; switchTo: CaptainPick; below: number } | null;
 }
@@ -434,12 +433,11 @@ export function adviseCaptain(xi: Row[], gameday: number, now?: number): Captain
       const kickoff = f[0]?.kickoff ?? null;
       return { row, xp, pStart: f[0]?.pStart ?? 0, kickoff, day: dayOf(kickoff) };
     })
-    // jogo já começado: já não se pode ser capitão (nem vice) novo
+    // jogo já começado: já não se pode ser capitão novo
     .filter((c) => c.xp > 0 && !(now != null && c.kickoff && Date.parse(c.kickoff) <= now))
     .sort((a, b) => capScore(b) - capScore(a));
   const best = ranking[0] ?? null;
   let captain = best;
-  let vice = ranking[1] ?? null;
   let plan: CaptainAdvice['plan'] = null;
   if (best?.day) {
     const days = [...new Set(ranking.map((c) => c.day).filter(Boolean))].sort();
@@ -450,14 +448,14 @@ export function adviseCaptain(xi: Row[], gameday: number, now?: number): Captain
       // o melhor joga depois: capitão = quem joga antes (quase tão bom); o melhor fica de reserva para a troca
       plan = { start: earlier[0], switchTo: best, below: Math.ceil(best.xp) };
       captain = earlier[0];
-      vice = best;
     }
   }
-  return { gameday, ranking, captain, vice, plan };
+  return { gameday, ranking, captain, plan };
 }
 
 function capScore(c: Pick<CaptainPick, 'xp' | 'pStart'>): number {
-  return c.xp * (0.75 + 0.25 * c.pStart);
+  // não há vice: se o capitão não jogar, ninguém dobra. Pesa mais a certeza de ser titular.
+  return c.xp * (0.6 + 0.4 * c.pStart);
 }
 
 // ———————————————————————————— Avisos e tabela de apoio ————————————————————————————

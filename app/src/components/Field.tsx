@@ -16,7 +16,7 @@ export interface FieldSlot {
   row: Row | null;
   /** jogador que saiu (lugar vazio) */
   ghost?: Row | null;
-  badge?: 'C' | 'V' | null;
+  badge?: 'C' | null;
   overlay?: 'remove' | 'restore' | 'subOut' | 'subIn' | null;
   state?: 'selected' | 'target' | 'new' | 'dim' | null;
   /** rótulo do banco (GR, 1, 2, 3) */
@@ -138,7 +138,7 @@ function Token({
           {l.sub ? <small>{l.sub}</small> : null}
         </span>
       </button>
-      {s.badge ? <span className={`ftoken-badge ${s.badge === 'V' ? 'vice' : ''}`}>{s.badge}</span> : null}
+      {s.badge ? <span className="ftoken-badge">{s.badge}</span> : null}
       {l.star ? (
         <span className="ftoken-star" title={t('lastGdMotm')} aria-label={t('lastGdMotm')}>
           ★
