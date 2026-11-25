@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-24T17:42:50.209Z",
+  "updatedAt": "2026-11-25T14:47:13.607Z",
   "players": [
     "250076574",
     "250088061",
@@ -25,9 +25,8 @@
     "wildcard": 0
   },
   "decisions": {
-    "gameday": 5,
-    "transfers": true,
-    "captain": "250153621",
-    "vice": "250112880"
+    "gameday": 6,
+    "captain": "250112880",
+    "vice": "250188006"
   }
 }
