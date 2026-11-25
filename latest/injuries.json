@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T11:25:35.356Z",
+  "updatedAt": "2026-11-25T15:19:54.850Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -126,6 +126,16 @@
           }
         },
         {
+          "title": "Canada’s Nathan Saliba suffers ankle injury in Villarreal training, will require surgery",
+          "source": "Canadian Soccer Daily -",
+          "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPR3dxZ0RhUkg4OVp6RjQwZUt5YWRyTXVYVjYyMFZxR3JyVXlkWWNCME5xR0VOQkRKbHFvSTVoVW8tQkM2cUdlS3hQR29rRU9mZ051YzRvdnZaRm1PMWdRUVRfdmwtNGM3WjlwMm9mRmlNT0V2cFVjTUx5S2dwZFZyTXRtN3IzeU1qUEZ0a3ZuaW1pU3pfajhuOTBBOVNtQTBEX0ZvREdNckthZ1BwTmQzemtXYThaWDBsUWJ2SXlMVERIMU1qMzBkUW9n?oc=5",
+          "publishedAt": "2026-11-24T16:07:51.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
           "title": "Canada’s Nathan Saliba set for ankle surgery as national team’s injury list grows",
           "source": "CKPG Today",
           "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNTHAzZy0zRUMtNmNDX0ZGWXU0T01Ea2RsZ0JJSGNyTEVxX1BUMzdEWlNvdHBoSFpPWEZndjIwUWxENjh3SnNCaFFJYWVWVHJBeXZiTzkxNzhwdmxXOW9NaWt2NF9zQVptb3UzMjEtTGlaSndTOFJxTi1adGVJSlRCMEpNMk5ZbHJxUVJhZDgwRnUyQUJ3bzNZV3NINXpaWlRXR2U1ZXRsRVJZUDNNaV9pRXdR?oc=5",
@@ -156,7 +166,7 @@
           }
         }
       ],
-      "basis": "Lesão longa (5 fontes): ausência indicada de 13 semanas — \"Canadian international and Villarreal midfielder Saliba to undergo surgery to left ankle\"."
+      "basis": "Lesão longa (6 fontes): ausência indicada de 13 semanas — \"Canadian international and Villarreal midfielder Saliba to undergo surgery to left ankle\"."
     },
     {
       "playerId": "250171278",
@@ -170,16 +180,6 @@
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
-        {
-          "title": "Mikel Arteta confirms David Raya doesn’t need surgery in huge Arsenal injury boost",
-          "source": "The Independent",
-          "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNOXVVc29NT3hNc3pvZDg2MkYtTndzYVFhelZvd19LU3k3QlFleHE0MXNkRG5IZEwwY3FiQ05vTXpLTVU3RmZCYmptMDQ5RXVrMkJaZkRCeTFETWRFWTZUTGtzbER4S0RqazVmd0NhSFU1Q1ZHSElmRXp1YTg2SV9zWDhjRnhYMVdRZVBVQnFaZldCMlg1aFozVTJiejQyaWpvRHJ4SzB3VQ?oc=5",
-          "publishedAt": "2026-11-24T06:27:00.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 8
-          }
-        },
         {
           "title": "'Doesn't look too serious' - Arteta delivers encouraging Raya Arsenal injury update",
           "source": "SABC Sport",
@@ -229,9 +229,44 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "David Raya injury update and return date for Man City",
+          "source": "Arsenal Core",
+          "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9wam1nVWRMMDQyUWg5NktQZ3BHZnZIVnpPX1N1VUFUdmZkZ3dHUGphYUpwSTJqWGlxQ1UtZE8ybWZ5dTE5aWhzT2RtZlplSzl0V1JOa2owc1ZNVmdLOC00Nk9PSkhhNWhWVk1fSDBhMl9lVmttWTB6cDNB?oc=5",
+          "publishedAt": "2026-11-25T11:54:30.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Arsenal injury news: Mikel Arteta drops update on whether David Raya will be fit to face Man City\"."
+      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"David Raya injury update and return date for Man City\"."
+    },
+    {
+      "playerId": "250163534",
+      "name": "Deniz Gül",
+      "teamId": "50067",
+      "teamName": "Galatasaray",
+      "since": "2026-11-25T10:17:41.000Z",
+      "severity": "weeks",
+      "status": "suspected",
+      "expectedBack": "2027-01-20T10:17:41.000Z",
+      "assumed": true,
+      "outUntilGameday": 7,
+      "evidence": [
+        {
+          "title": "Galatasaray player Deniz Gül undergoes surgery after facial injury",
+          "source": "Operativ Məlumat Mərkəzi",
+          "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQYk5DYTVVZTdJdGhtaVp4dkxldUJRRERLXzM2QUUtWjViTXdNTWZBVHhTcHlLQm9Bd295cGNrZjJETEF5dFJBYmhaOXQ0WXk2VVd1WDNSSVhaTjhqSUF5UzRVTnlzUVB0R0JTVm9MTjBhNnprVWRSRk5oU3ZwY3FHdnBhT0dBNm5CSFZCamdrY1RWZWh3cnNHUUoyT19KZGx6Z2lGMQ?oc=5",
+          "publishedAt": "2026-11-25T10:17:41.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        }
+      ],
+      "basis": "Possível lesão de semanas (1 fonte): ausência estimada de 8 semanas — \"Galatasaray player Deniz Gül undergoes surgery after facial injury\"."
     },
     {
       "playerId": "250016833",
@@ -386,26 +421,6 @@
       "outUntilGameday": 6,
       "evidence": [
         {
-          "title": "Osimhen ruled out of Galatasaray's clash with Aston Villa",
-          "source": "TribalFootball",
-          "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPY0l1cW1SSi1McmFZVk1KVFpleF91RU43SGtSS0N2Sk1VLW1xaUpZbjcxMVVzOVFaWWhCZ1BpUlF1Si1GY0tIeV9MZFFSTHpFWi1vSEVIbmtMSWNseW1jV2pEZ2pIb0l3QUtEUVVqeVg3SHBHYktzdnJKak53dzdaSUZ6TXlMX3c0VE1VeW5ON0lheE5XUmVaYnZqYTc0cWtPeWtSNU4wWl9UVWhmSmhkRW1PZ2ZJZ2hpLXBYTUl1WV9nMjdpcGpQUkJHSWs3dw?oc=5",
-          "publishedAt": "2026-11-24T01:43:08.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
-          "title": "Osimhen Ruled Out of Villa Clash After Knee Surgery",
-          "source": "www.footballinnigeria.com.ng",
-          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOOGxwcDhBMG9RRFFVVzJSeUpFdmRHeTE2TDBqRWY2VWVHV3d3OWdsQnRWRlNuSGRMdWtZbzZHbUxWQjBHbG5kdjljcXlKUGE2SXhRQkQ1dW5BXzV4NE5EWk85ZE52NmlSMnJiVDMxbUtqaC04Tk9fR2NiXzY0T2JBaURLcW15TFktVUtuU3pwYTM2YWNOQl91eDVDT1doQmpGX1JvMm5ZNGkwZw?oc=5",
-          "publishedAt": "2026-11-24T06:26:11.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 8
-          }
-        },
-        {
           "title": "Blow for Galatasaray as Victor Osimhen is ruled out of Aston Villa Champions League clash",
           "source": "Pan Africa Football",
           "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1iR2xZNDQzekdiS3RzakphRUxtQjdQSHpaZlRPZ2c2QlgxaEJQQWFpb25XTU5IUGRkMUdwekp5UmlMZ3pHR0ZZZ3B4NnkydVJ1MW9NYzdob05CSTBLRGg3cExQU3VfakdraVpiaG80Z0h2TjB6Y1pzQ3JR?oc=5",
@@ -444,9 +459,29 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "Victor Osimhen set for Galatasaray return against Beşiktaş after knee surgery",
+          "source": "Afrik-Foot",
+          "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5nd2NGMFNPNk5OWHRUbldiM2QzUkdjNGwwOW9DdnNCendlQzZlbEI5WU9VY1NWcF9wRHVya1djemtZbEVtY195LThSTTBHbGZFWnRVMDJQYjdDSGVhSUhjLXVuSE92ZnlaNEFtcW5kakpNRUZIaEViQkhaQUE5VDA?oc=5",
+          "publishedAt": "2026-11-25T11:39:22.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "Victor Osimhen injury update: The knee problem and his return date",
+          "source": "Soccernet.ng",
+          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPeGd5VGJJYk9mUURkSHZwQTFmM09hZ0cxS0J0WnpuV043aGg0eUxGY1c3REU3TkdGQ1AweG1pQmRBalhpclRuR2ZpQlBKeVNHM2ZRM1Vha1dHQklBX043aS1oZWVTQVJmb0dwSzByS1lNQUJyQ1FGei00NlFIcUZTaEYzZWU3VW0xVTlTeUhoX0M?oc=5",
+          "publishedAt": "2026-11-25T14:34:10.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Aston Villa handed major boost as Victor Osimhen ruled out of Galatasaray Champions League clash\"."
+      "basis": "Lesão de semanas (8 fontes): ausência estimada de 8 semanas — \"Victor Osimhen injury update: The knee problem and his return date\"."
     }
   ]
 }
