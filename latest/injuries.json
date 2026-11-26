@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T21:46:44.507Z",
+  "updatedAt": "2026-11-26T00:41:38.819Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -264,9 +264,19 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "Bild: Kane returns to Bayern training ground for rehab after ankle surgery",
+          "source": "AllFootball",
+          "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQYUFqbno0X3BuUmR0Qm9VZFdKMW1WV19CLUVtMWhIUFFIOGczVFJ4Vk5EUXRCYldLUzBEWVpzRlotMzZkd3gxR3FFYmJyUUFnal8tRnhGcEJNQkdZX283cVZxeVZWNVpTTXEtYmEzNDNBYkVRWU5qc3k4NlNnUXhza0xVSDNYWnF3Q3hsbGFKaDhoUQ?oc=5",
+          "publishedAt": "2026-11-25T15:52:50.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
         }
       ],
-      "basis": "Lesão de semanas (4 fontes): ausência estimada de 8 semanas — \"Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury\"."
+      "basis": "Lesão de semanas (5 fontes): ausência estimada de 8 semanas — \"Bild: Kane returns to Bayern training ground for rehab after ankle surgery\"."
     },
     {
       "playerId": "250106003",
