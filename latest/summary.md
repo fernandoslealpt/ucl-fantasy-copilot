@@ -1,18 +1,18 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** quinta, 26/11, 13:58 (Lisboa) · **Jornada:** 6 (por jogar) · **Fecho da equipa:** terça, 08/12, 17:45
+**Gerado:** quinta, 26/11, 23:02 (Lisboa) · **Jornada:** 6 (por jogar) · **Fecho da equipa:** terça, 08/12, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | quinta, 26/11, 13:58 |  |
-| uefaFantasy | ✅ ok | 1 | 1176 | quinta, 26/11, 13:58 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | quinta, 26/11, 13:58 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1176 | quinta, 26/11, 13:58 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | quinta, 26/11, 13:58 |  |
+| uefaMatches | ✅ ok | 3 | 144 | quinta, 26/11, 23:02 |  |
+| uefaFantasy | ✅ ok | 1 | 1176 | quinta, 26/11, 23:02 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | quinta, 26/11, 23:02 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1176 | quinta, 26/11, 23:02 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | quinta, 26/11, 23:02 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 280 | quinta, 26/11, 13:58 |  |
-| uefaReads | ✅ ok | 1 | 10 | quinta, 26/11, 13:58 |  |
-| rotowire | ✅ ok | 1 | 0 | quinta, 26/11, 13:58 |  |
+| googleNews | ✅ ok | 36 | 280 | quinta, 26/11, 23:02 |  |
+| uefaReads | ✅ ok | 1 | 12 | quinta, 26/11, 23:02 |  |
+| rotowire | ✅ ok | 1 | 0 | quinta, 26/11, 23:02 |  |
 
 **Totais:** 1176 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 1888/2348 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -30,8 +30,8 @@
 | Jornada | Erro médio modelo | Erro médio baseline | Pts reais top 20 modelo | Pts reais top 20 baseline |
 |---|---|---|---|---|
 | J1 | 1.92 | 1.98 | 6.65 | 5.05 |
-| J2 | 2.01 | 2.19 | 4.25 | 2.6 |
-| J3 | 1.95 | 2.09 | 6.75 | 4.8 |
+| J2 | 2.01 | 2.19 | 3.75 | 2.6 |
+| J3 | 1.96 | 2.1 | 6.75 | 4.8 |
 | J4 | 2.04 | 2.19 | 5.75 | 4.35 |
 | J5 | 1.93 | 2.03 | 4.9 | 3.55 |
 
@@ -42,20 +42,20 @@
 | 1 | S. Mouriño | Villarreal | DEF | 4.3 | 6.3 | 14.4 | 3.34 | 93% | vs Sabah | alta |
 | 2 | Bruno Fernandes | Man Utd | MID | 9.0 | 6.3 | 16.6 | 1.85 | 86% | vs Leipzig | alta |
 | 3 | Isco | Real Betis | MID | 6.8 | 6.1 | 13.6 | 2.00 | 70% | vs Como | média |
-| 4 | D. Upamecano | Bayern München | DEF | 5.6 | 6.0 | 15.4 | 2.74 | 89% | vs Slavia Praha | alta |
-| 5 | K. Laimer | Bayern München | DEF | 5.1 | 5.3 | 13.3 | 2.60 | 91% | vs Slavia Praha | alta |
-| 6 | S. McTominay | Napoli | MID | 7.5 | 5.2 | 18.3 | 2.43 | 97% | vs Club Brugge | alta |
+| 4 | D. Upamecano | Bayern München | DEF | 5.6 | 6.0 | 15.4 | 2.75 | 89% | vs Slavia Praha | alta |
+| 5 | K. Laimer | Bayern München | DEF | 5.1 | 5.3 | 13.3 | 2.61 | 91% | vs Slavia Praha | alta |
+| 6 | S. McTominay | Napoli | MID | 7.5 | 5.2 | 18.3 | 2.44 | 97% | vs Club Brugge | alta |
 | 7 | M. Greenwood | Fenerbahçe | MID | 7.5 | 5.2 | 14.4 | 1.92 | 94% | @ LASK | alta |
-| 8 | L. Karl | Bayern München | MID | 5.9 | 5.1 | 13.3 | 2.25 | 66% | vs Slavia Praha | média |
+| 8 | L. Karl | Bayern München | MID | 5.9 | 5.2 | 13.3 | 2.25 | 66% | vs Slavia Praha | média |
 | 9 | N. Tresoldi | Club Brugge | FWD | 7.3 | 5.1 | 15.8 | 2.17 | 89% | @ Napoli | alta |
 | 10 | Raphinha | Barcelona | MID | 9.6 | 5.0 | 16.2 | 1.69 | 67% | vs Man City | média |
 | 11 | Fermín López | Barcelona | MID | 7.0 | 5.0 | 16.0 | 2.29 | 87% | vs Man City | alta |
-| 12 | K. Mbappé | Real Madrid | FWD | 11.1 | 5.0 | 22.0 | 1.98 | 95% | @ Arsenal | alta |
-| 13 | S. Brunstad Fet | Bodø/Glimt | MID | 5.3 | 5.0 | 12.7 | 2.39 | 92% | @ Lens | alta |
-| 14 | A. Gordon | Barcelona | MID | 8.0 | 4.9 | 15.9 | 1.99 | 74% | vs Man City | média |
-| 15 | R. Ljubičić | LASK | MID | 5.7 | 4.9 | 13.5 | 2.36 | 74% | vs Fenerbahçe | média |
+| 12 | S. Brunstad Fet | Bodø/Glimt | MID | 5.3 | 5.0 | 12.7 | 2.39 | 92% | @ Lens | alta |
+| 13 | K. Mbappé | Real Madrid | FWD | 11.1 | 4.9 | 22.0 | 1.99 | 95% | @ Arsenal | alta |
+| 14 | A. Gordon | Barcelona | MID | 8.0 | 4.9 | 15.9 | 1.98 | 74% | vs Man City | média |
+| 15 | R. Ljubičić | LASK | MID | 5.7 | 4.9 | 13.4 | 2.36 | 74% | vs Fenerbahçe | média |
 | 16 | Z. Tripić | Viking | MID | 5.8 | 4.9 | 13.7 | 2.36 | 82% | vs Feyenoord | alta |
-| 17 | Vitinha | Paris | MID | 7.7 | 4.9 | 16.7 | 2.16 | 99% | @ Aston Villa | alta |
+| 17 | Vitinha | Paris | MID | 7.7 | 4.8 | 16.7 | 2.16 | 99% | @ Aston Villa | alta |
 | 18 | A. Grimaldo | Atleti | DEF | 5.5 | 4.8 | 15.6 | 2.83 | 92% | @ PSV | alta |
 | 19 | F. Sjøvold | Bodø/Glimt | DEF | 4.8 | 4.8 | 12.1 | 2.52 | 97% | @ Lens | alta |
 | 20 | Carlos Forbs | Club Brugge | MID | 6.4 | 4.8 | 14.8 | 2.32 | 93% | @ Napoli | alta |

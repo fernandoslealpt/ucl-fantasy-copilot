@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T13:58:29.026Z",
+  "updatedAt": "2026-11-26T23:02:33.454Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -216,16 +216,6 @@
       "outUntilGameday": 6,
       "evidence": [
         {
-          "title": "2026 Ballon d’Or winner Harry Kane undergoes surgery after suffering ankle ligament injury",
-          "source": "Citi Sports Online",
-          "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPcUtRSkowSzBMU2xDUzlfRzB5SDE4UmhHNWFoUWxLeG1qRFlpdjl3WEFWZDFmSy1CNTdRb2JJUnBwYTNJR2R3WlBZUk5xak9VdHB5X0tDaE0xNjQ2a3hEWEZkZkRIUkxrLWMwZG9ndk1nS0pKd002V05xMkF6dVJtcHl2aGI1QTktT3dZcmR4UThJOGMxa05uREJ6S3VJclpQcXlGX2c0Y2k2dnhxemtRb095TXNJekItczBDM2I2STQzZ2ZqekE?oc=5",
-          "publishedAt": "2026-11-21T18:25:22.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 8
-          }
-        },
-        {
           "title": "Bayern draw 1-1 with Cologne and lose Kane to injury",
           "source": "Tu Futbolero",
           "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNTmlsUjkzX0QyTTJRU0MzdDRtRjhrUDh5d0daaURiQzVxMWluNUxHdDA1LW1WQ0x6OXhOcks0ek1RTXVQVWFEVUtlTDF1WDdiaVAxa1k3cFJlWlFwN04tRTRFLVZNdVFCa3lfeE9rS0lWTVFocGZxbU9jZmdDekh3OU5uQ0daVU44OFZvdTUtQWVVQ2xVSXdPU2VXUQ?oc=5",
@@ -274,19 +264,29 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "Bayern Munich chief Christoph Freund shuts down January transfer spree despite brutal Harry Kane injury crisis",
+          "source": "Yahoo Sports",
+          "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOaGgxYkFBblBoOFh1bWsyYnN4NWxFSHllanp1dXB0WXlEWkJVakFuTHhrcXlXdkVIUHY4VnEwOHRwS0FvZS1JbTRvZWxlZjdoQWd5bjg5M0lBa1YxSzh3M3VESjk0bFJSdXNCckE2Vm1najFTdnh6Sk9GZDkxek5TY1V6NXZRdTRYdVhBNjNKM0dyNVBkUzVn?oc=5",
+          "publishedAt": "2026-11-26T15:53:09.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (5 fontes): ausência estimada de 8 semanas — \"Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury\"."
+      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Bayern Munich chief Christoph Freund shuts down January transfer spree despite brutal Harry Kane injury crisis\"."
     },
     {
       "playerId": "250106003",
       "name": "N. Pépé",
       "teamId": "70691",
       "teamName": "Villarreal",
-      "since": "2026-11-23T11:43:51.000Z",
+      "since": "2026-11-23T13:56:48.000Z",
       "severity": "weeks",
       "status": "confirmed",
-      "expectedBack": "2027-01-18T11:43:51.000Z",
+      "expectedBack": "2027-01-18T13:56:48.000Z",
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
@@ -351,7 +351,7 @@
           }
         }
       ],
-      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"Villarreal blast 'false' claims that former Arsenal record signing Nicolas Pepe required eye surgery after watching solar eclipse\"."
+      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Villarreal blast 'false' claims that former Arsenal record signing Nicolas Pepe required eye surgery after watching solar eclipse\"."
     },
     {
       "playerId": "250132987",
@@ -365,16 +365,6 @@
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
-        {
-          "title": "Turkey: Journalist Reveals Osimhen’s Emotional State Amid Injury Absence",
-          "source": "New Telegraph",
-          "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOQVZJQXJtVU9TeUg0NHJJdFliUy1DZGJ3VkQxYXh3TEtSdS1jdWRsWnFwSWFneVFraVNhbzJfa29Lcm1TUVdnOXZXSVoxWHV1WG80dFBkU1gwQWcyUWl5LVZxVkNuVzVhdml3ZmVxblZBT3cyeXZ2ZDNGaWJ0cWhJdDY5cE5KVVkwcmpyVzBkbnk2Y0hHak9ELTVISlFIUGc?oc=5",
-          "publishedAt": "2026-11-24T10:35:05.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
         {
           "title": "UCL: Victor Osimhen ruled out of Galatasaray vs Aston Villa Champions League clash",
           "source": "Pulse Nigeria",
@@ -424,9 +414,19 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "Osimhen expected in Galatasaray squad for Besiktas derby after knee surgery",
+          "source": "懂球帝",
+          "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5UcXdMRk1aTTJjU2Nmd0dXVHZUdTdJSHBnOEdQb3dWeDYwV29nb2o2TGNkQnpPbTlxWDJVWDlYV1ROYWFVRi1mSWdLUnhSN2c?oc=5",
+          "publishedAt": "2026-11-26T13:04:00.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Victor Osimhen Visits Injured Galatasaray Teammate in Hospital As Club Provides Update\"."
+      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"Osimhen expected in Galatasaray squad for Besiktas derby after knee surgery\"."
     }
   ]
 }
