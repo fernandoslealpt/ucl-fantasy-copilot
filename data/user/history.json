@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-26T08:41:51.885Z",
+  "updatedAt": "2026-11-26T08:42:21.556Z",
   "gamedays": {
     "5": {
       "gameday": 5,
-      "updatedAt": "2026-11-24T17:42:50.209Z",
+      "updatedAt": "2026-11-26T08:42:21.556Z",
       "recommended": {
         "swaps": [],
         "deltaNow": 0,
@@ -69,7 +69,8 @@
         "noMove": false,
         "captain": "250153621",
         "vice": "250112880"
-      }
+      },
+      "officialPoints": 72
     },
     "6": {
       "gameday": 6,
