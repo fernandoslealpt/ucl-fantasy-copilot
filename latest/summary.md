@@ -1,18 +1,18 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** quinta, 26/11, 04:11 (Lisboa) · **Jornada:** 6 (por jogar) · **Fecho da equipa:** terça, 08/12, 17:45
+**Gerado:** quinta, 26/11, 13:58 (Lisboa) · **Jornada:** 6 (por jogar) · **Fecho da equipa:** terça, 08/12, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | quinta, 26/11, 04:11 |  |
-| uefaFantasy | ✅ ok | 1 | 1176 | quinta, 26/11, 04:11 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | quinta, 26/11, 04:11 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1176 | quinta, 26/11, 04:11 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | quinta, 26/11, 04:11 |  |
+| uefaMatches | ✅ ok | 3 | 144 | quinta, 26/11, 13:58 |  |
+| uefaFantasy | ✅ ok | 1 | 1176 | quinta, 26/11, 13:58 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | quinta, 26/11, 13:58 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1176 | quinta, 26/11, 13:58 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | quinta, 26/11, 13:58 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 280 | quinta, 26/11, 04:11 |  |
-| uefaReads | ✅ ok | 1 | 9 | quinta, 26/11, 04:11 |  |
-| rotowire | ✅ ok | 1 | 0 | quinta, 26/11, 04:11 |  |
+| googleNews | ✅ ok | 36 | 280 | quinta, 26/11, 13:58 |  |
+| uefaReads | ✅ ok | 1 | 10 | quinta, 26/11, 13:58 |  |
+| rotowire | ✅ ok | 1 | 0 | quinta, 26/11, 13:58 |  |
 
 **Totais:** 1176 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 1888/2348 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -52,20 +52,20 @@
 | 11 | Fermín López | Barcelona | MID | 7.0 | 5.0 | 16.0 | 2.29 | 87% | vs Man City | alta |
 | 12 | K. Mbappé | Real Madrid | FWD | 11.1 | 5.0 | 22.0 | 1.98 | 95% | @ Arsenal | alta |
 | 13 | S. Brunstad Fet | Bodø/Glimt | MID | 5.3 | 5.0 | 12.7 | 2.39 | 92% | @ Lens | alta |
-| 14 | R. Ljubičić | LASK | MID | 5.7 | 4.9 | 13.4 | 2.36 | 74% | vs Fenerbahçe | média |
-| 15 | Z. Tripić | Viking | MID | 5.8 | 4.9 | 13.7 | 2.36 | 82% | vs Feyenoord | alta |
-| 16 | Vitinha | Paris | MID | 7.7 | 4.9 | 16.7 | 2.16 | 99% | @ Aston Villa | alta |
-| 17 | A. Grimaldo | Atleti | DEF | 5.5 | 4.8 | 15.6 | 2.83 | 92% | @ PSV | alta |
-| 18 | F. Sjøvold | Bodø/Glimt | DEF | 4.8 | 4.8 | 12.1 | 2.52 | 97% | @ Lens | alta |
-| 19 | Carlos Forbs | Club Brugge | MID | 6.4 | 4.8 | 14.8 | 2.32 | 93% | @ Napoli | alta |
-| 20 | M. Hermoso | Roma | DEF | 4.7 | 4.7 | 15.0 | 3.18 | 77% | vs Sporting CP | média |
+| 14 | A. Gordon | Barcelona | MID | 8.0 | 4.9 | 15.9 | 1.99 | 74% | vs Man City | média |
+| 15 | R. Ljubičić | LASK | MID | 5.7 | 4.9 | 13.5 | 2.36 | 74% | vs Fenerbahçe | média |
+| 16 | Z. Tripić | Viking | MID | 5.8 | 4.9 | 13.7 | 2.36 | 82% | vs Feyenoord | alta |
+| 17 | Vitinha | Paris | MID | 7.7 | 4.9 | 16.7 | 2.16 | 99% | @ Aston Villa | alta |
+| 18 | A. Grimaldo | Atleti | DEF | 5.5 | 4.8 | 15.6 | 2.83 | 92% | @ PSV | alta |
+| 19 | F. Sjøvold | Bodø/Glimt | DEF | 4.8 | 4.8 | 12.1 | 2.52 | 97% | @ Lens | alta |
+| 20 | Carlos Forbs | Club Brugge | MID | 6.4 | 4.8 | 14.8 | 2.32 | 93% | @ Napoli | alta |
 
 ## Top 15 por pontos
 
 | # | Jogador | Equipa | Pos | €M | Pts | Últ. J | Min | % sel. | Estado | Próximo jogo |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1 | K. Mbappé | Real Madrid | FWD | 11.1 | 48 | 16 (J5) | 447 | 66 | disponível | J6 @ Arsenal · quarta, 09/12, 20:00 |
-| 2 | N. Paz | Como | MID | 7.2 | 45 | 2 (J5) | 408 | 28 | disponível | J6 @ Real Betis · quarta, 09/12, 17:45 |
+| 2 | N. Paz | Como | MID | 7.2 | 45 | 2 (J5) | 408 | 29 | disponível | J6 @ Real Betis · quarta, 09/12, 17:45 |
 | 3 | Carlos Augusto | Inter | DEF | 4.4 | 42 | 8 (J5) | 353 | 9 | disponível | J6 @ B. Dortmund · quarta, 09/12, 20:00 |
 | 4 | L. Yamal | Barcelona | MID | 10.2 | 41 | 8 (J4) | 360 | 36 | fora | J6 vs Man City · terça, 08/12, 20:00 |
 | 5 | Bruno Fernandes | Man Utd | MID | 9.0 | 41 | 16 (J5) | 414 | 11 | disponível | J6 vs Leipzig · terça, 08/12, 20:00 |

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T04:11:53.114Z",
+  "updatedAt": "2026-11-26T13:58:29.026Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -256,16 +256,6 @@
           }
         },
         {
-          "title": "Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury",
-          "source": "Bavarian Football Works",
-          "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNczRpakptN1JMQjU4V05aTGVLckRJWGNWM0FacjdpclRWbjc2ODdTMkI0dmpfbTM3Y2ZBakNpVW1pT1plWUR3bHRZQmo4cmowNFN5bnFEdEloU1JVVmVFMEExNTVyLVBXTmtONGJSYVBlQUE0SEQ0MEZzT0dxY3I4aEUyY09ESm5NaVNhelc3cWUxdnVoSUU4Nk5GajRZSWp1bkVrSXM1LWNnRHZVaUlzQXhZR0NGdWpwS0ZkRk8zSEJWYWkwT2FNdl9HcURqa2NzV3ZpM1c2NUFsWEtfUFVRWg?oc=5",
-          "publishedAt": "2026-11-25T06:00:00.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
           "title": "Bild: Kane returns to Bayern training ground for rehab after ankle surgery",
           "source": "AllFootball",
           "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQYUFqbno0X3BuUmR0Qm9VZFdKMW1WV19CLUVtMWhIUFFIOGczVFJ4Vk5EUXRCYldLUzBEWVpzRlotMzZkd3gxR3FFYmJyUUFnal8tRnhGcEJNQkdZX283cVZxeVZWNVpTTXEtYmEzNDNBYkVRWU5qc3k4NlNnUXhza0xVSDNYWnF3Q3hsbGFKaDhoUQ?oc=5",
@@ -274,9 +264,19 @@
             "kind": "weeks",
             "weeks": 8
           }
+        },
+        {
+          "title": "Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury",
+          "source": "Bavarian Football Works",
+          "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNczRpakptN1JMQjU4V05aTGVLckRJWGNWM0FacjdpclRWbjc2ODdTMkI0dmpfbTM3Y2ZBakNpVW1pT1plWUR3bHRZQmo4cmowNFN5bnFEdEloU1JVVmVFMEExNTVyLVBXTmtONGJSYVBlQUE0SEQ0MEZzT0dxY3I4aEUyY09ESm5NaVNhelc3cWUxdnVoSUU4Nk5GajRZSWp1bkVrSXM1LWNnRHZVaUlzQXhZR0NGdWpwS0ZkRk8zSEJWYWkwT2FNdl9HcURqa2NzV3ZpM1c2NUFsWEtfUFVRWg?oc=5",
+          "publishedAt": "2026-11-25T19:00:00.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (5 fontes): ausência estimada de 8 semanas — \"Bild: Kane returns to Bayern training ground for rehab after ankle surgery\"."
+      "basis": "Lesão de semanas (5 fontes): ausência estimada de 8 semanas — \"Borussia Dortmund president Hans-Joachim Watzke concerned by Harry Kane’s injury\"."
     },
     {
       "playerId": "250106003",
@@ -290,16 +290,6 @@
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
-        {
-          "title": "FILE: Villarreal deny Nicolas Pépé eye surgery was due to viewing solar eclipse",
-          "source": "News.com.au",
-          "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQR0s3dEFRSW4xQW9RdEJtZ0k0YXMtOVNDc3lpS19TZElWdmRTekNTNVRCM1lUdzFwVEREWG5wbXRyQkVxVnpoMWVNdkE0VVg3VmxfZkxVMGxxYTRfMmVINHZ3M3RQYVQxOXZLdUlPMndlMkhqdDk0cEFOOUtQS3VubERRNDliSGxJTnNuaGk4M1FaTURDNVF0ZjFVVnBJZDQ5ZVN5RXpTbGY4U0didEZScHVSczk4Rl9nMUptNW9mc1lMVXFheHNIaWpBQVZUX0hGa0FXZ0dORXA2eVVrNGfSAeMBQVVfeXFMT0ZzQWVVUmNSMHg3b2p0UUs1NEU3WnI1blN2ejR5eTF5dWZIci1aRzZZcnpsdTMzRG94M0MwZkJoZkFfQ2hsX0djUTZXazBRZU8xZkRRMzRTUFZvVGttQUgybUVnQ2p0TXVJOTZGMGViWks3alkzbVNZdUVEd3RmNXJEQU80YlRLb1B2eGtIZ3VqUm1ZcURRRjc2X3VJa3FUMjUyQVNsYlk1X1hQRHp1aE1WVmk5dExWc20xMkM1ZEx3R0Vwa1NZUmJLaFlzb2xxR1hJZl9FbGJramNwdXRMWkVqSlE?oc=5",
-          "publishedAt": "2026-11-23T11:43:51.000Z",
-          "duration": {
-            "kind": "weeks",
-            "weeks": 8
-          }
-        },
         {
           "title": "Villarreal dismiss reports linking Pepe’s eye surgery to solar eclipse",
           "source": "The Nation Newspaper",
@@ -349,19 +339,29 @@
             "kind": "weeks",
             "weeks": 8
           }
+        },
+        {
+          "title": "Villarreal blast 'false' claims that former Arsenal record signing Nicolas Pepe required eye surgery after watching solar eclipse",
+          "source": "LiveScore",
+          "url": "https://news.google.com/rss/articles/CBMikAJBVV95cUxQWS1oeEp6LVJnRU1VRWo0ejJGLU5leVp5RzBDRk9rQmZkalptZENwWmpha2V5MW5YMlVnRk5SRUU1NmhiMzkxeWg3b0RfTGhkelJ2NVlYRHNscWMzbEUyY3duQ1VldjdjVWVaT0QtOUNoY0ZJel9xVmFxZGtDbzZaSFp0bjNiNjVVY3o0bHRpMWdlSEptVUJKRFRqQ192UXphWC1QSnJ0RE80THJ0Zkc2SkthLW9kdzJSM3NnWEZBaTU3ZmtYTlB0dENaUnc5ZjhRSGdEM1Z1OElyRmFJTGRRSzFDTkF5cFpMa1dEUXpNZWRNbThYSUxnd1dnZzVBQ0c3cUxnM2RyZTJYMHFpTDhvRQ?oc=5",
+          "publishedAt": "2026-11-26T02:38:11.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Villarreal dismiss reports claiming Nicolas Pepe underwent eye surgery after watching solar eclipse\"."
+      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"Villarreal blast 'false' claims that former Arsenal record signing Nicolas Pepe required eye surgery after watching solar eclipse\"."
     },
     {
       "playerId": "250132987",
       "name": "V. Osimhen",
       "teamId": "50067",
       "teamName": "Galatasaray",
-      "since": "2026-11-24T10:23:03.000Z",
+      "since": "2026-11-24T10:35:05.000Z",
       "severity": "weeks",
       "status": "confirmed",
-      "expectedBack": "2027-01-19T10:23:03.000Z",
+      "expectedBack": "2027-01-19T10:35:05.000Z",
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
@@ -426,7 +426,7 @@
           }
         }
       ],
-      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"Victor Osimhen Visits Injured Galatasaray Teammate in Hospital As Club Provides Update\"."
+      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Victor Osimhen Visits Injured Galatasaray Teammate in Hospital As Club Provides Update\"."
     }
   ]
 }
