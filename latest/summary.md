@@ -1,22 +1,22 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** quinta, 26/11, 00:41 (Lisboa) · **Jornada:** 6 (por jogar) · **Fecho da equipa:** terça, 08/12, 17:45
+**Gerado:** quinta, 26/11, 04:11 (Lisboa) · **Jornada:** 6 (por jogar) · **Fecho da equipa:** terça, 08/12, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | quinta, 26/11, 00:41 |  |
-| uefaFantasy | ✅ ok | 1 | 1176 | quinta, 26/11, 00:41 |  |
-| uefaPlayerHistory | ✅ ok | 277 | 277 | quinta, 26/11, 00:41 |  |
-| uefaPrevSeason | ✅ ok | 1 | 1176 | quinta, 26/11, 00:41 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | quinta, 26/11, 00:41 |  |
+| uefaMatches | ✅ ok | 3 | 144 | quinta, 26/11, 04:11 |  |
+| uefaFantasy | ✅ ok | 1 | 1176 | quinta, 26/11, 04:11 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | quinta, 26/11, 04:11 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1176 | quinta, 26/11, 04:11 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | quinta, 26/11, 04:11 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 36 | 280 | quinta, 26/11, 00:41 |  |
-| uefaReads | ✅ ok | 1 | 8 | quinta, 26/11, 00:41 |  |
-| rotowire | ✅ ok | 1 | 0 | quinta, 26/11, 00:41 |  |
+| googleNews | ✅ ok | 36 | 280 | quinta, 26/11, 04:11 |  |
+| uefaReads | ✅ ok | 1 | 9 | quinta, 26/11, 04:11 |  |
+| rotowire | ✅ ok | 1 | 0 | quinta, 26/11, 04:11 |  |
 
 **Totais:** 1176 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 1888/2348 iguais · jogos do feed fantasy na API UEFA: 18/18
-**Histórico por jornada (oficial UEFA):** 1176/1176 jogadores · soma das jornadas = total em 1176/1176 · pedidos nesta execução: 277
+**Histórico por jornada (oficial UEFA):** 1176/1176 jogadores · soma das jornadas = total em 1176/1176 · pedidos nesta execução: 0
 **Plano B (sem histórico oficial):** snapshots J4, J5 · feed —
 
 ## Avisos
@@ -52,13 +52,13 @@
 | 11 | Fermín López | Barcelona | MID | 7.0 | 5.0 | 16.0 | 2.29 | 87% | vs Man City | alta |
 | 12 | K. Mbappé | Real Madrid | FWD | 11.1 | 5.0 | 22.0 | 1.98 | 95% | @ Arsenal | alta |
 | 13 | S. Brunstad Fet | Bodø/Glimt | MID | 5.3 | 5.0 | 12.7 | 2.39 | 92% | @ Lens | alta |
-| 14 | A. Gordon | Barcelona | MID | 8.0 | 4.9 | 15.9 | 1.99 | 74% | vs Man City | média |
-| 15 | R. Ljubičić | LASK | MID | 5.7 | 4.9 | 13.4 | 2.36 | 74% | vs Fenerbahçe | média |
-| 16 | Z. Tripić | Viking | MID | 5.8 | 4.9 | 13.7 | 2.36 | 82% | vs Feyenoord | alta |
-| 17 | Vitinha | Paris | MID | 7.7 | 4.9 | 16.7 | 2.16 | 99% | @ Aston Villa | alta |
-| 18 | A. Grimaldo | Atleti | DEF | 5.5 | 4.8 | 15.6 | 2.83 | 92% | @ PSV | alta |
-| 19 | F. Sjøvold | Bodø/Glimt | DEF | 4.8 | 4.8 | 12.1 | 2.52 | 97% | @ Lens | alta |
-| 20 | Carlos Forbs | Club Brugge | MID | 6.4 | 4.8 | 14.8 | 2.32 | 93% | @ Napoli | alta |
+| 14 | R. Ljubičić | LASK | MID | 5.7 | 4.9 | 13.4 | 2.36 | 74% | vs Fenerbahçe | média |
+| 15 | Z. Tripić | Viking | MID | 5.8 | 4.9 | 13.7 | 2.36 | 82% | vs Feyenoord | alta |
+| 16 | Vitinha | Paris | MID | 7.7 | 4.9 | 16.7 | 2.16 | 99% | @ Aston Villa | alta |
+| 17 | A. Grimaldo | Atleti | DEF | 5.5 | 4.8 | 15.6 | 2.83 | 92% | @ PSV | alta |
+| 18 | F. Sjøvold | Bodø/Glimt | DEF | 4.8 | 4.8 | 12.1 | 2.52 | 97% | @ Lens | alta |
+| 19 | Carlos Forbs | Club Brugge | MID | 6.4 | 4.8 | 14.8 | 2.32 | 93% | @ Napoli | alta |
+| 20 | M. Hermoso | Roma | DEF | 4.7 | 4.7 | 15.0 | 3.18 | 77% | vs Sporting CP | média |
 
 ## Top 15 por pontos
 
@@ -70,7 +70,7 @@
 | 4 | L. Yamal | Barcelona | MID | 10.2 | 41 | 8 (J4) | 360 | 36 | fora | J6 vs Man City · terça, 08/12, 20:00 |
 | 5 | Bruno Fernandes | Man Utd | MID | 9.0 | 41 | 16 (J5) | 414 | 11 | disponível | J6 vs Leipzig · terça, 08/12, 20:00 |
 | 6 | Fabián Ruiz | Paris | MID | 7.0 | 40 | 3 (J5) | 444 | 6 | disponível | J6 @ Aston Villa · terça, 08/12, 20:00 |
-| 7 | H. Kane | Bayern München | FWD | 11.2 | 39 | 5 (J4) | 360 | 34 | fora | J6 vs Slavia Praha · terça, 08/12, 20:00 |
+| 7 | H. Kane | Bayern München | FWD | 11.2 | 39 | 5 (J4) | 360 | 33 | fora | J6 vs Slavia Praha · terça, 08/12, 20:00 |
 | 8 | T. Douvikas | Como | FWD | 6.8 | 39 | 2 (J5) | 336 | 9 | disponível | J6 @ Real Betis · quarta, 09/12, 17:45 |
 | 9 | L. Suárez | Sporting CP | FWD | 7.4 | 37 | 8 (J5) | 425 | 12 | disponível | J6 @ Roma · terça, 08/12, 20:00 |
 | 10 | N. Tresoldi | Club Brugge | FWD | 7.3 | 37 | 3 (J5) | 426 | 4 | disponível | J6 @ Napoli · terça, 08/12, 20:00 |

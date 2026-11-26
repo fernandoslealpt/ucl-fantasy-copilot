@@ -1,70 +1,70 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-26T00:41:38.819Z",
+  "generatedAt": "2026-11-26T04:11:53.114Z",
   "currentGameday": 6,
   "gamedayState": "upcoming",
   "deadline": "2026-12-08T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-26T00:41:38.819Z",
-      "lastSuccess": "2026-11-26T00:41:38.819Z",
+      "lastAttempt": "2026-11-26T04:11:53.114Z",
+      "lastSuccess": "2026-11-26T04:11:53.114Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
       "status": "ok",
-      "lastAttempt": "2026-11-26T00:41:38.819Z",
-      "lastSuccess": "2026-11-26T00:41:38.819Z",
+      "lastAttempt": "2026-11-26T04:11:53.114Z",
+      "lastSuccess": "2026-11-26T04:11:53.114Z",
       "requests": 1,
       "records": 1176
     },
     "uefaPlayerHistory": {
       "status": "ok",
-      "lastAttempt": "2026-11-26T00:41:38.819Z",
-      "lastSuccess": "2026-11-26T00:41:38.819Z",
-      "requests": 277,
-      "records": 277
+      "lastAttempt": "2026-11-26T04:11:53.114Z",
+      "lastSuccess": "2026-11-26T04:11:53.114Z",
+      "requests": 0,
+      "records": 0
     },
     "uefaPrevSeason": {
       "status": "ok",
-      "lastAttempt": "2026-11-26T00:41:38.819Z",
-      "lastSuccess": "2026-11-26T00:41:38.819Z",
-      "requests": 1,
+      "lastAttempt": "2026-11-26T04:11:53.114Z",
+      "lastSuccess": "2026-11-26T04:11:53.114Z",
+      "requests": 0,
       "records": 1176
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-26T00:41:38.819Z",
-      "lastSuccess": "2026-11-26T00:41:38.819Z",
+      "lastAttempt": "2026-11-26T04:11:53.114Z",
+      "lastSuccess": "2026-11-26T04:11:53.114Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-26T00:41:38.819Z",
+      "lastAttempt": "2026-11-26T04:11:53.114Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
     },
     "googleNews": {
       "status": "ok",
-      "lastAttempt": "2026-11-26T00:41:38.819Z",
-      "lastSuccess": "2026-11-26T00:41:38.819Z",
+      "lastAttempt": "2026-11-26T04:11:53.114Z",
+      "lastSuccess": "2026-11-26T04:11:53.114Z",
       "requests": 36,
       "records": 280
     },
     "uefaReads": {
       "status": "ok",
-      "lastAttempt": "2026-11-26T00:41:38.819Z",
-      "lastSuccess": "2026-11-26T00:41:38.819Z",
+      "lastAttempt": "2026-11-26T04:11:53.114Z",
+      "lastSuccess": "2026-11-26T04:11:53.114Z",
       "requests": 1,
-      "records": 8
+      "records": 9
     },
     "rotowire": {
       "status": "ok",
-      "lastAttempt": "2026-11-26T00:41:38.819Z",
-      "lastSuccess": "2026-11-26T00:41:38.819Z",
+      "lastAttempt": "2026-11-26T04:11:53.114Z",
+      "lastSuccess": "2026-11-26T04:11:53.114Z",
       "requests": 1,
       "records": 0
     }
@@ -85,7 +85,7 @@
     "history": {
       "official": {
         "players": 1176,
-        "fetched": 277,
+        "fetched": 0,
         "failed": 0,
         "sumMatchesTotal": 1176,
         "sumMismatch": 0
@@ -165,5 +165,5 @@
   "warnings": [
     "Pontos por jornada: 460/2348 diferem do valor oficial do feed"
   ],
-  "durationMs": 43123
+  "durationMs": 39265
 }

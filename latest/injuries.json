@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T00:41:38.819Z",
+  "updatedAt": "2026-11-26T04:11:53.114Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -366,16 +366,6 @@
       "outUntilGameday": 6,
       "evidence": [
         {
-          "title": "Blow for Galatasaray as Victor Osimhen is ruled out of Aston Villa Champions League clash",
-          "source": "Pan Africa Football",
-          "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1iR2xZNDQzekdiS3RzakphRUxtQjdQSHpaZlRPZ2c2QlgxaEJQQWFpb25XTU5IUGRkMUdwekp5UmlMZ3pHR0ZZZ3B4NnkydVJ1MW9NYzdob05CSTBLRGg3cExQU3VfakdraVpiaG80Z0h2TjB6Y1pzQ3JR?oc=5",
-          "publishedAt": "2026-11-24T10:23:03.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
           "title": "Turkey: Journalist Reveals Osimhen’s Emotional State Amid Injury Absence",
           "source": "New Telegraph",
           "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOQVZJQXJtVU9TeUg0NHJJdFliUy1DZGJ3VkQxYXh3TEtSdS1jdWRsWnFwSWFneVFraVNhbzJfa29Lcm1TUVdnOXZXSVoxWHV1WG80dFBkU1gwQWcyUWl5LVZxVkNuVzVhdml3ZmVxblZBT3cyeXZ2ZDNGaWJ0cWhJdDY5cE5KVVkwcmpyVzBkbnk2Y0hHak9ELTVISlFIUGc?oc=5",
@@ -424,9 +414,19 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "Victor Osimhen Visits Injured Galatasaray Teammate in Hospital As Club Provides Update",
+          "source": "Legit News",
+          "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdGF5dXRMWWgzWmhLM3VOdnpSSklVUXhlbWMtM1g1LVJOaGtLaEpWN3dhVU5OLTRPTTRhczNPbnFXRmd0bWJxVG5JQ2FvUkh4RDAtSE9FeUp3VGVPSVdCY3dnaFRaYXUtY2UxNHoxLWtHSDZSenVHN18wVVMwRTllc3BrX05Vak1pd1Azd1NUYUM3WnZIcjZEOUFickNRci1zd1lXcmJ5NzRUZ0JWeHBOUkkxT2RhR2ZU?oc=5",
+          "publishedAt": "2026-11-25T15:20:48.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Victor Osimhen injury update: The knee problem and his return date\"."
+      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"Victor Osimhen Visits Injured Galatasaray Teammate in Hospital As Club Provides Update\"."
     }
   ]
 }
