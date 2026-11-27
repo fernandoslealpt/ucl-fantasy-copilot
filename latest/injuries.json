@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T23:02:33.454Z",
+  "updatedAt": "2026-11-27T08:43:50.524Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -208,10 +208,10 @@
       "name": "H. Kane",
       "teamId": "50037",
       "teamName": "Bayern München",
-      "since": "2026-11-21T18:25:22.000Z",
+      "since": "2026-11-22T23:27:28.000Z",
       "severity": "weeks",
       "status": "confirmed",
-      "expectedBack": "2027-01-16T18:25:22.000Z",
+      "expectedBack": "2027-01-17T23:27:28.000Z",
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
@@ -276,7 +276,7 @@
           }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Bayern Munich chief Christoph Freund shuts down January transfer spree despite brutal Harry Kane injury crisis\"."
+      "basis": "Lesão de semanas (5 fontes): ausência estimada de 8 semanas — \"Bayern Munich chief Christoph Freund shuts down January transfer spree despite brutal Harry Kane injury crisis\"."
     },
     {
       "playerId": "250106003",
@@ -354,14 +354,39 @@
       "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Villarreal blast 'false' claims that former Arsenal record signing Nicolas Pepe required eye surgery after watching solar eclipse\"."
     },
     {
+      "playerId": "250164215",
+      "name": "V. Muñoz",
+      "teamId": "7889",
+      "teamName": "Liverpool",
+      "since": "2026-11-27T00:02:35.000Z",
+      "severity": "weeks",
+      "status": "suspected",
+      "expectedBack": "2027-01-22T00:02:35.000Z",
+      "assumed": true,
+      "outUntilGameday": 7,
+      "evidence": [
+        {
+          "title": "INSANE RECORD BROKEN! + MUNOZ INJURY UPDATE! Liverpool FC Latest Transfer News",
+          "source": "OneFootball",
+          "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNdVVwQ1I3OXZOWlA0ME11bzBxLUJBcTJFeFVZYldwa2xDTkpFeXcydzE4THZBMk1pREpQTnF2VXlzMkRLd2l6eDNPVnUtN2wtbklHYlBUWTJwWWVIWUJybzNoa1Q0Z3hJbG5zQVVWX3hVR1MtSjhqOHF2VWpVckx2Q0s3N2RZTHVvWW5oTkRScWd0YzM3dkZYVUI1NngxQmhBTFhEVDhiLUFzV0F1cXJodDdYR0szLTA?oc=5",
+          "publishedAt": "2026-11-27T00:02:35.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        }
+      ],
+      "basis": "Possível lesão de semanas (1 fonte): ausência estimada de 8 semanas — \"INSANE RECORD BROKEN! + MUNOZ INJURY UPDATE! Liverpool FC Latest Transfer News\"."
+    },
+    {
       "playerId": "250132987",
       "name": "V. Osimhen",
       "teamId": "50067",
       "teamName": "Galatasaray",
-      "since": "2026-11-24T10:35:05.000Z",
+      "since": "2026-11-24T10:50:12.000Z",
       "severity": "weeks",
       "status": "confirmed",
-      "expectedBack": "2027-01-19T10:35:05.000Z",
+      "expectedBack": "2027-01-19T10:50:12.000Z",
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
@@ -426,7 +451,7 @@
           }
         }
       ],
-      "basis": "Lesão de semanas (7 fontes): ausência estimada de 8 semanas — \"Osimhen expected in Galatasaray squad for Besiktas derby after knee surgery\"."
+      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Osimhen expected in Galatasaray squad for Besiktas derby after knee surgery\"."
     }
   ]
 }
