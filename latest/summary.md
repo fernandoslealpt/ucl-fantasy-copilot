@@ -1,18 +1,18 @@
 # UCL Fantasy — atualização de dados
 
-**Gerado:** sexta, 27/11, 08:43 (Lisboa) · **Jornada:** 6 (por jogar) · **Fecho da equipa:** terça, 08/12, 17:45
+**Gerado:** sexta, 27/11, 19:30 (Lisboa) · **Jornada:** 6 (por jogar) · **Fecho da equipa:** terça, 08/12, 17:45
 
 | Fonte | Estado | Pedidos | Registos | Último sucesso | Erro |
 |---|---|---|---|---|---|
-| uefaMatches | ✅ ok | 3 | 144 | sexta, 27/11, 08:43 |  |
-| uefaFantasy | ✅ ok | 1 | 1176 | sexta, 27/11, 08:43 |  |
-| uefaPlayerHistory | ✅ ok | 0 | 0 | sexta, 27/11, 08:43 |  |
-| uefaPrevSeason | ✅ ok | 0 | 1176 | sexta, 27/11, 08:43 |  |
-| uefaCoefficients | ✅ ok | 1 | 415 | sexta, 27/11, 08:43 |  |
+| uefaMatches | ✅ ok | 3 | 144 | sexta, 27/11, 19:30 |  |
+| uefaFantasy | ✅ ok | 1 | 1176 | sexta, 27/11, 19:30 |  |
+| uefaPlayerHistory | ✅ ok | 0 | 0 | sexta, 27/11, 19:30 |  |
+| uefaPrevSeason | ✅ ok | 0 | 1176 | sexta, 27/11, 19:30 |  |
+| uefaCoefficients | ✅ ok | 1 | 415 | sexta, 27/11, 19:30 |  |
 | clubElo | ❌ falhou | 2 | — | — | fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms)) |
-| googleNews | ✅ ok | 38 | 280 | sexta, 27/11, 08:43 |  |
-| uefaReads | ✅ ok | 1 | 12 | sexta, 27/11, 08:43 |  |
-| rotowire | ✅ ok | 1 | 0 | sexta, 27/11, 08:43 |  |
+| googleNews | ✅ ok | 48 | 282 | sexta, 27/11, 19:30 |  |
+| uefaReads | ✅ ok | 1 | 12 | sexta, 27/11, 19:30 |  |
+| rotowire | ✅ ok | 1 | 0 | sexta, 27/11, 19:30 |  |
 
 **Totais:** 1176 jogadores · 36 equipas (36 com coeficiente UEFA, 0 com Elo) · 144 jogos
 **Verificações:** pontos por jornada vs. feed oficial: 1888/2348 iguais · jogos do feed fantasy na API UEFA: 18/18
@@ -40,25 +40,25 @@
 | # | Jogador | Equipa | Pos | €M | xP J | xP 3J | xP/€M | P(titular) | Adversário | Confiança |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1 | S. Mouriño | Villarreal | DEF | 4.3 | 6.3 | 14.4 | 3.34 | 93% | vs Sabah | alta |
-| 2 | Bruno Fernandes | Man Utd | MID | 9.0 | 6.3 | 16.6 | 1.85 | 86% | vs Leipzig | alta |
-| 3 | Isco | Real Betis | MID | 6.8 | 6.1 | 13.6 | 2.00 | 70% | vs Como | média |
-| 4 | D. Upamecano | Bayern München | DEF | 5.6 | 6.0 | 15.4 | 2.75 | 89% | vs Slavia Praha | alta |
-| 5 | K. Laimer | Bayern München | DEF | 5.1 | 5.3 | 13.3 | 2.61 | 91% | vs Slavia Praha | alta |
-| 6 | S. McTominay | Napoli | MID | 7.5 | 5.2 | 18.3 | 2.44 | 97% | vs Club Brugge | alta |
-| 7 | M. Greenwood | Fenerbahçe | MID | 7.5 | 5.2 | 14.4 | 1.92 | 94% | @ LASK | alta |
-| 8 | L. Karl | Bayern München | MID | 5.9 | 5.2 | 13.3 | 2.25 | 66% | vs Slavia Praha | média |
-| 9 | N. Tresoldi | Club Brugge | FWD | 7.3 | 5.1 | 15.8 | 2.17 | 89% | @ Napoli | alta |
-| 10 | Raphinha | Barcelona | MID | 9.6 | 5.0 | 16.2 | 1.69 | 67% | vs Man City | média |
-| 11 | Fermín López | Barcelona | MID | 7.0 | 5.0 | 16.0 | 2.29 | 87% | vs Man City | alta |
-| 12 | S. Brunstad Fet | Bodø/Glimt | MID | 5.3 | 5.0 | 12.7 | 2.39 | 92% | @ Lens | alta |
-| 13 | K. Mbappé | Real Madrid | FWD | 11.1 | 4.9 | 22.0 | 1.99 | 95% | @ Arsenal | alta |
-| 14 | A. Gordon | Barcelona | MID | 8.0 | 4.9 | 15.9 | 1.98 | 74% | vs Man City | média |
-| 15 | R. Ljubičić | LASK | MID | 5.7 | 4.9 | 13.4 | 2.36 | 74% | vs Fenerbahçe | média |
-| 16 | Z. Tripić | Viking | MID | 5.8 | 4.9 | 13.7 | 2.36 | 82% | vs Feyenoord | alta |
-| 17 | Vitinha | Paris | MID | 7.7 | 4.8 | 16.7 | 2.16 | 99% | @ Aston Villa | alta |
-| 18 | A. Grimaldo | Atleti | DEF | 5.5 | 4.8 | 15.6 | 2.83 | 92% | @ PSV | alta |
-| 19 | F. Sjøvold | Bodø/Glimt | DEF | 4.8 | 4.8 | 12.1 | 2.52 | 97% | @ Lens | alta |
-| 20 | Carlos Forbs | Club Brugge | MID | 6.4 | 4.8 | 14.8 | 2.32 | 93% | @ Napoli | alta |
+| 2 | Isco | Real Betis | MID | 6.8 | 6.1 | 13.6 | 2.00 | 70% | vs Como | média |
+| 3 | D. Upamecano | Bayern München | DEF | 5.6 | 6.0 | 15.4 | 2.75 | 89% | vs Slavia Praha | alta |
+| 4 | K. Laimer | Bayern München | DEF | 5.1 | 5.3 | 13.3 | 2.61 | 91% | vs Slavia Praha | alta |
+| 5 | S. McTominay | Napoli | MID | 7.5 | 5.2 | 18.3 | 2.44 | 97% | vs Club Brugge | alta |
+| 6 | M. Greenwood | Fenerbahçe | MID | 7.5 | 5.2 | 14.4 | 1.93 | 94% | @ LASK | alta |
+| 7 | L. Karl | Bayern München | MID | 5.9 | 5.2 | 13.3 | 2.25 | 66% | vs Slavia Praha | média |
+| 8 | N. Tresoldi | Club Brugge | FWD | 7.3 | 5.1 | 15.8 | 2.17 | 89% | @ Napoli | alta |
+| 9 | Raphinha | Barcelona | MID | 9.6 | 5.0 | 16.2 | 1.69 | 67% | vs Man City | média |
+| 10 | Fermín López | Barcelona | MID | 7.0 | 5.0 | 16.0 | 2.29 | 87% | vs Man City | alta |
+| 11 | S. Brunstad Fet | Bodø/Glimt | MID | 5.3 | 5.0 | 12.7 | 2.39 | 92% | @ Lens | alta |
+| 12 | K. Mbappé | Real Madrid | FWD | 11.1 | 4.9 | 22.0 | 1.99 | 95% | @ Arsenal | alta |
+| 13 | A. Gordon | Barcelona | MID | 8.0 | 4.9 | 15.9 | 1.98 | 74% | vs Man City | média |
+| 14 | R. Ljubičić | LASK | MID | 5.7 | 4.9 | 13.4 | 2.36 | 74% | vs Fenerbahçe | média |
+| 15 | Z. Tripić | Viking | MID | 5.8 | 4.9 | 13.7 | 2.36 | 82% | vs Feyenoord | alta |
+| 16 | Vitinha | Paris | MID | 7.7 | 4.8 | 16.7 | 2.16 | 99% | @ Aston Villa | alta |
+| 17 | A. Grimaldo | Atleti | DEF | 5.5 | 4.8 | 15.6 | 2.83 | 92% | @ PSV | alta |
+| 18 | F. Sjøvold | Bodø/Glimt | DEF | 4.8 | 4.8 | 12.1 | 2.52 | 97% | @ Lens | alta |
+| 19 | Carlos Forbs | Club Brugge | MID | 6.4 | 4.8 | 14.8 | 2.32 | 93% | @ Napoli | alta |
+| 20 | Bruno Fernandes | Man Utd | MID | 9.0 | 4.7 | 15.1 | 1.68 | 60% | vs Leipzig | alta |
 
 ## Top 15 por pontos
 
@@ -76,7 +76,7 @@
 | 10 | N. Tresoldi | Club Brugge | FWD | 7.3 | 37 | 3 (J5) | 426 | 4 | disponível | J6 @ Napoli · terça, 08/12, 20:00 |
 | 11 | M. Hermoso | Roma | DEF | 4.7 | 37 | 14 (J5) | 414 | 1 | disponível | J6 vs Sporting CP · terça, 08/12, 20:00 |
 | 12 | Vitinha | Paris | MID | 7.7 | 36 | 4 (J5) | 434 | 20 | disponível | J6 @ Aston Villa · terça, 08/12, 20:00 |
-| 13 | D. Malen | Roma | FWD | 6.9 | 36 | 5 (J5) | 337 | 12 | disponível | J6 vs Sporting CP · terça, 08/12, 20:00 |
+| 13 | D. Malen | Roma | FWD | 6.9 | 36 | 5 (J5) | 337 | 13 | disponível | J6 vs Sporting CP · terça, 08/12, 20:00 |
 | 14 | K. Jørgensen | LASK | DEF | 4.7 | 36 | 6 (J5) | 365 | 1 | disponível | J6 vs Fenerbahçe · quarta, 09/12, 20:00 |
 | 15 | J. Ramón | Como | DEF | 4.3 | 36 | 8 (J5) | 450 | 6 | disponível | J6 @ Real Betis · quarta, 09/12, 17:45 |
 

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T08:43:50.524Z",
+  "updatedAt": "2026-11-27T19:30:33.760Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -167,6 +167,53 @@
         }
       ],
       "basis": "Lesão longa (6 fontes): ausência indicada de 13 semanas — \"Canadian international and Villarreal midfielder Saliba to undergo surgery to left ankle\"."
+    },
+    {
+      "playerId": "250091199",
+      "name": "A. Bastoni",
+      "teamId": "50138",
+      "teamName": "Inter",
+      "since": "2026-11-27T13:56:00.000Z",
+      "severity": "weeks",
+      "status": "confirmed",
+      "expectedBack": "2026-12-18T13:56:00.000Z",
+      "assumed": false,
+      "outUntilGameday": 6,
+      "evidence": [
+        {
+          "title": "Official: Inter provide Bastoni injury update as recovery time revealed",
+          "source": "Yahoo",
+          "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOcEc5U0FHaG8zcmU0dGdIMUVUWHVqMWtucWVGNU9BMDhHenpXUFFlVjZDeFVhalY1ZkZCNTBaZThIN1k3NW44M2RYV25iRFlaaktmbGxqRWVWc0VYcDZqSXhMYVFNM2dnQ0lOSmE3MUNDeXdMTTdtYTh3aDEwVXBseWdLbWY1THZvYVR0SnJhQQ?oc=5",
+          "publishedAt": "2026-11-27T13:56:00.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
+        },
+        {
+          "title": "Alessandro Bastoni: quadriceps injury and three weeks out",
+          "source": "Tu Futbolero",
+          "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPdHYxb3h5LUVNUkFJR0pQOE1DM3hPSHJZRnhRSFBlcXRTVlAwamgtRF91NU1aMHJIaERlS0w0NUR2cE43a2Q0MWV1ZDczR3Z4ckMza193NHp1WUktWUtwTUx2M0M3QnFLQjV5YVBMR25yRHY3cllfRnRLNXRRWGJXa3oyZXdaMzhHSWhxNktENDduNC02QWhqZXpYLVFLM2pJ?oc=5",
+          "publishedAt": "2026-11-27T13:57:58.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 3,
+            "explicit": true
+          }
+        },
+        {
+          "title": "Inter confirms Alessandro Bastoni's injury: Defender to be out for 20 days",
+          "source": "Dukagjini - Lajmet e fundit",
+          "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQalBsZl84Tjg5RlJaS202dDU4Uk94c0xZVU5zVlhsd0RIbUR5cFoyZWNkdWVfTTJIN25nZ0hpUW1vSmNjREVLX2hIUVlTS0dWZmZfN2dLSzU2cmdtYVp1Nks2MlFjMHJTVzYwdFpNcUZQek5sdGxVS18xN0paVlhTcXM4SjhGbHc0dkt0LTJ0ZjBhMXVxUFg1ekZMd2k?oc=5",
+          "publishedAt": "2026-11-27T15:10:22.000Z",
+          "duration": {
+            "kind": "days",
+            "weeks": 2.9,
+            "explicit": true
+          }
+        }
+      ],
+      "basis": "Lesão de semanas (3 fontes): ausência indicada de 3 semanas — \"Inter confirms Alessandro Bastoni's injury: Defender to be out for 20 days\"."
     },
     {
       "playerId": "250163534",
@@ -360,7 +407,7 @@
       "teamName": "Liverpool",
       "since": "2026-11-27T00:02:35.000Z",
       "severity": "weeks",
-      "status": "suspected",
+      "status": "confirmed",
       "expectedBack": "2027-01-22T00:02:35.000Z",
       "assumed": true,
       "outUntilGameday": 7,
@@ -374,9 +421,19 @@
             "kind": "weeks",
             "weeks": 8
           }
+        },
+        {
+          "title": "Liverpool Injury Update: Iraola Reveals Positive News on Victor Munoz",
+          "source": "Yahoo Sports",
+          "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOZjIteHNNUnlRclFWSFdLR2hpMjN6TWpCUlZOb1B6dFZWWTJrWXlVQ3lLSWpiN1RRSXRXeXI0UGZBbU9TTUcyYW5DX1dnTGJQTUZSM3NvTWhHeExmbTdRenlid0M0WkVWTGxPODlWak9TSWd5ejd0N1hRaG51TjdSQzBsRkw1Y00wYWtZczdtNXQ5bXF5SnpfN1F6am0?oc=5",
+          "publishedAt": "2026-11-27T17:50:00.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Possível lesão de semanas (1 fonte): ausência estimada de 8 semanas — \"INSANE RECORD BROKEN! + MUNOZ INJURY UPDATE! Liverpool FC Latest Transfer News\"."
+      "basis": "Lesão de semanas (2 fontes): ausência estimada de 8 semanas — \"Liverpool Injury Update: Iraola Reveals Positive News on Victor Munoz\"."
     },
     {
       "playerId": "250132987",
@@ -390,26 +447,6 @@
       "assumed": true,
       "outUntilGameday": 6,
       "evidence": [
-        {
-          "title": "UCL: Victor Osimhen ruled out of Galatasaray vs Aston Villa Champions League clash",
-          "source": "Pulse Nigeria",
-          "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQZEExSXpXOGRwd0FZUE81ZlJEbW1udWxLaHpiQ1NDSlNQRGxoYzRlRkc5dVFjdTBnZTIxMlpndXJubnp3bXNuT1poVUxWRWl6ZmoxZWlOZl9NVzNlelE5Vko1d2RPM1lqVENkZUhyWmgtSTRJQVFmRmd2MWxBRmdpNWdRd2E2ZmZIU0x6N21MN3daLTdIQmNUYU9RSlkxRWVlZHNFODN2TklhN0t0RmVDczRlRjE5WTA1NXh2ZFNjSmFnQ2lmdzN3?oc=5",
-          "publishedAt": "2026-11-24T10:50:12.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
-        {
-          "title": "Aston Villa handed major boost as Victor Osimhen ruled out of Galatasaray Champions League clash",
-          "source": "AfricaSoccer.com",
-          "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPYWRSdE5DT09XVXRxam55TUE0WktqV0l3UE1TOXFrRzNHakU0eXNFVE5YZk9LdjdNdUxBb0xNdXdiZ2Jhc0hJMzh4SzlFQnVoSGVDRTBJeWhTSVhLU3dmY21kem9RNmtUWUhZMklnc3RjcWJKd1AwanlWNWN5dTExbFVvQkt6bTdEbDZPcno2YWFhR2hqT0czWmtOSmpUdmlvRTQ5SFdmSFR4a3E4eXdWSHB2M05ETW1lQ3R3N2Vrbw?oc=5",
-          "publishedAt": "2026-11-24T12:57:51.000Z",
-          "duration": {
-            "kind": "unknown",
-            "weeks": null
-          }
-        },
         {
           "title": "Victor Osimhen set for Galatasaray return against Beşiktaş after knee surgery",
           "source": "Afrik-Foot",
@@ -449,9 +486,29 @@
             "kind": "weeks",
             "weeks": 8
           }
+        },
+        {
+          "title": "'I had the same surgery' - Former Turkiye assistant coach warns Galatasaray about Osimhen",
+          "source": "AllNigeriaSoccer",
+          "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPNU9jYXFKNmFFMUQ1NXBKSS14RDlUVllhWW5kQ3NmRzltcnRwd2wtRFgwVDJDQXk2TFVIckRMLUNKRUVYYVgzNEt5WUlhbTRmUmZTdDU5MGdEdXFYeEFVMWx5YnBKbFdQaXZsQk1zMEFWQTl0dlViQ1l1bDlhUW1VTzJZdjFyelZBNW53dFZRSzNIOXNxbEZNcS1VVkNhMUt0Y0FoWXJKa29FcUI1M2huQi1aSm54T1BUc1E?oc=5",
+          "publishedAt": "2026-11-27T14:41:38.000Z",
+          "duration": {
+            "kind": "weeks",
+            "weeks": 8
+          }
+        },
+        {
+          "title": "Turkish Pundit Warns Galatasaray About Osimhen’s Injury Ahead of Besiktas Clash",
+          "source": "Legit.ng",
+          "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNa0ZDLTB6NGo4LVl6cG11elVYekVXT1NJYWVKcVNSNVVETm5oMFpDajVJX0ItTHBDWklaSElMUldWbkU5SWlNLW5sdTZHbWJGVWIxZUQ5aHUzN1ExZy1rdDBnY20tQkVCM1VsbFJQQi1QMkdJeDVZR003NGxpancxcWJiNU9TWHFKUmY3Z1JoTVU2U1FhYmMxLVUyMVRFRVd1UmV3TC1XWlpOSHNZY0E?oc=5",
+          "publishedAt": "2026-11-27T15:42:45.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Osimhen expected in Galatasaray squad for Besiktas derby after knee surgery\"."
+      "basis": "Lesão de semanas (8 fontes): ausência estimada de 8 semanas — \"Turkish Pundit Warns Galatasaray About Osimhen’s Injury Ahead of Besiktas Clash\"."
     }
   ]
 }
