@@ -1,37 +1,72 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-28T02:44:59.141Z",
+  "generatedAt": "2026-11-28T13:09:45.790Z",
   "currentGameday": 6,
   "gamedayState": "upcoming",
   "deadline": "2026-12-08T17:45:00.000Z",
   "sources": {
     "uefaMatches": {
       "status": "ok",
-      "lastAttempt": "2026-11-28T02:44:59.141Z",
-      "lastSuccess": "2026-11-28T02:44:59.141Z",
+      "lastAttempt": "2026-11-28T13:09:45.790Z",
+      "lastSuccess": "2026-11-28T13:09:45.790Z",
       "requests": 3,
       "records": 144
     },
     "uefaFantasy": {
-      "status": "failed",
-      "lastAttempt": "2026-11-28T02:44:59.141Z",
-      "lastSuccess": "2026-11-27T19:30:33.760Z",
-      "requests": 2,
-      "error": "Feed fantasy desatualizado (J5 quando a jornada atual é a J6): mantêm-se os dados anteriores"
+      "status": "ok",
+      "lastAttempt": "2026-11-28T13:09:45.790Z",
+      "lastSuccess": "2026-11-28T13:09:45.790Z",
+      "requests": 1,
+      "records": 1176
+    },
+    "uefaPlayerHistory": {
+      "status": "ok",
+      "lastAttempt": "2026-11-28T13:09:45.790Z",
+      "lastSuccess": "2026-11-28T13:09:45.790Z",
+      "requests": 0,
+      "records": 0
+    },
+    "uefaPrevSeason": {
+      "status": "ok",
+      "lastAttempt": "2026-11-28T13:09:45.790Z",
+      "lastSuccess": "2026-11-28T13:09:45.790Z",
+      "requests": 0,
+      "records": 1176
     },
     "uefaCoefficients": {
       "status": "ok",
-      "lastAttempt": "2026-11-28T02:44:59.141Z",
-      "lastSuccess": "2026-11-28T02:44:59.141Z",
+      "lastAttempt": "2026-11-28T13:09:45.790Z",
+      "lastSuccess": "2026-11-28T13:09:45.790Z",
       "requests": 1,
       "records": 415
     },
     "clubElo": {
       "status": "failed",
-      "lastAttempt": "2026-11-28T02:44:59.141Z",
+      "lastAttempt": "2026-11-28T13:09:45.790Z",
       "lastSuccess": null,
       "requests": 2,
       "error": "fetch failed (Connect Timeout Error (attempted address: api.clubelo.com:443, timeout: 10000ms))"
+    },
+    "googleNews": {
+      "status": "ok",
+      "lastAttempt": "2026-11-28T13:09:45.790Z",
+      "lastSuccess": "2026-11-28T13:09:45.790Z",
+      "requests": 36,
+      "records": 277
+    },
+    "uefaReads": {
+      "status": "ok",
+      "lastAttempt": "2026-11-28T13:09:45.790Z",
+      "lastSuccess": "2026-11-28T13:09:45.790Z",
+      "requests": 1,
+      "records": 11
+    },
+    "rotowire": {
+      "status": "ok",
+      "lastAttempt": "2026-11-28T13:09:45.790Z",
+      "lastSuccess": "2026-11-28T13:09:45.790Z",
+      "requests": 1,
+      "records": 0
     }
   },
   "counts": {
@@ -49,10 +84,10 @@
     },
     "history": {
       "official": {
-        "players": 0,
+        "players": 1176,
         "fetched": 0,
         "failed": 0,
-        "sumMatchesTotal": 0,
+        "sumMatchesTotal": 1176,
         "sumMismatch": 0
       },
       "tracked": [
@@ -66,7 +101,10 @@
         3
       ]
     },
-    "fixturesCrossCheck": null
+    "fixturesCrossCheck": {
+      "fantasy": 18,
+      "matched": 18
+    }
   },
   "statusValues": {
     "pStatus=∅ · qStatus=∅ · trained=In contention to start next game": 846,
@@ -124,6 +162,8 @@
       }
     ]
   },
-  "warnings": [],
-  "durationMs": 24197
+  "warnings": [
+    "Pontos por jornada: 460/2348 diferem do valor oficial do feed"
+  ],
+  "durationMs": 37559
 }

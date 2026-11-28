@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T19:30:33.760Z",
+  "updatedAt": "2026-11-28T13:09:45.790Z",
   "injuries": [
     {
       "playerId": "250165363",
@@ -431,21 +431,31 @@
             "kind": "unknown",
             "weeks": null
           }
+        },
+        {
+          "title": "LIVERPOOL CLEAROUT SOON? + MUNOZ NOT RULED OUT FOR EVERTON! Liverpool FC Latest Transfer News",
+          "source": "OneFootball",
+          "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxPdnF6TnJXNjQxRjNHUjRiUXJPV21wdG1NRE9hMUhHYlB1WDVjQTdoTlhsRHRxakdWZ3l4V0JSYU9GV3dFQjhHQmczeWFBdU5EOE9leXFSUzM5Y1B1NTd1TzJVRHBMWkV4Y1RROHB1b0o2cy1OUXVNcGRtT1RsUzQyQW5vMTJ6VjdrbFR5NVJMRWNiVnViZFVMM0FMTHpmYk1vNUVrVUYyaFpENUV0STV3MWJFYTFyLWNiVjhuMzNQWUNWYzRtT0paY2t4eUE5Z0wwLXJfUGZmS2RMb1VhM1dhS01nOU4?oc=5",
+          "publishedAt": "2026-11-27T23:50:16.000Z",
+          "duration": {
+            "kind": "unknown",
+            "weeks": null
+          }
         }
       ],
-      "basis": "Lesão de semanas (2 fontes): ausência estimada de 8 semanas — \"Liverpool Injury Update: Iraola Reveals Positive News on Victor Munoz\"."
+      "basis": "Lesão de semanas (2 fontes): ausência estimada de 8 semanas — \"LIVERPOOL CLEAROUT SOON? + MUNOZ NOT RULED OUT FOR EVERTON! Liverpool FC Latest Transfer News\"."
     },
     {
       "playerId": "250132987",
       "name": "V. Osimhen",
       "teamId": "50067",
       "teamName": "Galatasaray",
-      "since": "2026-11-24T10:50:12.000Z",
+      "since": "2026-11-25T11:39:22.000Z",
       "severity": "weeks",
       "status": "confirmed",
-      "expectedBack": "2027-01-19T10:50:12.000Z",
+      "expectedBack": "2027-01-20T11:39:22.000Z",
       "assumed": true,
-      "outUntilGameday": 6,
+      "outUntilGameday": 7,
       "evidence": [
         {
           "title": "Victor Osimhen set for Galatasaray return against Beşiktaş after knee surgery",
@@ -508,7 +518,7 @@
           }
         }
       ],
-      "basis": "Lesão de semanas (8 fontes): ausência estimada de 8 semanas — \"Turkish Pundit Warns Galatasaray About Osimhen’s Injury Ahead of Besiktas Clash\"."
+      "basis": "Lesão de semanas (6 fontes): ausência estimada de 8 semanas — \"Turkish Pundit Warns Galatasaray About Osimhen’s Injury Ahead of Besiktas Clash\"."
     }
   ]
 }
